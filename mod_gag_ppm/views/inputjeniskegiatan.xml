@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--    ini tampilan tabel depan-->
+    <record id="jenis_kegiatan_tree" model="ir.ui.view">
+        <field name="name">jenis.kegiatan.tree</field>
+        <field name="model">jenis.kegiatan</field>
+        <field name="arch" type="xml">
+            <tree string="Activity Types / Jenis Kegiatan" editable="bottom">
+                <field name="nama_jenis"/>
+                <field name="deskripsi_jenis"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="ppm_jenis_kegiatan_action" model="ir.actions.act_window">
+        <field name="name">Activity Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">jenis.kegiatan</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="domain"></field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your master data here !
+            </p>
+        </field>
+    </record>
+    <menuitem
+              id="ppm_leftbar_menu"
+              name="PPM Monitoring"
+              web_icon="mod_gag_ppm,static/description/icon_ppm.png"
+              sequence="40"/>
+    <menuitem id="ppm_configuration_root"
+              name="Configuration"
+              sequence="300"
+              parent="ppm_leftbar_menu"/>
+    <menuitem id="ppm_jenis_root"
+              name="Activity Type"
+              sequence="10"
+              action="ppm_jenis_kegiatan_action"
+              parent="ppm_configuration_root"/>
+</odoo>

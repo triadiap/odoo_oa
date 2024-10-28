@@ -1,0 +1,22 @@
+{
+    'name': 'General PTGN Master Data',
+    'version': '1.0.0',
+    'summary': 'This module creted for PTGN master data management',
+    'sequence': -100,
+    'description': """This module creted for PTGN master data management""",
+    'category': 'Productivity',
+    'author': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'website': 'https://icsp.co.id',
+    'depends': ['mail'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/general_masterdata_management.xml',
+        'views/assets.xml',
+    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

@@ -1,0 +1,8 @@
+<odoo>
+    <template id="assets_backend_mod_gag_utm" name="custom_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+<!--            <link rel="stylesheet" type="text/css" href="/mod_gag_utm/static/src/js/partbyequipment.js"/>-->
+            <script type="text/javascript" src="/mod_gag_utm/static/src/js/custom_graph.js"></script>
+        </xpath>
+    </template>
+</odoo>

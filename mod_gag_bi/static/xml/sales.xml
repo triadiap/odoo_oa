@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<template xml:space="preserve">
+    <t t-name="sales">
+            <div class="o_action o_view_controller">
+                <div class="o_control_panel">
+                    <div class="o_cp_top">
+                        <div class="o_cp_top_left">
+                            <ol role="navigation" class="breadcrumb">
+                                <li class="breadcrumb-item active">Yearly Sales Dashboard</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <div style="overflow:auto;">
+                    <div class="row">
+                        <div class="col-md-12" style="padding:20px;">
+                            <div class="col-md-6">
+                                <div class="row">
+                                        <select name="month_name" id="month_name" type="text" class="form-control monthname_input" required="required" style="width:200px;margin-right:10px;"/>
+                                        <select name="year_name" id="year_name" type="text" class="form-control yearname_input" required="required" style="width:200px;"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" style="padding:20px;">
+                            <div class="card" style="width:100%;background-color:#fffff;padding-bottom:20px;padding-right:10px;height:80px;">
+                                <label><h6 style="margin-left:10px; margin-top:10px;font-weight:normal;text-align:center;">Sales Today </h6></label>
+                                <h2 id="salestoday" style="text-align:center;font-weight:bold;font-family:arial;"></h2>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="padding:20px;">
+                            <div class="card" style="width:100%;background-color:#fffff;padding-bottom:20px;padding-right:10px;height:80px;">
+                                <label><h6 style="margin-left:10px; margin-top:10px;font-weight:normal;text-align:center;">Invoicing Today </h6></label>
+                                <h2 id="invoicingtoday" style="text-align:center;font-weight:bold;font-family:arial;"></h2>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="padding:20px;">
+                            <div class="card" style="width:100%;background-color:#fffff;padding-bottom:20px;padding-right:10px;height:80px;">
+                                <label><h6 style="margin-left:10px; margin-top:10px;font-weight:normal;text-align:center;">Income Monthly </h6></label>
+                                <h2 id="incomemonthly" style="text-align:center;font-weight:bold;font-family:arial;"></h2>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="padding:20px;">
+                            <div class="card" style="width:100%;background-color:#fffff;padding-bottom:20px;padding-right:10px;height:80px;">
+                                <label><h6 style="margin-left:10px; margin-top:10px;font-weight:normal;text-align:center;">Income Yearly </h6></label>
+                                <h2 id="incomeyearly" style="text-align:center;font-weight:bold;font-family:arial;"></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3" style="padding:20px;">
+                            <div class="card" style="background-color:#fffff;width:100%">
+                                <label><h6 style="margin-left:10px; margin-top:10px;font-weight:normal;text-align:center;">Income VS PIUTANG </h6></label>
+                                <div class="chart" style="justify-content:center;align-items:center;">
+                                        <canvas id="incomevspiutang" style="height:200px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="padding:20px;">
+                            <div class="card" style="background-color:#fffff;width:100%;">
+                                <label><h6 style="margin-left:10px; margin-top:10px;font-weight:normal;text-align:center;">INV VS PO</h6></label>
+                                <div class="chart" style="justify-content:center;align-items:center;">
+                                        <canvas id="invvspo" style="height:200px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding:20px;">
+                            <div class="card" style="background-color:#fffff;width:100%;">
+                                <label><h6 style="margin-left:10px; margin-top:10px;font-weight:normal;text-align:center;">Barging Production</h6></label>
+                                <div class="chart" style="justify-content:center;align-items:center;">
+                                    <canvas id="bargingproduction" style="height:200px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12" style="padding:20px;">
+                            <div class="card" style="background-color:#fffff;width:100%;">
+                                <label><h6 style="margin-left:10px; margin-top:10px;font-weight:normal;text-align:center;">Customer Payment Report</h6></label>
+                                <div class="chart" style="justify-content:center;align-items:center;">
+                                    <canvas id="customerpayment" style="height:300px;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                                            
+                </div>
+            </div>
+    </t>
+</template>

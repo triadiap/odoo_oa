@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Form View for Approval Route Configuration -->
+    <record id="view_approval_route_config_form" model="ir.ui.view">
+        <field name="name">oa.document.workflow.config.form</field>
+        <field name="model">oa.document.workflow.config</field>
+        <field name="arch" type="xml">
+            <form string="Document Workflow Setup">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="model_id" options="{'no_create': True,'no_edit': True,'no_open': True}"/>
+                            <field name="approval_route_id" options="{'no_create': True,'no_edit': True,'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                     <field name="activity_ids"/>
+                     <field name="message_ids"/>
+                 </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Approval Route Configuration -->
+    <record id="view_approval_route_config_tree" model="ir.ui.view">
+        <field name="name">oa.document.workflow.config.tree</field>
+        <field name="model">oa.document.workflow.config</field>
+        <field name="arch" type="xml">
+            <tree string="Document Workflow Setup">
+                <field name="model_id"/>
+                <field name="approval_route_id"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="write_date"/>
+                <field name="write_uid"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action for Approval Route Configuration -->
+    <record id="action_approval_route_config" model="ir.actions.act_window">
+        <field name="name">Form Workflow Configurations</field>
+        <field name="res_model">oa.document.workflow.config</field>
+        <field name="view_id" ref="view_approval_route_config_tree"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

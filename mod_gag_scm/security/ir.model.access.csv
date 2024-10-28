@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gag_oa_scm_document_number,access.gag.oa.scm.document.number,model_gag_oa_scm_document_number,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi,access.gag.oa.scm.evaluasi,model_gag_oa_scm_evaluasi,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_detail,access.gag.oa.scm.evaluasi.detal,model_gag_oa_scm_evaluasi_detail,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_summary,access.gag.oa.scm.evaluasi.summary,model_gag_oa_scm_evaluasi_summary,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_summary_detail,access.gag.oa.scm.evaluasi.summary.detal,model_gag_oa_scm_evaluasi_summary_detail,base.group_user,1,1,1,1

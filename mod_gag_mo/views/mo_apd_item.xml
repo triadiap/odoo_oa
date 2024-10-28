@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_permintaan_apd_item_action" model="ir.actions.act_window">
+        <field name="name">MO Permintaan APD Item</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.permintaan.apd.item</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Permintaan APD Item
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_permintaan_apd_item" model="ir.ui.view">
+        <field name="name">mo.permintaan.apd.item.form</field>
+        <field name="model">mo.permintaan.apd.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <field name="apd"/>
+            </form>
+        </field>
+    </record>
+</odoo>

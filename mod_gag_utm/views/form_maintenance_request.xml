@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record id="oa_machine_maintenance_form" model="ir.ui.view">
+        <field name="name">oa.machine.maintenance.form</field>
+         <field name="model">oa.machine.maintenance</field>
+         <field name="arch" type="xml">
+                <form string="Machine Maintenance Request">
+                        <header>
+                                <button id="button-analytic-testing" name="action_analytic_testing" string="Analytic Testing" class="btn-primary" type="object"/>
+                                <button id="button-reject" name="%(mod_gag_utm.oa_machine_maintenance_rejection_action)d" string="Reject" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                                <button id="task-approval-process" name="%(mod_gag_utm.view_maintenance_task_approval_action)d" string="Task Approval" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                                <button id="job-confirmation-process" name="submit_job_as_done" string="Set As Done" class="btn-primary" type="object" states="work_in_progress"/>
+                                <button id="job-confirmation-process" name="submit_job_confirmation_process" string="Task Confirmation" class="btn-primary" type="object" states="assigned"/>
+                                <button id="button-technician-assignment-process" name="submit_technician_assignment" string="Task Assignment" class="btn-primary" type="object" states="draft"/>
+                                <button id="button-draft" name="action_draft" string="Set To Draft" class="btn-primary" type="object" attrs="{'invisible': [('cancel_button_visibility', '=', False)]}" context="{'action_id': active_id}"/>
+                                <field name="state" widget="statusbar" statusbar_visible="draft,assigned,work_in_progress,approval_process,approve"/>
+                        </header>
+                        <sheet>
+                            <div class="oe_title">
+                                <label for="id_maintenance_task" class="oe_edit_only"/>
+                                <h1>
+                                    <field name="id_maintenance_task" placeholder="Task ID" readonly="1" options="{'no_create': True,'no_edit': True}"/>
+                                </h1>
+                            </div>
+                            <group>
+                                <group>
+                                     <field name="name" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                                     <field name="maintenance_task_type" options="{'no_create':True,'no_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="equip_id" options="{'no_create':True,'no_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="brand_model_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="serial_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="asset_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="pkt_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="kwh_equipment" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="maintenance_asset_group" options="{'no_create':True,'no_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="sub_equipment" options="{'no_create':True,'no_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </group>
+                                <group>
+                                        <field name="create_uid"/>
+                                        <field name="create_date"/>
+                                        <field name="task_planning_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <field name="job_confirmation_date" readonly="1"/>
+                                        <field name="task_execution_date" readonly="1"/>
+                                        <field name="responsible_team" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <field name="cancel_button_visibility" invisible="1"/>
+                                        <field name="button_visible" invisible="1"/>
+                                        <label for="time_duration" readonly="1"/>
+                                        <div>
+                                            <field name="time_duration" widget="float_time" class="oe_inline" attrs="{'readonly': [('state', '!=', 'draft')]}"/><span class="ml8">hours</span>
+                                        </div>
+                                        <field name="existing_status" readonly="1"/>
+                                        <field name="upcoming_status" readonly="1"/>
+                                        <field name="pending_approval_by" readonly="1"/>
+                                </group>
+
+                            </group>
+                             <label for="task_approval_notes" readonly="1"/>
+                             <div>
+                                 <field name="task_approval_notes" readonly="1"/>
+                             </div>
+                             <label for="task_internal_notes" readonly="1"/>
+                             <div>
+                                 <field name="task_internal_notes"/>
+                             </div>
+                        </sheet>
+                </form>
+         </field>
+     </record>
+    <record id="view_maintenance_request_tree" model="ir.ui.view">
+         <field name="name">oa.machine.maintenance.tree</field>
+         <field name="model">oa.machine.maintenance</field>
+         <field name="arch" type="xml">
+                <tree>
+                    <field name="id_maintenance_task" optional="show"/>
+                    <field name="name" optional="show"/>
+                    <field name="maintenance_task_type" optional="show"/>
+                    <field name="equip_id" optional="show"/>
+                    <field name="maintenance_asset_group" optional="show"/>
+                    <field name="sub_equipment" optional="show"/>
+                    <field name="task_planning_date" optional="show"/>
+                    <field name="task_execution_date" optional="show"/>
+                    <field name="responsible_team" optional="show"/>
+                    <field name="time_duration" optional="show"/>
+                    <field name="state" optional="show"/>
+                    <field name="create_uid" optional="show"/>
+                    <field name="create_date" optional="show"/>
+                    <field name="write_uid" optional="show"/>
+                    <field name="write_date" optional="show"/>
+                </tree>
+         </field>
+    </record>
+    <record id="form_maintenance_request_action" model="ir.actions.act_window">
+        <field name="name">Maintenance Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oa.machine.maintenance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your request here!
+            </p>
+        </field>
+    </record>
+</odoo>

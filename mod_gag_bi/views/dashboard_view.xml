@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_employee_dashboard_base" model="ir.actions.client">
+            <field name="name">Boiler Templates</field>
+            <field name="tag">employee_dashboard_base</field>
+            <field name="target">main</field>
+    </record>
+    <record id="action_ppm_budgeting_base" model="ir.actions.client">
+            <field name="name">Budgeting Templates</field>
+            <field name="tag">ppm_budgeting_base</field>
+            <field name="target">main</field>
+    </record>
+    <record id="action_sales_base" model="ir.actions.client">
+            <field name="name">Sales Dashboard</field>
+            <field name="tag">sales_base</field>
+            <field name="target">main</field>
+    </record>
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hc_spplk_action" model="ir.actions.act_window">
+        <field name="name">HC Surat Perintah Pembelian Langsung</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hc.surat.perintah.pembelian.langsung</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN HC, GA, ICT - Surat Perintah Pembelian Langsung
+            </p>
+        </field>
+    </record>
+
+    <record id="hc_spplk_tree" model="ir.ui.view">
+        <field name="name">hc.spplk.tree</field>
+        <field name="model">hc.surat.perintah.pembelian.langsung</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tanggal"/>
+                <field name="jam"/>
+                <field name="nama_kios"/>
+                <field name="keterangan"/>
+                <field name="nominal"/>
+                <field name="file"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hc_spplk_search" model="ir.ui.view">
+        <field name="name">hc.spplk.search</field>
+        <field name="model">hc.surat.perintah.pembelian.langsung</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tanggal"/>
+                <field name="jam"/>
+                <field name="nama_kios"/>
+                <field name="keterangan"/>
+                <field name="nominal"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hc_spplk_form" model="ir.ui.view">
+        <field name="name">hc.spplk.form</field>
+        <field name="model">hc.surat.perintah.pembelian.langsung</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="tanggal"/>
+                        <field name="jam" widget="float_time"/>
+                        <field name="nama_kios"/>
+                        <field name="keterangan"/>
+                        <field name="nominal"/>
+                        <field name="file"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

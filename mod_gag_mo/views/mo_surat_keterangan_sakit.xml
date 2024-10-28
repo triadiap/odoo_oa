@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_sk_sakit_action" model="ir.actions.act_window">
+        <field name="name">MO Surat Keterangan Sakit Klinik PT. GAG</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.sk.sakit.klinik</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Surat Keterangan Sakit Klinik GAG
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_sk_sakit_tree" model="ir.ui.view">
+        <field name="name">mo.sk.sakit.tree</field>
+        <field name="model">mo.sk.sakit.klinik</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nama_pegawai"/>
+                <field name="usia"/>
+                <field name="jenis_kelamin"/>
+                <field name="divisi"/>
+                <field name="waktu_berobat"/>
+                <field name="tipe_perawatan"/>
+                <field name="diagnosa"/>
+                <field name="state"/>
+                <field name="approval_1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="mo_sk_sakit_search" model="ir.ui.view">
+        <field name="name">mo.sk.sakit.search</field>
+        <field name="model">mo.sk.sakit.klinik</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="nama_pegawai"/>
+                <field name="usia"/>
+                <field name="jenis_kelamin"/>
+                <field name="divisi"/>
+                <field name="waktu_berobat"/>
+                <field name="tipe_perawatan"/>
+                <field name="diagnosa"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_sk_sakit_form" model="ir.ui.view">
+        <field name="name">mo.sk.sakit.form</field>
+        <field name="model">mo.sk.sakit.klinik</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approval_1"
+                        type="object" string="Approve"
+                        class="oe_highlight"
+                        attrs="{'invisible' : ['|', ('state', '!=', 'draft'), ('button_visible', '=', False)]}"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    <field name="button_visible" invisible="1"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="nama_pegawai"/>
+                        <field name="usia"/>
+                        <field name="jenis_kelamin"/>
+                        <field name="divisi"/>
+                        <field name="waktu_berobat"/>
+                    </group>
+                    <group>
+                        <field name="tipe_perawatan"/>
+                        <field name="diagnosa"/>
+                        <field name="lama_istirahat"/>
+                        <field name="tanggal_mulai"/>
+                        <field name="tanggal_selesai"/>
+                        <field name="keterangan"/>
+                        <field name="file_surat"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

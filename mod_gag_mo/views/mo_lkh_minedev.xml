@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_lkh_minedev_action" model="ir.actions.act_window">
+        <field name="name">MO LKH Mine Development</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.minedev.lkh</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - LKH Mine Development
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_lkh_minedev_tree" model="ir.ui.view">
+        <field name="name">mo.lkh.minedev.tree</field>
+        <field name="model">mo.minedev.lkh</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tanggal"/>
+                <field name="shift"/>
+                <field name="lkh_items" string="Obyek dipantau"/>
+                <field name="unit_items" string="Alat Berat"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_lkh_minedev_search" model="ir.ui.view">
+        <field name="name">mo.lkh.minedev.search</field>
+        <field name="model">mo.minedev.lkh</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tanggal"/>
+                <field name="shift"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_lkh_minedev_form" model="ir.ui.view">
+        <field name="name">mo.lkh.minedev.form</field>
+        <field name="model">mo.minedev.lkh</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="tanggal"/>
+                        <field name="shift"/>
+                    </group>
+                </group>
+                <field name="lkh_items">
+                    <tree editable="bottom">
+                        <field name="obyek_pengamatan"/>
+                        <field name="kondisi_tanggul"/>
+                        <field name="saluran_air"/>
+                        <field name="isi_kolam"/>
+                    </tree>
+                </field>
+                <group>
+                    <group>
+                        <field name="catatan_pengamatan" string="Catatan"/>
+                    </group>
+                </group>
+                <field name="unit_items">
+                    <tree editable="bottom">
+                        <field name="alat_berat"/>
+                        <field name="unit_1"/>
+                        <field name="unit_2"/>
+                        <field name="unit_3"/>
+                        <field name="unit_4"/>
+                        <field name="unit_5"/>
+                        <field name="unit_6"/>
+                        <field name="mitra"/>
+                    </tree>
+                </field>
+                <group>
+                    <group>
+                        <field name="info_kegiatan" string="Informasi Kegiatan Harian"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

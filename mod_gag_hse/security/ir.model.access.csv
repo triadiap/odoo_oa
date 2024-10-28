@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gag_oa_hse_parameter,access.gag.oa.hse.parameter,model_gag_oa_hse_parameter,base.group_user,1,1,1,1
+access_gag_oa_hse_parameter_sarana,access.gag.oa.hse.parameter.sarana,model_gag_oa_hse_parameter_sarana,base.group_user,1,1,1,1
+access_gag_oa_hse_parameter_peralatan,access.gag.oa.hse.parameter.peralatan,model_gag_oa_hse_parameter_peralatan,base.group_user,1,1,1,1
+access_gag_oa_hse_evaluasimp,access.gag.oa.hse.evaluasimp,model_gag_oa_hse_evaluasimp,base.group_user,1,1,1,1
+access_gag_oa_hse_evaluasimp_bulan,access.gag.oa.hse.evaluasimp.bulan,model_gag_oa_hse_evaluasimp_bulan,base.group_user,1,1,1,1
+access_gag_oa_hse_evaluasimp_detail,access.gag.oa.hse.evaluasimp.detail,model_gag_oa_hse_evaluasimp_detail,base.group_user,1,1,1,1
+access_gag_oa_hse_pemeriksaan_sarana,access.gag.oa.hse.pemeriksaan.sarana,model_gag_oa_hse_pemeriksaan_sarana,base.group_user,1,1,1,1
+access_gag_oa_hse_pemeriksaan_sarana_line,access.gag.oa.hse.pemeriksaan.sarana.line,model_gag_oa_hse_pemeriksaan_sarana_line,base.group_user,1,1,1,1
+access_gag_oa_hse_pemeriksaan_peralatan,access.gag.oa.hse.pemeriksaan.peralatan,model_gag_oa_hse_pemeriksaan_peralatan,base.group_user,1,1,1,1
+access_gag_oa_hse_pemeriksaan_peralatan_line,access.gag.oa.hse.pemeriksaan.peralatan.line,model_gag_oa_hse_pemeriksaan_peralatan_line,base.group_user,1,1,1,1
+access_gag_oa_hse_ialk3,access.gag.oa.hse.ialk3,model_gag_oa_hse_ialk3,base.group_user,1,1,1,1
+access_gag_oa_hse_ialk3_line,access.gag.oa.hse.ialk3.line,model_gag_oa_hse_ialk3_line,base.group_user,1,1,1,1

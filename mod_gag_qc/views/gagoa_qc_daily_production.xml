@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_qc_daily_production_view" model="ir.ui.view">
+        <field name="name">gag.oa.qc.daily.production.view</field>
+        <field name="model">gag.oa.qc.daily.production</field>
+        <field name="arch" type="xml">
+            <tree string="Daily Production" import="true">
+                <field name="tanggal"/>
+                <field name="site"/>
+                <field name="total_tonnage"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="ga_goa_qc_daily_production_form" model="ir.ui.view">
+        <field name="name">gag.oa.qc.daily.production.form</field>
+        <field name="model">gag.oa.qc.daily.production</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="site" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                                <field name="tanggal"/>
+                                <field name="site"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Detail " name="gag_oa_qc_daily_production_detail_form">
+                            <field name="id_production">
+                                <tree editable="bottom" import="true">
+                                    <field name="pile"/>
+                                    <field name="toonage"/>
+                                    <field name="ni"/>
+                                    <field name="co"/>
+                                    <field name="fe"/>
+                                    <field name="si"/>
+                                    <field name="ca"/>
+                                    <field name="mg"/>
+                                    <field name="bc"/>
+                                </tree>                                
+                            </field>
+                        </page>
+                        <page string="Tongkang " name="gag_oa_qc_daily_production_tongkang_form">
+                            <field name="id_tongkang">
+                                <tree create='false' edit='false' delete = 'false'>
+                                    <field name="no" style="pointer-events:none;" />
+                                    <field name="tongkang" style="pointer-events:none;" />
+                                </tree>                                
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="gag_oa_qc_daily_production_action" model="ir.actions.act_window">
+        <field name="name">Daily Production</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.qc.daily.production</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your Daily Production Here !
+            </p>
+        </field>
+    </record>
+</odoo>

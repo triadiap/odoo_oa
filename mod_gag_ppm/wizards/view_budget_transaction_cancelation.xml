@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_budgeting_transaction_form_wizard" model="ir.ui.view">
+        <field name="name">budgeting.transaction.cancelation.wizard.form</field>
+        <field name="model">budgeting.transaction.cancelation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Budget Transaction Rejection">
+                <group>
+                    <group>
+                        <field name="id_budget" invisible="1"/>
+                        <field name="refusal_reason_id"/>
+                        <field name="rejection_note"/>
+                        <field name="approval_route_id" invisible="1"/>
+                        <field name="current_step_id" invisible="1"/>
+                        <field name="existing_status" invisible="1"/>
+                        <field name="upcoming_status" invisible="1"/>
+                        <field name="pending_approval_by" invisible="1"/>
+                    </group>
+
+                </group>
+                <footer>
+                    <button string="Reject" name="action_reject" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <!-- Wizard Action -->
+    <record id="budgeting_transaction_reject_action" model="ir.actions.act_window">
+        <field name="name">Budget Transaction Rejection</field>
+        <field name="res_model">budgeting.transaction.cancelation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_related_field': active_id}</field>
+    </record>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+     <!-- Tree View -->
+    <record id="view_tree_trading_partner" model="ir.ui.view">
+        <field name="name">oa.trading.partner.tree</field>
+        <field name="model">oa.trading.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Office Connector Configurations">
+                <field name="name" optional="show"/>
+                <field name="application_name" optional="show"/>
+                <field name="vendor_name" optional="show"/>
+                <field name="start_date" optional="show"/>
+                <field name="end_date" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="create_uid" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_form_trading_partner_registration" model="ir.ui.view">
+        <field name="name">oa.trading.partner.form</field>
+        <field name="model">oa.trading.partner</field>
+        <field name="arch" type="xml">
+            <form string="Trading Partner Registration">
+                <header>
+                    <button name="generate_trading_partner_token" type="object" string="Generate Token" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="application_name"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                        <group>
+                            <field name="vendor_name" options="{'no_edit':True,'no_create':True}"/>
+                            <field name="obj_to_connect"/>
+                             <field name="trading_partner_token" readonly="1" style="background-color: RGB(77,23,153);border-radius: 4%; padding: 2px;color: white;" attrs="{'style': [('trading_partner_token', '!=', False)]}"/>
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+     <record id="action_trading_partner_master" model="ir.actions.act_window">
+        <field name="name">Trading Partner</field>
+        <field name="res_model">oa.trading.partner</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mpd_rencana_produksi,access.mpd.rencana.produksi,model_mpd_rencana_produksi,,1,1,1,1
+access_mpd_rencana_produksi_harian,access.mpd.rencana.produksi.harian,model_mpd_rencana_produksi_harian,,1,1,1,1
+access_mpd_realisasi_produksi,access.mpd.realisasi.produksi,model_mpd_realisasi_produksi,,1,1,1,1
+access_mpd_ba_serah_terima_pekerjaan,access.mpd.ba.serah.terima.pekerjaan,model_mpd_ba_serah_terima_pekerjaan,,1,1,1,1

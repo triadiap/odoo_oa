@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_job_pending_action" model="ir.actions.act_window">
+        <field name="name">MO Job Pending</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.job.pending</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Job Pending
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_job_pending_tree" model="ir.ui.view">
+        <field name="name">mo.job.pending.form</field>
+        <field name="model">mo.job.pending</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tanggal"/>
+                <field name="id_pegawai"/>
+                <field name="jabatan"/>
+                <field name="state"/>
+                <field name="approval_1"/>
+                <field name="id_detail"/>
+                <button name="action_approval_1"
+                        type="object" string="Approve"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('button_visible', '=', False)]}"/>
+                <field name="button_visible" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_job_pending_search" model="ir.ui.view">
+        <field name="name">mo.job.pending.search</field>
+        <field name="model">mo.job.pending</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tanggal"/>
+                <field name="id_pegawai"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_job_pending_form" model="ir.ui.view">
+        <field name="name">mo.job.pending.form</field>
+        <field name="model">mo.job.pending</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    <field name="button_visible" invisible="1"/>
+                </header>
+                <group>
+                    <group>
+                        <h4>Detail Laporan</h4>
+                        <field name="tanggal"/>
+                        <field name="id_pegawai"/>
+                        <field name="jabatan"/>
+                    </group>
+                </group>
+                <field name="id_detail">
+                    <tree editable="bottom">
+                        <field name="job_pending"/>
+                        <field name="notes"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

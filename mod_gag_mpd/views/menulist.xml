@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="mpd_root" web_icon="mod_gag_mpd,static/description/MPD.png" name="MPD" sequence="10"/>
+    <menuitem id="mpd_rencana_produksi_root" name="BA Rencana Produksi dan Pengapalan" parent="mpd_root" sequence="10" action="mpd_rencana_produksi_action"/>
+    <menuitem id="mpd_realisasi_produksi_root" name="BA Realisasi Produksi dan Pengapalan" parent="mpd_root" sequence="20" action="mpd_realisasi_produksi_action"/>
+    <menuitem id="mpd_bastp_root" name="BA Serah Terima Pekerjaan" parent="mpd_root" sequence="30" action="mpd_bastp_action"/>
+</odoo>

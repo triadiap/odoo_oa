@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="qma_did_action" model="ir.actions.act_window">
+        <field name="name">QMA Daftar Induk Dokumen</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">qma.daftar.induk.dokumen</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN QMA Audit - Daftar Induk Dokumen
+            </p>
+        </field>
+    </record>
+
+    <record id="qma_did_tree" model="ir.ui.view">
+        <field name="name">qma.did.tree</field>
+        <field name="model">qma.daftar.induk.dokumen</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="jenis_dokumen"/>
+                <field name="name"/>
+                <field name="satker"/>
+                <field name="status_sop"/>
+                <field name="matriks_rkab"/>
+                <field name="no_dok_lama"/>
+                <field name="no_dok_penyesuaian"/>
+                <field name="status_pengajuan"/>
+                <field name="rev_0"/>
+                <field name="rev_1"/>
+                <field name="rev_2"/>
+                <field name="rev_3"/>
+                <field name="status_dok"/>
+                <field name="file"/>
+            </tree>
+        </field>
+    </record>
+    <record id="qma_did_tree" model="ir.ui.view">
+        <field name="name">qma.did.tree</field>
+        <field name="model">qma.daftar.induk.dokumen</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="jenis_dokumen"/>
+                <field name="name"/>
+                <field name="satker"/>
+                <field name="status_sop"/>
+                <field name="matriks_rkab"/>
+                <field name="no_dok_lama"/>
+                <field name="no_dok_penyesuaian"/>
+                <field name="status_pengajuan"/>
+                <field name="rev_0"/>
+                <field name="rev_1"/>
+                <field name="rev_2"/>
+                <field name="rev_3"/>
+                <field name="status_dok"/>
+                <field name="file"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="qma_did_search" model="ir.ui.view">
+        <field name="name">qma.did.search</field>
+        <field name="model">qma.daftar.induk.dokumen</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="jenis_dokumen"/>
+                <field name="name"/>
+                <field name="satker"/>
+                <field name="status_sop"/>
+                <field name="matriks_rkab"/>
+                <field name="no_dok_lama"/>
+                <field name="no_dok_penyesuaian"/>
+                <field name="status_pengajuan"/>
+                <field name="rev_0"/>
+                <field name="rev_1"/>
+                <field name="rev_2"/>
+                <field name="rev_3"/>
+                <field name="status_dok"/>
+                <field name="file"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="qma_did_form" model="ir.ui.view">
+        <field name="name">qma.did.form</field>
+        <field name="model">qma.daftar.induk.dokumen</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="jenis_dokumen"/>
+                        <field name="name"/>
+                        <field name="satker"/>
+                        <field name="status_sop"/>
+                        <field name="matriks_rkab"/>
+                        <field name="no_dok_lama"/>
+                        <field name="no_dok_penyesuaian"/>
+                    </group>
+                    <group>
+                        <field name="status_pengajuan"/>
+                        <field name="rev_0"/>
+                        <field name="rev_1"/>
+                        <field name="rev_2"/>
+                        <field name="rev_3"/>
+                        <field name="status_dok"/>
+                        <field name="file"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

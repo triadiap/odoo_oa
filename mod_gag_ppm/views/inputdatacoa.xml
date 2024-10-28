@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--    ini tampilan tabel depan-->
+    <record id="chart_of_account_tree" model="ir.ui.view">
+        <field name="name">tabel.coa.tree</field>
+        <field name="model">tabel.coa</field>
+        <field name="arch" type="xml">
+            <tree string="Chart Of Accounts" editable="bottom">
+                <field name="kode_coa"/>
+                <field name="name"/>
+                <field name="coa_description"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="chart_of_account_action" model="ir.actions.act_window">
+        <field name="name">Chart Of Accounts (COA)</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">tabel.coa</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="domain"></field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your master data here !
+            </p>
+        </field>
+    </record>
+    <menuitem id="ppm_coa_root"
+              name="Chart Of Accounts (COA)"
+              sequence="50"
+              action="chart_of_account_action"
+              parent="ppm_configuration_root"/>
+</odoo>

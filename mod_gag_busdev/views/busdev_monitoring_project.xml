@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="busdev_monitoring_project_action" model="ir.actions.act_window">
+        <field name="name">BUSDEV Monitoring Project</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">busdev.monitoring.project</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN BUSDEV - Monitoring Project Investasi
+            </p>
+        </field>
+    </record>
+
+    <record id="busdev_monitoring_project_tree" model="ir.ui.view">
+        <field name="name">busdev.monitoring.project.tree</field>
+        <field name="model">busdev.monitoring.project</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="pic"/>
+                <field name="start_date"/>
+                <field name="due_date"/>
+                <field name="detail_items"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="busdev_monitoring_project_search" model="ir.ui.view">
+        <field name="name">busdev.monitoring.project.search</field>
+        <field name="model">busdev.monitoring.project</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="pic"/>
+                <field name="start_date"/>
+                <field name="due_date"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="busdev_monitoring_project_form" model="ir.ui.view">
+        <field name="name">busdev.monitoring.project.form</field>
+        <field name="model">busdev.monitoring.project</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
+                        <field name="pic" attrs="{'readonly': [('id', '!=', False)]}"/>
+                        <field name="start_date" attrs="{'readonly': [('id', '!=', False)]}"/>
+                        <field name="due_date" attrs="{'readonly': [('id', '!=', False)]}"/>
+                        <field name="notes"/>
+                    </group>
+                </group>
+                <field name="detail_items">
+                    <tree editable="bottom">
+                        <field name="date" width="50"/>
+                        <field name="progress" width="320"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="busdev_monitoring_project_root" web_icon="mod_gag_busdev,static/description/BUSDEV.png" name="BUSDEV Monitoring Project Investasi" sequence="10" action="busdev_monitoring_project_action"/>
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_gag_oa_hse_root" name="HSE" 
+        web_icon="mod_gag_hse,static/description/icon.png"
+        sequence="1"/>
+
+    <menuitem id="menu_gag_oa_hse_input"
+              name="Pemeriksaan"
+              sequence="3"
+              parent="menu_gag_oa_hse_root"/>       
+    <menuitem id="menu_gag_oa_hse_config"
+              name="Configuration"
+              sequence="4"
+              parent="menu_gag_oa_hse_root"/>        
+
+    <menuitem id="menu_gag_oa_hse_evaluasimp"
+              name="Evaluasi MP"
+              sequence="2"
+              parent="menu_gag_oa_hse_root"
+              action="gag_oa_hse_evaluasimp_action"/>    
+
+    <menuitem id="menu_gag_oa_hse_ialk3"
+              name="IALK3"
+              sequence="1"
+              parent="menu_gag_oa_hse_root"
+              action="gag_oa_hse_ialk3_action"/>        
+
+    <menuitem id="menu_gag_oa_hse_pemeriksaan_sarana"
+              name="Pemeriksaan Sarana"
+              parent="menu_gag_oa_hse_input"
+              sequence="1"
+              action="gag_oa_hse_pemeriksaan_sarana_action"/>     
+
+    <menuitem id="menu_gag_oa_hse_pemeriksaan_peralatan"
+              name="Pemeriksaan Peralatan"
+              parent="menu_gag_oa_hse_input"
+              sequence="2"
+              action="gag_oa_hse_pemeriksaan_peralatan_action"/>      
+
+    <menuitem id="menu_gag_oa_hse_parameter"
+              name="Parameter"
+              parent="menu_gag_oa_hse_config"
+              action="gag_oa_hse_parameter_action"/>  
+
+    <menuitem id="menu_gag_oa_hse_parameter_sarana"
+              name="Pemeriksaan Sarana"
+              parent="menu_gag_oa_hse_config"
+              action="gag_oa_hse_parameter_sarana_action"/>    
+
+    <menuitem id="menu_gag_oa_hse_parameter_peralatan"
+              name="Pemeriksaan Peralatan"
+              parent="menu_gag_oa_hse_config"
+              action="gag_oa_hse_parameter_peralatan_action"/>    
+</odoo>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="qma_root" web_icon="mod_gag_qma_audit,static/description/QMA_AUDIT.png" name="QMA - Audit" sequence="10"/>
+    <menuitem id="qma_did_root" name="Daftar Induk Dokumen" parent="qma_root" sequence="10" action="qma_did_action"/>
+    <menuitem id="qma_lfia_root" name="List Finding Internal Audit" parent="qma_root" sequence="20" action="qma_lfia_action"/>
+    <menuitem id="qma_form_audit_root" name="Form Audit 5R" parent="qma_root" sequence="30" action="qma_form_audit_action"/>
+</odoo>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="hc_root" web_icon="mod_gag_hc_ga_ict,static/description/HC_GA_ICT.png" name="HC, GA, ICT" sequence="10"/>
+    <menuitem id="hc_ticketing_root" name="Ticketing" parent="hc_root" sequence="10" action="hc_ticketing_action"/>
+    <menuitem id="hc_spplk_root" name="SPPLK" parent="hc_root" sequence="20" action="hc_spplk_action"/>
+    <menuitem id="hc_risk_regist_root" name="Risk Register" parent="hc_root" sequence="20" action="hc_risk_regist_action"/>
+</odoo>

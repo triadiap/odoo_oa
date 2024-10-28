@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_master_building_model" model="ir.ui.view">
+        <field name="name">msdata.building.tree</field>
+        <field name="model">msdata.building</field>
+        <field name="arch" type="xml">
+            <tree string="Building Master Data" editable="bottom">
+                <field name="building_name"/>
+                <field name="building_description"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="action_master_building" model="ir.actions.act_window">
+        <field name="name">Building Master Data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">msdata.building</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Setup your master data here!
+            </p>
+        </field>
+    </record>
+</odoo>

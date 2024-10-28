@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="building_audit_form" model="ir.ui.view">
+            <field name="name">audit.building.form</field>
+            <field name="model">audit.building</field>
+            <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                                <group>
+                                     <field name="location_id"/>
+                                     <field name="building_id"/>
+                                     <field name="periode"/>
+                                     <field name="year"/>
+                                </group>
+                            </group>
+                                 <notebook>
+                                        <page string="Building Audit Checklist" name="building_checklist_items">
+                                            <field name="id_audit">
+                                                <tree editable="bottom">
+                                                        <field name="checklist_id"/>
+                                                        <field name="condition"/>
+                                                        <field name="action_propose"/>
+                                                        <field name="remarks"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                            </notebook>
+                        </sheet>
+                    </form>
+            </field>
+    </record>
+     <record id="action_building_audit" model="ir.actions.act_window">
+        <field name="name">Building Audit Input</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">audit.building</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Setup your master data here!
+            </p>
+        </field>
+    </record>
+    <menuitem id="building-root" name="Building" sequence="10" parent="maintenance.menu_maintenance_title"></menuitem>
+    <menuitem id="buildingaudit-root" name="Audit" parent="building-root" sequence="10" action="action_building_audit"/>
+</odoo>

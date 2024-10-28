@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>    <!-- Main report templates -->
+    <template id="report_evaluasi">
+        <t t-foreach="docs" t-as="report_evaluasi">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h5>
+                            <center><strong>Pemantauan Kinerja Vendor</strong></center>
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-4"><h5><strong>Nama Rekanan : <span t-field="report_evaluasi.vendor_name"/></strong></h5></div>
+                            <div class="col-md-4"><h5><strong><center>Jenis Barang / Jasa : <span t-field="report_evaluasi.jenis_barang"/></center></strong></h5></div>
+                            <div class="col-md-4 text-right"><h5><strong>Tahun Evaluasi <span t-field="report_evaluasi.tahun"/></strong></h5></div>
+                        </div>
+                        <t t-call="mod_gag_scm.report_evaluasi_detail"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Sub-template -->
+    <template id="report_evaluasi_detail">
+        <table class="table" t-if="report_evaluasi.evaluasi_detail">
+            <thead>
+                <tr>
+                    <th rowspan="3">NO</th>
+                    <th rowspan="3">Tanggal Transaksi</th>
+                    <th rowspan="3">Jumlah Transaksi</th>
+                    <th colspan="23" class="text-center">Skor Evaluasi</th>
+                </tr>
+                <tr>
+                    <th colspan="5" class="text-center">Harga</th>
+                    <th colspan="5" class="text-center">Pembayaran</th>
+                    <th colspan="5" class="text-center">Kualitas Jasa</th>
+                    <th colspan="5" class="text-center">Delivery Time</th>
+                    <th rowspan="2">Jumlah Nilai</th>
+                    <th rowspan="2">IKR</th>
+                    <th rowspan="2">KET. PO</th>
+                </tr>
+                <tr>
+                    <th>5</th>
+                    <th>4</th>
+                    <th>3</th>
+                    <th>2</th>
+                    <th>1</th>
+                    <th>5</th>
+                    <th>4</th>
+                    <th>3</th>
+                    <th>2</th>
+                    <th>1</th>
+                    <th>5</th>
+                    <th>4</th>
+                    <th>3</th>
+                    <th>2</th>
+                    <th>1</th>
+                    <th>5</th>
+                    <th>4</th>
+                    <th>3</th>
+                    <th>2</th>
+                    <th>1</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-set="details" t-value="report_evaluasi.mapped('evaluasi_detail')"/>
+                <t t-set="no" t-value="1"/>
+                <tr t-foreach="details" t-as="detail">
+                    <td>
+                        <span t-field="no"/>
+                        <t t-set="no" t-value="no+1"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.tanggal"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.jumlah"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_harga" t-if="detail.nilai_harga==5"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_harga" t-if="detail.nilai_harga==4"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_harga" t-if="detail.nilai_harga==3"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_harga" t-if="detail.nilai_harga==2"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_harga" t-if="detail.nilai_harga==1"/>
+                    </td>
+
+                    
+                    <td>
+                        <span t-field="detail.nilai_pembayaran" t-if="detail.nilai_pembayaran==5"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_pembayaran" t-if="detail.nilai_pembayaran==4"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_pembayaran" t-if="detail.nilai_pembayaran==3"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_pembayaran" t-if="detail.nilai_pembayaran==2"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_pembayaran" t-if="detail.nilai_pembayaran==1"/>
+                    </td>
+
+                    
+                    <td>
+                        <span t-field="detail.nilai_kulatias_jasa"  t-if="detail.nilai_kulatias_jasa==5"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_kulatias_jasa"  t-if="detail.nilai_kulatias_jasa==4"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_kulatias_jasa"  t-if="detail.nilai_kulatias_jasa==3"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_kulatias_jasa"  t-if="detail.nilai_kulatias_jasa==2"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_kulatias_jasa"  t-if="detail.nilai_kulatias_jasa==1"/>
+                    </td>
+
+                    
+                    <td>
+                        <span t-field="detail.nilai_delivery_time"  t-if="detail.nilai_delivery_time==5"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_delivery_time" t-if="detail.nilai_delivery_time==4"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_delivery_time" t-if="detail.nilai_delivery_time==3"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_delivery_time" t-if="detail.nilai_delivery_time==2"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.nilai_delivery_time" t-if="detail.nilai_delivery_time==1"/>
+                    </td>
+
+                    
+                    <td>
+                        <span t-field="detail.jumlah_nilai"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.ikr"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.po"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <strong t-else="">No Detail Available :(</strong>
+    </template>
+</odoo>

@@ -1,0 +1,14 @@
+div.custom_form div.custom_form_sheet {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+@media (min-width: 1200px) {
+    .o_form_view .o_form_sheet {
+        max-width: 1200px !important;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .o_form_view .o_form_sheet {
+        max-width: 960px !important;
+    }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_input_partperequipemt_inherits" model="ir.ui.view">
+        <field name="name">maintenance.equipment.form.inherit</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                    <page string="Detail Part Per Equipment">
+                        <field name="id_equipment">
+                            <tree editable="bottom">
+                                <field name="part_code"/>
+                            </tree>
+                        </field>
+                    </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

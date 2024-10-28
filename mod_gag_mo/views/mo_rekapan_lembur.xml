@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_rekapan_lembur_action" model="ir.actions.act_window">
+        <field name="name">MO Rekapan Lembur</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.rekapan.lembur</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO - Rekapan Lembur
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_rekapan_lembur_tree" model="ir.ui.view">
+        <field name="name">mo.rekapan.lembur.tree</field>
+        <field name="model">mo.rekapan.lembur</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="periode_start"/>
+                <field name="periode_end"/>
+                <field name="file"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_rekapan_lembur_search" model="ir.ui.view">
+        <field name="name">mo.rekapan.lembur.search</field>
+        <field name="model">mo.rekapan.lembur</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="periode_start"/>
+                <field name="periode_end"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_rekapan_lembur_form" model="ir.ui.view">
+        <field name="name">mo.rekapan.lembur.form</field>
+        <field name="model">mo.rekapan.lembur</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="periode_start"/>
+                        <field name="periode_end"/>
+                        <field name="file"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--  Main Window  -->
+    <record id="ptgn_md_action" model="ir.actions.act_window">
+        <field name="name">PTGN Master Data Portal</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ptgn.md</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN Master Data Portal
+            </p>
+        </field>
+    </record>
+    <!--  Region Satker  -->
+    <record id="ptgn_md_satker" model="ir.actions.act_window">
+        <field name="name">PTGN Master Data Satuan Kerja</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ptgn.md.satker</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN Master Data Satuan Kerja
+            </p>
+        </field>
+    </record>
+
+    <record id="ptgn_md_satker_tree" model="ir.ui.view">
+        <field name="name">ptgn.md.satker.tree</field>
+        <field name="model">ptgn.md.satker</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="kode_satker"/>
+                <field name="name"/>
+                <field name="singkatan"/>
+                <field name="tipe_satker"/>
+            </tree>
+        </field>
+    </record>
+    <record id="ptgn_md_satker_search" model="ir.ui.view">
+        <field name="name">ptgn.md.satker.search</field>
+        <field name="model">ptgn.md.satker</field>
+        <field name="arch" type="xml">
+            <search string = "Documents">
+                <field name="kode_satker"/>
+                <field name="name"/>
+                <field name="singkatan"/>
+                <field name="tipe_satker"/>
+            </search>
+        </field>
+    </record>
+    <!--  End Region Satker  -->
+
+    <!--  Region Plant  -->
+    <record id="ptgn_md_plant" model="ir.actions.act_window">
+        <field name="name">PTGN Master Data Plant</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ptgn.md.plant</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN Master Data Plant
+            </p>
+        </field>
+    </record>
+    <!--  End Region Plant  -->
+
+    <menuitem id="ptgn_md_root" name="PTGN Master Data" sequence="10" action="ptgn_md_action"/>
+    <menuitem id="ptgn_md_main" name="Master Data" sequence="20" parent="ptgn_md_root"/>
+    <menuitem id="ptgn_md_satker_action" name="Satuan Kerja" sequence="30" parent="ptgn_md_main" action="ptgn_md_satker"/>
+    <menuitem id="ptgn_md_plant_action" name="Site Plant" sequence="40" parent="ptgn_md_main" action="ptgn_md_plant"/>
+</odoo>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hc_ticketing_action" model="ir.actions.act_window">
+        <field name="name">HC Ticketing</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hc.ticketing</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN HC, GA, ICT - Ticketing
+            </p>
+        </field>
+    </record>
+
+    <record id="hc_ticketing_tree" model="ir.ui.view">
+        <field name="name">hc.ticketing.tree</field>
+        <field name="model">hc.ticketing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="req_date"/>
+                <field name="ticket_progres"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hc_ticketing_search" model="ir.ui.view">
+        <field name="name">hc.ticketing.search</field>
+        <field name="model">hc.ticketing</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="req_date"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hc_ticketing_form" model="ir.ui.view">
+        <field name="name">hc.ticketing.form</field>
+        <field name="model">hc.ticketing</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="req_date"/>
+                        <field name="file"/>
+                    </group>
+                </group>
+                <field name="ticket_item">
+                    <tree editable="bottom">
+                        <field name="name"/>
+                        <field name="divisi"/>
+                        <field name="tanggal"/>
+                        <field name="keterangan"/>
+                        <field name="tujuan"/>
+                        <field name="state" readonly="True"/>
+                        <button name="set_done"
+                            type="object" string="Processed"
+                            class="oe_highlight"
+                            attrs="{'invisible' : ['|', ('id', '=', False), ('state', '=', 'done')]}"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

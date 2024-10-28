@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_purchase_requirement_action" model="ir.actions.act_window">
+        <field name="name">MO Purchase Requirement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.purchase.req</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Purchase Requirement
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_pr_tree" model="ir.ui.view">
+        <field name="name">mo.pr.tree</field>
+        <field name="model">mo.purchase.req</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="pr_no"/>
+                <field name="request_date"/>
+                <field name="user_id"/>
+                <field name="satker_id"/>
+                <field name="approval_step_colored" widget="html" string="Document / Approval Status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_pr_search" model="ir.ui.view">
+        <field name="name">mo.pr.search</field>
+        <field name="model">mo.purchase.req</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pr_no"/>
+                <field name="request_date"/>
+                <field name="user_id"/>
+                <field name="satker_id"/>
+                <field name="approval_step_colored" widget="html" string="Document / Approval Status"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_pr_form" model="ir.ui.view">
+        <field name="name">mo.pr.form</field>
+        <field name="model">mo.purchase.req</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="approval_step" widget="statusbar" statusbar_visible="draft,approval_1,approval_2,approval_3"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="pr_no"/>
+                        <field name="request_date"/>
+                        <field name="user_id"/>
+                        <field name="satker_id"/>
+                        <field name="file"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

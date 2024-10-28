@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_ljjm_wizard_form" model="ir.ui.view">
+        <field name="name">ljjm.approval.wizard.form</field>
+        <field name="model">ljjm.approval.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Approval Confirmation">
+                <group>
+                    <group>
+                        <field name="id_ljjm" invisible="1"/>
+                        <field name="approval_reason_id"/>
+                        <field name="approval_note"/>
+                        <field name="approval_route_id" invisible="1"/>
+                        <field name="current_step_id" invisible="1"/>
+                        <field name="existing_status" invisible="1"/>
+                        <field name="upcoming_status" invisible="1"/>
+                        <field name="pending_approval_by" invisible="1"/>
+                    </group>
+
+                </group>
+                <footer>
+                    <button string="Confirm" name="action_confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <!-- Wizard Action -->
+    <record id="view_ljjm_approval_action" model="ir.actions.act_window">
+        <field name="name">Approval Confirmation</field>
+        <field name="res_model">ljjm.approval.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_related_field': active_id}</field>
+    </record>
+</odoo>

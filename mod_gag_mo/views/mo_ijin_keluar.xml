@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_ijinkeluar_action" model="ir.actions.act_window">
+        <field name="name">MO Surat Ijin Keluar Base Camp</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.ijinkeluar</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Surat Ijin Keluar Base Camp
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_ijinkeluar_search" model="ir.ui.view">
+        <field name="name">mo.ijinkeluar.search</field>
+        <field name="model">mo.ijinkeluar</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="pemohon"/>
+                <field name="transportasi"/>
+                <field name="jenis_keperluan"/>
+                <field name="tanggal_pergi"/>
+                <field name="tanggal_pulang"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_ijinkeluar_tree" model="ir.ui.view">
+        <field name="name">mo.ijinkeluar.tree</field>
+        <field name="model">mo.ijinkeluar</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="pemohon"/>
+                <field name="transportasi"/>
+                <field name="jenis_keperluan"/>
+                <field name="tanggal_pergi"/>
+                <field name="tanggal_pulang"/>
+                <field name="file_attc"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_ijinkeluar_form" model="ir.ui.view">
+        <field name="name">mo.ijinkeluar.form</field>
+        <field name="model">mo.ijinkeluar</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="pemohon"/>
+                        <field name="transportasi"/>
+                        <field name="jenis_keperluan"/>
+                        <field name="tujuan"/>
+                        <field name="tanggal_pergi"/>
+                        <field name="tanggal_pulang"/>
+                        <field name="file_attc"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_office_controller_main" name="Office Connector" web_icon="mod_gag_office_connector,static/description/icon_office_connector.png" sequence="1"/>
+
+    <menuitem id="menu_office_connector_configuration_root"
+              name="Rest API"
+              parent="menu_office_controller_main"
+              sequence="10"/>
+    <menuitem id="menu_office_connector_rest_api_root"
+              name="Rest API Management"
+              parent="menu_office_connector_configuration_root"
+              action="action_office_connector"
+              sequence="10"/>
+    <menuitem id="menu_office_connector_trading_partner_master"
+              name="Trading Partner"
+              parent="menu_office_connector_configuration_root"
+              action="action_trading_partner_master"
+              sequence="20"/>
+    <menuitem id="menu_office_connector_api_documentation"
+              name="API Documentation"
+              parent="menu_office_connector_configuration_root"
+              action="action_api_documentation"
+              sequence="30"/>
+    <menuitem
+              id="menu_office365_connector_root"
+              name="Office 365"
+              parent="menu_office_controller_main"
+              sequence="20"/>
+<!--     <menuitem-->
+<!--              id="menu_office365_connector_root"-->
+<!--              name="Configuration"-->
+<!--              parent="menu_office365_connector_root"-->
+<!--              action="action_office365_configuration"-->
+<!--              sequence="20"/>-->
+</odoo>

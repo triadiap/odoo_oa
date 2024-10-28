@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_inspeksi_harian_action" model="ir.actions.act_window">
+        <field name="name">MO Inspeksi Harian</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.inspeksi.harian</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Inspeksi Harian
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_inspeksi_harian_tree" model="ir.ui.view">
+        <field name="name">mo.inspeksi.harian.tree</field>
+        <field name="model">mo.inspeksi.harian</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="inspektor"/>
+                <field name="tanggal"/>
+                <field name="shift"/>
+                <field name="lokasi"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_inspeksi_harian_search" model="ir.ui.view">
+        <field name="name">mo.inspeksi.harian.search</field>
+        <field name="model">mo.inspeksi.harian</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="inspektor"/>
+                <field name="tanggal"/>
+                <field name="shift"/>
+                <field name="lokasi"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_inspeksi_harian_form" model="ir.ui.view">
+        <field name="name">mo.inspeksi.harian.form</field>
+        <field name="model">mo.inspeksi.harian</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="inspektor"/>
+                        <field name="tanggal"/>
+                        <field name="shift"/>
+                        <field name="lokasi"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <h4>Area Inspeksi</h4>
+                        <field name="area_list">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="jam_mulai" widget="float_time"/>
+                                <field name="jam_selesai" widget="float_time"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <h4>Temuan Safety</h4>
+                        <field name="s_lokasi"/>
+                        <field name="s_jam" widget="float_time"/>
+                        <field name="s_keterangan"/>
+                        <field name="s_temuan"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <h4>Pengawasan / Patroli Safety</h4>
+                        <field name="p_lokasi"/>
+                        <field name="p_jam_mulai" widget="float_time"/>
+                        <field name="p_jam_selesai" widget="float_time"/>
+                        <field name="p_area"/>
+                        <field name="p_keterangan"/>
+                    </group>
+                    <group>
+                        <h4>Progres Safety Sign (Rambu-Rambu)</h4>
+                        <field name="r_lokasi"/>
+                        <field name="r_jenis_rambu"/>
+                        <field name="r_progres"/>
+                        <field name="r_keterangan"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <h4>Informasi Insiden</h4>
+                        <field name="i_kategori"/>
+                        <field name="i_lokasi"/>
+                        <field name="i_korban_alat"/>
+                        <field name="i_kronologi"/>
+                        <field name="i_rekomendasi"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

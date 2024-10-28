@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    ini tampilan tabel depan-->
+    <record id="oa_approval_reason_tree" model="ir.ui.view">
+        <field name="name">oa.approval.reason.tree</field>
+        <field name="model">oa.approval.reason</field>
+        <field name="arch" type="xml">
+            <tree string="Approval Reason Master" editable="bottom">
+                <field name="oa_ar_code"/>
+                <field name="name"/>
+                <field name="oa_ar_summary"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="write_date"/>
+                <field name="write_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="oa_approval_reason_action" model="ir.actions.act_window">
+        <field name="name">Approval Reason Master</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oa.approval.reason</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="domain"></field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your master data here !
+            </p>
+        </field>
+    </record>
+</odoo>

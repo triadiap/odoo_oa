@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_evaluasi" model="ir.actions.report">
+            <field name="name">Evaluasi Vendor</field>
+            <field name="model">gag.oa.scm.evaluasi</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">mod_gag_scm.report_evaluasi</field>
+            <field name="report_file">mod_gag_scm.report_evaluasi</field>
+            <field name="print_report_name">'Evaluasi Vendor'</field>
+            <field name="binding_model_id" ref="model_gag_oa_scm_evaluasi"/>
+        </record>
+    </data>
+</odoo>

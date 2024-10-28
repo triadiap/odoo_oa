@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record id="equipment_maintenance_form" model="ir.ui.view">
+            <field name="name">oa.equipment.maintenance.form</field>
+            <field name="model">oa.equipment.maintenance</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+
+                              <button id="button-approval-process" name="action_approval_process" string="Submit To Approve" class="btn-primary" type="object" states="draft"/>
+                              <button id="button-confirm" name="%(mod_gag_utm.view_ljjm_approval_action)d" string="Approve" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                              <button id="button-reject" name="%(mod_gag_utm.view_ljjm_cancelation_action)d" string="Reject" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                              <button id="button-done" name="action_done" string="Mark As Done" class="btn-primary" type="object" states="approve"/>
+                              <button id="button-draft" name="action_draft" string="Set To Draft" class="btn-primary" type="object" states="cancel" context="{'action_id': active_id}"/>
+                              <button id="button-cancel" name="action_cancel" string="Cancel" context="{'action_id': active_id}" states="done,approve,rejected" type="object"/>
+                             <field name="state" widget="statusbar" statusbar_visible="draft,done,approval_process,approve"/>
+                    </header>
+                    <sheet>
+                            <div class="oe_button_box" name="button_box" >
+                                 <button name="action_open_budgets" type="object" class="oe_stat_button" icon="fa-percent" style="width:200px;">
+                                     <div class="o_stat_info">
+                                            <field string="% Machine Availibility" name="machine_availibility" class="o_stat_value"/>
+                                            <span class="o_stat_text">Machine Availibility</span>
+                                     </div>
+                                </button>
+                                 <button name="action_open_budgets" type="object" class="oe_stat_button" icon="fa-percent" style="width:200px;">
+                                     <div class="o_stat_info">
+                                            <field string="% Working Efficiency" name="work_efficiency" class="o_stat_value"/>
+                                            <span class="o_stat_text">Working Efficiency</span>
+                                     </div>
+                                 </button>
+                            </div>
+                            <div class="oe_title">
+                                <label for="ljjm_id" class="oe_edit_only"/>
+                                <h1>
+                                    <field name="ljjm_id" placeholder="Report ID" readonly="1" options="{'no_create': True,'no_edit': True}"/>
+                                </h1>
+                            </div>
+                            <group>
+                                <group>
+                                    <field name="equipment_id" options="{'no_create':True,'no_edit':True}"/>
+                                    <field name="report_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="brand_model_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="serial_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="asset_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="pkt_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="kwh_equipment" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="cumulative_hour" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="plan_hour" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                </group>
+                                <group>
+                                    <field name="existing_status" />
+                                    <field name="upcoming_status"/>
+                                    <field name="pending_approval_by"/>
+                                    <field name="operator_name" readonly="1"/>
+                                    <field name="operator_sign_date" readonly="1" style="background-color: lightgreen;border-radius: 4%; padding: 2px;" attrs="{'style': [('operator_sign_date', '!=', False)]}"/>
+                                    <field name="supervisor_name" readonly="1"/>
+                                    <field name="supervisor_sign_date" readonly="1" style="background-color: lightgreen;border-radius: 4%; padding: 2px;" attrs="{'style': [('supervisor_sign_date', '!=', False)]}"/>
+                                    <field name="team_leader_name" readonly="1"/>
+                                    <field name="team_leader_sign_date" readonly="1" style="background-color: lightgreen;border-radius: 4%; padding: 2px;" attrs="{'style': [('team_leader_sign_date', '!=', False)]}"/>
+                                    <field name="button_visible" invisible="1"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string = "Operational Hours">
+                                    <group>
+                                        <group>
+                                            <field name="operation_hour" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            <field name="service_hour" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            <field name="standby_hour" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            <field name="total_operation_time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        </group>
+                                    </group>
+                                </page>
+                                 <page string = "Maintenance and Repair">
+                                        <group>
+                                            <group>
+                                                <field name="tsc_mek" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                <field name="time_to_repair" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                <field name="total_breakdown_time" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            </group>
+                                        </group>
+                                    </page>
+                                    <page string = "Oil and Fuel Usages">
+                                            <group>
+                                                <group>
+                                                    <field name="machine_oil_usage" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                    <field name="filter_oil_usage" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                    <field name="fuel_filter_usage" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                    <field name="ff_separator_usage" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                    <field name="el_air_cleaner_usage" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                    <field name="grease_usage" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                    <field name="fuel_usage" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                                </group>
+                                            </group>
+                                    </page>
+                                    <page string="Logs">
+                                            <field name="tracking_value_ids">
+                                                <tree string="Change History">
+                                                    <field name="create_date" string="Change Date"/>
+                                                    <field name="field_desc" string="Field"/>
+                                                    <field name="old_value_char" string="Old Value"/>
+                                                    <field name="new_value_char" string="New Value"/>
+                                                    <field name="write_uid" string="Changed By"/>
+                                                </tree>
+                                            </field>
+                                    </page>
+                            </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                              <field name="activity_ids"/>
+                              <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+     </record>
+    <record id="equipment_maintenance_tree" model="ir.ui.view">
+        <field name="name">oa.equipment.maintenance.tree</field>
+        <field name="model">oa.equipment.maintenance</field>
+        <field name="arch" type="xml">
+            <tree>
+                    <field name="ljjm_id" optional="show"/>
+                    <field name="report_date"/>
+                    <field name="equipment_id" optional="show"/>
+                    <field name="equipment_id" optional="show"/>
+                    <field name="brand_model_type" optional="show"/>
+                    <field name="serial_number" optional="show"/>
+                    <field name="asset_number" optional="show"/>
+                    <field name="pkt_number" optional="show"/>
+                    <field name="kwh_equipment" optional="show"/>
+                    <field name="operator_name" optional="show"/>
+                    <field name="operator_sign_date" optional="show"/>
+                    <field name="supervisor_name" optional="show"/>
+                    <field name="supervisor_sign_date" optional="show"/>
+                    <field name="section_name" optional="show"/>
+                    <field name="state" optional="show"/>
+                    <field name="create_uid" optional="show"/>
+                    <field name="create_date" optional="show"/>
+
+            </tree>
+        </field>
+    </record>
+    <record id="equipment_maintenance_action" model="ir.actions.act_window">
+        <field name="name">LAPORAN JAM JALAN MESIN</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oa.equipment.maintenance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your document here!
+            </p>
+        </field>
+    </record>
+</odoo>

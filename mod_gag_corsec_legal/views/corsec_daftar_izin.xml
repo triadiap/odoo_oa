@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="corsec_daftar_izin_action" model="ir.actions.act_window">
+        <field name="name">Corsec Daftar Izin</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">corsec.daftar.izin</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN Corsec and Legal - Daftar Izin
+            </p>
+        </field>
+    </record>
+
+    <record id="corsec_daftar_izin_tree" model="ir.ui.view">
+        <field name="name">corsec.daftar.izin.tree</field>
+        <field name="model">corsec.daftar.izin</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="nama_izin"/>
+                <field name="penerbit"/>
+                <field name="tanggal"/>
+                <field name="no_izin"/>
+                <field name="jangka_waktu"/>
+                <field name="berakhir_pada"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="corsec_daftar_izin_search" model="ir.ui.view">
+        <field name="name">corsec.daftar.izin.search</field>
+        <field name="model">corsec.daftar.izin</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="nama_izin"/>
+                <field name="penerbit"/>
+                <field name="tanggal"/>
+                <field name="no_izin"/>
+                <field name="jangka_waktu"/>
+                <field name="berakhir_pada"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="corsec_daftar_izin_form" model="ir.ui.view">
+        <field name="name">corsec.daftar.izin.form</field>
+        <field name="model">corsec.daftar.izin</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="nama_izin"/>
+                        <field name="penerbit"/>
+                        <field name="tanggal"/>
+                        <field name="no_izin"/>
+                        <field name="keterangan"/>
+                        <field name="jangka_waktu"/>
+                        <field name="berakhir_pada"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

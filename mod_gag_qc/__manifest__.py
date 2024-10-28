@@ -1,0 +1,27 @@
+{
+    'name': 'PTGN QC',
+    'version': '14.0.0.1.0',
+    'summary': 'Module OA untuk department QC GAG Nickel',
+    'sequence': -100,
+    'description': """Module OA untuk department QC GAG Nickel""",
+    'category': 'Productivity',
+    'author': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'website': 'https://icsp.co.id',
+    'depends': ['mail'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/gagoa_qc_daily_production.xml',
+        'views/gagoa_qc_barging.xml',
+        'views/gagoa_qc_stock_opname.xml',
+        'report/gagoa_qc_daily_production_report.xml',
+        'report/gagoa_qc_daily_report.xml',
+        'report/gagoa_qc_daily_production_report_view.xml',
+        'views/menu.xml'
+    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

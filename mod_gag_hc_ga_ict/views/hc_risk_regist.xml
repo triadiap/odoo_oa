@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hc_risk_regist_action" model="ir.actions.act_window">
+        <field name="name">HC Risk Register</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hc.risk.regist</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN HC, GA, ICT - Risk Register
+            </p>
+        </field>
+    </record>
+
+    <record id="hc_risk_regist_form" model="ir.ui.view">
+        <field name="name">hc.risk.regist.form</field>
+        <field name="model">hc.risk.regist</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="year"/>
+                        <field name="month"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="sasaran_strategis"/>
+                        <field name="sasaran_kpi"/>
+                        <field name="sasaran_mind_id"/>
+                        <field name="tahapan"/>
+                    </group>
+                    <group>
+                        <field name="no_resiko"/>
+                        <field name="kejadian_resiko"/>
+                        <field name="tipe_resiko"/>
+                        <field name="tipe_resiko_kbumn"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Penilaian Resiko Inheren">
+                        <group>
+                            <group>
+                                <field name="sumber_resiko"/>
+                                <h4>Key Risk Indicator</h4>
+                                <field name="parameter"/>
+                                <h4>Threshold</h4>
+                                <field name="t_green"/>
+                                <field name="t_yellow"/>
+                                <field name="t_red"/>
+                                <field name="penjelasan_dampak"/>
+                                <field name="nilai_dampak"/>
+                            </group>
+                            <group>
+                                <field name="tingkat_resiko_l"/>
+                                <field name="tingkat_resiko_d"/>
+                                <field name="risk_level"/>
+                                <field name="kuadran"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Penilaian Kontrol Eksisting dan Current Risk">
+                        <group>
+                            <group>
+                                <field name="kontrol_proses"/>
+                                <field name="sifat_kontrol"/>
+                                <field name="pn_desain"/>
+                                <field name="pn_implementasi"/>
+                            </group>
+                            <group>
+                                <field name="current_tingkat_resiko_l"/>
+                                <field name="current_tingkat_resiko_d"/>
+                                <field name="current_risk_level"/>
+                                <field name="current_kuadran"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Rencana Mitigasi Resiko">
+                        <group>
+                            <group>
+                                <field name="no_mitigasi"/>
+                                <field name="rencana_mitigasi"/>
+                                <field name="detail_aktivitas"/>
+                                <field name="deliverables"/>
+                                <field name="budget_cost"/>
+                                <field name="due_date"/>
+                                <field name="pic"/>
+                            </group>
+                            <group>
+                                <field name="residual_tingkat_resiko_l"/>
+                                <field name="residual_tingkat_resiko_d"/>
+                                <field name="residual_risk_level"/>
+                                <field name="residual_kuadran"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Monitoring Realisasi">
+                        <field name="monitoring">
+                            <tree editable="bottom">
+                                <field name="progress_mitigasi"/>
+                                <field name="status_update"/>
+                                <field name="progress_info"/>
+                                <field name="realisasi_anggaran"/>
+                                <field name="nilai_aktual"/>
+                                <field name="status"/>
+                                <field name="p_sisa_dampak_resiko"/>
+                                <field name="n_sisa_dampak_resiko"/>
+                                <field name="item_tingkat_resiko_l"/>
+                                <field name="item_tingkat_resiko_d"/>
+                                <field name="item_risk_level"/>
+                                <field name="item_kuadran"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+</odoo>

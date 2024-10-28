@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_permintaan_pengeluaran_barang_action" model="ir.actions.act_window">
+        <field name="name">MO Permintaan Pengeluaran Barang Gudang</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.permintaan.pengeluaran.barang</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Permintaan Pengeluaran Barang Gudang
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_permintaan_pengeluaran_barang_tree" model="ir.ui.view">
+        <field name="name">mo.permintaan.pengeluaran.barang.tree</field>
+        <field name="model">mo.permintaan.pengeluaran.barang</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="req_by"/>
+                <field name="bagian"/>
+                <field name="tanggal"/>
+                <field name="id_item"/>
+                <field name="state"/>
+                <field name="approval_1"/>
+                <field name="approval_2"/>
+                <field name="approval_3"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_permintaan_pengeluaran_barang_form" model="ir.ui.view">
+        <field name="name">mo.permintaan.pengeluaran.barang.form</field>
+        <field name="model">mo.permintaan.pengeluaran.barang</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approval_1"
+                        type="object" string="Setujui Permintaan 1"
+                        class="oe_highlight"
+                        attrs="{'invisible' : ['|', ('state', '!=', 'draft'), ('button_visible', '=', False)]}"/>
+                    <button name="action_approval_2"
+                            type="object" string="Setujui Permintaan 2"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|', ('state', '!=', 'approval_1'), ('button_visible', '=', False)]}"/>
+                    <button name="action_approval_3"
+                            type="object" string="Approval Petugas Gudang"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|', ('state', '!=', 'approval_2'), ('button_visible', '=', False)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approval_1,approval_2,approval_3"/>
+                    <field name="button_visible" invisible="1"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="req_by"/>
+                        <field name="bagian"/>
+                        <field name="tanggal"/>
+                    </group>
+                </group>
+                <field name="id_item">
+                    <tree editable="bottom">
+                        <field name="name"/>
+                        <field name="jumlah"/>
+                        <field name="unit"/>
+                        <field name="keterangan"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

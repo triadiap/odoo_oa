@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="gag_bi_config_production_form" model="ir.ui.view">
+       <field name="name">gag.bi.config.production.form</field>
+        <field name="model">gag.bi.config.production</field>
+        <field name="arch" type="xml">
+            <form string="Config Production">
+                <sheet>
+                    <header>
+                        <field name="status" widget="statusbar" statusbar_visible="draft,active"/>
+                    </header>
+                    <group>
+                        <field name="name"/>
+                        <field name="models"/>
+                        <field name="date_fields"/>
+                        <field name="group_fields"/>
+                        <field name="plan_fields"/>
+                        <field name="production_fields"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="gag_bi_config_production_tree" model="ir.ui.view">
+        <field name="name">gag.bi.config.production.tree</field>
+        <field name="model">gag.bi.config.production</field>
+        <field name="arch" type="xml">
+            <tree string="Config PPM">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="create_uid"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+                <field name="write_uid"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="gag_bi_config_production_action" model="ir.actions.act_window">
+        <field name="name">Config Production</field>
+        <field name="res_model">gag.bi.config.production</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

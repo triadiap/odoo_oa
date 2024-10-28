@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="corsec_risalah_rapat_direksi_action" model="ir.actions.act_window">
+        <field name="name">Corsec Risalah Rapat Direksi</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">corsec.risalah.rapat.direksi</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN Corsec and Legal - Risalah Rapat Direksi
+            </p>
+        </field>
+    </record>
+
+    <record id="corsec_risalah_rapat_direksi_tree" model="ir.ui.view">
+        <field name="name">corsec.risalah.rapat.direksi.tree</field>
+        <field name="model">corsec.risalah.rapat.direksi</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tanggal"/>
+                <field name="jam_mulai" widget="float_time"/>
+                <field name="jam_selesai" widget="float_time"/>
+                <field name="tempat"/>
+                <field name="agenda"/>
+                <field name="file"/>
+            </tree>
+        </field>
+    </record>
+    <record id="corsec_risalah_rapat_direksi_search" model="ir.ui.view">
+        <field name="name">corsec.risalah.rapat.direksi.search</field>
+        <field name="model">corsec.risalah.rapat.direksi</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tanggal"/>
+                <field name="jam_mulai" widget="float_time"/>
+                <field name="jam_selesai" widget="float_time"/>
+                <field name="tempat"/>
+                <field name="agenda"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="corsec_risalah_rapat_direksi_form" model="ir.ui.view">
+        <field name="name">corsec.risalah.rapat.direksi.form</field>
+        <field name="model">corsec.risalah.rapat.direksi</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="tanggal"/>
+                        <field name="jam_mulai" widget="float_time"/>
+                        <field name="jam_selesai" widget="float_time"/>
+                        <field name="tempat"/>
+                        <field name="agenda"/>
+                        <field name="file"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

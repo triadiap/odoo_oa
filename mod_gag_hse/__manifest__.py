@@ -1,0 +1,28 @@
+{
+    'name': 'PTGN HSE',
+    'version': '14.0.0.1.0',
+    'summary': 'Module OA untuk department HSE GAG Nickel',
+    'sequence': -100,
+    'description': """Module OA untuk department HSE GAG Nickel""",
+    'category': 'Productivity',
+    'author': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'website': 'https://icsp.co.id',
+    'depends': ['mail'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/hse_parameter_view.xml',
+        'views/hse_parameter_sarana_view.xml',
+        'views/hse_parameter_peralatan_view.xml',
+        'views/hse_evaluasimp_view.xml',
+        'views/hse_pemeriksaan_sarana_view.xml',
+        'views/hse_pemeriksaan_peralatan_view.xml',
+        'views/hse_ialk3_view.xml',
+        'views/menu_views.xml'
+    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

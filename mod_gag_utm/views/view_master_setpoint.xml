@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="maintenance_setpoint_form" model="ir.ui.view">
+            <field name="name">oa.setpoint.availibility.form</field>
+            <field name="model">oa.setpoint.availibility</field>
+            <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                                <group>
+                                    <field name="year_setpoint"/>
+                                    <field name="name"/>
+                                    <div>
+                                        <h6>Kebutuhan Operasional</h6>
+                                    </div>
+                                    <field name="setpoint_readiness"/>
+                                    <field name="setpoint_production"/>
+                                    <field name="setpoint_backup"/>
+                                    <field name="setpoint_repair"/>
+                                    <field name="setpoint_breakdown_repair"/>
+                                    <field name="setpoint_stand_by"/>
+                                    <field name="setpoint_tsc"/>
+                                    <field name="setpoint_bd"/>
+                                </group>
+                                <group>
+                                    <div>
+                                        <h6>Set Point / Target</h6>
+                                    </div>
+                                    <field name="setpoint_ma"/>
+                                    <field name="setpoint_we"/>
+                                    <field name="setpoint_note"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Logs">
+                                        <field name="tracking_value_ids">
+                                                <tree string="Change History">
+                                                    <field name="create_date" string="Change Date"/>
+                                                    <field name="field_desc" string="Field"/>
+                                                    <field name="old_value_char" string="Old Value"/>
+                                                    <field name="new_value_char" string="New Value"/>
+                                                    <field name="write_uid" string="Changed By"/>
+                                                </tree>
+                                        </field>
+                                </page>
+                            </notebook>
+                        </sheet>
+
+                    </form>
+            </field>
+    </record>
+     <record id="maintenance_setpoint_tree" model="ir.ui.view">
+        <field name="name">oa.setpoint.availibility.tree</field>
+        <field name="model">oa.setpoint.availibility</field>
+        <field name="arch" type="xml">
+            <tree string="Set Point / Target List">
+                <field name="name" optional="show"/>
+                <field name="setpoint_readiness" optional="show"/>
+                <field name="setpoint_production" optional="show"/>
+                <field name="setpoint_backup" optional="show"/>
+                <field name="setpoint_repair" optional="show"/>
+                <field name="setpoint_breakdown_repair" optional="show"/>
+                <field name="setpoint_stand_by" optional="show"/>
+                <field name="setpoint_tsc" optional="show"/>
+                <field name="setpoint_bd" optional="show"/>
+                <field name="year_setpoint" optional="show"/>
+                <field name="setpoint_note" optional="show"/>
+                <field name="create_uid" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_maintenance_setpoint" model="ir.actions.act_window">
+        <field name="name">Set Point Of Machine Availibility And Efficiency</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oa.setpoint.availibility</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+               Setup your master data here!
+            </p>
+        </field>
+    </record>
+</odoo>

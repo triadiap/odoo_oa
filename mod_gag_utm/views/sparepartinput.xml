@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_sparepart_model" model="ir.ui.view">
+        <field name="name">gagtb.part.tree</field>
+        <field name="model">gagtb.part</field>
+        <field name="arch" type="xml">
+            <tree string="Sparepart Stock" editable="bottom">
+                <field name="part_number"/>
+                <field name="part_description"/>
+                <field name="part_uom"/>
+                <field name="part_qty"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="action_sparepart_master" model="ir.actions.act_window">
+        <field name="name">Master Data Sparepart</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gagtb.part</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your document here!
+            </p>
+        </field>
+    </record>
+</odoo>

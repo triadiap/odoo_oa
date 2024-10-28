@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_pmm_action" model="ir.actions.act_window">
+        <field name="name">MO Production Material Movement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.production.material.movement</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Production Material Movement
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_pmm_tree" model="ir.ui.view">
+        <field name="name">mo.pmm.tree</field>
+        <field name="model">mo.production.material.movement</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="mitra"/>
+                <field name="tanggal"/>
+                <field name="shift"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_pmm_search" model="ir.ui.view">
+        <field name="name">mo.pmm.search</field>
+        <field name="model">mo.production.material.movement</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="mitra"/>
+                <field name="tanggal"/>
+                <field name="shift"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_pmm_form" model="ir.ui.view">
+        <field name="name">mo.pmm.form</field>
+        <field name="model">mo.production.material.movement</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="mitra"/>
+                        <field name="tanggal"/>
+                        <field name="shift"/>
+                        <field name="loader"/>
+                        <field name="front"/>
+                    </group>
+                    <group>
+                        <field name="eto"/>
+                        <field name="wd"/>
+                        <field name="slctv"/>
+                        <field name="trim"/>
+                    </group>
+                </group>
+                <group>
+                    <group col="4">
+                        <field name="prod_item">
+                            <tree editable="bottom">
+                                <field name="hauler"/>
+                                <field name="hrs_selection"/>
+                                <field name="soil" sum="Total : %d"/>
+                                <field name="waste" sum="Total : %d"/>
+                                <field name="limonit" sum="Total : %d"/>
+                                <field name="ore" sum="Total : %d"/>
+                                <field name="dvl" sum="Total : %d"/>
+                            </tree>
+                        </field>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

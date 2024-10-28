@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_cuti_tahunan_action" model="ir.actions.act_window">
+        <field name="name">MO Cuti Tahunan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.cuti.tahunan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Cuti Tahunan
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_cuti_tahunan_tree" model="ir.ui.view">
+        <field name="name">mo.cuti.tahunan.tree</field>
+        <field name="model">mo.cuti.tahunan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="id_pegawai"/>
+                <field name="divisi"/>
+                <field name="tujuan_cuti"/>
+                <field name="cuti_mulai"/>
+                <field name="cuti_selesai"/>
+                <field name="lama_cuti"/>
+                <field name="alasan"/>
+                <field name="state"/>
+                <field name="approval_1"/>
+                <field name="approval_2"/>
+                <field name="approval_3"/>
+                <field name="approval_4"/>
+                <button name="action_approval_1"
+                        type="object" string="Approval Atasan"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('button_visible', '=', False)]}"/>
+                <button name="action_approval_2"
+                        type="object" string="Approval Manager Divisi"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'approval_1'), ('button_visible', '=', False)]}"/>
+                <button name="action_approval_3"
+                        type="object" string="Approval GM / KTT"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'approval_2'), ('button_visible', '=', False)]}"/>
+                <button name="action_approval_4"
+                        type="object" string="Approval HC Dept"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'approval_3'), ('button_visible', '=', False)]}"/>
+                <field name="button_visible" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_cuti_tahunan_form" model="ir.ui.view">
+        <field name="name">mo.cuti.tahunan.form</field>
+        <field name="model">mo.cuti.tahunan</field>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approval_1,approval_2,approval_3,approval_4"/>
+                </header>
+                <group>
+                    <group>
+                        <h4>Informasi Pegawai</h4>
+                        <field name="id_pegawai"/>
+                        <field name="npp"/>
+                        <field name="divisi"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <h4>Detail Cuti</h4>
+                        <field name="tujuan_cuti"/>
+                        <field name="cuti_mulai"/>
+                        <field name="cuti_selesai"/>
+                        <field name="lama_cuti" readonly="True"/>
+                        <field name="alasan"/>
+                        <field name="alamat"/>
+                        <field name="poh"/>
+                        <field name="no_hp"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <h4>Karyawan Pengganti</h4>
+                        <field name="karyawan_1"/>
+                        <field name="karyawan_2"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <h4>Approval</h4>
+                        <field name="approval_1" readonly="True"/>
+                        <field name="approval_2" readonly="True"/>
+                        <field name="approval_3" readonly="True"/>
+                        <field name="approval_4" readonly="True"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

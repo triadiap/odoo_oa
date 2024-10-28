@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mpd_bastp_action" model="ir.actions.act_window">
+        <field name="name">MPD Berita Acara Serah Terima Pekerjaan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mpd.ba.serah.terima.pekerjaan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MPD - Berita Acara Serah Terima Pekerjaan
+            </p>
+        </field>
+    </record>
+
+    <record id="mpd_bastp_tree" model="ir.ui.view">
+        <field name="name">mpd.bastp.tree</field>
+        <field name="model">mpd.ba.serah.terima.pekerjaan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="pic"/>
+                <field name="mitra"/>
+                <field name="tanggal_bast"/>
+                <field name="file"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mpd_bastp_search" model="ir.ui.view">
+        <field name="name">mpd.bastp.search</field>
+        <field name="model">mpd.ba.serah.terima.pekerjaan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="pic"/>
+                <field name="mitra"/>
+                <field name="tanggal_bast"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mpd_bastp_form" model="ir.ui.view">
+        <field name="name">mpd.bastp.form</field>
+        <field name="model">mpd.ba.serah.terima.pekerjaan</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="pic"/>
+                        <field name="mitra"/>
+                        <field name="tanggal_bast"/>
+                        <field name="file"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

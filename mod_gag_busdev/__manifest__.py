@@ -1,0 +1,22 @@
+{
+    'name': 'PTGN Busdev Monitoring Project Investasi',
+    'version': '1.0.0',
+    'summary': 'This module has been build for PT GAG Nikel BUSDEV Team',
+    'sequence': -100,
+    'description': """This module has been build for PT GAG Nikel BUSDEV team""",
+    'category': 'Productivity',
+    'author': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'website': 'https://icsp.co.id',
+    'depends': [],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/busdev_monitoring_project.xml',
+        'views/assets.xml',
+    ],
+    'demo': [],
+    'qweb': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

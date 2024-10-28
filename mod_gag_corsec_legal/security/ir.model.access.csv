@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_corsec_list_akta_notaris,access.corsec.list.akta.notaris,model_corsec_list_akta_notaris,,1,1,1,1
+access_corsec_daftar_bod_boc,access.corsec.daftar.bod.boc,model_corsec_daftar_bod_boc,,1,1,1,1
+access_corsec_daftar_izin,access.corsec.daftar.izin,model_corsec_daftar_izin,,1,1,1,1
+access_corsec_risalah_rapat_direksi,access.corsec.risalah.rapat.direksi,model_corsec_risalah_rapat_direksi,,1,1,1,1
+access_corsec_risalah_rapat_komisaris,access.corsec.risalah.rapat.komisaris,model_corsec_risalah_rapat_komisaris,,1,1,1,1

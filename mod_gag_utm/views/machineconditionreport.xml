@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record id="view_machine_condition_search" model="ir.ui.view">
+        <field name="name">oa.machine.condition.search</field>
+        <field name="model">oa.machine.condition</field>
+        <field name="arch" type="xml">
+            <search string = "Year Of Set Point">
+                <group expand="0" string="Group By">
+                        <filter string = "Year Of Set Point" name="group_year" domain="[]" context="{'group_by':'year'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_machine_condition_table" model="ir.ui.view">
+        <field name="name">oa.machine.condition.tree</field>
+        <field name="model">oa.machine.condition</field>
+        <field name="arch" type="xml">
+            <tree create="false" expand="1">
+                    <field name="equipment_info" optional="show"/>
+                    <field name="readiness" optional="show"/>
+                    <field name="production_min" optional="show"/>
+                    <field name="qty_backup_max" optional="show"/>
+                    <field name="qty_repair_max" optional="show"/>
+                    <field name="percentage_ma" optional="show"/>
+                    <field name="percentage_we" optional="show"/>
+                    <field name="year" optional="show"/>
+                    <field name="jan" optional="show"/>
+                    <field name="feb" optional="show"/>
+                    <field name="mar" optional="show"/>
+                    <field name="apr" optional="show"/>
+                    <field name="may" optional="show"/>
+                    <field name="jun" optional="show"/>
+                    <field name="jul" optional="show"/>
+                    <field name="aug" optional="show"/>
+                    <field name="sep" optional="show"/>
+                    <field name="oct" optional="show"/>
+                    <field name="nov" optional="show"/>
+                    <field name="dec" optional="show"/>
+            </tree>
+        </field>
+    </record>
+     <record id="action_machine_condition_report" model="ir.actions.act_window">
+        <field name="name">Set Point Of Machine Availibility And Work Efficiency</field>
+        <field name="res_model">oa.machine.condition</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_machine_condition_table"/>
+         <field name="context">{'search_default_group_year':True}</field>
+    </record>
+</odoo>

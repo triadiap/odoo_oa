@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem
+        id="gag_oa_qc_main_menu"
+        name="QC"
+        web_icon="mod_gag_qc,static/description/icon.png"
+        sequence="40">
+        <menuitem id="gag_oa_qc_daily_production_menu"
+            name="Daily Production"
+            sequence="1"
+            action="gag_oa_qc_daily_production_action"/>
+        <menuitem id="gag_oa_qc_barging_menu"
+            name="Barging"
+            sequence="2"
+            action="gag_oa_qc_barging_action"/>
+        <menuitem id="gag_oa_qc_stockopname"
+            name="Stock Opname"
+            sequence="3"
+            action="gag_oa_qc_stockopname_action"/>
+    </menuitem>
+</odoo>

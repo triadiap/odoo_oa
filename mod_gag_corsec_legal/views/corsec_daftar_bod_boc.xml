@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="corsec_daftar_bod_action" model="ir.actions.act_window">
+        <field name="name">Corsec Daftar BOD</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">corsec.daftar.bod.boc</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN Corsec and Legal - Daftar BOD - BOC
+            </p>
+        </field>
+    </record>
+
+    <record id="corsec_daftar_bod_tree" model="ir.ui.view">
+        <field name="name">corsec.daftar.bod.boc.tree</field>
+        <field name="model">corsec.daftar.bod.boc</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="jabatan"/>
+                <field name="jangka_waktu"/>
+                <field name="no_akta"/>
+                <field name="tanggal_akta"/>
+                <field name="waktu_pengangkatan"/>
+                <field name="berakhir"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="corsec_daftar_bod_search" model="ir.ui.view">
+        <field name="name">corsec.daftar.bod.boc.search</field>
+        <field name="model">corsec.daftar.bod.boc</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="jabatan"/>
+                <field name="jangka_waktu"/>
+                <field name="no_akta"/>
+                <field name="tanggal_akta"/>
+                <field name="waktu_pengangkatan"/>
+                <field name="berakhir"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="corsec_daftar_bod_form" model="ir.ui.view">
+        <field name="name">corsec.daftar.bod.boc.form</field>
+        <field name="model">corsec.daftar.bod.boc</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="jabatan"/>
+                        <field name="jangka_waktu"/>
+                        <field name="no_akta"/>
+                        <field name="tanggal_akta"/>
+                    </group>
+                    <group>
+                        <field name="waktu_pengangkatan"/>
+                        <field name="berakhir"/>
+                        <field name="keterangan"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

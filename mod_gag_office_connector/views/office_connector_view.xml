@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+         <record id="view_oa_api_hit_logs_form" model="ir.ui.view">
+        <field name="name">oa.api.hit.logs.form</field>
+        <field name="model">oa.api.hit.logs</field>
+        <field name="arch" type="xml">
+            <form string="API Hit Log" delete="false" edit="false" create="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Trading Partner Name" readonly="1"/>
+                            <field name="status" string="Status Code" readonly="1"/>
+                            <field name="token_number" string="Token Number" readonly="1"/>
+                            <field name="api_id" string="API Name" readonly="1"/>
+                            <field name="message" string="Response Message" readonly="1" colspan="2"/>
+                            <field name="timestamp" string="Timestamp" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="filters_applied" string="Filters Applied" readonly="1" colspan="2"/>
+                            <field name="record_limit" string="Limit" readonly="1" colspan="2"/>
+                            <field name="record_offset" string="Offset" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+       <record id="view_oa_api_hit_logs_tree" model="ir.ui.view">
+        <field name="name">oa.api.hit.logs.tree</field>
+        <field name="model">oa.api.hit.logs</field>
+        <field name="arch" type="xml">
+            <tree string="API Hit Logs" create="false" edit="false" delete="false">
+                <field name="name" string="Trading Partner Name" options="{'no_edit':True,'no_create':True}"/>
+                <field name="status" string="Status Code" options="{'no_edit':True,'no_create':True}"/>
+                <field name="token_number" string="Token Number" options="{'no_edit':True,'no_create':True}"/>
+                <field name="api_id" string="API Name" options="{'no_edit':True,'no_create':True}"/>
+                <field name="filters_applied" string="Filters Applied" options="{'no_edit':True,'no_create':True}"/>
+                <field name="record_limit" string="Record Limit" options="{'no_edit':True,'no_create':True}"/>
+                <field name="record_offset" string="Record Offset" options="{'no_edit':True,'no_create':True}"/>
+                <field name="message" string="Response Message" options="{'no_edit':True,'no_create':True}"/>
+                <field name="timestamp" string="Timestamp" options="{'no_edit':True,'no_create':True}"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Action for 200 OK Logs -->
+    <record id="action_api_logs_200" model="ir.actions.act_window">
+        <field name="name">200 OK Logs</field>
+        <field name="res_model">oa.api.hit.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status', '=', 200),('api_id', '=', context.get('default_api_id'))]</field>
+    </record>
+
+    <!-- Action for 400 Error Logs -->
+    <record id="action_api_logs_400" model="ir.actions.act_window">
+        <field name="name">400 Error Logs</field>
+        <field name="res_model">oa.api.hit.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status', '=', 400),('api_id', '=', context.get('default_api_id2'))]</field>
+    </record>
+
+    <!-- Action for 500 Error Logs -->
+    <record id="action_api_logs_500" model="ir.actions.act_window">
+        <field name="name">500 Error Logs</field>
+        <field name="res_model">oa.api.hit.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status', '=', 500),('api_id', '=', context.get('default_api_id3'))]</field>
+    </record>
+    <record id="action_office_connector" model="ir.actions.act_window">
+        <field name="name">REST API</field>
+        <field name="res_model">office.connector.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_tree_office_connector" model="ir.ui.view">
+        <field name="name">office.connector.config.tree</field>
+        <field name="model">office.connector.config</field>
+        <field name="arch" type="xml">
+            <tree string="Office Connector Configurations">
+                <field name="name" optional="show"/>
+                <field name="trading_partner_name" optional="show" widget="many2many_tags"/>
+                <field name="sync_model" optional="show"/>
+                <field name="sync_rule" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="create_uid" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_form_office_connector" model="ir.ui.view">
+        <field name="name">office.connector.config.form</field>
+        <field name="model">office.connector.config</field>
+        <field name="arch" type="xml">
+            <form string="Office Connector Configuration">
+                 <header>
+                     <field name="hide_css"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" >
+                                <button name="%(action_api_logs_200)d" type="action" class="oe_stat_button" icon="fa-check" style="width:200px;" context="{'default_api_id': id}">
+                                     <div class="o_stat_info">
+                                            <field string="Count Of Hits" name="count_200" class="o_stat_value"/>
+                                            <span class="o_stat_text">200 Success</span>
+                                     </div>
+                                </button>
+                                 <button name="%(action_api_logs_400)d" type="action" class="oe_stat_button" icon="fa-times" style="width:200px;" context="{'default_api_id2': id}">
+                                     <div class="o_stat_info">
+                                            <field string="Count Of Hits" name="count_400" class="o_stat_value"/>
+                                            <span class="o_stat_text">400 Query Issues</span>
+                                     </div>
+                                </button>
+                                 <button name="%(action_api_logs_200)d" type="action" class="oe_stat_button" icon="fa-bug" style="width:200px;" context="{'default_api_id3': id}">
+                                     <div class="o_stat_info">
+                                            <field string="Count Of Hits" name="count_500" class="o_stat_value"/>
+                                            <span class="o_stat_text">500 Other Issues</span>
+                                     </div>
+                                </button>
+                    </div>
+                    <group>
+                         <group>
+                            <field name="name"  attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
+                            <field name="token" readonly="1" style="background-color: RGB(77,23,153);border-radius: 4%; padding: 2px;color: white;" attrs="{'style': [('token', '!=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="sync_model" attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
+                            <field name="sync_rule" attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
+                            <field name="btn_visible" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                            <div class="row" style="margin-left:1px;margin-right:10px;">
+                                        <h6>Partners :</h6>
+                                        <field name="trading_partner_name" widget="many2many_tags" class="oe_inline col-md-12"/>
+                            </div>
+                    </group>
+                    <group>
+                            <div class="row" style="margin-left:1px;margin-right:10px;">
+                                        <h6>Fields :</h6>
+                                    <field name="sync_fields" widget="many2many_tags" class="oe_inline col-md-12"/>
+                            </div>
+                    </group>
+                    <notebook>
+                        <page string="API Hit Logs">
+                            <field name="id_api_log" options="{'no_edit':True}">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="name" readonly="1"/>
+                                    <field name="status" readonly="1"/>
+                                    <field name="message" readonly="1"/>
+                                    <field name="token_number" readonly="1"/>
+                                    <field name="filters_applied" readonly="1"/>
+                                    <field name="record_limit" readonly="1"/>
+                                    <field name="record_offset" readonly="1"/>
+                                    <field name="timestamp" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

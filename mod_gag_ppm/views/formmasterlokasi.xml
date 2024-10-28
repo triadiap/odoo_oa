@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--    ini tampilan tabel depan-->
+    <record id="activity_location_tree" model="ir.ui.view">
+        <field name="name">daftar.lokasi.tree</field>
+        <field name="model">daftar.lokasi</field>
+        <field name="arch" type="xml">
+            <tree string="Locations" editable="bottom">
+                <field name="kode_lokasi"/>
+                <field name="name"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="activity_location_action" model="ir.actions.act_window">
+        <field name="name">Activity Locations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">daftar.lokasi</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="domain"></field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your master data here !
+            </p>
+        </field>
+    </record>
+    <menuitem id="ppm_location_master"
+              name="Location Master"
+              sequence="90"
+              action="activity_location_action"
+              parent="ppm_configuration_root"/>
+</odoo>

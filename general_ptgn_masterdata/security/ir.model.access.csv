@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ptgn_md,access.ptgn.md,model_ptgn_md,,1,1,1,1
+access_ptgn_md_satker,access.ptgn.md.satker,model_ptgn_md_satker,,1,1,1,1

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_lkh_action" model="ir.actions.act_window">
+        <field name="name">MO Laporan Kerja Harian</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.lkh.main</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Laporan Kegiatan Harian (LKH) Mitra
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_lkh_tree" model="ir.ui.view">
+        <field name="name">mo.lkh.main.form</field>
+        <field name="model">mo.lkh.main</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="report_date"/>
+                <field name="shift"/>
+                <field name="mitra"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_lkh_form" model="ir.ui.view">
+        <field name="name">mo.lkh.main.form</field>
+        <field name="model">mo.lkh.main</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="report_date" />
+                        <field name="shift" />
+                        <field name="mitra" />
+                    </group>
+                </group>
+                <separator/>
+                <notebook>
+                    <page string="Barging Activity" name="barging_activity">
+                        <field name="barge_items">
+                            <tree editable="bottom">
+                                <field name="barge_no" width="50"/>
+                                <field name="rit_count" width="20"/>
+                                <field name="barge_buldozer" width="30"/>
+                                <field name="barge_excavator" width="30"/>
+                                <field name="barge_alat_angkut" width="30"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Ore Material" name="ore_material">
+                        <field name="ore_items">
+                            <tree editable="bottom">
+                                <field name="location" />
+                                <field name="ore_adt_rit_count"/>
+                                <field name="ore_dt_rit_count" />
+                                <field name="ore_buldozer" />
+                                <field name="ore_excavator" />
+                                <field name="ore_alat_angkut" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="OB Material" name="ob_material">
+                        <field name="ob_items">
+                            <tree editable="bottom">
+                                <field name="location" />
+                                <field name="ob_adt_topsoil" />
+                                <field name="ob_dt_topsoil" />
+                                <field name="ob_adt_limonit" />
+                                <field name="ob_dt_limonit" />
+                                <field name="ob_adt_waste" />
+                                <field name="ob_dt_waste" />
+                                <field name="ob_adt_develop" />
+                                <field name="ob_dt_develop" />
+                                <field name="ob_buldozer" />
+                                <field name="ob_excavator" />
+                                <field name="ob_alat_angkut" />
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Weather Report and Other Information" name="weather_and_other">
+                        <group>
+                            <group>
+                                <separator string="Standby Unsafe Condition / Other" />
+                                <field name="standby_unsafe_buldozer" />
+                                <field name="standby_unsafe_excavator" />
+                                <field name="standby_unsafe_alat_angkut" />
+                            </group>
+                            <group>
+                                <separator string="Standby No Operator" />
+                                <field name="standby_no_op_buldozer" />
+                                <field name="standby_no_op_excavator" />
+                                <field name="standby_no_op_alat_angkut" />
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <separator string="Equipment Support"/>
+                                <field name="bool_mh"/>
+                                <field name="bool_ft"/>
+                                <field name="bool_wt"/>
+                                <field name="bool_vb"/>
+                                <field name="bool_mg"/>
+                            </group>
+                            <group>
+                                <separator string="Weather Report"/>
+                                <field name="rain_prod_from"/>
+                                <field name="rain_prod_to"/>
+                                <separator/>
+                                <field name="rain_brg_from"/>
+                                <field name="rain_brg_to"/>
+                                <separator/>
+                                <field name="slippery_prod_from"/>
+                                <field name="slippery_prod_to"/>
+                                <separator/>
+                                <field name="slippery_brg_from"/>
+                                <field name="slippery_brg_to"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Activity and Delay Information" name="activity_and_delay">
+                        <separator string="Activity Detail"/>
+                        <field name="act_items">
+                            <tree editable="bottom">
+                                <field name="act_start"/>
+                                <field name="act_stop"/>
+                                <field name="activity_detail"/>
+                            </tree>
+                        </field>
+
+                        <separator string="Delay Information"/>
+                        <field name="delay_items">
+                            <tree editable="bottom">
+                                <field name="location"/>
+                                <field name="delay_item"/>
+                                <field name="jam_delay"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+</odoo>

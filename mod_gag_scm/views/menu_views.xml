@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_gag_oa_scm_root" name="SCM"     
+        web_icon="mod_gag_scm,static/description/icon.png"
+        sequence="1"/>
+
+    <menuitem id="menu_gag_oa_scm_input"
+              name="Input Data"
+              parent="menu_gag_oa_scm_root"/>              
+    <menuitem id="menu_gag_oa_scm_nomor_surat"
+              name="Nomor Surat"
+              parent="menu_gag_oa_scm_input"
+              action="gag_oa_scm_document_number_action"/>    
+    <menuitem id="menu_gag_oa_scm_evaluasi"
+              name="Evaluasi Vendor"
+              parent="menu_gag_oa_scm_input"
+              action="gag_oa_scm_evaluasi_action"/>   
+    <menuitem id="menu_gag_oa_scm_evaluasi_summary"
+              name="Evaluasi Vendor Summary"
+              parent="menu_gag_oa_scm_input"
+              action="gag_oa_scm_evaluasi_summary_action"/>    
+</odoo>

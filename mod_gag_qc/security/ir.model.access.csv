@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gag_oa_qc_daily_production,access.gag.oa.qc.daily.production,model_gag_oa_qc_daily_production,,1,1,1,1
+access_gag_oa_qc_daily_production_detail,access.gag.oa.qc.daily.production.detail,model_gag_oa_qc_daily_production_detail,,1,1,1,1
+access_gag_oa_qc_daily_production_barging,gag.oa.qc.daily.production.barging,model_gag_oa_qc_daily_production_barging,,1,1,1,1
+access_gag_oa_qc_monthly_production,access.gag.oa.qc.monthly.production,model_gag_oa_qc_monthly_production,,1,1,1,1
+access_gag_oa_qc_monthly_production_detail,access.gag.oa.qc.monthly.production.detail,model_gag_oa_qc_monthly_production_detail,,1,1,1,1
+access_gag_oa_qc_barging,access.gag.oa.qc.barging,model_gag_oa_qc_barging,base.group_user,1,1,1,1
+access_gag_oa_qc_barging_detail,access.gag.oa.qc.barging.detail,model_gag_oa_qc_barging_detail,base.group_user,1,1,1,1
+access_gag_oa_qc_stockopname,access.gag.oa.qc.stockopname,model_gag_oa_qc_stockopname,,1,1,1,1
+access_gag_oa_qc_stockopnname_detail,access.gag.oa.qc.stockopname.detail,model_gag_oa_qc_stockopname_detail,,1,1,1,1

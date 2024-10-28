@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_input_parts_inherits" model="ir.ui.view">
+        <field name="name">Input Parts With Notebook</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <notebook>
+                    <page string="Penggantian Sparepart">
+                        <field name="id_maintenance">
+                            <tree editable="bottom">
+                                <field name="part_number"/>
+                                <field name="stok_sparepart"/>
+                                <field name="consumption_qty"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

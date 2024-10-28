@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="example_record_1" model="oa.approval.reason">
+        <field name="name">Data sudah sesuai</field>
+        <field name="oa_ar_code">AR001</field>
+        <field name="oa_ar_summary">Data Sesuai</field>
+    </record>
+    <record id="example_record_2" model="oa.approval.reason">
+        <field name="name">Data sudah lengkap</field>
+        <field name="oa_ar_code">AR002</field>
+        <field name="oa_ar_summary">Data Sesuai</field>
+    </record>
+</odoo>

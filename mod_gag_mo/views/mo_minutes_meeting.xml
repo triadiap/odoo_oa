@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_minutes_meeting_action" model="ir.actions.act_window">
+        <field name="name">MO Minutes Meeting</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.minutes.meeting</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Minutes Meeting
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_minutes_meeting_search" model="ir.ui.view">
+        <field name="name">mo.minutes.meeting.search</field>
+        <field name="model">mo.minutes.meeting</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tanggal_waktu"/>
+                <field name="tempat"/>
+                <field name="topik_rapat"/>
+                <field name="peserta"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_minutes_meeting_tree" model="ir.ui.view">
+        <field name="name">mo.minutes.meeting.tree</field>
+        <field name="model">mo.minutes.meeting</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="tanggal_waktu"/>
+                <field name="tempat"/>
+                <field name="topik_rapat"/>
+                <field name="peserta"/>
+                <field name="distribusi"/>
+                <field name="mom_writer"/>
+                <field name="detail"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_minutes_meeting_form" model="ir.ui.view">
+        <field name="name">mo.minutes.meeting.form</field>
+        <field name="model">mo.minutes.meeting</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <h4>Detail Rapat</h4>
+                        <field name="tanggal_waktu"/>
+                        <field name="tempat"/>
+                        <field name="topik_rapat"/>
+                        <field name="peserta"/>
+                        <field name="distribusi"/>
+                        <field name="mom_writer"/>
+                    </group>
+                </group>
+                <field name="detail">
+                    <tree editable="bottom">
+                        <field name="pokok_rapat"/>
+                        <field name="action_plan"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

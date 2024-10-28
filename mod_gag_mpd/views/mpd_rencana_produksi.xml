@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mpd_rencana_produksi_action" model="ir.actions.act_window">
+        <field name="name">MPD Berita Acara Rencana Produksi dan Pengapalan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mpd.rencana.produksi</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MPD - Berita Acara Rencana Produksi dan Pengapalan
+            </p>
+        </field>
+    </record>
+
+    <record id="mpd_rencana_produksi_tree" model="ir.ui.view">
+        <field name="name">mpd.rencana.produksi.tree</field>
+        <field name="model">mpd.rencana.produksi</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="mitra"/>
+                <field name="ore"/>
+                <field name="waste"/>
+                <field name="sr"/>
+                <field name="density_ore"/>
+                <field name="pengapalan"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mpd_rencana_produksi_search" model="ir.ui.view">
+        <field name="name">mpd.rencana.produksi.search</field>
+        <field name="model">mpd.rencana.produksi</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="mitra"/>
+                <field name="ore"/>
+                <field name="waste"/>
+                <field name="sr"/>
+                <field name="density_ore"/>
+                <field name="pengapalan"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mpd_rencana_produksi_form" model="ir.ui.view">
+        <field name="name">mpd.rencana.produksi.form</field>
+        <field name="model">mpd.rencana.produksi</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_approval_1"
+                        type="object" string="Approval MPD Manager"
+                        class="oe_highlight"
+                        attrs="{'invisible' : ['|', ('id', '=', False), ('state', '!=', 'draft')]}"/>
+                    <button name="action_approval_2"
+                            type="object" string="Approval QC Manager"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'approval_1')]}"/>
+                    <button name="action_approval_3"
+                            type="object" string="Approval MO Manager"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'approval_2')]}"/>
+                    <button name="action_approval_4"
+                            type="object" string="Approval General Manager"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'approval_3')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approval_1,approval_2,approval_3,approval_4"/>
+                </header>
+                <group>
+                    <group>
+                        <field name="month"/>
+                        <field name="year"/>
+                        <field name="mitra"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="1. Produksi">
+                        <field name="ore"/>
+                        <field name="waste"/>
+                        <field name="sr"/>
+                        <field name="density_ore"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="2. Pengapalan">
+                        <field name="pengapalan"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <field name="file"/>
+                    </group>
+                </group>
+                <separator/>
+                <field name="item_harian">
+                    <tree editable="bottom">
+                        <field name="tanggal"/>
+                        <field name="ore"/>
+                        <field name="limonit"/>
+                        <field name="waste"/>
+                        <field name="top_soil"/>
+                        <field name="matmove"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

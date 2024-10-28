@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_backend" name = "Dashboard Assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <script type="text/javascript" src="/mod_gag_bi/static/js/dashboard.js"></script>
+                <script type="text/javascript" src="/mod_gag_bi/static/js/ppmbudget.js"></script>
+                <script type="text/javascript" src="/mod_gag_bi/static/js/sales.js"></script>
+                <link rel="stylesheet" type="text/css" href="/mod_gag_ppm/static/lib/datatables.min.css"/>
+                <script type="text/javascript" src="/mod_gag_bi/static/lib/datatables.min.js"></script>
+                <script type="text/javascript" src="/mod_gag_bi/static/lib/chart.js"></script>
+            </xpath>
+    </template>
+</odoo>

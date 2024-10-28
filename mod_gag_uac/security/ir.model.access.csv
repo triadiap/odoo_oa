@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_custom_menu_access,access.custom.menu.access,model_custom_menu_access,base.group_user,1,1,1,1
+access_approval_route,access.approval.route,model_approval_route,base.group_user,1,1,1,1
+access_approval_step,access.approval.step,model_approval_step,base.group_user,1,1,1,1
+access_oa_document_workflow_config,access.oa.document.workflow.config,model_oa_document_workflow_config,base.group_user,1,1,1,1
+access_oa_document_type,access.oa.document.type,model_oa_document_type,base.group_user,1,1,1,1
+access_oa_documenttype_approvalroute,access.oa.documenttype.approvalroute,model_oa_documenttype_approvalroute,base.group_user,1,1,1,1
+access_oa_documenttype_approvalstep,access.oa.documenttype.approvalstep,model_oa_documenttype_approvalstep,base.group_user,1,1,1,1
+access_oa_refusal_reason,access.oa.refusal.reason,model_oa_refusal_reason,base.group_user,1,1,1,1
+access_oa_approval_reason,access.oa.approval.reason,model_oa_approval_reason,base.group_user,1,1,1,1

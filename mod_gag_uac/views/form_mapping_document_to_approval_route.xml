@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_document_workflow_by_group_form" model="ir.ui.view">
+        <field name="name">oa.documenttype.approvalroute.form</field>
+        <field name="model">oa.documenttype.approvalroute</field>
+        <field name="arch" type="xml">
+            <form string="Document Workflow By User Group">
+                <sheet>
+                    <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="group_id" options="{'no_create': True,'no_edit': True}"/>
+                            </group>
+                            <group>
+                                <field name="document_type_id" options="{'no_create': True,'no_edit': True}"/>
+                            </group>
+                    </group>
+                    <field name="step_ids" widget="one2many_list">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="user_id" options="{'no_create': True,'no_edit': True}"/>
+                            <field name="sequence"/>
+                            <field name="required_approval"/>
+                        </tree>
+                    </field>
+                </sheet>
+                <div class="oe_chatter">
+                     <field name="activity_ids"/>
+                     <field name="message_ids"/>
+                 </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_document_workflow_by_group_tree" model="ir.ui.view">
+        <field name="name">oa.documenttype.approvalroute.tree</field>
+        <field name="model">oa.documenttype.approvalroute</field>
+        <field name="arch" type="xml">
+            <tree string="Document Workflow By User Group">
+                <field name="name"/>
+                <field name="group_id"/>
+                <field name="document_type_id"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="write_date"/>
+                <field name="write_uid"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="document_workflow_by_group_action" model="ir.actions.act_window">
+        <field name="name">Document Workflow By User Group</field>
+        <field name="res_model">oa.documenttype.approvalroute</field>
+        <field name="view_id" ref="view_document_workflow_by_group_tree"/>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

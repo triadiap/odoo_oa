@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <menuitem id="corsec_legal_root" web_icon="mod_gag_corsec_legal,static/description/CORSEC_LEGAL.png" name="Corsec and Legal" sequence="10"/>
+    <menuitem id="cl_list_akta_root" name="List Akta Notaris" parent="corsec_legal_root" sequence="10" action="corsec_list_akta_action"/>
+    <menuitem id="cl_daftar_bod_boc_root" name="Daftar BOD - BOC" parent="corsec_legal_root" sequence="20" action="corsec_daftar_bod_action"/>
+    <menuitem id="cl_daftar_izin_root" name="Daftar Izin" parent="corsec_legal_root" sequence="30" action="corsec_daftar_izin_action"/>
+    <menuitem id="cl_risalah_rapat_direksi_root" name="Risalah Rapat Direksi" parent="corsec_legal_root" sequence="40" action="corsec_risalah_rapat_direksi_action"/>
+    <menuitem id="cl_risalah_rapat_komisaris_root" name="Risalah Rapat Komisaris" parent="corsec_legal_root" sequence="50" action="corsec_risalah_rapat_komisaris_action"/>
+</odoo>

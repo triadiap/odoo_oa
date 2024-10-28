@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<template xml:space="preserve">
+    <t t-name="MyDashboard">
+            <div class="o_action o_view_controller">
+                    <div class="o_control_panel">
+                        <div class="o_cp_top">
+                            <div class="o_cp_top_left">
+                                <ol role="navigation" class="breadcrumb">
+                                    <li class="breadcrumb-item active">List Of Components</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="o_content o_controller_with_searchpanel">
+                        <div class="o_search_panel">
+                            <section class="o_search_panel_section o_search_panel_category">
+                                <header class="o_search_panel_section_header text-uppercase">
+                                    <i class="fa fa-folder o_search_panel_section_icon mr-2"></i>
+                                    <b>Samples</b>
+                                </header>
+                                 <ul class="list-group d-block o_search_panel_field">
+                                     <div id="listofmenu"></div>
+                                </ul>
+                            </section>
+                        </div>
+                        <div class="o_kanban_view o_modules_kanban o_renderer_with_searchpanel o_kanban_ungrouped">
+                            <div id="my_div" class="col-md-12"></div>
+                        </div>
+                    </div>
+            </div>
+    </t>
+</template>

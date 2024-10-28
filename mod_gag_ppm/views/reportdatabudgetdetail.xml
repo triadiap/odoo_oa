@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_expense_perpillar_report_search" model="ir.ui.view">
+        <field name="name">expense.report.perpillar.search</field>
+        <field name="model">expense.report.perpillar</field>
+        <field name="arch" type="xml">
+            <search string="Budget And Expense Report Search">
+                <field name="fiscal_year" filter_domain="[('fiscal_year', '=', self)]" string="Fiscal Year"/>
+                <separator/>
+                <filter string ="By Year" name="fiscal_year"/>
+            </search>
+        </field>
+    </record>
+    <record id="view_tree_expense_report_perpillar" model="ir.ui.view">
+            <field name="name">expense.report.perpillar.tree</field>
+            <field name="model">expense.report.perpillar</field>
+            <field name="arch" type="xml">
+                <tree string="Expense Report Per Pillar">
+                    <field name="pillarname"/>
+                    <field name="fiscal_year" widget="Char"/>
+                    <field name="jmlsubtotal"/>
+                </tree>
+            </field>
+    </record>
+    <record id="view_expense_perpillar_report_chart" model="ir.ui.view">
+        <field name="name">expense.report.perpillar.chart</field>
+        <field name="model">expense.report.perpillar</field>
+        <field name="arch" type="xml">
+            <graph string="Expense Report Per Pillar" type="bar">
+                <field name="pillarname" type="row"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="jmlsubtotal" type="measure" string="Total Expense" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="fiscal_year" type="col"/>
+            </graph>
+        </field>
+    </record>
+    <record id="view_budget_expense_monthly_report_search" model="ir.ui.view">
+        <field name="name">budget.expense.monthly.report.search</field>
+        <field name="model">budget.expense.monthly.report</field>
+        <field name="arch" type="xml">
+            <search string="Budget And Expense Report Search">
+                <field name="tahunanggaran" filter_domain="[('tahunanggaran', '=', self)]" string="Year"/>
+            </search>
+        </field>
+    </record>
+    <record id="view_budget_expense_monthly_report_chart" model="ir.ui.view">
+        <field name="name">budget.expense.monthly.report.chart</field>
+        <field name="model">budget.expense.monthly.report</field>
+        <field name="arch" type="xml">
+            <graph string="Monthly Budget and Expense Report" type="line">
+                <field name="month_name" type="row"/>
+                <field name="total_budget" type="measure" string="Total Budget"/>
+                <field name="total_expense" type="measure" string="Total Expense"/>
+                <field name="tahunanggaran" type="col"/>
+            </graph>
+        </field>
+    </record>
+     <record id="view_ppm_budget_matrix_pivot" model="ir.ui.view">
+        <field name="name">detail.anggaran.perbulan.pivot</field>
+        <field name="model">detail.anggaran.perbulan</field>
+        <field name="arch" type="xml">
+            <pivot string="Budget Details">
+                <!-- Date as column -->
+                <field name="date_of_fiscal" type="col" interval="month"/>
+                <field name="tahun_budget" type="row"/>
+                <field name="budget_activity_category" type="row"/>
+                <field name="namapillar" type="row"/>
+                <field name="keterangan_budget" type="row"/>
+                <field name="nilai_anggaran" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+     <record id="view_ppm_tracking_search" model="ir.ui.view">
+        <field name="name">detail.anggaran.perbulan.search</field>
+        <field name="model">detail.anggaran.perbulan</field>
+        <field name="arch" type="xml">
+            <search string = "Nama Pillar">
+                <group expand="0" string="Group By">
+                        <filter string = "Pillar Name" name="group_namapillar" domain="[]" context="{'group_by':'namapillar'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="view_ppm_tracking" model="ir.ui.view">
+        <field name="name">detail.anggaran.perbulan.tree.two</field>
+        <field name="model">detail.anggaran.perbulan</field>
+        <field name="arch" type="xml">
+            <tree create="false" expand="1" >
+                <field name="tahun_budget" optional="show"/>
+                <field name="budget_status" optional="show"/>
+                <field name="budget_activity_type" optional="show"/>
+                <field name="budget_activity_category" optional="show"/>
+                <field name="namapillar" optional="show"/>
+                <field name="budgetid" optional="show"/>
+                <field name="budgetname" optional="show"/>
+                <field name="keterangan_budget" optional="show"/>
+                <field name="activity_start_date" optional="show"/>
+                <field name="activity_end_date" optional="show"/>
+                <field name="duration" optional="show"/>
+                <field name="location_ids"  widget="many2many_tags"/>
+                <field name="nilai_anggaran" optional="show" />
+                <field name="total_expenses" optional="show"/>
+                <field name="percentage_of_expense" widget="float_percent" optional="show"/>
+                <field name="amount_balance" optional="show"/>
+                <field name="percentage_of_balance" optional="show" widget="float_percent"/>
+            </tree>
+        </field>
+    </record>
+    <record id="ppm_tracking_action" model="ir.actions.act_window">
+        <field name="name">PPM Tracking</field>
+        <field name="res_model">detail.anggaran.perbulan</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_ppm_tracking"/>
+        <field name="context">{'search_default_group_namapillar':True}</field>
+    </record>
+
+    <record id="action_budgetmatrix_pivot" model="ir.actions.act_window">
+        <field name="name">Monthly Budget</field>
+        <field name="res_model">detail.anggaran.perbulan</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_ppm_budget_matrix_pivot"/>
+    </record>
+
+    <record id="action_budget_expense_monthly_report" model="ir.actions.act_window">
+        <field name="name">Monthly Budget and Expense Report</field>
+        <field name="res_model">budget.expense.monthly.report</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_budget_expense_monthly_report_chart"/>
+         <field name="context">{}</field>
+    </record>
+    <record id="action_expense_perpillar_report" model="ir.actions.act_window">
+        <field name="name">Yearly Expense Per Pillar</field>
+        <field name="res_model">expense.report.perpillar</field>
+        <field name="view_mode">graph,tree</field>
+        <field name="view_id" ref="view_expense_perpillar_report_chart"/>
+         <field name="context">{}</field>
+    </record>
+
+     <menuitem id="ppm_reporting_root"
+              name="Reporting"
+              sequence="80"
+              parent="ppm_leftbar_menu"
+              />
+    <menuitem id="ppm_budgetingprogress_root"
+              name="PPM Tracking"
+              sequence="10"
+              parent="ppm_reporting_root"
+              action="ppm_tracking_action"
+              />
+    <menuitem id="ppm_budgetmatrix_root"
+              name="Monthly Budget"
+              sequence="20"
+              parent="ppm_reporting_root"
+              action="action_budgetmatrix_pivot"
+              />
+     <menuitem id="ppm_budgetexpense_root"
+              name="Monthly Budget vs Expense"
+              sequence="40"
+              parent="ppm_reporting_root"
+              action="action_budget_expense_monthly_report"
+              />
+     <menuitem id="ppm_expensesperpillar_root"
+              name="Yearly Expense Per Pillar"
+              sequence="50"
+              parent="ppm_reporting_root"
+              action="action_expense_perpillar_report"
+              />
+</odoo>

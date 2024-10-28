@@ -1,0 +1,28 @@
+{
+    'name': 'PTGN User Access',
+    'version': '14.0.0.1.0',
+    'summary': 'Office Automation User Access Control',
+    'sequence': -100,
+    'description': """This module has been build for PT GAG Office Automation User Access Management""",
+    'category': 'Tools',
+    'author': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
+    'website': 'https://icsp.co.id',
+    'depends': ['base','mail'],
+    'data': [
+        'security/ir.model.access.csv',
+        'security/user_access_groups.xml',
+        'views/user_access_views.xml',
+        'views/approval_route_views.xml',
+        'views/document_workflow.xml',
+        'views/form_input_document.xml',
+        'views/form_mapping_document_to_approval_route.xml',
+        'views/master_cancelation_reason.xml',
+        'views/master_approval_reason.xml',
+        'views/menu_views.xml'
+    ],
+    'demo': [],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+}

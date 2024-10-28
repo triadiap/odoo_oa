@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_budget_transaction_approval_form_wizard" model="ir.ui.view">
+        <field name="name">transaction.approval.wizard.form</field>
+        <field name="model">transaction.approval.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Budget Transaction Approval">
+                <group>
+                    <group>
+                        <field name="budget_transaction_id" invisible="1"/>
+                        <field name="approval_reason_id"/>
+                        <field name="approval_note"/>
+                        <field name="approval_route_id" invisible="1"/>
+                        <field name="current_step_id" invisible="1"/>
+                        <field name="existing_status" invisible="1"/>
+                        <field name="upcoming_status" invisible="1"/>
+                        <field name="pending_approval_by" invisible="1"/>
+                    </group>
+
+                </group>
+                <footer>
+                    <button string="Confirm" name="action_confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <!-- Wizard Action -->
+    <record id="budget_transaction_approval_form_wizard_action" model="ir.actions.act_window">
+        <field name="name">Budget Transaction Approval</field>
+        <field name="res_model">transaction.approval.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_related_field': active_id}</field>
+    </record>
+</odoo>

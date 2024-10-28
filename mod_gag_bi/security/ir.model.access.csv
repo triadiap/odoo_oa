@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oa_master_vendor,access.oa.master.vendor,model_oa_master_vendor,,1,1,1,1
+access_bi_planactual_production,access.bi.planactual.production,model_bi_planactual_production,,1,1,1,1
+access_gag_bi_config_ppm,access_gag_bi_config_ppm,model_gag_bi_config_ppm,,1,1,1,1
+access_gag_bi_config_production,access_gag_bi_config_production,model_gag_bi_config_production,,1,1,1,1
+access_gag_bi_config_sales,access_gag_bi_config_sales,model_gag_bi_config_sales,,1,1,1,1

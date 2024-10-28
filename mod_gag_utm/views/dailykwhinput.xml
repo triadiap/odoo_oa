@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--    modal form-->
+    <record id="view_from_hourly_kwh_input" model="ir.ui.view">
+        <field name="name">oa.hourly.kwh.form</field>
+        <field name="model">oa.hourly.kwh</field>
+        <field name="arch" type="xml">
+            <form string="Detail Input Per Hour">
+                <sheet>
+                    <group>
+                         <group string = "">
+                             <field name="operational_time" widget="time" string="Time"/>
+                             <field name="jml_kw"/>
+                             <field name="jml_daya"/>
+                             <field name="jml_kwh_per_jam"/>
+                             <field name="kwh_input"/>
+                        </group>
+                        <group>
+                                <h4>Voltage (V)</h4>
+                                <field name="volt_r_n"/>
+                                <field name="volt_s_n"/>
+                                <field name="volt_t_n"/>
+                                <separator colspan="8" string=" " />
+                                <h4>Ampere (A)</h4>
+                                <field name="arus_r"/>
+                                <field name="arus_s"/>
+                                <field name="arus_t"/>
+                                <separator colspan="8" string=" " />
+                                <h4>Kilowatt (kw)</h4>
+                                <field name="kw_l1"/>
+                                <field name="kw_l2"/>
+                                <field name="kw_l3"/>
+                        </group>
+
+                    </group>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+    <!--  action for modal  -->
+     <record id="action_hourly_kwh_input_form" model="ir.actions.act_window">
+        <field name="name">Hourly KWH Form Inputs</field>
+        <field name="res_model">oa.hourly.kwh</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_from_hourly_kwh_input"/>
+        <field name="target">new</field> <!-- This makes the form open in a modal -->
+    </record>
+    <!--    ini tampilan tabel depan-->
+    <record id="kwh_tree" model="ir.ui.view">
+        <field name="name">daily.kwh.tree</field>
+        <field name="model">daily.kwh</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="audit_id" optional="show"/>
+                <field name="equipment_id" optional="show"/>
+                <field name="serial_number" optional="show"/>
+                <field name="equipment_type" optional="show"/>
+                <field name="manuf_year" optional="show"/>
+                <field name="equipment_capacity" optional="show"/>
+                <field name="checking_date" optional="show"/>
+                <field name="shift" optional="show"/>
+                <field name="state" optional="show"/>
+                <field name="create_uid" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+                <field name="existing_status" optional="show"/>
+                <field name="upcoming_status" optional="show"/>
+                <field name="pending_approval_by" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="kwhreportinput_form" model="ir.ui.view">
+            <field name="name">daily.kwh.form</field>
+            <field name="model">daily.kwh</field>
+            <field name="arch" type="xml">
+                    <form>
+                        <header>
+                              <button id="button-approval-process" name="action_approval_process" string="Submit To Approve" class="btn-primary" type="object" states="draft"/>
+                              <button id="button-confirm" name="%(mod_gag_utm.view_electricity_approval_form_wizard_action)d" string="Approve" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                              <button id="button-reject" name="%(mod_gag_utm.electricty_report_rejection_action)d" string="Reject" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                              <button id="button-done" name="action_done" string="Mark As Done" class="btn-primary" type="object" states="approve"/>
+                              <button id="button-draft" name="action_draft" string="Set To Draft" class="btn-primary" type="object" states="cancel" context="{'action_id': active_id}"/>
+                              <button id="button-cancel" name="action_cancel" string="Cancel" context="{'action_id': active_id}" states="done,approve,rejected" type="object"/>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,done,approval_process,approve"/>
+                        </header>
+                        <sheet>
+                             <div class="oe_button_box" name="button_box" >
+                                 <button name="action_open_budgets" type="object" class="oe_stat_button" icon="fa-calculator" style="width:200px;">
+                                     <div class="o_stat_info">
+                                            <field string="Total Kwh/Hour" name="jml_kwh_pershift" class="o_stat_value"/>
+                                            <span class="o_stat_text">Total Kwh/Hour</span>
+                                     </div>
+                                </button>
+                                 <button name="action_open_budgets" type="object" class="oe_stat_button" icon="fa-calculator" style="width:200px;">
+                                     <div class="o_stat_info">
+                                            <field string="Total KWH" name="jml_kwh" class="o_stat_value"/>
+                                            <span class="o_stat_text">Total KWH</span>
+                                     </div>
+                                 </button>
+                            </div>
+                            <div class="oe_title">
+                                <label for="audit_id" class="oe_edit_only"/>
+                                <h1>
+                                    <field name="audit_id" placeholder="Equipment Name" readonly="1" options="{'no_create': True,'no_edit': True}"/>
+                                </h1>
+                            </div>
+                            <group>
+                                <group>
+                                     <field name="equipment_id"/>
+                                     <field name="checking_date"/>
+                                     <field name="shift"/>
+                                </group>
+                                <group>
+                                    <field name="serial_number" readonly="0"/>
+                                    <field name="equipment_type" readonly="0"/>
+                                    <field name="manuf_year" readonly="0"/>
+                                    <field name="equipment_capacity" readonly="0"/>
+                                    <field name="existing_status"/>
+                                    <field name="upcoming_status"/>
+                                    <field name="pending_approval_by"/>
+                                    <field name="button_visible" invisible="1"/>
+                                </group>
+                            </group>
+                            <div class="row">
+                                    <div class="col-md-12 col-md-offset-3 text-left">
+                                        <h6>Latest Approver Commentary:</h6>
+                                    </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-12 col-md-offset-3 text-left">
+                                         <field name="latest_approval_commentary" readonly="1"/>
+                                    </div>
+                            </div>
+                            <notebook>
+                                <page string="Checklist Per Hour" name="checklist_per_hour">
+                                    <field name="id_ceklist">
+                                        <tree editable="bottom">
+                                              <field name="operational_time" widget="time" string="Time"/>
+                                              <field name="volt_r_n"/>
+                                              <field name="volt_s_n"/>
+                                              <field name="volt_t_n"/>
+                                              <field name="arus_r"/>
+                                              <field name="arus_s"/>
+                                              <field name="arus_t"/>
+                                              <field name="kwh_input"/>
+                                              <field name="kw_l1" readonly="1"/>
+                                              <field name="kw_l2" readonly="1"/>
+                                              <field name="kw_l3" readonly="1"/>
+                                              <field name="jml_kw" readonly="1"/>
+                                              <field name="jml_daya" readonly="1"/>
+                                              <field name="jml_kwh_per_jam" readonly="1"/>
+                                        </tree>
+                                    </field>
+<!--                                    <div class="oe_inline oe_right">-->
+<!--                                        <strong><field name="total_quantity_display"/></strong>-->
+<!--                                    </div>-->
+                                </page>
+                            </notebook>
+                        </sheet>
+                         <div class="oe_chatter">
+                              <field name="activity_ids"/>
+                              <field name="message_ids"/>
+                          </div>
+                    </form>
+            </field>
+    </record>
+    <record id="kwh_data_action" model="ir.actions.act_window">
+        <field name="name">Electricity Consumptions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">daily.kwh</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your document here!
+            </p>
+        </field>
+    </record>
+</odoo>

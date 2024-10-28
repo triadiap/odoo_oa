@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="module_category_office_automation" model="ir.module.category">
+        <field name="name">Office Automation</field>
+         <field name="description">Department Category For Office Automation</field>
+    </record>
+    <record id="group_office_automation_administrasi" model="res.groups">
+        <field name="name">OA-Administrasi</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_bod" model="res.groups">
+        <field name="name">OA-BOD - C</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_errd" model="res.groups">
+        <field name="name">OA-ERRD</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_extension" model="res.groups">
+        <field name="name">OA-Ext.Relation</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_finance" model="res.groups">
+        <field name="name">OA-Finance</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_hse" model="res.groups">
+        <field name="name">OA-HSE</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_jakarta" model="res.groups">
+        <field name="name">OA Jakarta</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_mo" model="res.groups">
+        <field name="name">OA-MO</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_mpd" model="res.groups">
+        <field name="name">OA-MPD</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_produksi" model="res.groups">
+        <field name="name">OA-Produksi</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_qc" model="res.groups">
+        <field name="name">OA-QC</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_riskaudit" model="res.groups">
+        <field name="name">OA-QMA Risk And Audit</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_sales" model="res.groups">
+        <field name="name">OA-Sales</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_salesandshipping" model="res.groups">
+        <field name="name">OA-Sales And Shipping</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_scm" model="res.groups">
+        <field name="name">OA-SCM</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_sorongoffice" model="res.groups">
+        <field name="name">OA-Sorong Office</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+    <record id="group_office_automation_utility" model="res.groups">
+        <field name="name">OA-Utility And Maintenance</field>
+        <field name="category_id" ref="module_category_office_automation"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_master_location_model" model="ir.ui.view">
+        <field name="name">msdata.location.tree</field>
+        <field name="model">msdata.location</field>
+        <field name="arch" type="xml">
+            <tree string="Location Master Data" editable="bottom">
+                <field name="location_name" optional="show"/>
+                <field name="location_description" optional="show"/>
+                <field name="create_uid" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+     <record id="action_master_location" model="ir.actions.act_window">
+        <field name="name">Location Master Data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">msdata.location</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+               Setup your master data here!
+            </p>
+        </field>
+    </record>
+</odoo>

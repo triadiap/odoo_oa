@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>    <!-- Main report templates -->
+    <template id="report_daily">
+        <t t-foreach="docs" t-as="daily_production">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h5>
+                            <strong>Daily Ore Stock: </strong>
+                        </h5>
+                        <h6>
+                            <strong>Date Update: </strong>
+                            <span t-field="daily_production.tanggal"/>
+                            <br/>
+                            <strong>Date As Per: </strong>
+                            <span t-field="daily_production.tanggal"/>
+                        </h6>                        
+                        <strong>Daily Stock SMA</strong>
+                        <table class="table">
+                            <tbody>                
+                                <tr>
+                                    <td>Material Class</td>
+                                    <td>Ni Range</td>
+                                    <td>Tonnage</td>
+                                    <td>Ni</td>
+                                    <td>Co</td>
+                                    <td>Fe</td>
+                                    <td>Si</td>
+                                    <td>Ca</td>
+                                    <td>Mg</td>
+                                    <td>Bc</td>
+                                    <td>Ready To Barge</td>
+                                </tr>
+                                <tr>
+                                    <td>HGO</td>
+                                    <td>Ni ≥ 1.80</td>
+                                    <td><span t-field="daily_production.total_tonnage_hi_sma"/></td>
+                                    <td><span t-field="daily_production.total_ni_hi"/></td>
+                                    <td><span t-field="daily_production.total_co_hi"/></td>
+                                    <td><span t-field="daily_production.total_fe_hi"/></td>
+                                    <td><span t-field="daily_production.total_si_hi"/></td>
+                                    <td><span t-field="daily_production.total_ca_hi"/></td>
+                                    <td><span t-field="daily_production.total_mg_hi"/></td>
+                                    <td><span t-field="daily_production.total_bc_hi"/></td>
+                                    <td colspan="3"><span t-field="daily_production.total_tonnage_ready_sma"/></td>
+                                </tr>
+                                <tr>
+                                    <td>MGO</td>
+                                    <td>1.50 ≤ Ni ≤ 1.80</td>
+                                    <td><span t-field="daily_production.total_tonnage_low_sma"/></td>
+                                    <td><span t-field="daily_production.total_ni_low"/></td>
+                                    <td><span t-field="daily_production.total_co_low"/></td>
+                                    <td><span t-field="daily_production.total_fe_low"/></td>
+                                    <td><span t-field="daily_production.total_si_low"/></td>
+                                    <td><span t-field="daily_production.total_ca_low"/></td>
+                                    <td><span t-field="daily_production.total_mg_low"/></td>
+                                    <td><span t-field="daily_production.total_bc_low"/></td>
+                                </tr>
+                                <tr>
+                                    <td>LGO-sty</td>
+                                    <td>Ni &lt; 1.50 %</td>
+                                    <td><span t-field="daily_production.total_tonnage_li_sma"/></td>
+                                    <td><span t-field="daily_production.total_ni_li"/></td>
+                                    <td><span t-field="daily_production.total_co_li"/></td>
+                                    <td><span t-field="daily_production.total_fe_li"/></td>
+                                    <td><span t-field="daily_production.total_si_li"/></td>
+                                    <td><span t-field="daily_production.total_ca_li"/></td>
+                                    <td><span t-field="daily_production.total_mg_li"/></td>
+                                    <td><span t-field="daily_production.total_bc_li"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Total Ready Stock</td>
+                                    <td><span t-field="daily_production.total_tonnage_sma"/></td>
+                                    <td><span t-field="daily_production.total_ni"/></td>
+                                    <td><span t-field="daily_production.total_co"/></td>
+                                    <td><span t-field="daily_production.total_fe"/></td>
+                                    <td><span t-field="daily_production.total_si"/></td>
+                                    <td><span t-field="daily_production.total_ca"/></td>
+                                    <td><span t-field="daily_production.total_mg"/></td>
+                                    <td><span t-field="daily_production.total_bc"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <strong>Waiting Essay</strong>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table">
+                                    <tbody>                
+                                        <tr>
+                                            <td>Material</td>
+                                            <td>Tonnage</td>
+                                        </tr>           
+                                        <tr>
+                                            <td>Ore</td>
+                                            <td>0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <strong>Shipment</strong>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table class="table">
+                                    <tbody>                
+                                        <tr>
+                                            <td>Tongkang/LCT</td>
+                                            <td>Plan (wmt)</td>
+                                            <td>Loaded (wmt)</td>
+                                            <td>Cumm. (wmt)</td>
+                                            <td>Balance (wmt)</td>
+                                            <td>Progress (%)</td>
+                                        </tr>
+                                        <t t-set="details" t-value="daily_production.mapped('id_tongkang')"/>           
+                                        <tr t-foreach="details" t-as="detail">
+                                            <td><span t-field="detail.tongkang"/></td>
+                                            <td><span t-field="detail.tongkang_id.plant"/></td>
+                                            <td><span t-field="detail.tongkang_id.loaded"/></td>
+                                            <td><span t-field="detail.tongkang_id.cummulative"/></td>
+                                            <td><span t-field="detail.tongkang_id.balance"/></td>
+                                            <td><span t-field="detail.tongkang_id.progress"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-2">
+                                <table class="table">
+                                    <tbody>                
+                                        <tr>
+                                            <td>Ready To Barge(Final)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span t-field="daily_production.total_tonnage_ready_final_sma"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <strong>Daily Stock MKA</strong>
+                        <table class="table">
+                            <tbody>                
+                                <tr>
+                                    <td>Material Class</td>
+                                    <td>Ni Range</td>
+                                    <td>Tonnage</td>
+                                    <td>Ni</td>
+                                    <td>Co</td>
+                                    <td>Fe</td>
+                                    <td>Si</td>
+                                    <td>Ca</td>
+                                    <td>Mg</td>
+                                    <td>Bc</td>
+                                    <td>Ready To Barge</td>
+                                </tr>
+                                <tr>
+                                    <td>HGO</td>
+                                    <td>Ni ≥ 1.80</td>
+                                    <td><span t-field="daily_production.total_tonnage_hi_mka"/></td>
+                                    <td><span t-field="daily_production.total_ni_hi"/></td>
+                                    <td><span t-field="daily_production.total_co_hi"/></td>
+                                    <td><span t-field="daily_production.total_fe_hi"/></td>
+                                    <td><span t-field="daily_production.total_si_hi"/></td>
+                                    <td><span t-field="daily_production.total_ca_hi"/></td>
+                                    <td><span t-field="daily_production.total_mg_hi"/></td>
+                                    <td><span t-field="daily_production.total_bc_hi"/></td>
+                                    <td colspan="3"><span t-field="daily_production.total_tonnage_ready_mka"/></td>
+                                </tr>
+                                <tr>
+                                    <td>MGO</td>
+                                    <td>1.50 ≤ Ni ≤ 1.80</td>
+                                    <td><span t-field="daily_production.total_tonnage_low_mka"/></td>
+                                    <td><span t-field="daily_production.total_ni_low"/></td>
+                                    <td><span t-field="daily_production.total_co_low"/></td>
+                                    <td><span t-field="daily_production.total_fe_low"/></td>
+                                    <td><span t-field="daily_production.total_si_low"/></td>
+                                    <td><span t-field="daily_production.total_ca_low"/></td>
+                                    <td><span t-field="daily_production.total_mg_low"/></td>
+                                    <td><span t-field="daily_production.total_bc_low"/></td>
+                                </tr>
+                                <tr>
+                                    <td>LGO-sty</td>
+                                    <td>Ni &lt; 1.50 %</td>
+                                    <td><span t-field="daily_production.total_tonnage_li_mka"/></td>
+                                    <td><span t-field="daily_production.total_ni_li"/></td>
+                                    <td><span t-field="daily_production.total_co_li"/></td>
+                                    <td><span t-field="daily_production.total_fe_li"/></td>
+                                    <td><span t-field="daily_production.total_si_li"/></td>
+                                    <td><span t-field="daily_production.total_ca_li"/></td>
+                                    <td><span t-field="daily_production.total_mg_li"/></td>
+                                    <td><span t-field="daily_production.total_bc_li"/></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Total Ready Stock</td>
+                                    <td><span t-field="daily_production.total_tonnage_mka"/></td>
+                                    <td><span t-field="daily_production.total_ni"/></td>
+                                    <td><span t-field="daily_production.total_co"/></td>
+                                    <td><span t-field="daily_production.total_fe"/></td>
+                                    <td><span t-field="daily_production.total_si"/></td>
+                                    <td><span t-field="daily_production.total_ca"/></td>
+                                    <td><span t-field="daily_production.total_mg"/></td>
+                                    <td><span t-field="daily_production.total_bc"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <strong>Waiting Essay</strong>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table">
+                                    <tbody>                
+                                        <tr>
+                                            <td>Material</td>
+                                            <td>Tonnage</td>
+                                        </tr>           
+                                        <tr>
+                                            <td>Ore</td>
+                                            <td>0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <strong>Shipment</strong>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <table class="table">
+                                    <tbody>                
+                                        <tr>
+                                            <td>Tongkang/LCT</td>
+                                            <td>Plan (wmt)</td>
+                                            <td>Loaded (wmt)</td>
+                                            <td>Cumm. (wmt)</td>
+                                            <td>Balance (wmt)</td>
+                                            <td>Progress (%)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-2">
+                            </div>
+                            <div class="col-lg-2">
+                                <table class="table">
+                                    <tbody>                
+                                        <tr>
+                                            <td>Ready To Barge(Final)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span t-field="daily_production.total_tonnage_ready_final_mka"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

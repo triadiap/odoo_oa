@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>    <!-- Main report templates -->
+    <template id="report_daily_production">
+        <t t-foreach="docs" t-as="daily_production">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>
+                            <strong>Tanggal: </strong>
+                            <span t-field="daily_production.tanggal"/>
+                            <br/>
+                            <strong>Site: </strong>
+                            <span t-field="daily_production.site"/>
+                        </h2>
+                        <t t-call="mod_gag_qc.report_daily_production_detail"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Sub-template -->
+    <template id="report_daily_production_detail">
+        <table class="table" t-if="daily_production.id_production">
+            <tbody>
+                <tr>
+                    <td colspan="9">
+                        <center>Production Details</center>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Pile</td>
+                    <td>Tonnage</td>
+                    <td>Ni</td>
+                    <td>Co</td>
+                    <td>Fe</td>
+                    <td>Si</td>
+                    <td>Ca</td>
+                    <td>Mg</td>
+                    <td>Bc</td>
+                </tr>
+                <t t-set="details" t-value="daily_production.mapped('id_production')"/>
+                <tr t-foreach="details" t-as="detail">
+                    <td>
+                        <span t-field="detail.pile"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.toonage"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.ni"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.co"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.fe"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.si"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.ca"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.mg"/>
+                    </td>
+                    <td>
+                        <span t-field="detail.bc"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="9">
+                        <center>Production Summary</center>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nickel Grade</td>
+                    <td>Tonnage</td>
+                    <td>Ni</td>
+                    <td>Co</td>
+                    <td>Fe</td>
+                    <td>Si</td>
+                    <td>Ca</td>
+                    <td>Mg</td>
+                    <td>Bc</td>
+                </tr>
+                <tr>
+                    <td>Limonite (Ni &lt; 1.50 %)</td>
+                    <td><span t-field="daily_production.total_tonnage_li"/></td>
+                    <td><span t-field="daily_production.total_ni_li"/></td>
+                    <td><span t-field="daily_production.total_co_li"/></td>
+                    <td><span t-field="daily_production.total_fe_li"/></td>
+                    <td><span t-field="daily_production.total_si_li"/></td>
+                    <td><span t-field="daily_production.total_ca_li"/></td>
+                    <td><span t-field="daily_production.total_mg_li"/></td>
+                    <td><span t-field="daily_production.total_bc_li"/></td>
+                </tr>
+                <tr>
+                    <td>Saprolite LGO (1.50 ≤ Ni ≤ 1.80)</td>
+                    <td><span t-field="daily_production.total_tonnage_low"/></td>
+                    <td><span t-field="daily_production.total_ni_low"/></td>
+                    <td><span t-field="daily_production.total_co_low"/></td>
+                    <td><span t-field="daily_production.total_fe_low"/></td>
+                    <td><span t-field="daily_production.total_si_low"/></td>
+                    <td><span t-field="daily_production.total_ca_low"/></td>
+                    <td><span t-field="daily_production.total_mg_low"/></td>
+                    <td><span t-field="daily_production.total_bc_low"/></td>
+                </tr>
+                <tr>
+                    <td>Saprolite HGO (Ni ≥ 1.80)</td>
+                    <td><span t-field="daily_production.total_tonnage_hi"/></td>
+                    <td><span t-field="daily_production.total_ni_hi"/></td>
+                    <td><span t-field="daily_production.total_co_hi"/></td>
+                    <td><span t-field="daily_production.total_fe_hi"/></td>
+                    <td><span t-field="daily_production.total_si_hi"/></td>
+                    <td><span t-field="daily_production.total_ca_hi"/></td>
+                    <td><span t-field="daily_production.total_mg_hi"/></td>
+                    <td><span t-field="daily_production.total_bc_hi"/></td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td><span t-field="daily_production.total_tonnage"/></td>
+                    <td><span t-field="daily_production.total_ni"/></td>
+                    <td><span t-field="daily_production.total_co"/></td>
+                    <td><span t-field="daily_production.total_fe"/></td>
+                    <td><span t-field="daily_production.total_si"/></td>
+                    <td><span t-field="daily_production.total_ca"/></td>
+                    <td><span t-field="daily_production.total_mg"/></td>
+                    <td><span t-field="daily_production.total_bc"/></td>
+                </tr>
+            </tbody>
+        </table>
+        <strong t-else="">No Detail Available :(</strong>
+    </template>
+</odoo>

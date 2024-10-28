@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="qma_form_audit_action" model="ir.actions.act_window">
+        <field name="name">QMA Form Audit 5R</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">qma.form.audit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN QMA Audit - Form Audit 5R
+            </p>
+        </field>
+    </record>
+
+    <record id="qma_form_audit_tree" model="ir.ui.view">
+        <field name="name">qma.form.audit.tree</field>
+        <field name="model">qma.form.audit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="area"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="ts_ringkas"/>
+                <field name="ts_rapi"/>
+                <field name="ts_resik"/>
+                <field name="ts_rawat"/>
+                <field name="ts_rajin"/>
+                <field name="ts_all"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="qma_form_audit_search" model="ir.ui.view">
+        <field name="name">qma.form.audit.search</field>
+        <field name="model">qma.form.audit</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="area"/>
+                <field name="month"/>
+                <field name="year"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="qma_form_audit_form" model="ir.ui.view">
+        <field name="name">qma.form.audit.form</field>
+        <field name="model">qma.form.audit</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="area"/>
+                        <field name="month"/>
+                        <field name="year"/>
+                        <field name="ts_all"/>
+                    </group>
+                </group>
+                <group>
+                    <group string="1. Ringkas">
+                        <group>
+                            <field name="ringkas_1"/>
+                        </group>
+                        <group>
+                            <field name="note_ringkas_1"/>
+                        </group>
+                        <group>
+                            <field name="ringkas_2"/>
+                        </group>
+                        <group>
+                            <field name="note_ringkas_2"/>
+                        </group>
+                        <group>
+                            <field name="ringkas_3"/>
+                        </group>
+                        <group>
+                            <field name="note_ringkas_3"/>
+                        </group>
+                        <group>
+                            <field name="ringkas_4"/>
+                        </group>
+                        <group>
+                            <field name="note_ringkas_4"/>
+                        </group>
+                        <group>
+                            <field name="ringkas_5"/>
+                        </group>
+                        <group>
+                            <field name="note_ringkas_5"/>
+                        </group>
+                        <group>
+                            <field name="ts_ringkas"/>
+                        </group>
+                    </group>
+                    <group string="2. Rapi">
+                        <group>
+                            <field name="rapi_1"/>
+                        </group>
+                        <group>
+                            <field name="note_rapi_1"/>
+                        </group>
+                        <group>
+                            <field name="rapi_2"/>
+                        </group>
+                        <group>
+                            <field name="note_rapi_2"/>
+                        </group>
+                        <group>
+                            <field name="rapi_3"/>
+                        </group>
+                        <group>
+                            <field name="note_rapi_3"/>
+                        </group>
+                        <group>
+                            <field name="rapi_4"/>
+                        </group>
+                        <group>
+                            <field name="note_rapi_4"/>
+                        </group>
+                        <group>
+                            <field name="rapi_5"/>
+                        </group>
+                        <group>
+                            <field name="note_rapi_5"/>
+                        </group>
+                        <group>
+                            <field name="ts_rapi"/>
+                        </group>
+                    </group>
+                    <group string="3. Resik">
+                        <group>
+                            <field name="resik_1"/>
+                        </group>
+                        <group>
+                            <field name="note_resik_1"/>
+                        </group>
+                        <group>
+                            <field name="resik_2"/>
+                        </group>
+                        <group>
+                            <field name="note_resik_2"/>
+                        </group>
+                        <group>
+                            <field name="resik_3"/>
+                        </group>
+                        <group>
+                            <field name="note_resik_3"/>
+                        </group>
+                        <group>
+                            <field name="resik_4"/>
+                        </group>
+                        <group>
+                            <field name="note_resik_4"/>
+                        </group>
+                        <group>
+                            <field name="resik_5"/>
+                        </group>
+                        <group>
+                            <field name="note_resik_5"/>
+                        </group>
+                        <group>
+                            <field name="ts_resik"/>
+                        </group>
+                    </group>
+                    <group string="4. Rawat">
+                        <group>
+                            <field name="rawat_1"/>
+                        </group>
+                        <group>
+                            <field name="note_rawat_1"/>
+                        </group>
+                        <group>
+                            <field name="rawat_2"/>
+                        </group>
+                        <group>
+                            <field name="note_rawat_2"/>
+                        </group>
+                        <group>
+                            <field name="rawat_3"/>
+                        </group>
+                        <group>
+                            <field name="note_rawat_3"/>
+                        </group>
+                        <group>
+                            <field name="rawat_4"/>
+                        </group>
+                        <group>
+                            <field name="note_rawat_4"/>
+                        </group>
+                        <group>
+                            <field name="rawat_5"/>
+                        </group>
+                        <group>
+                            <field name="note_rawat_5"/>
+                        </group>
+                        <group>
+                            <field name="ts_rawat"/>
+                        </group>
+                    </group>
+                    <group string="5. Rajin">
+                        <group>
+                            <field name="rajin_1"/>
+                        </group>
+                        <group>
+                            <field name="note_rajin_1"/>
+                        </group>
+                        <group>
+                            <field name="rajin_2"/>
+                        </group>
+                        <group>
+                            <field name="note_rajin_2"/>
+                        </group>
+                        <group>
+                            <field name="rajin_3"/>
+                        </group>
+                        <group>
+                            <field name="note_rajin_3"/>
+                        </group>
+                        <group>
+                            <field name="rajin_4"/>
+                        </group>
+                        <group>
+                            <field name="note_rajin_4"/>
+                        </group>
+                        <group>
+                            <field name="rajin_5"/>
+                        </group>
+                        <group>
+                            <field name="note_rajin_5"/>
+                        </group>
+                        <group>
+                            <field name="ts_rajin"/>
+                        </group>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

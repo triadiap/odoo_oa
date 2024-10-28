@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_genset_electricity_chart" model="ir.ui.view">
+        <field name="name">oa.yearly.electricity.chart</field>
+        <field name="model">oa.yearly.electricity</field>
+        <field name="arch" type="xml">
+            <graph string="Yearly Electricity Report Per Unit (Total Kwh/Hour)" type="line" stacked="False">
+                <field name="month_name" type="row"/>
+                <field name="kwh_pershift" type="measure" string="Kwh/Hour" operator="sum"/>
+                <field name="jml_kwh" type="measure" string="KWH" operator="sum"/>
+                <field name="checkingyear" type="col"/>
+            </graph>
+        </field>
+    </record>
+     <record id="action_genset_electricty_chart_report" model="ir.actions.act_window">
+        <field name="name">Monthly Electricity Consumption Report By Year</field>
+        <field name="res_model">oa.yearly.electricity</field>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="view_genset_electricity_chart"/>
+         <field name="context">{}</field>
+    </record>
+</odoo>

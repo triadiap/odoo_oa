@@ -1,0 +1,20 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_jenis_kegiatan,access.jenis.kegiatan,model_jenis_kegiatan,,1,1,1,1
+access_kategori_kegiatan,access.kategori.kegiatan,model_kategori_kegiatan,,1,1,1,1
+access_status_kegiatan,access.status.kegiatan,model_status_kegiatan,,1,1,1,1
+access_pillar_group,access.pillar.group,model_pillar_group,,1,1,1,1
+access_informasi_perpillar,access.informasi.perpillar,model_informasi_perpillar,,1,1,1,1
+access_detail_anggaran_perbulan,access.detail.anggaran.perbulan,model_detail_anggaran_perbulan,,1,1,1,1
+access_user_input,access.user.input,model_user_input,,1,1,1,1
+access_tabel_coa, access.tabel.coa,model_tabel_coa,,1,1,1,1
+access_transaksi_anggaran,access.transaksi.anggaran,model_transaksi_anggaran,,1,1,1,1
+access_detail_trans_perbudget,access.detail.trans.perbudget,model_detail_trans_perbudget,,1,1,1,1
+access_daftar_lokasi,access.daftar.lokasi,model_daftar_lokasi,,1,1,1,1
+access_budget_expense_monthly_report,access.budget.expense.monthly.report,model_budget_expense_monthly_report,,1,1,1,1
+access_transaction_payment_wizard,access.transaction.payment.wizard,model_transaction_payment_wizard,,1,1,1,1
+access_detail.payment,access.detail.payment,model_detail_payment,,1,1,1,1
+access_expense_report_perpillar,access.expense.report.perpillar,model_expense_report_perpillar,,1,1,1,1
+access_budgeting_approval_wizard,access.budgeting.approval.wizard,model_budgeting_approval_wizard,,1,1,1,1
+access_transaction_approval_wizard,access.transaction.approval.wizard,model_transaction_approval_wizard,,1,1,1,1
+access_budgeting_cancelation_wizard,access.budgeting.cancelation.wizard,model_budgeting_cancelation_wizard,,1,1,1,1
+access_budgeting_transaction_cancelation_wizard,access.budgeting.transaction.cancelation.wizard,model_budgeting_transaction_cancelation_wizard,,1,1,1,1

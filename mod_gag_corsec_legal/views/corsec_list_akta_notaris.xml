@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="corsec_list_akta_action" model="ir.actions.act_window">
+        <field name="name">Corsec List Akta Notaris</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">corsec.list.akta.notaris</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN Corsec and Legal - List Akta Notaris
+            </p>
+        </field>
+    </record>
+
+    <record id="corsec_list_akta_tree" model="ir.ui.view">
+        <field name="name">corsec.list.akta.notaris.tree</field>
+        <field name="model">corsec.list.akta.notaris</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="nomor_akta"/>
+                <field name="tanggal_akta"/>
+                <field name="no_sk_sp"/>
+                <field name="tanggal_sk_sp"/>
+                <field name="notaris"/>
+                <field name="scan_copy"/>
+                <field name="asli_akta"/>
+                <field name="asli_sk_sp"/>
+                <field name="jenis_akta"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="corsec_list_akta_search" model="ir.ui.view">
+        <field name="name">corsec.list.akta.notaris.search</field>
+        <field name="model">corsec.list.akta.notaris</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="nomor_akta"/>
+                <field name="tanggal_akta"/>
+                <field name="no_sk_sp"/>
+                <field name="tanggal_sk_sp"/>
+                <field name="notaris"/>
+                <field name="jenis_akta"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="corsec_list_akta_form" model="ir.ui.view">
+        <field name="name">corsec.list.akta.notaris.form</field>
+        <field name="model">corsec.list.akta.notaris</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="nomor_akta"/>
+                        <field name="tanggal_akta"/>
+                        <field name="no_sk_sp"/>
+                        <field name="tanggal_sk_sp"/>
+                        <field name="notaris"/>
+                    </group>
+                    <group>
+                        <field name="keterangan"/>
+                        <field name="scan_copy"/>
+                        <field name="asli_akta"/>
+                        <field name="asli_sk_sp"/>
+                        <field name="jenis_akta"/>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<template xml:space="preserve">
+    <t t-name="Ppmbudgeting">
+            <div class="o_action o_view_controller">
+                    <div class="o_control_panel">
+                        <div class="o_cp_top">
+                            <div class="o_cp_top_left">
+                                <ol role="navigation" class="breadcrumb">
+                                    <li class="breadcrumb-item active">PPM Budgeting</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card o_form">
+                                <form id="multi_insert_form">
+                                     <table id="my_table" class="table table-striped table-no-bordered table-hover">
+                                          <thead>
+                                                <tr>
+                                                    <th class="text-center">Nama Pillar</th>
+                                                    <th class="text-center">Jan</th>
+                                                    <th class="text-center">Feb</th>
+                                                    <th class="text-center">Mar</th>
+                                                    <th class="text-center">Apr</th>
+                                                    <th class="text-center">May</th>
+                                                    <th class="text-center">Jun</th>
+                                                    <th class="text-center">Jul</th>
+                                                    <th class="text-center">Aug</th>
+                                                    <th class="text-center">Sep</th>
+                                                    <th class="text-center">Oct</th>
+                                                    <th class="text-center">Nov</th>
+                                                    <th class="text-center">Dec</th>
+                                                    <th class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                         <tbody id="data_rows">
+                                            <tr class="data_row">
+                                                <td class="text-center"><select name="pillar_name" id="pillar_name" type="text" class="form-control pillar_input" required="required"/></td>
+                                                <td class="text-center"><input type="number" class="form-control jan_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control feb_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control mar_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control apr_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control may_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control june_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control jul_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control agt_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control sep_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control okt_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control nov_input" required="required"/></td>
+                                                <td class="text-center"><input type="text" class="form-control des_input" required="required"/></td>
+                                                <td class="text-center">
+                                                    <button type="button" class="btn btn-sm btn-danger remove_row"><i class="fa fa-close" aria-hidden="true"></i></button>
+                                                    <!-- New Button -->
+                                                    <a href="/my_module/some_route" class="btn btn-sm btn-secondary" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                     </table>
+                                </form>
+                    </div>
+            </div>
+    </t>
+</template>

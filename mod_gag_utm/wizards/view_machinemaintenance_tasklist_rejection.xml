@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_oa_machine_maintenance_rejection_form" model="ir.ui.view">
+        <field name="name">oa.machinemaintenance.rejection.form</field>
+        <field name="model">oa.machinemaintenance.rejection</field>
+        <field name="arch" type="xml">
+            <form string="Rejection Confirmation">
+                <group>
+                    <group>
+                        <field name="id_machine_maintenance" invisible="1"/>
+                        <field name="refusal_reason_id"/>
+                        <field name="rejection_note"/>
+                        <field name="approval_route_id" invisible="1"/>
+                        <field name="current_step_id" invisible="1"/>
+                        <field name="existing_status" invisible="1"/>
+                        <field name="upcoming_status" invisible="1"/>
+                        <field name="pending_approval_by" invisible="1"/>
+                    </group>
+
+                </group>
+                <footer>
+                    <button string="Reject" name="action_reject" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <!-- Wizard Action -->
+    <record id="oa_machine_maintenance_rejection_action" model="ir.actions.act_window">
+        <field name="name">Rejection Confirmation</field>
+        <field name="res_model">oa.machinemaintenance.rejection</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_related_field': active_id}</field>
+    </record>
+</odoo>

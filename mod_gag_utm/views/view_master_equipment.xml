@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record id="equipment_master_form" model="ir.ui.view">
+            <field name="name">oa.master.equipment.form</field>
+            <field name="model">oa.master.equipment</field>
+            <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                                <group>
+                                     <field name="name"/>
+                                     <field name="brand_name"/>
+                                     <field name="manuf_year"/>
+                                     <field name="serial_number"/>
+                                     <field name="asset_number"/>
+                                     <field name="pkt_number"/>
+                                </group>
+                                <group>
+                                    <field name="equipment_model"/>
+                                    <field name="equipment_capacity"/>
+                                    <h6><i>For Electrical Only</i></h6>
+                                    <field name="group_id" options="{'no_edit':True,'no_create':True}"/>
+                                    <field name="location_id" options="{'no_edit':True,'no_create':True}"/>
+                                </group>
+                            </group>
+                            <notebook>
+                                <page string="Description">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                 <h6>Description</h6>
+                                                <field name="equipment_desc"></field>
+                                            </div>
+                                        </div>
+                                </page>
+                                <page string="Maintenance">
+                                    <field name="id_detail_maintenance">
+                                        <tree editable="bottom">
+                                                <field name="name"/>
+                                                <field name="id_maintenance_type"/>
+                                                <field name="maintenance_freq"/>
+                                                <field name="percentage_condition_min"/>
+                                                <field name="percentage_condition_max"/>
+                                         </tree>
+                                    </field>
+
+                                </page>
+
+                            </notebook>
+                        </sheet>
+                    </form>
+            </field>
+    </record>
+    <record id="equipment_master_tree" model="ir.ui.view">
+        <field name="name">oa.master.equipment.tree</field>
+        <field name="model">oa.master.equipment</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment List">
+                <field name="name" optional="show"/>
+                <field name="brand_name" optional="show"/>
+                <field name="manuf_year" optional="show"/>
+                <field name="equipment_model" optional="show"/>
+                <field name="equipment_capacity" optional="show"/>
+                <field name="serial_number" optional="show"/>
+                <field name="asset_number" optional="show"/>
+                <field name="pkt_number"/>
+                <field name="equip_preventive_duration" optional="show"/>
+                <field name="equip_frequency_maintenance" optional="show"/>
+                <field name="equipment_desc" optional="show"/>
+                <field name="group_id" optional="show"/>
+                <field name="location_id" optional="show"/>
+            </tree>
+        </field>
+    </record>
+     <record id="action_equipment_master" model="ir.actions.act_window">
+        <field name="name">Equipment Master Data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oa.master.equipment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{'uid': uid}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your Equipment Master Data Here !
+            </p>
+        </field>
+    </record>
+</odoo>
