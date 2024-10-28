@@ -1,7 +1,7 @@
 from odoo import http
 from odoo.http import request
 import json
-from datetime import datetime
+from datetime import datetime,date
 
 class OfficeConnectorController(http.Controller):
     @http.route('/api/connector/sync', type='http', auth='public', methods=['POST'], csrf=False)
@@ -15,8 +15,8 @@ class OfficeConnectorController(http.Controller):
                 'status': 400,
                 'message': 'Missing token in request',
                 'token_number': token,
-                'api_id': None,
-                'timestamp': datetime.now()
+                'timestamp': datetime.now(),
+                'api_id': None
             })
             return json.dumps({'status': 'error', 'message': 'Missing token in request'})
 
@@ -25,16 +25,17 @@ class OfficeConnectorController(http.Controller):
             token = token[7:]
 
         # Validate token
-        trading_partner = request.env['oa.trading.partner'].sudo().search([('trading_partner_token', '=', token)],
-                                                                          limit=1)
+        trading_partner = request.env['oa.trading.partner'].sudo().search(
+            [('trading_partner_token', '=', token)], limit=1
+        )
         if not trading_partner:
             request.env['oa.api.hit.logs'].sudo().create({
                 'name': None,
                 'status': 401,
                 'message': 'Invalid token',
                 'token_number': token,
-                'api_id': None,
-                'timestamp': datetime.now()
+                'timestamp': datetime.now(),
+                'api_id': None
             })
             return json.dumps({'status': 'error', 'message': 'Invalid token'})
 
@@ -58,15 +59,17 @@ class OfficeConnectorController(http.Controller):
             return json.dumps({'status': 'error', 'message': 'Invalid filters format'})
 
         # Retrieve the data model for the provided link_id
-        data_retrieve = request.env['office.connector.config'].sudo().search([('token', '=', link_id)], limit=1)
+        data_retrieve = request.env['office.connector.config'].sudo().search(
+            [('token', '=', link_id)], limit=1
+        )
         if not data_retrieve:
             request.env['oa.api.hit.logs'].sudo().create({
                 'name': trading_partner.id,
                 'status': 402,
                 'message': 'Invalid API Name',
                 'token_number': token,
-                'api_id': None,
-                'timestamp': datetime.now()
+                'timestamp': datetime.now(),
+                'api_id': None
             })
             return json.dumps({'status': 'error', 'message': 'Invalid API Name'})
 
@@ -114,6 +117,14 @@ class OfficeConnectorController(http.Controller):
             # Search records based on parsed filters
             records = request.env[rest_api_name].sudo().search(parsed_filters, limit=limit, offset=offset)
             data = records.read(sync_fields)
+
+            # Convert date and datetime fields to string format
+            for record in data:
+                for key, value in record.items():
+                    if isinstance(value, datetime):
+                        record[key] = value.isoformat()  # Convert datetime to ISO 8601 string
+                    elif isinstance(value, date):  # For date objects
+                        record[key] = value.isoformat()  # Convert date to ISO 8601 string
 
             # Log API hit success
             request.env['oa.api.hit.logs'].sudo().create({

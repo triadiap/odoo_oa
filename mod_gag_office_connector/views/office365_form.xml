@@ -1,27 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="view_office365_integration_form" model="ir.ui.view">
-        <field name="name">office365.integration.form</field>
-        <field name="model">office365.integration</field>
-        <field name="arch" type="xml">
-            <form string="Office 365 Integration">
-                <sheet>
-                    <group>
-                        <field name="client_id"/>
-                        <field name="client_secret"/>
-                        <field name="tenant_id"/>
-                    </group>
-                    <footer>
-                        <button name="action_send_test_email"
-                                type="object"
-                                string="Send Test Email"
-                                class="btn-primary"/>
-                    </footer>
-                </sheet>
-            </form>
-        </field>
-    </record>
-     <!-- Tree View -->
     <record id="view_office365_integration_tree" model="ir.ui.view">
         <field name="name">office365.integration.tree</field>
         <field name="model">office365.integration</field>
@@ -37,9 +15,53 @@
             </tree>
         </field>
     </record>
-    <record id="action_office365_configuration" model="ir.actions.act_window">
-        <field name="name">Office 365 Configurations</field>
+    <record id="view_office365_integration_form" model="ir.ui.view">
+        <field name="name">office365.integration.form</field>
+        <field name="model">office365.integration</field>
+        <field name="arch" type="xml">
+            <form string="Office 365 Integration">
+                <sheet>
+                    <group>
+                        <field name="client_id"/>
+                        <field name="client_secret"/>
+                        <field name="tenant_id"/>
+                        <field name="access_token" readonly="1"/>
+                        <field name="refresh_token" readonly="1"/>
+                    </group>
+                    <group string="Send Test Email">
+                        <field name="sender_email" placeholder="Sender Email"/>
+                        <field name="test_email_to" placeholder="Recipient Email"/>
+                        <field name="test_email_subject" placeholder="Email Subject"/>
+                        <field name="test_email_body" placeholder="Email Body"/>
+                    </group>
+                    <footer>
+                        <!-- Button to update access token -->
+                        <button name="get_access_token"
+                                type="object"
+                                string="Update Access Token"
+                                class="btn-primary"/>
+
+                        <!-- Button to send a test email -->
+                        <button name="action_send_test_email"
+                                type="object"
+                                string="Send Test Email"
+                                class="btn-secondary"/>
+                         <!-- Button to send a test email -->
+                        <button name="action_test_access_token"
+                                type="object"
+                                string="Token Test"
+                                class="btn-secondary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open the form view -->
+    <record id="office365_integration_action" model="ir.actions.act_window">
+        <field name="name">Office 365 Integration</field>
         <field name="res_model">office365.integration</field>
         <field name="view_mode">tree,form</field>
+         <field name="view_id" ref="view_office365_integration_tree"/>
     </record>
 </odoo>

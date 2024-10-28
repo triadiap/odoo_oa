@@ -153,7 +153,7 @@
                                     <field name="filters_applied" readonly="1"/>
                                     <field name="record_limit" readonly="1"/>
                                     <field name="record_offset" readonly="1"/>
-                                    <field name="timestamp" readonly="1"/>
+                                      <field name="timestamp" readonly="1"/>
                                 </tree>
                             </field>
                         </page>

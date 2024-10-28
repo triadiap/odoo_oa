@@ -2,6 +2,7 @@ import requests
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 import logging
+import requests
 
 _logger = logging.getLogger(__name__)
 
@@ -13,12 +14,20 @@ class Office365Integration(models.Model):
     client_id = fields.Char(string='Client ID', required=True)
     client_secret = fields.Char(string='Client Secret', required=True)
     tenant_id = fields.Char(string='Tenant ID', required=True)
+    access_token = fields.Text(string='Access Token', readonly=True)
+    refresh_token = fields.Text(string='Refresh Token', readonly=True)
 
-    def get_access_token_raw(self):
+    # Fields for sending test email
+    test_email_to = fields.Char(string='Test Email Recipient', required=True)
+    test_email_subject = fields.Char(string='Test Email Subject', default='Test Email from Odoo')
+    test_email_body = fields.Text(string='Test Email Body', default='This is a test email sent from Odoo.')
+    sender_email = fields.Char(string='Sender Email', required=True, help="Email of the user sending the message")
+
+    def get_access_token(self):
         """
-        Fetches a new access token from Office 365 without saving it to avoid recursion.
+        Fetch the access token using OAuth2.
         """
-        token_url = f'https://login.microsoftonline.com/{self.tenant_id}/oauth2/v2.0/token'
+        url = 'https://login.microsoftonline.com/{}/oauth2/v2.0/token'.format(self.tenant_id)
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         data = {
             'client_id': self.client_id,
@@ -27,74 +36,76 @@ class Office365Integration(models.Model):
             'grant_type': 'client_credentials',
         }
 
-        response = requests.post(token_url, headers=headers, data=data)
+        response = requests.post(url, headers=headers, data=data)
         if response.status_code == 200:
-            token_data = response.json()
-            access_token = token_data.get('access_token')
-            if access_token:
-                _logger.info("Access token fetched successfully.")
-                return access_token
-            else:
-                raise UserError(_('No access token in response'))
+            token_info = response.json()
+            self.access_token = token_info.get('access_token')
+            return self.access_token
         else:
-            error_message = response.json().get('error_description', 'No details available')
-            raise UserError(_('Failed to fetch access token: %s') % error_message)
+            raise UserError(_('Failed to fetch access token: %s') % response.content)
 
-    def send_simple_email(self, to_email, subject, content):
+    def send_email(self, to_email, subject, body, user_id):
         """
-        Send a simple email using the Microsoft Graph API without relying on the access_token field.
-        """
-        # Retrieve access token without storing in self
-        token = self.get_access_token_raw()
+                Send an email via Office 365 using the Microsoft Graph API.
+                """
+        token = self.get_access_token()  # Ensure you get a valid access token
         if not token:
-            raise UserError(_('Access token missing. Please try again.'))
+            raise UserError(_('Failed to get access token'))
 
-        send_url = 'https://graph.microsoft.com/v1.0/me/sendMail'
+        # Define the URL for sending the email
+        url = f'https://graph.microsoft.com/v1.0/users/{user_id}/sendMail'  # Use 'me' to send as the authenticated user
+
         headers = {
-            'Authorization': f'Bearer {token}',
+            'Authorization': 'Bearer {}'.format(token),
             'Content-Type': 'application/json'
         }
-        email_payload = {
+
+        # Prepare the email data
+        email_data = {
             "message": {
                 "subject": subject,
                 "body": {
                     "contentType": "Text",
-                    "content": content
+                    "content": body
                 },
                 "toRecipients": [
-                    {"emailAddress": {"address": to_email}}
-                ]
+                    {
+                        "emailAddress": {
+                            "address": to_email
+                        }
+                    }
+                ],
             }
         }
 
-        response = requests.post(send_url, headers=headers, json=email_payload)
-        if response.status_code == 202:
-            _logger.info("Email sent successfully to %s", to_email)
-            return True
+        # Send the email request
+        response = requests.post(url, headers=headers, json=email_data)
+        if response.status_code != 202:
+            raise UserError(_('Failed to send email: %s') % response.content)
         else:
-            error_msg = response.json().get('error', {}).get('message', response.text)
-            raise UserError(_('Failed to send email: %s') % error_msg)
-
+            return True
     def action_send_test_email(self):
         """
-        Test method to send an email when the button is clicked.
-        """
-        test_email = 'bayu.sulistiawan@gmail.com'  # Replace with the recipient's email for testing
-        subject = 'Test Email from Odoo Office 365 Integration'
-        content = 'This is a test email sent using the Office 365 Integration.'
-
-        try:
-            self.send_simple_email(test_email, subject, content)
-        except UserError as e:
-            # Log or handle specific errors if needed
-            raise UserError(_('Failed to send test email: %s') % e.name)
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': _('Email Sent'),
-                'message': _('Test email sent successfully to %s' % test_email),
-                'type': 'success',
-                'sticky': False,
-            }
+                Trigger method to send a test email.
+                """
+        if not self.test_email_to:
+            raise UserError(_('Please enter a recipient email address.'))
+        self.send_email(
+            to_email=self.test_email_to,
+            subject=self.test_email_subject,
+            body=self.test_email_body,
+            user_id=self.sender_email
+        )
+        return True
+    def action_test_access_token(self):
+        url = "https://graph.microsoft.com/v1.0/me/sendMail"
+        token = self.get_access_token()  # Ensure you get a valid access token
+        headers = {
+            "Authorization": 'Bearer {}'.format(token),
+            "Content-Type": "application/json"
         }
+
+        response = requests.get(url, headers=headers)  # Use GET just to test connectivity
+
+        print(response.status_code)
+        print(response.content)

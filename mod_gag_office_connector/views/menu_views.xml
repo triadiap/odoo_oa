@@ -27,9 +27,9 @@
               parent="menu_office_controller_main"
               sequence="20"/>
 <!--     <menuitem-->
-<!--              id="menu_office365_connector_root"-->
+<!--              id="menu_office365_connection_configuration"-->
 <!--              name="Configuration"-->
 <!--              parent="menu_office365_connector_root"-->
-<!--              action="action_office365_configuration"-->
+<!--              action="office365_integration_action"-->
 <!--              sequence="20"/>-->
 </odoo>
