@@ -4,3 +4,5 @@ access.oa.trading.partner,access_oa_trading_partner,model_oa_trading_partner,,1,
 access.oa.api.documentation,access_oa_api_documentation,model_oa_api_documentation,,1,1,1,1
 access.oa.api.hit.logs,access_oa_api_hit_logs,model_oa_api_hit_logs,,1,1,1,1
 access.office365.integration,access_office365_integration,model_office365_integration,,1,1,1,1
+access.onedrive.file,access_onedrive_file,model_onedrive_file,,1,1,1,1
+access.oa.calendar.sync,access_oa_calendar_sync,model_oa_calendar_sync,,1,1,1,1

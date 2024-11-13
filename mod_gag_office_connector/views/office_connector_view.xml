@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-         <record id="view_oa_api_hit_logs_form" model="ir.ui.view">
+        <record id="view_oa_api_hit_logs_form" model="ir.ui.view">
         <field name="name">oa.api.hit.logs.form</field>
         <field name="model">oa.api.hit.logs</field>
         <field name="arch" type="xml">
@@ -30,17 +30,32 @@
         <field name="model">oa.api.hit.logs</field>
         <field name="arch" type="xml">
             <tree string="API Hit Logs" create="false" edit="false" delete="false">
-                <field name="name" string="Trading Partner Name" options="{'no_edit':True,'no_create':True}"/>
-                <field name="status" string="Status Code" options="{'no_edit':True,'no_create':True}"/>
-                <field name="token_number" string="Token Number" options="{'no_edit':True,'no_create':True}"/>
-                <field name="api_id" string="API Name" options="{'no_edit':True,'no_create':True}"/>
-                <field name="filters_applied" string="Filters Applied" options="{'no_edit':True,'no_create':True}"/>
-                <field name="record_limit" string="Record Limit" options="{'no_edit':True,'no_create':True}"/>
-                <field name="record_offset" string="Record Offset" options="{'no_edit':True,'no_create':True}"/>
-                <field name="message" string="Response Message" options="{'no_edit':True,'no_create':True}"/>
-                <field name="timestamp" string="Timestamp" options="{'no_edit':True,'no_create':True}"/>
+                <field name="name" string="Trading Partner Name" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="status" string="Status Code" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="token_number" string="Token Number" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="api_id" string="API Name" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="filters_applied" string="Filters Applied" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="record_limit" string="Record Limit" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="record_offset" string="Record Offset" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="message" string="Response Message" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="timestamp" string="Timestamp" options="{'no_edit':True,'no_create':True}" optional="show"/>
             </tree>
         </field>
+    </record>
+    <!-- Action for API Used By Trading Partner Name -->
+    <record id="action_api_use_by_name" model="ir.actions.act_window">
+        <field name="name">API Hit Logs</field>
+        <field name="res_model">oa.api.hit.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('name', '=', context.get('default_trading_partner_name'))]</field>
+    </record>
+    <!-- Action for All Logs -->
+    <record id="action_api_all_logs" model="ir.actions.act_window">
+        <field name="name">API Hit Logs</field>
+        <field name="res_model">oa.api.hit.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_oa_api_hit_logs_tree"/>
+        <field name="context">{'search_default_order': 'timestamp desc'}</field>
     </record>
     <!-- Action for 200 OK Logs -->
     <record id="action_api_logs_200" model="ir.actions.act_window">
@@ -58,12 +73,33 @@
         <field name="domain">[('status', '=', 400),('api_id', '=', context.get('default_api_id2'))]</field>
     </record>
 
+    <!-- Action for 401 Error Logs -->
+    <record id="action_api_logs_401" model="ir.actions.act_window">
+        <field name="name">401 Error Logs</field>
+        <field name="res_model">oa.api.hit.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status', '=', 401),('api_id', '=', context.get('default_api_id3'))]</field>
+    </record>
+    <!-- Action for 402 Error Logs -->
+    <record id="action_api_logs_402" model="ir.actions.act_window">
+        <field name="name">402 Error Logs</field>
+        <field name="res_model">oa.api.hit.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status', '=', 402),('api_id', '=', context.get('default_api_id4'))]</field>
+    </record>
+    <!-- Action for 403 Error Logs -->
+    <record id="action_api_logs_403" model="ir.actions.act_window">
+        <field name="name">403 Error Logs</field>
+        <field name="res_model">oa.api.hit.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('status', '=', 403),('api_id', '=', context.get('default_api_id5'))]</field>
+    </record>
     <!-- Action for 500 Error Logs -->
     <record id="action_api_logs_500" model="ir.actions.act_window">
         <field name="name">500 Error Logs</field>
         <field name="res_model">oa.api.hit.logs</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('status', '=', 500),('api_id', '=', context.get('default_api_id3'))]</field>
+        <field name="domain">[('status', '=', 500),('api_id', '=', context.get('default_api_id6'))]</field>
     </record>
     <record id="action_office_connector" model="ir.actions.act_window">
         <field name="name">REST API</field>
@@ -109,13 +145,31 @@
                                  <button name="%(action_api_logs_400)d" type="action" class="oe_stat_button" icon="fa-times" style="width:200px;" context="{'default_api_id2': id}">
                                      <div class="o_stat_info">
                                             <field string="Count Of Hits" name="count_400" class="o_stat_value"/>
-                                            <span class="o_stat_text">400 Query Issues</span>
+                                            <span class="o_stat_text">400 Missing Token</span>
                                      </div>
                                 </button>
-                                 <button name="%(action_api_logs_200)d" type="action" class="oe_stat_button" icon="fa-bug" style="width:200px;" context="{'default_api_id3': id}">
+                                  <button name="%(action_api_logs_401)d" type="action" class="oe_stat_button" icon="fa-times" style="width:200px;" context="{'default_api_id3': id}">
+                                     <div class="o_stat_info">
+                                            <field string="Count Of Hits" name="count_401" class="o_stat_value"/>
+                                            <span class="o_stat_text">401 Invalid Token</span>
+                                     </div>
+                                </button>
+                                <button name="%(action_api_logs_402)d" type="action" class="oe_stat_button" icon="fa-times" style="width:200px;" context="{'default_api_id4': id}">
+                                             <div class="o_stat_info">
+                                                    <field string="Count Of Hits" name="count_402" class="o_stat_value"/>
+                                                    <span class="o_stat_text">402 Invalid API Name</span>
+                                             </div>
+                                </button>
+                              <button name="%(action_api_logs_403)d" type="action" class="oe_stat_button" icon="fa-times" style="width:200px;" context="{'default_api_id5': id}">
+                                                 <div class="o_stat_info">
+                                                        <field string="Count Of Hits" name="count_403" class="o_stat_value"/>
+                                                        <span class="o_stat_text">403 No fields configured</span>
+                                                 </div>
+                                </button>
+                                 <button name="%(action_api_logs_500)d" type="action" class="oe_stat_button" icon="fa-bug" style="width:200px;" context="{'default_api_id6': id}">
                                      <div class="o_stat_info">
                                             <field string="Count Of Hits" name="count_500" class="o_stat_value"/>
-                                            <span class="o_stat_text">500 Other Issues</span>
+                                            <span class="o_stat_text">500 Others</span>
                                      </div>
                                 </button>
                     </div>

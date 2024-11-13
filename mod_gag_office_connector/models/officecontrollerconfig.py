@@ -81,6 +81,7 @@ class APIHitlogs(models.Model):
 
     _name = "oa.api.hit.logs"
     _description = "Office Connector API Hit Logs"
+    _order = 'timestamp desc'  # Default ordering by timestamp in descending order
 
     name = fields.Many2one("oa.trading.partner", string="Trading Partner")
     status = fields.Integer(string="Status")

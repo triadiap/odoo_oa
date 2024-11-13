@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_oa_tutorial_management,access.oa.tutorial.management,model_oa_tutorial_management,,1,1,1,1

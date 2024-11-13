@@ -28,19 +28,29 @@
             <form string="Trading Partner Registration">
                 <header>
                     <button name="generate_trading_partner_token" type="object" string="Generate Token" class="oe_highlight"/>
+                     <field name="hide_css"/>
                 </header>
                 <sheet>
+                     <div class="oe_button_box" name="button_box" >
+                                <button name="%(action_api_use_by_name)d" type="action" class="oe_stat_button" icon="fa-desktop" style="width:200px;" context="{'default_trading_partner_name': name}">
+                                     <div class="o_stat_info">
+                                            <field string="Trading Partner Use" name="count_api_use" class="o_stat_value"/>
+                                            <span class="o_stat_text">API Hits</span>
+                                     </div>
+                                </button>
+                     </div>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="application_name"/>
-                            <field name="start_date"/>
-                            <field name="end_date"/>
+                            <field name="name" attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
+                            <field name="application_name" attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
+                            <field name="start_date" attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
+                            <field name="end_date" attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
                         </group>
                         <group>
-                            <field name="vendor_name" options="{'no_edit':True,'no_create':True}"/>
-                            <field name="obj_to_connect"/>
+                            <field name="vendor_name" options="{'no_edit':True,'no_create':True}" attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
+                            <field name="obj_to_connect" attrs="{'readonly': [('btn_visible', '!=', False)]}"/>
                              <field name="trading_partner_token" readonly="1" style="background-color: RGB(77,23,153);border-radius: 4%; padding: 2px;color: white;" attrs="{'style': [('trading_partner_token', '!=', False)]}"/>
+                            <field name="btn_visible" invisible="1"/>
                         </group>
                     </group>
 

@@ -40,3 +40,4 @@ class HSEPemeriksaanPIALK3Line(models.Model):
     pertimbangan_c = fields.Boolean("C")
     pertimbangan_d = fields.Boolean("D")
     keterangan = fields.Char("KETERANGAN")
+    custom_css = fields.Html(string='CSS', sanitize=False, default=lambda self: '<style> .o_form_label{ width:300px; }</style>', store=False)

@@ -16,20 +16,25 @@
               parent="menu_office_connector_configuration_root"
               action="action_trading_partner_master"
               sequence="20"/>
+    <menuitem id="menu_office_connector_hit_logs"
+              name="Hit Logs"
+              parent="menu_office_connector_configuration_root"
+              action="action_api_all_logs"
+              sequence="30"/>
     <menuitem id="menu_office_connector_api_documentation"
               name="API Documentation"
               parent="menu_office_connector_configuration_root"
               action="action_api_documentation"
-              sequence="30"/>
+              sequence="40"/>
     <menuitem
               id="menu_office365_connector_root"
               name="Office 365"
               parent="menu_office_controller_main"
               sequence="20"/>
-<!--     <menuitem-->
-<!--              id="menu_office365_connection_configuration"-->
-<!--              name="Configuration"-->
-<!--              parent="menu_office365_connector_root"-->
-<!--              action="office365_integration_action"-->
-<!--              sequence="20"/>-->
+     <menuitem
+              id="menu_office365_connection_configuration"
+              name="Configuration"
+              parent="menu_office365_connector_root"
+              action="office365_integration_action"
+              sequence="20"/>
 </odoo>

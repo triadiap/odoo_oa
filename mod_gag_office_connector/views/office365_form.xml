@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <record id="view_calendar_synchronization" model="ir.ui.view">
+        <field name="name">oa.calendar.sync.form</field>
+        <field name="model">oa.calendar.sync</field>
+        <field name="arch" type="xml">
+            <form string="Calendar Synchronization" delete="false" edit="false" create="false" save="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Trading Partner Name" readonly="1" options="{'no_edit':True,'no_create':True}" />
+                            <field name="start_datetime" string="Status Code" readonly="1" options="{'no_edit':True,'no_create':True}" />
+                            <field name="end_datetime" string="Token Number" readonly="1" options="{'no_edit':True,'no_create':True}" />
+                            <field name="location" string="API Name" readonly="1" options="{'no_edit':True,'no_create':True}" />
+                            <field name="description" string="Response Message" readonly="1" options="{'no_edit':True,'no_create':True}" />
+                            <field name="event_outlook_id" string="Timestamp" readonly="1" options="{'no_edit':True,'no_create':True}" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
     <record id="view_office365_integration_tree" model="ir.ui.view">
         <field name="name">office365.integration.tree</field>
         <field name="model">office365.integration</field>
         <field name="arch" type="xml">
             <tree string="Office 365 Configurations">
+                <field name="name" optional="show"/>
                 <field name="client_id" optional="show"/>
-                <field name="client_secret" optional="show"/>
-                <field name="tenant_id" optional="show"/>
                 <field name="create_date" optional="show"/>
                 <field name="create_uid" optional="show"/>
                 <field name="write_uid" optional="show"/>
@@ -22,37 +41,90 @@
             <form string="Office 365 Integration">
                 <sheet>
                     <group>
-                        <field name="client_id"/>
-                        <field name="client_secret"/>
-                        <field name="tenant_id"/>
-                        <field name="access_token" readonly="1"/>
-                        <field name="refresh_token" readonly="1"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="client_id"/>
+                            <field name="client_secret"/>
+                            <field name="tenant_id"/>
+                            <field name="access_token" readonly="1"/>
+                        </group>
                     </group>
-                    <group string="Send Test Email">
-                        <field name="sender_email" placeholder="Sender Email"/>
-                        <field name="test_email_to" placeholder="Recipient Email"/>
-                        <field name="test_email_subject" placeholder="Email Subject"/>
-                        <field name="test_email_body" placeholder="Email Body"/>
-                    </group>
-                    <footer>
-                        <!-- Button to update access token -->
+                     <!-- Button to update access token -->
                         <button name="get_access_token"
-                                type="object"
-                                string="Update Access Token"
-                                class="btn-primary"/>
-
-                        <!-- Button to send a test email -->
-                        <button name="action_send_test_email"
-                                type="object"
-                                string="Send Test Email"
-                                class="btn-secondary"/>
-                         <!-- Button to send a test email -->
-                        <button name="action_test_access_token"
-                                type="object"
-                                string="Token Test"
-                                class="btn-secondary"/>
-                    </footer>
+                                    type="object"
+                                class="btn-primary"><i class="fa fa-key"></i> Generate Token</button>
+                    <notebook>
+                        <page string="Email">
+                            <group string="Mail Send Testing">
+                                <field name="sender_email" placeholder="Sender Email"/>
+                                <field name="test_email_to" placeholder="Recipient Email"/>
+                                <field name="test_email_subject" placeholder="Email Subject"/>
+                                <field name="test_email_body" placeholder="Email Body"/>
+                            </group>
+                            <!-- Button to send a test email -->
+                            <button name="action_send_test_email"
+                                    type="object"
+                                    class="btn-primary"><i class="fa fa-envelope-o"></i> Mail Send Testing</button>
+                        </page>
+                         <page string="Contacts">
+                                <button name="sync_contacts"
+                                    type="object"
+                                    class="btn-primary"><i class="fa fa-cloud-download"></i> Get From Contact</button>
+                               <button name="sync_contact_to_microsoft"
+                                    type="object"
+                                    class="btn-primary" style="margin-left:10px;"><i class="fa fa-cloud-upload"></i> Push To Contact</button>
+                        </page>
+                        <page string="Onedrive">
+                            <h2>OneDrive Files</h2>
+                            <group>
+                                <field name="file_name"/>
+                                <field name="file_data" filename="file_name"/>
+                                <field name="upload_date" readonly="1"/>
+                                <field name="file_url" readonly="1"/>
+                            </group>
+                             <button name="fetch_onedrive_files" type="object" class="btn-primary" style="margin-bottom:10px;margin-top:10px;"><i class="fa fa-list"></i> Fetch OneDrive</button>
+                             <button name="upload_file_to_onedrive" type="object" class="btn-primary" style="margin-bottom:10px;margin-top:10px;margin-left:10px;"><i class="fa fa-cloud-upload"></i> Upload To OneDrive</button>
+                             <button name="delete_onedrive_parameter" type="object" class="btn-primary" style="margin-bottom:10px;margin-top:10px;margin-left:10px;"><i class="fa fa-trash"></i> Reset Parameter</button>
+                            <field name="onedrive_file_ids">
+                                <tree create="false" edit="false" delete="false">
+                                    <field name="name"/>
+                                    <field name="size"/>
+                                    <field name="created_date"/>
+                                    <field name="modified_date"/>
+                                    <field name="web_url"/>
+                                    <field name="owner"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Calendar">
+                                 <h2>Calendar Events</h2>
+                                 <group>
+                                    <field name="calendar_name"/>
+                                    <field name="calendar_start_datetime"/>
+                                    <field name="calendar_end_datetime"/>
+                                    <field name="calendar_location"/>
+                                     <field name="calendar_description"/>
+                                     <field name="outlook_event_id" readonly="1"/>
+                                </group>
+                                <button name="sync_to_outlook_calendar" type="object" class="btn-primary" style="margin-bottom:10px;margin-top:10px;"><i class="fa fa-refresh"></i> Synchronize Calendar</button>
+                                <button name="delete_calendar_parameter" type="object" class="btn-primary" style="margin-bottom:10px;margin-top:10px;margin-left:10px;"><i class="fa fa-trash"></i> Reset</button>
+                                <field name="calendar_sync_ids">
+                                    <tree create="false" edit="false" delete="false">
+                                        <field name="name"/>
+                                        <field name="start_datetime"/>
+                                        <field name="end_datetime"/>
+                                        <field name="location"/>
+                                        <field name="description"/>
+                                        <field name="event_outlook_id"/>
+                                    </tree>
+                                </field>
+                        </page>
+                    </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                                    <field name="activity_ids"/>
+                                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>

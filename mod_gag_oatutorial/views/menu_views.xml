@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_office_automation_tutorial_main" name="OA Tutorials" web_icon="mod_gag_oatutorial,static/description/oa_tutorial.png" sequence="1"/>
+    <menuitem id="menu_tutorial_root"
+              name="Tutorial"
+              parent="menu_office_automation_tutorial_main"
+              sequence="10"/>
+    <menuitem id="menu_tutorial_management_root"
+              name="Tutorial Management"
+              parent="menu_tutorial_root"
+              action="action_tutorials"
+              sequence="10"/>
+</odoo>

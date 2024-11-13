@@ -14,6 +14,7 @@
        'views/office_connector_view.xml',
        'views/master_trading_partner.xml',
        'views/api_documentation_form.xml',
+        'views/office365_form.xml',
        'views/menu_views.xml'
     ],
      'assets': {

@@ -17,14 +17,8 @@
         <field name="name">gag.oa.hse.ialk3.form</field>
         <field name="model">gag.oa.hse.ialk3</field>
         <field name="arch" type="xml">
-        
-            <style>
-                .o_form_label{
-                    width:300px;
-                }
-            </style>
             <form>
-                <header>         
+                <header>     
                 </header>
                     <div class="oe_title">
                         <h1>
@@ -70,7 +64,8 @@
         <field name="model">gag.oa.hse.ialk3.line</field>
         <field name="arch" type="xml">
             <form>
-                <header>         
+                <header>       
+                    <field name="custom_css" invisible="0"/>
                 </header>
                 <group>
                     <field name="aktifitas"/>
