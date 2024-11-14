@@ -1,3 +1,5 @@
+import math
+
 from odoo import http
 from odoo.http import request
 import json
@@ -114,8 +116,22 @@ class OfficeConnectorController(http.Controller):
             parsed_filters.append((field_name, operator, value))
 
         try:
+            # Search records based on parsed filters and get the total count
+            record_model = request.env[rest_api_name].sudo()
+            total_records = record_model.search_count(parsed_filters)
+            # Calculate total page
+            if limit == 0:
+                limit =  25
+
+            total_page = math.ceil(total_records / limit)
+
+            if offset != 0:
+                count_get = (offset * limit)
+            else:
+                count_get = 0
+
             # Search records based on parsed filters
-            records = request.env[rest_api_name].sudo().search(parsed_filters, limit=limit, offset=offset)
+            records = request.env[rest_api_name].sudo().search(parsed_filters, limit=limit, offset=count_get)
             data = records.read(sync_fields)
 
             # Convert date and datetime fields to string format
@@ -139,7 +155,7 @@ class OfficeConnectorController(http.Controller):
                 'record_offset': offset
             })
 
-            return json.dumps({'status': 'success', 'data': data})
+            return json.dumps({'status': 'success', 'data': data,'total_records':total_records,'total_page':total_page, 'index': count_get, 'current_page':offset+1})
 
         except Exception as e:
             # Log error if data retrieval fails
