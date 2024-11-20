@@ -11,6 +11,8 @@
     'depends': ['mail'],
     'data': [
         'security/ir.model.access.csv',
+        'views/mo_apd_item.xml',
+        'views/ptgn_md_risk_level.xml',
         'views/general_masterdata_management.xml',
         'views/assets.xml',
     ],
