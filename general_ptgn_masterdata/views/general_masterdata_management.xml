@@ -78,4 +78,6 @@
     <menuitem id="ptgn_md_main" name="Master Data" sequence="20" parent="ptgn_md_root"/>
     <menuitem id="ptgn_md_satker_action" name="Satuan Kerja" sequence="30" parent="ptgn_md_main" action="ptgn_md_satker"/>
     <menuitem id="ptgn_md_plant_action" name="Site Plant" sequence="40" parent="ptgn_md_main" action="ptgn_md_plant"/>
+    <menuitem id="ptgn_md_apd_action" name="APD" sequence="50" parent="ptgn_md_main" action="mo_permintaan_apd_item_action"/>
+    <menuitem id="ptgn_md_risk_level_root" name="Risk Level" sequence="60" parent="ptgn_md_main" action="ptgn_md_risk_level_action"/>
 </odoo>
