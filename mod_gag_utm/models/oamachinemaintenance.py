@@ -2,23 +2,33 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
-from datetime import datetime
+from datetime import datetime,timedelta
 
 class OAMachineMaintenance(models.Model):
     _name="oa.machine.maintenance"
+    _inherit = ["mail.thread", "mail.activity.mixin", "mail.tracking.value"]
     _description="Office Automation Machine Maintenance Form"
 
     name = fields.Char(string="Task Description",required=True,tracking=True)
     id_maintenance_task = fields.Char(string="ID Task",required=True,copy=False, default='New')
-    maintenance_task_type = fields.Many2one('oa.maintenancetype.master',string="Maintenance Type",required=True,tracking=True)
+    maintenance_task_type = fields.Selection([
+        ('top_over_haul', 'TOP OVER HAUL'),
+        ('minor_over_haul', 'MINOR OVER HAUL'),
+        ('general_over_haul', 'GENERAL OVER HAUL'),
+        ('services', 'SERVICES'),
+        ('greasing', 'GREASING'),
+        ('body_repair', 'BODY REPAIR'),
+        ('corrective_maintenance', 'CORRECTIVE MAINTENANCE'),
+        ('breakdown_maintenance', 'BREAKDOWN MAINTENANCE')
+    ], default="top_over_haul", string="Maintenance Type", tracking=True,required=True)
     equip_id = fields.Many2one('oa.master.equipment', string='Equipment Name',required=True,tracking=True)
-    brand_model_type = fields.Char(string='Brand/Type/Year', tracking=True)
-    serial_number = fields.Char(string='Serial Number', tracking=True)
-    asset_number = fields.Char(string='Asset Number', tracking=True)
-    pkt_number = fields.Char(string='PKT Number', tracking=True)
-    kwh_equipment = fields.Char(string='Power (Kw)', tracking=True)
+    brand_model_type = fields.Char(string='Brand/Type/Year', tracking=True,readonly=True)
+    serial_number = fields.Char(string='Serial Number', tracking=True,readonly=True)
+    asset_number = fields.Char(string='Asset Number', tracking=True,readonly=True)
+    pkt_number = fields.Char(string='PKT Number', tracking=True,readonly=True)
+    kwh_equipment = fields.Char(string='Power (Kw)', tracking=True,readonly=True)
     maintenance_asset_group = fields.Many2one('point.group', string="Asset Group", required=True, tracking=True)
-    sub_equipment = fields.Many2one('msdata.checkpoints', string='Sub Equipment')
+    sub_equipment = fields.Many2one('msdata.checkpoints', string='Sub Equipment',required=True,tracking=True)
     task_planning_date = fields.Date(string="Scheduled Date",required=True,tracking=True)
     task_execution_date = fields.Datetime(string="Executed Date",tracking=True)
     responsible_team = fields.Many2one('res.users',string="Responsible", tracking=True)
@@ -130,11 +140,43 @@ class OAMachineMaintenance(models.Model):
             day_number = current_date.day
             year = current_date.year
             # Generate the sequence number
-            sequence = self.env['ir.sequence'].next_by_code('oa.acmaintenance.request') or '00000'
+            sequence = self.env['ir.sequence'].next_by_code('oa.machine.maintenance') or '00000'
             # Combine them into the final name
-            vals['id_maintenance_task'] = f'PTMC-{sequence}/{month_number}/{day_number}/{year}'
+            vals['id_maintenance_task'] = f'PMTC-{sequence}/{month_number}/{day_number}/{year}'
+            # Add logic for dependent fields based on equip_id
+        if vals.get('equip_id'):
+                equip_id = self.env['oa.master.equipment'].browse(vals['equip_id'])
+                vals.update({
+                    'serial_number': equip_id.serial_number,
+                    'asset_number': equip_id.asset_number,
+                    'pkt_number': equip_id.pkt_number,
+                    'kwh_equipment': equip_id.equipment_capacity,
+                    'brand_model_type': f"{equip_id.brand_name}/{equip_id.equipment_model}/{equip_id.manuf_year}",
+                })
+        else:
+            vals.update({
+                    'serial_number': None,
+                    'asset_number': None,
+                    'pkt_number': None,
+                    'kwh_equipment': None,
+                    'brand_model_type': None,
+                })
 
         return super(OAMachineMaintenance, self).create(vals)
+
+    def write(self,vals):
+        for record in self:
+            if 'equip_id' in vals or record.equip_id:
+                equip_id = record.equip_id if 'equip_id' not in vals else self.env['oa.master.equipment'].browse(
+                    vals['equip_id'])
+                vals.update({
+                    'serial_number': equip_id.serial_number if equip_id else None,
+                    'asset_number': equip_id.asset_number if equip_id else None,
+                    'pkt_number': equip_id.pkt_number if equip_id else None,
+                    'kwh_equipment': equip_id.equipment_capacity if equip_id else None,
+                    'brand_model_type': f"{equip_id.brand_name}/{equip_id.equipment_model}/{equip_id.manuf_year}" if equip_id else None,
+                })
+        return super(OAMachineMaintenance, self).write(vals)
 
     @api.onchange('equip_id')
     def _onchange_equipment_id(self):
@@ -180,25 +222,71 @@ class OAMachineMaintenance(models.Model):
                     'sub_equipment': [('id', '=', False)]
                 }
             }
-    def action_analytic_testing(self):
-        # for record in self:
-        #     print(record.equip_id.id)
-        checkequipmentid = self.env['oa.master.equipment'].search([('id', '=', self.equip_id.id)])
+
+    def maintenance_analytic(self,equip_id, maintenance_task_type, sub_equipment, task_execution_date,maintenance_asset_group):
+        checkequipmentid = self.env['oa.master.equipment'].search([('id', '=', equip_id.id)])
         for result in checkequipmentid:
             related_maintenance_records = result.id_detail_maintenance
             if related_maintenance_records:
                 for maintenance in related_maintenance_records:
-                    print("Maintenance ID:", maintenance.id)
-                    print("Maintenance Type:", maintenance.id_maintenance_type.name)
-                    print("Sub Equipment:", maintenance.name.point_to_check) # Adjust the field name as necessary
-                    print("Frequency:", maintenance.maintenance_freq)
-                    print("% Unit Condition Min:", maintenance.percentage_condition_min)
-                    print("% Unit Condition Max:", maintenance.percentage_condition_max)
-            else:
-                print('No Maintenance ID recorded')
+                    if maintenance.id_maintenance_type == maintenance_task_type and sub_equipment.id == maintenance.name.id :
+                        # Fetch the latest maintenance record once
+                        latest_maintenance = self.env['oa.equipment.maintenance'].search(
+                            [('equipment_id.id', '=', equip_id.id)],
+                            limit=1,
+                            order='cumulative_hour desc'
+                        )
+                        # Fetch the second latest maintenance record
+                        second_latest_maintenance = self.env['oa.equipment.maintenance'].search(
+                            [('equipment_id', '=', equip_id.id)],
+                            limit=1,
+                            offset=1,  # Skip the first record
+                            order='cumulative_hour desc'
+                        )
+                        if latest_maintenance:
+                            second_cumulative_hour = second_latest_maintenance.cumulative_hour if second_latest_maintenance else 0
+                            daily_operation_hours = latest_maintenance.operation_hour - second_cumulative_hour
+                            current_cumulative_hours = latest_maintenance.cumulative_hour
+                            operation_percentage = latest_maintenance.work_efficiency
 
-        # import pdb;
-        # pdb.set_trace()
+                            if current_cumulative_hours > maintenance.maintenance_freq:
+                                # Calculate the remaining hours until the next maintenance
+                                remaining_hours = maintenance.maintenance_freq - (current_cumulative_hours % maintenance.maintenance_freq)
+                                # Adjust the daily operation hours based on the operation percentage
+                                effective_daily_hours = daily_operation_hours * (operation_percentage / 100)
+                                # Calculate the days to the next maintenance
+                                if effective_daily_hours > 0:
+                                    days_to_next_maintenance = remaining_hours / effective_daily_hours
+                                    next_date = task_execution_date + timedelta(days=days_to_next_maintenance)
+                                    current_date = datetime.now()
+                                    # Extract the month,day,and year
+                                    month_number = current_date.month
+                                    day_number = current_date.day
+                                    year = current_date.year
+                                    # Generate the sequence number
+                                    sequence = self.env['ir.sequence'].next_by_code('oa.machine.maintenance') or '00000'
+                                    id_maintenance_task = f'PMTC-{sequence}/{month_number}/{day_number}/{year}'
+                                    check_similar_schedule = self.env['oa.machine.maintenance'].search([('name', '=', f"{maintenance_task_type.upper()} - {equip_id.name}"),('task_planning_date','=',next_date),('equip_id','=',equip_id.id),('sub_equipment','=',sub_equipment.id)])
+                                    if not check_similar_schedule:
+                                        self.create({
+                                            'name':f"{maintenance_task_type.upper()} - {equip_id.name}",
+                                            'id_maintenance_task' : id_maintenance_task,
+                                            'maintenance_asset_group': maintenance_asset_group.id,
+                                            'maintenance_task_type' : maintenance_task_type,
+                                            'equip_id':equip_id.id,
+                                            'task_planning_date':next_date,
+                                            'sub_equipment':sub_equipment.id,
+                                            'serial_number': equip_id.serial_number,
+                                            'asset_number': equip_id.asset_number,
+                                            'pkt_number': equip_id.pkt_number,
+                                            'kwh_equipment': equip_id.equipment_capacity,
+                                            'brand_model_type': f"{equip_id.brand_name}/{equip_id.equipment_model}/{equip_id.manuf_year}"
+                                        })
+                                    else:
+                                        raise ValidationError("Scheduled Maintenance Already Exist")
+            else:
+                raise ValidationError("No Maintenance ID recorded")
+
 
 
 
