@@ -45,6 +45,8 @@ class OAMachineMaintenance(models.Model):
         ('cancel', 'Cancelled')
     ], default="draft", string="Status", tracking=True)
     job_confirmation_date = fields.Datetime(string="Task Confirmation Date")
+    pic_before_maintenance = fields.Binary(string="Picture Before Maintenance",tracking=True)
+    pic_after_maintenance = fields.Binary(string="Picture After Maintenance",tracking=True)
     # ------------------Ini Connect ke Module UAC ------------------------------------------#
     approval_route_id = fields.Many2one('approval.route', string='Approval Route', readonly=True)
     current_step_id = fields.Many2one('approval.step', string='Current Step', readonly=True, tracking=True)
