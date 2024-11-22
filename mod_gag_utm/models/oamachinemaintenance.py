@@ -9,7 +9,7 @@ class OAMachineMaintenance(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin", "mail.tracking.value"]
     _description="Office Automation Machine Maintenance Form"
 
-    name = fields.Char(string="Task Description",required=True,tracking=True)
+    name = fields.Char("Task Description",required=True)
     id_maintenance_task = fields.Char(string="ID Task",required=True,copy=False, default='New')
     maintenance_task_type = fields.Selection([
         ('top_over_haul', 'TOP OVER HAUL'),
@@ -47,6 +47,7 @@ class OAMachineMaintenance(models.Model):
     job_confirmation_date = fields.Datetime(string="Task Confirmation Date")
     pic_before_maintenance = fields.Binary(string="Picture Before Maintenance",tracking=True)
     pic_after_maintenance = fields.Binary(string="Picture After Maintenance",tracking=True)
+    display_title = fields.Char(string="Display Title", compute="_compute_display_title")
     # ------------------Ini Connect ke Module UAC ------------------------------------------#
     approval_route_id = fields.Many2one('approval.route', string='Approval Route', readonly=True)
     current_step_id = fields.Many2one('approval.step', string='Current Step', readonly=True, tracking=True)
@@ -59,6 +60,8 @@ class OAMachineMaintenance(models.Model):
     text_input_activation = fields.Boolean(compute='_compute_text_input_activation', store=False)
 
     # -------------------------------------------------------------------------------------#
+
+
     @api.depends('job_confirmation_date')
     def submit_job_as_done(self):
         for record in self:
@@ -77,6 +80,18 @@ class OAMachineMaintenance(models.Model):
                 self.upcoming_status = next_step
             else:
                 raise ValidationError('You are not authorized to confirm this task, responsible team only')
+
+    def _compute_display_title(self):
+        for record in self:
+            record.display_title = f"{record.name} - {record.maintenance_task_type} ({record.equip_id.name})"
+
+    def name_get(self):
+        result = []
+        for record in self:
+            equip_name = record.equip_id.name if record.equip_id else "Unknown Equipment"
+            name = f"{record.name} ({record.maintenance_task_type}) - {equip_name}"
+            result.append((record.id, name))
+        return result
     def submit_job_confirmation_process(self):
         self.job_confirmation_date = datetime.now()
         self.state='work_in_progress'
