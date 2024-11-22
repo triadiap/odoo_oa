@@ -141,7 +141,7 @@
         </field>
     </record>
     <record id="equipment_maintenance_action" model="ir.actions.act_window">
-        <field name="name">LAPORAN JAM JALAN MESIN</field>
+        <field name="name">Daily Machine Hour Report</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">oa.equipment.maintenance</field>
         <field name="view_mode">tree,form</field>

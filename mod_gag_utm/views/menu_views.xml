@@ -50,11 +50,6 @@
               parent="menu_utm_masterdata_root"
               action="action_maintenance_setpoint"
               sequence="80"/>
-     <menuitem id="menu_utm_maintenancetype_root"
-              name="Maintenance Type"
-              parent="menu_utm_masterdata_root"
-              action="action_maintenace_type"
-               sequence="40"/>
     <menuitem id="menu_utm_mastersparepart_root"
               name="Spareparts"
               parent="menu_utm_masterdata_root"
@@ -80,12 +75,12 @@
               parent="menu_utm_access_root"
               sequence="30"/>
     <menuitem id="lljm_root"
-              name="LJJM"
+              name="Daily Machine Hour"
               parent="equipment_maintenance_request_root"
               sequence="10"
               action="equipment_maintenance_action"/>
     <menuitem id="maintenance_machine_root"
-              name="Maintenance Task"
+              name="Maintenance Tasklist"
               parent="equipment_maintenance_request_root"
               sequence="20"
               action="form_maintenance_request_action"/>
