@@ -53,14 +53,34 @@
                                 </group>
 
                             </group>
-                             <label for="task_approval_notes" readonly="1"/>
-                             <div>
-                                 <field name="task_approval_notes" readonly="1"/>
-                             </div>
-                             <label for="task_internal_notes" readonly="1"/>
-                             <div>
-                                 <field name="task_internal_notes"/>
-                             </div>
+                            <group>
+                                <label for="task_approval_notes" readonly="1"/>
+                                 <div>
+                                     <field name="task_approval_notes" readonly="1"/>
+                                 </div>
+                                 <label for="task_internal_notes" readonly="1"/>
+                                 <div>
+                                     <field name="task_internal_notes"/>
+                                 </div>
+                            </group>
+                            <group>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Picture Before Maintenance:</h6>
+                                        <div class="image-container">
+                                            <field name="pic_before_maintenance" widget="image" options="{'size': [350, 350]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Picture After Maintenance:</h6>
+                                        <div class="image-container">
+                                            <field name="pic_after_maintenance" widget="image" options="{'size': [350, 350]}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </group>
                         </sheet>
                          <div class="oe_chatter">
                                   <field name="activity_ids"/>

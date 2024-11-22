@@ -35,11 +35,6 @@
               parent="menu_utm_masterdata_root"
               action="action_check_points"
               sequence="20"/>
-    <menuitem id="menu_utm_masterbuilding_root"
-              name="Buildings"
-              parent="menu_utm_masterdata_root"
-              action="action_master_building"
-              sequence="60"/>
      <menuitem id="menu_utm_masterlocation_root"
               name="Locations"
               parent="menu_utm_masterdata_root"
@@ -50,11 +45,6 @@
               parent="menu_utm_masterdata_root"
               action="action_maintenance_setpoint"
               sequence="80"/>
-    <menuitem id="menu_utm_mastersparepart_root"
-              name="Spareparts"
-              parent="menu_utm_masterdata_root"
-              action="action_sparepart_master"
-              sequence="50"/>
     <menuitem id="menu_utm_equipment_root"
               name="Equipments"
               parent="menu_utm_masterdata_root"
