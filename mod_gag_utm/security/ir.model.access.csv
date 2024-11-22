@@ -20,7 +20,6 @@ access_oa_equipment_maintenance,access.oa.equipment.maintenance,model_oa_equipme
 access_ljjm_approval_wizard,access.ljjm.approval.wizard,model_ljjm_approval_wizard,,1,1,1,1
 access_ljjm_cancelation_wizard,access.ljjm.cancelation.wizard,model_ljjm_cancelation_wizard,,1,1,1,1
 access_mail_tracking_value_all_users,access.mail.tracking.value.all.users,mail.model_mail_tracking_value,base.group_user,1,0,0,0
-access_oa_maintenancetype_master,access.oa.maintenancetype.master,model_oa_maintenancetype_master,,1,1,1,1
 access_oa_detailed_maintenance,access.oa.detailed.maintenance,model_oa_detailed_maintenance,,1,1,1,1
 access_oa_machine_maintenance,access.oa.machine.maintenance,model_oa_machine_maintenance,,1,1,1,1
 access_oa_machinemaintenance_approval,access.oa.machinemaintenance.approval,model_oa_machinemaintenance_approval,,1,1,1,1
