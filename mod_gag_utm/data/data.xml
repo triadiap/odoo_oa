@@ -27,7 +27,7 @@
     </data>
     <data>
         <record id="seq_eq_machin_maintenance" model="ir.sequence">
-            <field name="name">Maintenance ID Sequence Number</field>
+            <field name="name">Mach Maintenance ID Sequence Number</field>
             <field name="code">oa.machine.maintenance</field>
             <field name="padding">6</field>
             <field name="company_id" eval="False"/>
