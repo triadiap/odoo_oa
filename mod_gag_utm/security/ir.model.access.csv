@@ -28,3 +28,13 @@ access_oa_report_mawe,access.oa.report.mawe,model_oa_report_mawe,,1,1,1,1
 access.oa.yearly.electricity,access_oa_yearly_electricity,model_oa_yearly_electricity,,1,1,1,1
 access.oa.setpoint.availibility,access_oa_setpoint_availibility,model_oa_setpoint_availibility,,1,1,1,1
 access.oa.machine.condition,access_oa_machine_condition,model_oa_machine_condition,,1,1,1,1
+access.oa.excavaceklist.indikator,access_oa_excavaceklist_indikator,model_oa_excavaceklist_indikator,,1,1,1,1
+access.oa.excavaminidetail.checklist,access_oa_excavaminidetail_checklist,model_oa_excavaminidetail_checklist,,1,1,1,1
+access.oa.excavaminidaily.report,access_oa_excavaminidaily_report,model_oa_excavaminidaily_report,,1,1,1,1
+access.excavamini.approval.wizard,access_excavamini_approval_wizard,model_excavamini_approval_wizard,,1,1,1,1
+access.excavamini.rejection.wizard,access_excavamini_rejection_wizard,model_excavamini_rejection_wizard,,1,1,1,1
+access.oa.lv.checklistindikator,access_oa_lv_checklistindikator,model_oa_lv_checklistindikator,,1,1,1,1
+access.oa.lvdaily.report,access_oa_lvdaily_report,model_oa_lvdaily_report,,1,1,1,1
+access.oa.lvdetail.checklist,access_oa_lvdetail_checklist,model_oa_lvdetail_checklist,,1,1,1,1
+access.lv.approval.wizard,access_lv_approval_wizard,model_lv_approval_wizard,,1,1,1,1
+access.lv.rejection.wizard,access_lv_rejection_wizard,model_lv_rejection_wizard,,1,1,1,1
