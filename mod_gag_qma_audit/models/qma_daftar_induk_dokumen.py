@@ -4,14 +4,10 @@ class QmaDaftarIndukDokumen(models.Model):
     _name = "qma.daftar.induk.dokumen"
     _description = "Model for QMA Daftar Induk Dokumen"
 
-    jenis_dokumen = fields.Char(string="Jenis Dokumen", required=True)
-    name = fields.Char(string="Judul SOP / WI / FORM", required=True)
-    satker = fields.Char(string="Satker", required=True)
-    status_sop = fields.Selection([
-        ("core_process", "CORE PROCESS"),
-        ("improvement", "IMPROVEMENT"),
-        ("supporting", "SUPPORTING")
-    ], string="Status SOP", required=True)
+    jenis_dokumen = fields.Many2one("qma.master.jenis.dokumen", string="Jenis Dokumen", required=True)
+    name = fields.Char(string="Judul Dokumen", required=True)
+    satker = fields.Many2one("hr.department", string="Satker", required=True)
+    status_sop = fields.Many2one("qma.master.status.sop", string="Status SOP", required=True)
     matriks_rkab = fields.Char(string="Matriks RKAB")
     no_dok_lama = fields.Char(string="No. Dokumen Lama")
     no_dok_penyesuaian = fields.Char(string="No. Dokumen Penyesuaian")

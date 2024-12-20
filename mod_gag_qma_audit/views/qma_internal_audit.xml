@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="qma_internal_audit_action" model="ir.actions.act_window">
+        <field name="name">QMA Internal Audit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">qma.internal.audit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN QMA Audit - Internal Audit
+            </p>
+        </field>
+    </record>
+
+    <record id="qma_internal_audit_form" model="ir.ui.view">
+        <field name="name">qma.internal.audit.form</field>
+        <field name="model">qma.internal.audit</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code" placeholder="Code"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="area"/>
+                            <field name="audit_date"/>
+                            <field name="tim_no"/>
+                            <field name="audit_kriteria"/>
+                            <field name="auditee"/>
+                            <field name="ref_doc"/>
+                            <field name="standard_ref"/>
+                        </group>
+                        <group>
+                            <field name="auditor">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Issue">
+                            <group>
+                                <group>
+                                    <field name="audit_issue"/>
+                                </group>
+                                <group>
+                                    <field name="issue_auditee"/>
+                                    <field name="issue_auditor"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Root Cause">
+                            <group>
+                                <group>
+                                    <field name="root_cause"/>
+                                </group>
+                                <group>
+                                    <field name="root_cause_auditee"/>
+                                    <field name="root_cause_auditor"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Corrective">
+                            <group>
+                                <field name="corrective"/>
+                                <field name="photo" widget="image"/>
+                                <field name="verifikator"/>
+                                <field name="verification_date"/>
+                                <field name="status"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

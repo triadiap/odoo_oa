@@ -52,20 +52,24 @@
         <field name="model">corsec.daftar.bod.boc</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="jabatan"/>
-                        <field name="jangka_waktu"/>
-                        <field name="no_akta"/>
-                        <field name="tanggal_akta"/>
+                        <group>
+                            <field name="name"/>
+                            <field name="jabatan"/>
+                            <field name="jangka_waktu"/>
+                            <field name="no_akta"/>
+                            <field name="tanggal_akta"/>
+                        </group>
+                        <group>
+                            <field name="waktu_pengangkatan"/>
+                            <field name="berakhir"/>
+                            <field name="file_ktp"/>
+                            <field name="file_npwp"/>
+                            <field name="keterangan"/>
+                        </group>
                     </group>
-                    <group>
-                        <field name="waktu_pengangkatan"/>
-                        <field name="berakhir"/>
-                        <field name="keterangan"/>
-                    </group>
-                </group>
+                </sheet>
             </form>
         </field>
     </record>

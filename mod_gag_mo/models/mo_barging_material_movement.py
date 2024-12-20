@@ -4,7 +4,7 @@ class MoBargingMaterialMovement(models.Model):
     _name = "mo.barging.material.movement"
     _description = "Model for MO Barging Material Movement"
 
-    mitra = fields.Char(string="Mitra", required=True)
+    mitra = fields.Many2one("res.partner", string="Mitra", required=True)
     shift = fields.Selection([
         ("shift_1", "Shift 1"),
         ("shift_2", "Shift 2"),

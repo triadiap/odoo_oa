@@ -4,7 +4,7 @@ class MoProdMatMove(models.Model):
     _name = "mo.production.material.movement"
     _description = "Model for MO Production Material Movement"
 
-    mitra = fields.Char(string="Mitra", required=True)
+    mitra = fields.Many2one("res.partner", string="Mitra", required=True)
     tanggal = fields.Date(string="Tanggal", required=True)
     shift = fields.Selection([
         ("shift_1", "Shift 1"),

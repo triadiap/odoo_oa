@@ -1,6 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_hc_ticketing,access.hc.ticketing,model_hc_ticketing,,1,1,1,1
 access_hc_ticketing_items,access.hc.ticketing.items,model_hc_ticketing_items,,1,1,1,1
+access_hc_ticketing_items_on,access.hc.ticketing.items.on,model_hc_ticketing_items_on,,1,1,1,1
 access_hc_surat_perintah_pembelian_langsung,access.hc.surat.perintah.pembelian.langsung,model_hc_surat_perintah_pembelian_langsung,,1,1,1,1
 access_hc_risk_regist,access.hc.risk.regist,model_hc_risk_regist,,1,1,1,1
 access_hc_risk_regist_realisasi,access.hc.risk.regist.realisasi,model_hc_risk_regist_realisasi,,1,1,1,1
+access_hc_master_risk_type,access.hc.master.risk.type,model_hc_master_risk_type,,1,1,1,1
+access_hc_risk_regist_doc,access.hc.risk.regist.doc,model_hc_risk_regist_doc,,1,1,1,1

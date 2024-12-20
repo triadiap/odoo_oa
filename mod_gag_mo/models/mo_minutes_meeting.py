@@ -10,8 +10,16 @@ class MoMinutesMeeting(models.Model):
     topik_rapat = fields.Char(string="Topik Rapat", required=True)
     peserta = fields.Char(string="Peserta", required=True)
     distribusi = fields.Char(string="Distribusi")
+    sc_peserta = fields.Binary(string="Soft Copy Daftar Hadir Peserta")
 
     detail = fields.One2many("mo.minutes.meeting.detail", "id_detail", string="Pokok-Pokok Rapat")
+
+    def name_get(self):
+        result = []
+        for record in self:
+            display_name = f"{record.tanggal_waktu} - {record.tempat} - {record.topik_rapat}"  # Custom display
+            result.append((record.id, display_name))
+        return result
 
 class MoMinutesMeetingDetail(models.Model):
     _name = "mo.minutes.meeting.detail"

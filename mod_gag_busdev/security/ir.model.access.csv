@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_busdev_monitoring_project,access.busdev.monitoring.project,model_busdev_monitoring_project,,1,1,1,1
 access_busdev_monitoring_project_detail,access.busdev.monitoring.project.detail,model_busdev_monitoring_project_detail,,1,1,1,1
+access_busdev_project_document,access.busdev.project.document,model_busdev_project_document,,1,1,1,1
+access_busdev_project_payment,access.busdev.project.payment,model_busdev_project_payment,,1,1,1,1

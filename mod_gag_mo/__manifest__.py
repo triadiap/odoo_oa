@@ -31,6 +31,7 @@
         'views/mo_surat_keterangan_sakit.xml',
         'views/mo_permintaan_pengeluaran_barang.xml',
         'views/mo_work_request.xml',
+        'views/mo_master_equipment.xml',
         'views/menulist.xml',
         'views/assets.xml',
     ],

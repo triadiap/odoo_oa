@@ -13,7 +13,7 @@ class MoSafetyTalk(models.Model):
     _name = "mo.safety.talk.item"
     _description = "Model for MO Safety Talk Item"
 
-    name = fields.Char(string="Nama", required=True)
+    name = fields.Many2one("hr.employee", string="Nama", required=True)
     tidur = fields.Selection([
         ("ya", "Ya"),
         ("tidak", "Tidak"),

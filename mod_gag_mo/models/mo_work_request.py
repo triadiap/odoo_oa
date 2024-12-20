@@ -5,13 +5,14 @@ class MoWorkRequest(models.Model):
     _name = "mo.work.request"
     _description = "MO Work Request"
 
-    div_from = fields.Char(string="From", required=True)
-    div_to = fields.Char(string="To", required=True)
+    div_from = fields.Many2one("hr.department", string="From", required=True, default=lambda self: self.env.user.department_id.id)
+    div_to = fields.Many2one("hr.department", string="To", required=True)
     wo_number = fields.Char(string="Originating Work Order No", required=True)
     est_cost_attch = fields.Selection([
         ("yes", "Yes"),
         ("no", "No")
-    ], string="Estimated Cost Attached", required=True)
+    ], string="Estimated Cost Attached", default="no", required=True)
+    file_attach = fields.Binary(string="Attachment")
     wr_detail_info = fields.Text(string="Work Request Detailed Description", required=True)
     notes = fields.Text(string="Note")
     req_by = fields.Many2one("res.users", string="Request By", required=True)

@@ -11,4 +11,6 @@ class CorsecDaftarBodBoc(models.Model):
     tanggal_akta = fields.Date(string="Tanggal Akta", required=True)
     waktu_pengangkatan = fields.Date(string="Waktu Pengangkatan", required=True)
     berakhir = fields.Char(string="Berakhir Pada", required=True)
+    file_ktp = fields.Binary(string="Lampiran KTP")
+    file_npwp = fields.Binary(string="Lampiran NPWP")
     keterangan = fields.Text(string="Keterangan")

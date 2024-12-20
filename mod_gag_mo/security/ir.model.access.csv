@@ -34,3 +34,11 @@ access_mo_sk_sakit_klinik,access.mo.sk.sakit.klinik,model_mo_sk_sakit_klinik,,1,
 access_mo_permintaan_pengeluaran_barang,access.mo.permintaan.pengeluaran.barang,model_mo_permintaan_pengeluaran_barang,,1,1,1,1
 access_mo_permintaan_pengeluaran_barang_item,access.mo.permintaan.pengeluaran.barang.item,model_mo_permintaan_pengeluaran_barang_item,,1,1,1,1
 access_mo_work_request,access.mo.work.request,model_mo_work_request,,1,1,1,1
+access_mo_master_equipment,access.mo.master.equipment,model_mo_master_equipment,,1,1,1,1
+access_mo_master_equipment_bulldozer,access.mo.master.equipment.bulldozer,model_mo_master_equipment_bulldozer,,1,1,1,1
+access_mo_master_equipment_excavator,access.mo.master.equipment.excavator,model_mo_master_equipment_excavator,,1,1,1,1
+access_mo_master_equipment_alatangkut,access.mo.master.equipment.alatangkut,model_mo_master_equipment_alatangkut,,1,1,1,1
+access_mo_lkh_delay_rain_prod,access.mo.lkh.delay.rain.prod,model_mo_lkh_delay_rain_prod,,1,1,1,1
+access_mo_lkh_delay_rain_brg,access.mo.lkh.delay.rain.brg,model_mo_lkh_delay_rain_brg,,1,1,1,1
+access_mo_lkh_delay_slippery_prod,access.mo.lkh.delay.slippery.prod,model_mo_lkh_delay_slippery_prod,,1,1,1,1
+access_mo_lkh_delay_slippery_brg,access.mo.lkh.delay.slippery.brg,model_mo_lkh_delay_slippery_brg,,1,1,1,1

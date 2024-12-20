@@ -1,3 +1,7 @@
 from . import qma_daftar_induk_dokumen
 from . import qma_list_finding_internal_audit
 from . import qma_audit_5r
+from . import qma_master_jenis_dokumen
+from . import qma_master_status_sop
+from . import qma_internal_audit
+from . import qma_master_score

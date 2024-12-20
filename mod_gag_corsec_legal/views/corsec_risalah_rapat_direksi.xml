@@ -25,7 +25,6 @@
                 <field name="jam_selesai" widget="float_time"/>
                 <field name="tempat"/>
                 <field name="agenda"/>
-                <field name="file"/>
             </tree>
         </field>
     </record>
@@ -48,16 +47,34 @@
         <field name="model">corsec.risalah.rapat.direksi</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <sheet>
                     <group>
-                        <field name="tanggal"/>
-                        <field name="jam_mulai" widget="float_time"/>
-                        <field name="jam_selesai" widget="float_time"/>
-                        <field name="tempat"/>
-                        <field name="agenda"/>
-                        <field name="file"/>
+                        <group>
+                            <field name="tanggal"/>
+                            <field name="jam_mulai" widget="float_time"/>
+                            <field name="jam_selesai" widget="float_time"/>
+                            <field name="tempat"/>
+                            <field name="agenda"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                            <field name="no_dokumen"/>
+                            <field name="jenis_dokumen"/>
+                            <field name="is_file_asli"/>
+                            <field name="lok_simpan" attrs="{'invisible' : [('is_file_asli', '=', False)]}"/>
+                        </group>
                     </group>
-                </group>
+                    <notebook>
+                        <page string="Dokumen">
+                            <field name="list_dok">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="file"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>

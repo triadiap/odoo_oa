@@ -22,12 +22,9 @@
             <tree>
                 <field name="nomor_akta"/>
                 <field name="tanggal_akta"/>
-                <field name="no_sk_sp"/>
-                <field name="tanggal_sk_sp"/>
                 <field name="notaris"/>
                 <field name="scan_copy"/>
                 <field name="asli_akta"/>
-                <field name="asli_sk_sp"/>
                 <field name="jenis_akta"/>
             </tree>
         </field>
@@ -40,8 +37,6 @@
             <search>
                 <field name="nomor_akta"/>
                 <field name="tanggal_akta"/>
-                <field name="no_sk_sp"/>
-                <field name="tanggal_sk_sp"/>
                 <field name="notaris"/>
                 <field name="jenis_akta"/>
             </search>
@@ -53,22 +48,38 @@
         <field name="model">corsec.list.akta.notaris</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <sheet>
                     <group>
-                        <field name="nomor_akta"/>
-                        <field name="tanggal_akta"/>
-                        <field name="no_sk_sp"/>
-                        <field name="tanggal_sk_sp"/>
-                        <field name="notaris"/>
+                        <group>
+                            <field name="nomor_akta"/>
+                            <field name="tanggal_akta"/>
+                            <field name="notaris"/>
+                            <field name="keterangan"/>
+
+                        </group>
+                        <group>
+                            <field name="scan_copy"/>
+                            <field name="file_scan" attrs="{'invisible' : [('scan_copy', '=', False)]}"/>
+                            <field name="asli_akta"/>
+                            <field name="lok_simpan" attrs="{'invisible' : [('asli_akta', '=', False)]}"/>
+                            <field name="jenis_akta"/>
+                        </group>
                     </group>
-                    <group>
-                        <field name="keterangan"/>
-                        <field name="scan_copy"/>
-                        <field name="asli_akta"/>
-                        <field name="asli_sk_sp"/>
-                        <field name="jenis_akta"/>
-                    </group>
-                </group>
+                    <notebook>
+                        <page string="Daftar SK - SP">
+                            <field name="list_sk_sp">
+                                <tree editable="bottom">
+                                    <field name="jenis"/>
+                                    <field name="no_surat"/>
+                                    <field name="tanggal"/>
+                                    <field name="file"/>
+                                    <field name="asli"/>
+                                    <field name="lok_simpan" attrs="{'readonly' : [('asli', '=', False)]}"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>

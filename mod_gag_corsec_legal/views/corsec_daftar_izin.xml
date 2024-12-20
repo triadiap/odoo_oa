@@ -56,14 +56,30 @@
                     <group>
                         <field name="name"/>
                         <field name="nama_izin"/>
+                        <field name="no_izin"/>
                         <field name="penerbit"/>
                         <field name="tanggal"/>
-                        <field name="no_izin"/>
                         <field name="keterangan"/>
+                    </group>
+                    <group>
                         <field name="jangka_waktu"/>
                         <field name="berakhir_pada"/>
+                        <field name="status"/>
+                        <field name="lampiran"/>
                     </group>
                 </group>
+                <notebook>
+                    <page string="Dokumen Persyaratan">
+                        <div style="width: 50%">
+                            <field name="list_syarat">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="file"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </page>
+                </notebook>
             </form>
         </field>
     </record>

@@ -44,29 +44,33 @@
                     <page string="Barging Activity" name="barging_activity">
                         <field name="barge_items">
                             <tree editable="bottom">
+                                <field name="partner_id" invisible="1"/>
                                 <field name="barge_no" width="50"/>
                                 <field name="rit_count" width="20"/>
-                                <field name="barge_buldozer" width="30"/>
-                                <field name="barge_excavator" width="30"/>
-                                <field name="barge_alat_angkut" width="30"/>
+                                <field name="barge_buldozer" widget="many2many_tags" width="30"/>
+                                <field name="barge_excavator" widget="many2many_tags" width="30"/>
+                                <field name="barge_alat_angkut" widget="many2many_tags" width="30"/>
                             </tree>
                         </field>
                     </page>
                     <page string="Ore Material" name="ore_material">
                         <field name="ore_items">
                             <tree editable="bottom">
+                                <field name="partner_id" invisible="1"/>
                                 <field name="location" />
+                                <field name="location_drop" />
                                 <field name="ore_adt_rit_count"/>
                                 <field name="ore_dt_rit_count" />
-                                <field name="ore_buldozer" />
-                                <field name="ore_excavator" />
-                                <field name="ore_alat_angkut" />
+                                <field name="ore_buldozer" widget="many2many_tags"/>
+                                <field name="ore_excavator" widget="many2many_tags"/>
+                                <field name="ore_alat_angkut" widget="many2many_tags"/>
                             </tree>
                         </field>
                     </page>
                     <page string="OB Material" name="ob_material">
                         <field name="ob_items">
                             <tree editable="bottom">
+                                <field name="partner_id" invisible="1"/>
                                 <field name="location" />
                                 <field name="ob_adt_topsoil" />
                                 <field name="ob_dt_topsoil" />
@@ -76,13 +80,13 @@
                                 <field name="ob_dt_waste" />
                                 <field name="ob_adt_develop" />
                                 <field name="ob_dt_develop" />
-                                <field name="ob_buldozer" />
-                                <field name="ob_excavator" />
-                                <field name="ob_alat_angkut" />
+                                <field name="ob_buldozer" widget="many2many_tags"/>
+                                <field name="ob_excavator" widget="many2many_tags"/>
+                                <field name="ob_alat_angkut" widget="many2many_tags"/>
                             </tree>
                         </field>
                     </page>
-                    <page string="Weather Report and Other Information" name="weather_and_other">
+                    <page string="Other Information" name="weather_and_other">
                         <group>
                             <group>
                                 <separator string="Standby Unsafe Condition / Other" />
@@ -101,24 +105,61 @@
                             <group>
                                 <separator string="Equipment Support"/>
                                 <field name="bool_mh"/>
+                                <field name="unit_mh" attrs="{'invisible' : [('bool_mh', '=', False)]}"/>
                                 <field name="bool_ft"/>
+                                <field name="unit_ft" attrs="{'invisible' : [('bool_ft', '=', False)]}"/>
                                 <field name="bool_wt"/>
+                                <field name="unit_wt" attrs="{'invisible' : [('bool_wt', '=', False)]}"/>
                                 <field name="bool_vb"/>
+                                <field name="unit_vb" attrs="{'invisible' : [('bool_vb', '=', False)]}"/>
                                 <field name="bool_mg"/>
+                                <field name="unit_mg" attrs="{'invisible' : [('bool_mg', '=', False)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page string="Weather Report">
+                        <group>
+                            <group>
+                                <separator string="Rain Production"/>
+                                <field name="rain_prod_items" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="w_from"/>
+                                        <field name="w_to"/>
+                                        <field name="notes"/>
+                                    </tree>
+                                </field>
                             </group>
                             <group>
-                                <separator string="Weather Report"/>
-                                <field name="rain_prod_from"/>
-                                <field name="rain_prod_to"/>
-                                <separator/>
-                                <field name="rain_brg_from"/>
-                                <field name="rain_brg_to"/>
-                                <separator/>
-                                <field name="slippery_prod_from"/>
-                                <field name="slippery_prod_to"/>
-                                <separator/>
-                                <field name="slippery_brg_from"/>
-                                <field name="slippery_brg_to"/>
+                                <separator string="Rain Barging"/>
+                                <field name="rain_brg_items" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="w_from"/>
+                                        <field name="w_to"/>
+                                        <field name="notes"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <separator string="Slippery Production"/>
+                                <field name="slippery_prod_items" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="w_from"/>
+                                        <field name="w_to"/>
+                                        <field name="notes"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group>
+                                <separator string="Slippery Barging"/>
+                                <field name="slippery_brg_items" nolabel="1">
+                                    <tree editable="bottom">
+                                        <field name="w_from"/>
+                                        <field name="w_to"/>
+                                        <field name="notes"/>
+                                    </tree>
+                                </field>
                             </group>
                         </group>
                     </page>

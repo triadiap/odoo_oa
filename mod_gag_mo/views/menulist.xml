@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <menuitem id="mo_root" web_icon="mod_gag_mo,static/description/MOP.png" name="MO" sequence="10"/>
+    <menuitem id="mo_root" web_icon="mod_gag_mo,static/description/icon.png" name="MO" sequence="10"/>
     <menuitem id="mo_ops_root" name="Mine Operation" parent="mo_root" sequence="10"/>
     <menuitem id="mo_lkh_root" name="LKH Mitra" sequence="10" parent="mo_ops_root" action="mo_lkh_action"/>
     <menuitem id="mo_job_pending_root" name="Job Pending" parent="mo_ops_root" sequence="20" action="mo_job_pending_action"/>
@@ -12,16 +12,19 @@
 
     <menuitem id="mo_adm_root" name="Administrasi" parent="mo_root" sequence="20"/>
     <menuitem id="mo_pr_root" name="Purchase Requirement" parent="mo_adm_root" sequence="10" action="mo_purchase_requirement_action"/>
-    <menuitem id="mo_rekapan_lembur_root" name="Rekapan Lembur" parent="mo_adm_root" sequence="20" action="mo_rekapan_lembur_action"/>
+<!--    <menuitem id="mo_rekapan_lembur_root" name="Rekapan Lembur" parent="mo_adm_root" sequence="20" action="mo_rekapan_lembur_action"/>-->
     <menuitem id="mo_ijinkeluar_root" name="Surat Ijin Keluar Base Camp" parent="mo_adm_root" sequence="30" action="mo_ijinkeluar_action"/>
-    <menuitem id="mo_cuti_roster_root" name="Cuti Roster" parent="mo_adm_root" sequence="40" action="mo_cuti_roster_action"/>
-    <menuitem id="mo_cuti_roster_struk_root" name="Cuti Roster Struktural" parent="mo_adm_root" sequence="50" action="mo_cuti_roster_struk_action"/>
-    <menuitem id="mo_cuti_tahunan_root" name="MO Cuti Tahunan" parent="mo_adm_root" sequence="60" action="mo_cuti_tahunan_action"/>
+<!--    <menuitem id="mo_cuti_roster_root" name="Cuti Roster" parent="mo_adm_root" sequence="40" action="mo_cuti_roster_action"/>-->
+<!--    <menuitem id="mo_cuti_roster_struk_root" name="Cuti Roster Struktural" parent="mo_adm_root" sequence="50" action="mo_cuti_roster_struk_action"/>-->
+<!--    <menuitem id="mo_cuti_tahunan_root" name="MO Cuti Tahunan" parent="mo_adm_root" sequence="60" action="mo_cuti_tahunan_action"/>-->
     <menuitem id="mo_minutes_meeting_root" name="Minutes Meeting" parent="mo_adm_root" sequence="70" action="mo_minutes_meeting_action"/>
     <menuitem id="mo_absensi_weekly_root" name="Daftar Hadir Weekly Meeting" parent="mo_adm_root" sequence="80" action="mo_absensi_weekly_action"/>
-    <menuitem id="mo_daftarhadir_root" name="Daftar Hadir Pekerja Shift" parent="mo_adm_root" sequence="90" action="mo_daftarhadir_action"/>
+<!--    <menuitem id="mo_daftarhadir_root" name="Daftar Hadir Pekerja Shift" parent="mo_adm_root" sequence="90" action="mo_daftarhadir_action"/>-->
     <menuitem id="mo_safety_talk_root" name="Safety Talk" parent="mo_adm_root" sequence="100" action="mo_safety_talk_action"/>
     <menuitem id="mo_permintaan_apd_root" name="Permintaan APD" parent="mo_adm_root" sequence="110" action="mo_permintaan_apd_action"/>
-    <menuitem id="mo_sk_sakit_root" name="Surat Keterangan Sakit" parent="mo_adm_root" sequence="120" action="mo_sk_sakit_action"/>
-    <menuitem id="mo_permintaan_pengeluaran_barang_root" name="Permintaan Pengeluaran Barang Gudang" parent="mo_adm_root" sequence="130" action="mo_permintaan_pengeluaran_barang_action"/>
+<!--    <menuitem id="mo_sk_sakit_root" name="Surat Keterangan Sakit" parent="mo_adm_root" sequence="120" action="mo_sk_sakit_action"/>-->
+<!--    <menuitem id="mo_permintaan_pengeluaran_barang_root" name="Permintaan Pengeluaran Barang Gudang" parent="mo_adm_root" sequence="130" action="mo_permintaan_pengeluaran_barang_action"/>-->
+
+    <menuitem id="mo_master_root" name="Master Data" parent="mo_root" sequence="30"/>
+    <menuitem id="mo_master_equipment_root" name="Equipment" parent="mo_master_root" sequence="10" action="mo_master_equipment_action"/>
 </odoo>

@@ -9,6 +9,7 @@ class MoInspeksiHarian(models.Model):
     shift = fields.Selection([
         ("shift_1", "Shift 1"),
         ("shift_2", "Shift 2"),
+        ("long_shift", "Long Shift"),
     ], string="Shift", required=True)
     lokasi = fields.Selection([
         ("kantor", "Kantor / Mess GAG"),

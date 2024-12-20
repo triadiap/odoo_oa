@@ -19,3 +19,5 @@ from . import mo_permintaan_apd
 from . import mo_surat_keterangan_sakit_klinik
 from . import mo_permintaan_pengeluaran_barang_gudang
 from . import mo_work_request
+
+from . import mo_master_equipment

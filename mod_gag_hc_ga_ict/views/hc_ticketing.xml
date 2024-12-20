@@ -23,6 +23,7 @@
                 <field name="name"/>
                 <field name="req_date"/>
                 <field name="ticket_progres"/>
+                <field name="ticket_progres_on"/>
             </tree>
         </field>
     </record>
@@ -50,9 +51,26 @@
                         <field name="file"/>
                     </group>
                 </group>
+                <separator string="List Off Site Request"/>
                 <field name="ticket_item">
                     <tree editable="bottom">
+                        <field name="leave_id"/>
                         <field name="name"/>
+                        <field name="divisi"/>
+                        <field name="tanggal"/>
+                        <field name="keterangan"/>
+                        <field name="tujuan"/>
+                        <field name="state" readonly="True"/>
+                        <button name="set_done"
+                            type="object" string="Processed"
+                            class="oe_highlight"
+                            attrs="{'invisible' : ['|', ('id', '=', False), ('state', '=', 'done')]}"/>
+                    </tree>
+                </field>
+                <separator string="List On Site Request"/>
+                <field name="ticket_item_on">
+                    <tree editable="bottom">
+                        <field name="employee_id"/>
                         <field name="divisi"/>
                         <field name="tanggal"/>
                         <field name="keterangan"/>

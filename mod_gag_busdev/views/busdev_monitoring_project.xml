@@ -52,19 +52,48 @@
                         <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
                         <field name="pic" attrs="{'readonly': [('id', '!=', False)]}"/>
                         <field name="start_date" attrs="{'readonly': [('id', '!=', False)]}"/>
-                        <field name="due_date" attrs="{'readonly': [('id', '!=', False)]}"/>
                         <field name="notes"/>
+                        <field name="status_project"/>
+                    </group>
+                    <group>
+                        <field name="klasifikasi"/>
+                        <field name="satuan_kerja"/>
+                        <field name="kepala_satker"/>
+                        <field name="nama_vendor"/>
+                        <field name="due_date" attrs="{'readonly': [('id', '!=', False)]}"/>
                     </group>
                 </group>
-                <field name="detail_items">
-                    <tree editable="bottom">
-                        <field name="date" width="50"/>
-                        <field name="progress" width="320"/>
-                    </tree>
-                </field>
+                <notebook>
+                    <page string="Progress Project Investasi" name="busdev_progress">
+                        <field name="detail_items">
+                            <tree editable="bottom">
+                                <field name="date" width="50"/>
+                                <field name="progress" width="320"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Dokumen Pendukung" name="busdev_dokumen">
+                        <field name="list_dokumen">
+                            <tree editable="bottom">
+                                <field name="name"/>
+                                <field name="file"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Pembayaran" name="busdev_payment">
+                        <div style="width: 650px">
+                            <field name="list_pembayaran">
+                                <tree editable="bottom">
+                                    <field name="termin" width="60%"/>
+                                    <field name="jumlah" width="40%"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </page>
+                </notebook>
             </form>
         </field>
     </record>
 
-    <menuitem id="busdev_monitoring_project_root" web_icon="mod_gag_busdev,static/description/BUSDEV.png" name="BUSDEV Monitoring Project Investasi" sequence="10" action="busdev_monitoring_project_action"/>
+    <menuitem id="busdev_monitoring_project_root" web_icon="mod_gag_busdev,static/description/icon.png" name="Business Development" sequence="10" action="busdev_monitoring_project_action"/>
 </odoo>

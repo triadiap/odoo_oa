@@ -2,3 +2,8 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_qma_daftar_induk_dokumen,access.qma.daftar.induk.dokumen,model_qma_daftar_induk_dokumen,,1,1,1,1
 access_qma_list_finding_internal_audit,access.qma.list.finding.internal.audit,model_qma_list_finding_internal_audit,,1,1,1,1
 access_qma_form_audit,access.qma.form.audit,model_qma_form_audit,,1,1,1,1
+access_qma_master_jenis_dokumen,access.qma.master.jenis.dokumen,model_qma_master_jenis_dokumen,,1,1,1,1
+access_qma_master_status_sop,access.qma.master.status.sop,model_qma_master_status_sop,,1,1,1,1
+access_qma_internal_audit,access.qma.internal.audit,model_qma_internal_audit,,1,1,1,1
+access_qma_internal_audit_auditor,access.qma.internal.audit.auditor,model_qma_internal_audit_auditor,,1,1,1,1
+access_qma_master_score,access.qma.master.score,model_qma_master_score,,1,1,1,1

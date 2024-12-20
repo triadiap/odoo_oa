@@ -44,20 +44,20 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
                     <field name="button_visible" invisible="1"/>
                 </header>
-                <group>
+                <sheet>
                     <group>
                         <field name="div_from"/>
                         <field name="div_to"/>
                         <field name="wo_number"/>
                         <field name="est_cost_attch"/>
-                    </group>
-                    <group>
+                        <field name="file_attach" attrs="{'invisible': [('est_cost_attch', '=', 'no')]}"/>
+
                         <field name="wr_detail_info"/>
                         <field name="notes"/>
                         <field name="req_by"/>
                         <field name="req_date"/>
                     </group>
-                </group>
+                </sheet>
             </form>
         </field>
     </record>

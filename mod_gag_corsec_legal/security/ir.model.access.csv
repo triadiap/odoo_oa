@@ -4,3 +4,7 @@ access_corsec_daftar_bod_boc,access.corsec.daftar.bod.boc,model_corsec_daftar_bo
 access_corsec_daftar_izin,access.corsec.daftar.izin,model_corsec_daftar_izin,,1,1,1,1
 access_corsec_risalah_rapat_direksi,access.corsec.risalah.rapat.direksi,model_corsec_risalah_rapat_direksi,,1,1,1,1
 access_corsec_risalah_rapat_komisaris,access.corsec.risalah.rapat.komisaris,model_corsec_risalah_rapat_komisaris,,1,1,1,1
+access_corsec_list_sksp,access.corsec.list.sksp,model_corsec_list_sksp,,1,1,1,1
+access_corsec_dokumen_persyaratan,access.corsec.dokumen.persyaratan,model_corsec_dokumen_persyaratan,,1,1,1,1
+access_corsec_risalah_rapat_direksi_dok,access.corsec.risalah.rapat.direksi.dok,model_corsec_risalah_rapat_direksi_dok,,1,1,1,1
+access_corsec_risalah_rapat_komisaris_dok,access.corsec.risalah.rapat.komisaris.dok,model_corsec_risalah_rapat_komisaris_dok,,1,1,1,1

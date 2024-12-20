@@ -66,8 +66,8 @@
                         <field name="root_cause"/>
                         <field name="tindakan_perbaikan"/>
                         <field name="kriteria"/>
-                        <field name="state" readonly="True"/>
-                        <field name="date_close" readonly="True"/>
+                        <field name="state"/>
+                        <field name="date_close"/>
                         <field name="deadline_close"/>
                         <field name="catatan"/>
                     </group>

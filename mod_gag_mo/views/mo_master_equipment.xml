@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mo_master_equipment_action" model="ir.actions.act_window">
+        <field name="name">MO Master Equipment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mo.master.equipment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN MO and Shipping - Master Data Equipment
+            </p>
+        </field>
+    </record>
+
+    <record id="mo_master_equipment_tree" model="ir.ui.view">
+        <field name="name">mo.master.equipment.tree</field>
+        <field name="model">mo.master.equipment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="buldozer_count"/>
+                <field name="excavator_count"/>
+                <field name="aa_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mo_master_equipment_search" model="ir.ui.view">
+        <field name="name">mo.master.equipment.search</field>
+        <field name="model">mo.master.equipment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="mo_master_equipment_form" model="ir.ui.view">
+        <field name="name">mo.master.equipment.form</field>
+        <field name="model">mo.master.equipment</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Bulldozer">
+                            <field name="bulldozer_list">
+                                <tree editable="bottom">
+                                    <field name="no_unit"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Excavator">
+                            <field name="excavator_list">
+                                <tree editable="bottom">
+                                    <field name="no_unit"/>
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Alat Angkut">
+                            <field name="alat_angkut_list">
+                                <tree editable="bottom">
+                                    <field name="no_unit"/>
+                                    <field name="name"/>
+                                    <field name="tipe"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

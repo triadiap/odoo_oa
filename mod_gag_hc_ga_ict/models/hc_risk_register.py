@@ -17,8 +17,12 @@ class HcRiskRegister(models.Model):
         current_year = datetime.now().year
         return [(str(year), str(year)) for year in range(current_year - 1, current_year + 2 )]
 
+    def _get_dept_id(self):
+        return self.env.user.employee_id.department_id.id
+
     month = fields.Selection(selection=_get_months, string="Bulan", required=True)
     year = fields.Selection(selection=_get_years, string="Tahun", required=True)
+    department_id = fields.Many2one('hr.department', string="Satker", default=lambda self: self.env.user.employee_id.department_id.id)
 
     # Identifikasi Resiko
     sasaran_strategis = fields.Char(string="Sasaran Strategis", required=True)
@@ -27,8 +31,8 @@ class HcRiskRegister(models.Model):
     tahapan = fields.Char(string="Tahapan Proses Bisnis")
     no_resiko = fields.Char(string="No. Resiko")
     kejadian_resiko = fields.Text(string="Kejadian Resiko")
-    tipe_resiko = fields.Char(string="Tipe Resiko", required=True) # Change with master data tipe resiko
-    tipe_resiko_kbumn = fields.Char(string="Tipe Resiko Sesuai Taksonomi KBUMN") # Change with related fields based on master data tipe resiko
+    tipe_resiko = fields.Many2one("hc.master.risk.type", string="Tipe Resiko", required=True) # Change with master data tipe resiko
+    tipe_resiko_kbumn = fields.Char(related="tipe_resiko.taksonomi", string="Tipe Resiko Sesuai Taksonomi KBUMN", readonly=True) # Change with related fields based on master data tipe resiko
 
     # Penilaian Resiko Inheren
     sumber_resiko = fields.Text(string="Sumber Penyebab Resiko")
@@ -38,16 +42,28 @@ class HcRiskRegister(models.Model):
     t_red = fields.Char(string="Merah")
     penjelasan_dampak = fields.Char(string="Penjelasan Dampak Resiko (Kualitatif)")
     nilai_dampak = fields.Float(string="Nilai Dampak Resiko (Kuantitatif - IDR)")
-    tingkat_resiko_l = fields.Integer(string="L")
-    tingkat_resiko_d = fields.Integer(string="D")
+    tingkat_resiko_l = fields.Selection([
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ],string="L")
+    tingkat_resiko_d = fields.Selection([
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ],string="D")
     risk_level = fields.Integer(string="Risk Level (RL)", compute="_compute_rl", store=True)
     kuadran = fields.Char(string="Kuadran", readonly=True, compute="_get_kuadran", store=True) # Change with master data risk_level
 
     @api.depends('tingkat_resiko_l', 'tingkat_resiko_d')
     def _compute_rl(self):
         for record in self:
-            risk_l = record.tingkat_resiko_l
-            risk_d = record.tingkat_resiko_d
+            risk_l = int(record.tingkat_resiko_l)
+            risk_d = int(record.tingkat_resiko_d)
             risk_level = risk_l * risk_d
             record.risk_level = risk_level
 
@@ -62,7 +78,11 @@ class HcRiskRegister(models.Model):
 
     # Penilaian Kontrol Eksisting dan Current Risk
     kontrol_proses = fields.Text(string="Kontrol Proses Bisnis Yang Ada Saat Ini")
-    sifat_kontrol = fields.Char(string="Sifat Kontrol")
+    sifat_kontrol = fields.Selection([
+        ("L", "Likelihood"),
+        ("D", "Impact"),
+        ("LD", "Likelihood & Impact")
+    ], string="Sifat Kontrol")
     pn_desain = fields.Selection([
         ("effective", "Effective"),
         ("partially_effective", "Partially Effective"),
@@ -75,16 +95,28 @@ class HcRiskRegister(models.Model):
         ("non_effective", "Non Effective"),
         ("belum_ada", "Belum Ada Kontrol")
     ], string="Penilaian Kontrol Implementasi")
-    current_tingkat_resiko_l = fields.Integer(string="L")
-    current_tingkat_resiko_d = fields.Integer(string="D")
+    current_tingkat_resiko_l = fields.Selection([
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ],string="L")
+    current_tingkat_resiko_d = fields.Selection([
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ],string="D")
     current_risk_level = fields.Integer(string="Risk Level (RL)", compute="_compute_current_rl", store=True)
     current_kuadran = fields.Char(string="Kuadran", readonly=True, compute="_get_current_kuadran", store=True,)
 
     @api.depends('current_tingkat_resiko_l', 'current_tingkat_resiko_d')
     def _compute_current_rl(self):
         for record in self:
-            risk_l = record.current_tingkat_resiko_l
-            risk_d = record.current_tingkat_resiko_d
+            risk_l = int(record.current_tingkat_resiko_l)
+            risk_d = int(record.current_tingkat_resiko_d)
             risk_level = risk_l * risk_d
             record.current_risk_level = risk_level
 
@@ -105,16 +137,28 @@ class HcRiskRegister(models.Model):
     budget_cost = fields.Float(string="Budget Cost")
     due_date = fields.Date(string="Due Date")
     pic = fields.Char(string="PIC")
-    residual_tingkat_resiko_l = fields.Integer(string="L")
-    residual_tingkat_resiko_d = fields.Integer(string="D")
+    residual_tingkat_resiko_l = fields.Selection([
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ],string="L")
+    residual_tingkat_resiko_d = fields.Selection([
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ],string="D")
     residual_risk_level = fields.Integer(string="Risk Level (RL)", compute="_compute_residual_rl", readonly=True, store=True)
     residual_kuadran = fields.Char(string="Kuadran", compute="_get_residual_kuadran", readonly=True, store=True)
 
     @api.depends('residual_tingkat_resiko_l', 'residual_tingkat_resiko_d')
     def _compute_residual_rl(self):
         for record in self:
-            risk_l = record.residual_tingkat_resiko_l
-            risk_d = record.residual_tingkat_resiko_d
+            risk_l = int(record.residual_tingkat_resiko_l)
+            risk_d = int(record.residual_tingkat_resiko_d)
             risk_level = risk_l * risk_d
             record.residual_risk_level = risk_level
 
@@ -128,6 +172,7 @@ class HcRiskRegister(models.Model):
                 record.residual_kuadran = ""
 
     monitoring = fields.One2many("hc.risk.regist.realisasi", "id_risk_register", string="Monitoring Realisasi")
+    dokumen = fields.One2many("hc.risk.regist.doc", "id_risk_reg", string="Dokumen Pendukung")
 
 class HcRiskRegistItem(models.Model):
     _name = "hc.risk.regist.realisasi"
@@ -142,8 +187,20 @@ class HcRiskRegistItem(models.Model):
     status = fields.Char(string="Status")
     p_sisa_dampak_resiko = fields.Text(string="Penjelasan Sisa Dampak Resiko (Kualitatif)")
     n_sisa_dampak_resiko = fields.Text(string="Nilai Sisa Dampak Resiko (Kuantitatif)")
-    item_tingkat_resiko_l = fields.Integer(string="L")
-    item_tingkat_resiko_d = fields.Integer(string="D")
+    item_tingkat_resiko_l = fields.Selection([
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ],string="L")
+    item_tingkat_resiko_d = fields.Selection([
+        ("1", "1"),
+        ("2", "2"),
+        ("3", "3"),
+        ("4", "4"),
+        ("5", "5"),
+    ],string="D")
     item_risk_level = fields.Integer(string="Risk Level (RL)", compute="_compute_item_rl", readonly=True, store=True)
     item_kuadran = fields.Char(string="Kuadran", compute="_get_item_kuadran", readonly=True, store=True)
 
@@ -152,8 +209,8 @@ class HcRiskRegistItem(models.Model):
     @api.depends('item_tingkat_resiko_l', 'item_tingkat_resiko_d')
     def _compute_item_rl(self):
         for record in self:
-            risk_l = record.item_tingkat_resiko_l
-            risk_d = record.item_tingkat_resiko_d
+            risk_l = int(record.item_tingkat_resiko_l)
+            risk_d = int(record.item_tingkat_resiko_d)
             risk_level = risk_l * risk_d
             record.item_risk_level = risk_level
 
@@ -165,3 +222,11 @@ class HcRiskRegistItem(models.Model):
                 record.item_kuadran = kuadran.kuadran
             else:
                 record.item_kuadran = ""
+
+class HcRiskRegistDoc(models.Model):
+    _name = "hc.risk.regist.doc"
+    _description = "Model for HC Risk Register document"
+
+    name = fields.Char(string="Nama Dokumen", required=True)
+    file = fields.Binary(string="Dokumen", required=True)
+    id_risk_reg = fields.Many2one('hc.risk.regist', string="ID Risk Regist")
