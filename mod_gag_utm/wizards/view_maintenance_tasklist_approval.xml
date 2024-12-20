@@ -10,6 +10,11 @@
                         <field name="id_machine_maintenance" invisible="1"/>
                         <field name="approval_reason_id"/>
                         <field name="approval_note"/>
+                        <field name="equip_id" invisible="1"/>
+                        <field name="maintenance_task_type" invisible="1"/>
+                        <field name="sub_equipment" invisible="1"/>
+                        <field name="task_execution_date" invisible="1"/>
+                        <field name="maintenance_asset_group" invisible="1"/>
                         <field name="approval_route_id" invisible="1"/>
                         <field name="current_step_id" invisible="1"/>
                         <field name="existing_status" invisible="1"/>

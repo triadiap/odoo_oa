@@ -16,6 +16,9 @@ class TransientLjjmApproval(models.TransientModel):
     existing_status = fields.Char(string="Current Status", tracking=True)
     upcoming_status = fields.Many2one('approval.step', string='Upcoming Status', tracking=True)
     pending_approval_by = fields.Many2one('res.users', string="Pending Approval By", tracking=True)
+    equip_id = fields.Many2one('oa.master.equipment', string='Equipment Name')
+    report_date = fields.Date(string='Tanggal Pelaporan', tracking=True, required=True,
+                              default=fields.Date.context_today)
 
     @api.model
     def default_get(self, fields):
@@ -28,6 +31,8 @@ class TransientLjjmApproval(models.TransientModel):
             res['existing_status'] = model.existing_status
             res['upcoming_status'] = model.upcoming_status
             res['pending_approval_by'] = model.pending_approval_by
+            res['equip_id'] = model.equipment_id
+            res['report_date'] = model.report_date
         return res
 
     def action_confirm(self):
@@ -52,6 +57,10 @@ class TransientLjjmApproval(models.TransientModel):
                 'team_leader_name' : self.env.user.id,
                 'team_leader_sign_date' : fields.Datetime.now()
             }
+            self.env['oa.machine.maintenance'].ljjm_tasklist_autogenerate(
+                self.equip_id,
+                self.report_date
+            )
         records = self.env['oa.equipment.maintenance'].browse(self.id_ljjm.id)
         records.write(vals)
 

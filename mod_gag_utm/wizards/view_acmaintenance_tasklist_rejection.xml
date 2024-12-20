@@ -16,7 +16,6 @@
                         <field name="upcoming_status" invisible="1"/>
                         <field name="pending_approval_by" invisible="1"/>
                     </group>
-
                 </group>
                 <footer>
                     <button string="Reject" name="action_reject" type="object" class="btn-primary"/>

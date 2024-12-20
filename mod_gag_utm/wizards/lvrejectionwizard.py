@@ -4,11 +4,11 @@ from odoo import api, fields, models, tools
 from odoo.exceptions import ValidationError
 from datetime import datetime
 
-class TransientACMaintenanceCancelation(models.TransientModel):
-    _name = 'oa.maintenancecancelation.wizard'
-    _description = 'AC Maintenance Task Cancelation Wizard'
+class LVRejectionWizard(models.TransientModel):
+    _name = 'lv.rejection.wizard'
+    _description = 'Unit LV Report Rejection Wizard'
 
-    id_ac_maintenance = fields.Many2one('oa.acmaintenance.request', string='ID')
+    id_lv_report = fields.Many2one('oa.lvdaily.report', string='Related ID')
     refusal_reason_id = fields.Many2one('oa.refusal.reason', string='Rejection Reason', required=True)
     rejection_note = fields.Text(string="Remarks", required=True)
     approval_route_id = fields.Many2one('approval.route', string='Approval Route')
@@ -19,10 +19,10 @@ class TransientACMaintenanceCancelation(models.TransientModel):
 
     @api.model
     def default_get(self, fields):
-        res = super(TransientACMaintenanceCancelation, self).default_get(fields)
+        res = super(LVRejectionWizard, self).default_get(fields)
         if self._context.get('active_id'):
-            model = self.env['oa.acmaintenance.request'].browse(self._context.get('active_id'))
-            res['id_ac_maintenance'] = model.id
+            model = self.env['oa.lvdaily.report'].browse(self._context.get('active_id'))
+            res['id_lv_report'] = model.id
             res['approval_route_id'] = model.approval_route_id
             res['current_step_id'] = model.current_step_id
             res['existing_status'] = model.existing_status
@@ -32,13 +32,17 @@ class TransientACMaintenanceCancelation(models.TransientModel):
 
     def action_reject(self):
         if self.env.user != self.current_step_id.user_id:
-            raise ValidationError('You do not have the required permissions to reject this document.')
+            raise ValidationError('You do not have the required permissions to approve this document.')
+
         vals = {
-            'current_step_id': None,
-            'existing_status': self.refusal_reason_id.name,
-            'pending_approval_by': None,
-            'upcoming_status': None,
-            'state': 'rejected'
-        }
-        records = self.env['oa.acmaintenance.request'].browse(self.id_ac_maintenance.id)
+                'state':'rejected',
+                'existing_status' : f"Rejected by {self.pending_approval_by.name}",
+                'pending_approval_by': None,
+                'upcoming_status' : None,
+                'approver_notes' : self.rejection_note
+            }
+        records = self.env['oa.lvdaily.report'].browse(self.id_lv_report.id)
         records.write(vals)
+
+
+

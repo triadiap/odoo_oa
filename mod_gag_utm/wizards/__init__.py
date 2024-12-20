@@ -6,3 +6,7 @@ from . import ljjmapprovalwizard
 from . import ljjmcancelationwizard
 from . import maintenanceapprovalwizard
 from . import maintenancerejectionwizard
+from . import excavaminiapprovalwizard
+from . import excavaminirejectionwizard
+from . import lvminiapprovalwizard
+from . import lvrejectionwizard
