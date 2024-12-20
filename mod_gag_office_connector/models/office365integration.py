@@ -28,7 +28,7 @@ class Office365Integration(models.Model):
     test_email_to = fields.Char(string='Test Email Recipient', required=True,tracking=True)
     test_email_subject = fields.Char(string='Test Email Subject', default='Test Email from Odoo',tracking=True)
     test_email_body = fields.Text(string='Test Email Body', default='This is a test email sent from Odoo.',tracking=True)
-    sender_email = fields.Char(string='Sender Email', required=True, help="Email of the user sending the message",tracking=True)
+    sender_email = fields.Char(string='Sender Mail', required=True, help="Email of the user sending the message",tracking=True)
 
     # Fields for file upload to OneDrive
     file_id = fields.Char("OneDrive File ID", readonly=True)
@@ -38,9 +38,9 @@ class Office365Integration(models.Model):
     file_name = fields.Char("File Name")
 
     #fields for calendar synchronization
-    calendar_name = fields.Char("Event Name", required=True)
-    calendar_start_datetime = fields.Datetime("Start DateTime", required=True)
-    calendar_end_datetime = fields.Datetime("End DateTime", required=True)
+    calendar_name = fields.Char("Event Name", required=True,default='Event Testing')
+    calendar_start_datetime = fields.Datetime("Start DateTime", required=True,default=fields.Date.context_today)
+    calendar_end_datetime = fields.Datetime("End DateTime", required=True,default=fields.Date.context_today)
     calendar_location = fields.Char("Location")
     calendar_description = fields.Text("Description")
     outlook_event_id = fields.Char("Outlook Event ID")  # Store the event ID from Outlook
