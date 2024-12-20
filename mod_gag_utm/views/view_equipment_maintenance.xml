@@ -6,7 +6,6 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-
                               <button id="button-approval-process" name="action_approval_process" string="Submit To Approve" class="btn-primary" type="object" states="draft"/>
                               <button id="button-confirm" name="%(mod_gag_utm.view_ljjm_approval_action)d" string="Approve" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
                               <button id="button-reject" name="%(mod_gag_utm.view_ljjm_cancelation_action)d" string="Reject" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
@@ -40,11 +39,11 @@
                                 <group>
                                     <field name="equipment_id" options="{'no_create':True,'no_edit':True}"/>
                                     <field name="report_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                    <field name="brand_model_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                    <field name="serial_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                    <field name="asset_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                    <field name="pkt_number" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                    <field name="kwh_equipment" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="brand_model_type" readonly="1"/>
+                                    <field name="serial_number" readonly="1"/>
+                                    <field name="asset_number" readonly="1"/>
+                                    <field name="pkt_number" readonly="1"/>
+                                    <field name="kwh_equipment" readonly="1"/>
                                     <field name="cumulative_hour" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                     <field name="plan_hour" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 </group>
@@ -141,7 +140,7 @@
         </field>
     </record>
     <record id="equipment_maintenance_action" model="ir.actions.act_window">
-        <field name="name">Daily Machine Hour Report</field>
+        <field name="name">Laporan Jam Jalan Mesin (LJJM)</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">oa.equipment.maintenance</field>
         <field name="view_mode">tree,form</field>

@@ -1,5 +1,70 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    !--    kanban view features-->
+    <record id="ac_maintenance_request_kanban" model="ir.ui.view">
+        <field name="name">oa.acmaintenance.request.kanban</field>
+        <field name="model">oa.acmaintenance.request</field>
+        <field name="arch" type="xml">
+            <kanban default_order="id asc" create="false">
+                <field name="request_id"/>
+                <field name="name"/>
+                <field name="equipment_id"/>
+                <field name="location_id"/>
+                <field name="date_to_action_need"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        <h5><u><b><field name="request_id"/></b></u></h5>
+                                    </li>
+                                    <li>
+                                        <field name="name"/>
+                                    </li>
+                                    <li>
+                                        <field name="equipment_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="location_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="date_to_action_need"/>
+                                    </li>
+                                    <li >
+                                         <t t-if="record.state.raw_value == 'draft'">
+                                            <h5><span class="badge badge-new">Draft</span></h5>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'work_in_progress'">
+                                            <h5><span class="badge badge-in-progress">On Progress</span></h5>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'approve'">
+                                            <h5><span class="badge badge-completed">Approved</span></h5>
+                                        </t>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_acmaintenance_request_calendar" model="ir.ui.view">
+        <field name="name">oa.acmaintenance.request.calendar</field>
+        <field name="model">oa.acmaintenance.request</field>
+        <field name="arch" type="xml">
+            <calendar date_start="date_to_action_need" color="color" event_limit="5" event_open_popup="true" mode="month">
+                <field name="id" invisible="1"/>
+                <field name="name"/>
+                <field name="location_id" filters="1"/>
+                <field name="ac_technicians"/>
+                <field name="action_priority" widget="priority"/>
+                <field name="equipment_id"  filters="1"/>
+            </calendar>
+        </field>
+    </record>
     <record id="ac_maintenance_request_form" model="ir.ui.view">
         <field name="name">oa.acmaintenance.request.form</field>
          <field name="model">oa.acmaintenance.request</field>
@@ -9,7 +74,7 @@
                           <button id="button-reject" name="%(mod_gag_utm.ac_maintenance_tasklist_rejection_action)d" string="Reject" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
                           <button id="request-set-as-done" name="request_set_as_done" string="Mark As Done" class="btn-primary" type="object" attrs="{'invisible': [('button_done_visible', '=', False)]}"/>
                           <button id="task-confirmation-done" name="technician_confirmation_as_done" string="Submit For Approval" class="btn-primary" type="object" states="work_in_progress"/>
-                          <button id="task-approval-process" name="%(mod_gag_utm.view_tasklist_approval_wizard_action)d" string="Task Approval" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                          <button id="task-approval-process" name="%(mod_gag_utm.view_ac_maintenance_tasklist_approval_action)d" string="Task Approval" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
                           <button id="job-confirmation-process" name="submit_job_confirmation_process" string="Task Confirmation" class="btn-primary" type="object" states="assigned"/>
                           <button id="button-technician-assignment-process" name="submit_technician_assignment" string="Task Assignment" class="btn-primary" type="object" states="submit_request"/>
                           <button id="button-approval-process" name="submit_as_request" string="Submit As Request" class="btn-primary" type="object" states="draft"/>
@@ -25,22 +90,21 @@
                             </div>
                             <group>
                                 <group>
-                                    <field name="name"/>
-                                    <field name="location_id"/>
-                                    <field name="ac_technicians" widget="many2many_tags" options="{'no_create': True,'no_edit': True}"/>
-                                    <field name="job_confirmation_date" readonly="1"/>
-                                    <field name="job_finalization_date" readonly="1"/>
-                                </group>
-                                <group>
-                                    <field name="date_to_action_need"/>
-                                    <field name="action_priority" widget="priority" options="{'max_priority': 3}"/>
-                                    <field name="existing_status"/>
-                                    <field name="upcoming_status"/>
-                                    <field name="pending_approval_by" readonly="1"/>
-                                    <field name="button_visible" invisible="1"/>
-                                    <field name="button_done_visible" invisible="1"/>
-                                    <field name="text_input_activation" invisible="1"/>
-                                    <field name="cancel_button_visibility" invisible="1"/>
+                                        <field name="name"/>
+                                        <field name="location_id"/>
+                                        <field name="ac_technicians" widget="many2many_tags" options="{'no_create': True,'no_edit': True}"/>
+                                        <field name="job_confirmation_date" readonly="1"/>
+                                        <field name="job_finalization_date" readonly="1"/>
+                                        <field name="date_to_action_need"/>
+                                        <field name="action_priority" widget="priority" options="{'max_priority': 3}"/>
+                                        <field name="existing_status" readonly="1"/>
+                                        <field name="upcoming_status"/>
+                                        <field name="schedule_type" readonly="1"/>
+                                        <field name="pending_approval_by" readonly="1"/>
+                                        <field name="button_visible" invisible="1"/>
+                                        <field name="button_done_visible" invisible="1"/>
+                                        <field name="text_input_activation" invisible="1"/>
+                                        <field name="cancel_button_visibility" invisible="1"/>
                                 </group>
                             </group>
                             <div>
@@ -52,53 +116,33 @@
                                 <page string="Equipment Checklist">
                                         <group>
                                             <field name="equipment_id" options="{'no_create':True,'no_edit':True}"/>
-                                            <field name="brand_model_type"/>
-                                            <field name="serial_number"/>
-                                            <field name="asset_number"/>
-                                            <field name="pkt_number"/>
-                                            <field name="kwh_equipment"/>
+                                            <field name="brand_model_type" readonly="1"/>
+                                            <field name="serial_number" readonly="1"/>
+                                            <field name="asset_number" readonly="1"/>
+                                            <field name="pkt_number" readonly="1"/>
+                                            <field name="kwh_equipment" readonly="1"/>
                                         </group>
                                        <group>
                                             <group>
                                                 <div class="row">
-                                                    <div class="col-md-12">
-                                                         <h6>Picture Before :</h6>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
+                                                        <div class="col-md-6">
+                                                            <h6>Foto Sebelum Pekerjaan :</h6>
                                                                 <div class="image-container">
-                                                                     <field name="picture_before_1" widget="image" options="{'size': [250, 250]}"/>
+                                                                     <field name="picture_before_1" widget="image" options="{'size': [400, 400]}"/>
                                                                 </div>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h6>Foto Sesudah Pekerjaan :</h6>
+                                                        <div class="image-container">
+                                                            <field name="picture_after_1" widget="image" options="{'size': [400, 400]}"/>
                                                         </div>
                                                     </div>
                                                 </div>
                                              </group>
-                                             <group>
-                                                 <div class="row">
-                                                     <div class="col-md-12">
-                                                         <h6>Picture After :</h6>
-                                                    </div>
-                                                     <div class="row">
-                                                            <div class="col-md-12">
-                                                                    <div class="image-container">
-                                                                      <field name="picture_after_1" widget="image" options="{'size': [250, 250]}"/>
-                                                                    </div>
-                                                            </div>
-                                                     </div>
-                                                 </div>
-                                             </group>
+
                                         </group>
-                                </page>
-                                <page string="Logs">
-                                        <field name="tracking_value_ids">
-                                            <tree string="Change History">
-                                                <field name="create_date" string="Change Date"/>
-                                                <field name="field_desc" string="Field"/>
-                                                <field name="old_value_char" string="Old Value"/>
-                                                <field name="new_value_char" string="New Value"/>
-                                                <field name="write_uid" string="Changed By"/>
-                                            </tree>
-                                        </field>
                                 </page>
                             </notebook>
 
@@ -126,10 +170,10 @@
          </field>
     </record>
     <record id="ac_maintenance_request_action" model="ir.actions.act_window">
-        <field name="name">Air Conditioning (AC) Maintenance Request</field>
+        <field name="name">Laporan Pemeliharan Dan Perbaikan AC</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">oa.acmaintenance.request</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,calendar,tree,form</field>
         <field name="target">current</field>
         <field name="context">{}</field>
         <field name="domain">[]</field>

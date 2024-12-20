@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record id="view_oa_lv_detail_checklist_form" model="ir.ui.view">
+        <field name="name">oa.lvdetail.checklist.form</field>
+        <field name="model">oa.lvdetail.checklist</field>
+        <field name="arch" type="xml">
+            <form string="LV Detail Checklist" create="false" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="report_id_lv" string="Report ID" readonly="1"/>
+                            <field name="equipment_id" readonly="1"/>
+                            <field name="subunit" readonly="1"/>
+                            <field name="name" readonly="1" string="Part yang perlu di check"/>
+                            <field name="btn_set_schedule" invisible="1"/>
+                            <field name="schedule_set_btn" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="kode_bahaya" readonly="1"/>
+                            <field name="lv_checklist_remark" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="routine_schedule_conf" widget="boolean_toggle"/>
+                            <field name="measurement_unit" readonly="1" attrs="{'invisible': [('btn_set_schedule', '=', False)]}"/>
+                            <field name="maintenance_freq" attrs="{'invisible': [('btn_set_schedule', '=', False)]}"/>
+                            <field name="lv_maintenance_type" attrs="{'invisible': [('btn_set_schedule', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="maintenance_schedule_conf" widget="boolean_toggle"/>
+                            <field name="maintenance_schedule_date" attrs="{'invisible': [('schedule_set_btn', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Maintenance Frequency Per Part">
+                            <field name="detailed_maintenance_ids">
+                                  <tree>
+                                      <field name="name"/>
+                                      <field name="id_maintenance_type"/>
+                                      <field name="maintenance_freq"/>
+                                      <field name="part_name"/>
+                                      <field name="unit_of_measure"/>
+                                      <field name="create_date"/>
+                                      <field name="write_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                    <div class="oe_chatter">
+                              <field name="activity_ids"/>
+                              <field name="message_ids"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+      <record id="view_oa_lv_detail_checklist_tree" model="ir.ui.view">
+        <field name="name">oa.lvdetail.checklist.tree</field>
+        <field name="model">oa.lvdetail.checklist</field>
+        <field name="arch" type="xml">
+            <tree string="Detail Checklist" create="false" edit="false" delete="false">
+                <field name="sequence" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="report_code" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                 <field name="equipment_id" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="name" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="kode_bahaya" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="lv_indicator" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="lv_checklist_remark" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="subunit" options="{'no_edit':True,'no_create':True}" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Action for (x) PERBAIKAN OLEH MEKANIK SHIFT BERIKUTNYA -->
+    <record id="lv_action_kode_x" model="ir.actions.act_window">
+        <field name="name">(x) PERBAIKAN OLEH MEKANIK SHIFT BERIKUTNYA</field>
+        <field name="res_model">oa.lvdetail.checklist</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('kode_bahaya', '=', 1),('report_id_lv', '=', context.get('default_code_id3'))]</field>
+    </record>
+    <!-- Action for (xx) DILAPORKAN -->
+    <record id="lv_action_kode_xx" model="ir.actions.act_window">
+        <field name="name">(xx) DILAPORKAN</field>
+        <field name="res_model">oa.lvdetail.checklist</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('kode_bahaya', '=', 2),('report_id_lv', '=', context.get('default_code_id2'))]</field>
+    </record>
+    <!-- Action for (xxx) TIDAK BOLEH DIOPERASIKAN -->
+    <record id="lv_action_kode_xxx" model="ir.actions.act_window">
+        <field name="name">(xxx) TIDAK BOLEH DIOPERASIKAN</field>
+        <field name="res_model">oa.lvdetail.checklist</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('kode_bahaya', '=', 3),('report_id_lv', '=', context.get('default_code_id'))]</field>
+    </record>
+    <record id="lvdailyreport_form" model="ir.ui.view">
+        <field name="name">oa.lvdaily.report.form</field>
+        <field name="model">oa.lvdaily.report</field>
+        <field name="arch" type="xml">
+            <form string="Form Pemeriksaan Unit LV" delete="false">
+                <header>
+                     <field name="hide_css"/>
+                     <button id="button-reject" name="%(mod_gag_utm.view_lvrejection_form_action)d" string="Reject" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                    <button id="lvapproval-process" name="%(mod_gag_utm.view_unitlv_approval_action)d" string="Approval" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
+                     <button id="button-draft" name="action_draft" string="Set To Draft" class="btn-primary" type="object" attrs="{'invisible': [('cancel_button_visibility', '=', False)]}" context="{'action_id': active_id}"/>
+                    <button id="button-submit-report" name="submit_as_request" string="Submit Report" class="btn-primary" type="object" states="draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved"/>
+                </header>
+                <sheet>
+
+                    <div class="oe_button_box" name="button_box" >
+                                <button name="%(lv_action_kode_xxx)d" type="action" class="oe_stat_button" icon="fa-ban" style="width:250px;height:50px;" context="{'default_code_id': id}">
+                                     <div class="o_stat_info">
+                                            <field string="Count Of XXX" name="count_xxx" class="o_stat_value"/>
+                                            <span class="o_stat_text">(xxx)</span>
+                                            <span class="o_stat_text" style="font-size:10px">TIDAK BOLEH DIOPERASIKAN</span>
+                                     </div>
+                                </button>
+                                <button name="%(lv_action_kode_xx)d" type="action" class="oe_stat_button" icon="fa-flag" style="width:250px;height:50px;" context="{'default_code_id2': id}">
+                                    <div class="o_stat_info">
+                                            <field string="Count Of XX" name="count_xx" class="o_stat_value"/>
+                                            <span class="o_stat_text"><h7>(xx)</h7></span>
+                                            <span class="o_stat_text" style="font-size:10px">DILAPORKAN</span>
+                                    </div>
+                                </button>
+                                <button name="%(lv_action_kode_x)d" type="action" class="oe_stat_button" icon="fa-cogs" style="width:250px;height:50px;" context="{'default_code_id3': id}">
+                                                <div class="o_stat_info">
+                                                        <field string="Count Of X" name="count_x" class="o_stat_value"/>
+                                                        <span class="o_stat_text">(x)</span>
+                                                        <span class="o_stat_text" style="font-size:10px">PERBAIKAN OLEH MEKANIK</span>
+                                                </div>
+                                </button>
+                    </div>
+
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" placeholder="Report ID" readonly="1" options="{'no_create': True,'no_edit': True}"/>
+                            </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="lv_report_date"/>
+                            <field name="lv_shift"/>
+                            <field name="lv_equip_id"/>
+                        </group>
+                        <group>
+                            <field name="lv_serial_number" readonly="1"/>
+                            <field name="lv_model" readonly="1"/>
+                            <field name="lv_power" readonly="1"/>
+                            <field name="lv_operator_name"/>
+                            <field name="lv_km_unit"/>
+                            <field name="button_visible" invisible="1"/>
+                            <field name="existing_status" readonly="1"/>
+                            <field name="upcoming_status"/>
+                            <field name="pending_approval_by" readonly="1"/>
+                            <field name="button_done_visible" invisible="1"/>
+                            <field name="text_input_activation" invisible="1"/>
+                            <field name="cancel_button_visibility" invisible="1"/>
+                            <field name="approver_notes" readonly="1"/>
+                        </group>
+
+                    </group>
+
+                    <button name="action_get_excavamini_checklist"
+                                    type="object"
+                                    class="btn-primary" attrs="{'invisible': [('button_done_visible', '=', False)]}"><i class="fa fa-check-square"></i> Checklist</button>
+                    <notebook>
+                        <page string="Indikator Checklist">
+                            <field name="id_report_lv" context="{'group_by': 'subunit'}">
+                                <tree editable="bottom">
+                                    <field name="sequence" readonly="1"/>
+                                    <field name="kode_bahaya"/>
+                                    <field name="name"/>
+                                    <field name="lv_indicator"/>
+                                    <field name="subunit" group_expand="True" readonly="1"/>
+                                    <field name="lv_checklist_remark"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <!--    ini tampilan tabel depan-->
+    <record id="lvdailyreport_tree" model="ir.ui.view">
+        <field name="name">oa.lvdaily.report.tree</field>
+        <field name="model">oa.lvdaily.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" optional="show"/>
+                <field name="lv_report_date" optional="show"/>
+                <field name="lv_shift" optional="show"/>
+                <field name="lv_equip_id" optional="show"/>
+                <field name="lv_operator_name" optional="show"/>
+                <field name="lv_km_unit" optional="show"/>
+                <field name="lv_serial_number" optional="show"/>
+                <field name="lv_model" optional="show"/>
+                <field name="lv_power" optional="show"/>
+                <field name="create_uid" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+                <field name="state" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_lvdailyreport" model="ir.actions.act_window">
+        <field name="name">Unit LV Daily Report</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oa.lvdaily.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+               Setup your master data here!
+            </p>
+        </field>
+    </record>
+</odoo>

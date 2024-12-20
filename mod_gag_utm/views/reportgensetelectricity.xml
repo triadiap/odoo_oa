@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+     <record id="genset_electricity_chart_tree" model="ir.ui.view">
+        <field name="name">oa.yearly.electricity.tree</field>
+        <field name="model">oa.yearly.electricity</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="id" optional="show"/>
+                 <field name="month_name" optional="show"/>
+                 <field name="checkingyear" widget="integer" optional="show"/>
+                 <field name="equipment_id" optional="show"/>
+                 <field name="equipment_name" optional="show"/>
+                 <field name="kwh_pershift" optional="show"/>
+                 <field name="jml_kwh" optional="show"/>
+            </tree>
+        </field>
+    </record>
     <record id="view_genset_electricity_chart" model="ir.ui.view">
         <field name="name">oa.yearly.electricity.chart</field>
         <field name="model">oa.yearly.electricity</field>
         <field name="arch" type="xml">
-            <graph string="Yearly Electricity Report Per Unit (Total Kwh/Hour)" type="line" stacked="False">
+            <graph string="Yearly Electricity Report Per Unit (Total Kwh/Hour)" type="bar" stacked="False">
                 <field name="month_name" type="row"/>
                 <field name="kwh_pershift" type="measure" string="Kwh/Hour" operator="sum"/>
                 <field name="jml_kwh" type="measure" string="KWH" operator="sum"/>
-                <field name="checkingyear" type="col"/>
+                <field name="equipment_name" type="col"/>
             </graph>
         </field>
     </record>
      <record id="action_genset_electricty_chart_report" model="ir.actions.act_window">
-        <field name="name">Monthly Electricity Consumption Report By Year</field>
+        <field name="name">Laporan Penggunaan Listrik PLTD Per Bulan Per Tahun (Agregat)</field>
         <field name="res_model">oa.yearly.electricity</field>
         <field name="view_mode">graph</field>
         <field name="view_id" ref="view_genset_electricity_chart"/>
          <field name="context">{}</field>
+         <field name="domain">[('equipment_name', '!=', 'Others'),('month_name', '!=', '')]</field>
     </record>
 </odoo>

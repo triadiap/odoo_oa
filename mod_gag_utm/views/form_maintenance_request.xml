@@ -1,11 +1,59 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    !--    kanban view features-->
+    <record id="machine_maintenance_request_kanban" model="ir.ui.view">
+        <field name="name">oa.machine.maintenance.kanban</field>
+        <field name="model">oa.machine.maintenance</field>
+        <field name="arch" type="xml">
+            <kanban default_order="id asc" create="false">
+                <field name="id_maintenance_task"/>
+                <field name="name"/>
+                <field name="equip_id"/>
+                <field name="task_planning_date"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li>
+                                        <h5><u><b><field name="id_maintenance_task"/></b></u></h5>
+                                    </li>
+                                    <li>
+                                        <field name="name"/>
+                                    </li>
+                                    <li>
+                                        <field name="equip_id"/>
+                                    </li>
+                                    <li>
+                                        <field name="task_planning_date"/>
+                                    </li>
+                                    <li >
+                                         <t t-if="record.state.raw_value == 'draft'">
+                                            <h5><span class="badge badge-new">Draft</span></h5>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'work_in_progress'">
+                                            <h5><span class="badge badge-in-progress">On Progress</span></h5>
+                                        </t>
+                                        <t t-if="record.state.raw_value == 'approve'">
+                                            <h5><span class="badge badge-completed">Approved</span></h5>
+                                        </t>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
      <record id="oa_machine_maintenance_form" model="ir.ui.view">
         <field name="name">oa.machine.maintenance.form</field>
          <field name="model">oa.machine.maintenance</field>
          <field name="arch" type="xml">
-                <form string="Machine Maintenance Request">
+                <form string="Machine Maintenance Request" create="false">
                         <header>
+
                                 <button id="button-reject" name="%(mod_gag_utm.oa_machine_maintenance_rejection_action)d" string="Reject" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
                                 <button id="task-approval-process" name="%(mod_gag_utm.view_maintenance_task_approval_action)d" string="Task Approval" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
                                 <button id="job-confirmation-process" name="submit_job_as_done" string="Set As Done" class="btn-primary" type="object" states="work_in_progress"/>
@@ -32,7 +80,8 @@
                                      <field name="pkt_number"/>
                                      <field name="kwh_equipment"/>
                                      <field name="maintenance_asset_group" options="{'no_create':True,'no_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                     <field name="sub_equipment" options="{'no_create':True,'no_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                     <field name="sub_equipment" options="{'no_create':True,'no_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')],'invisible': [('group_sub_equipment_visibility', '!=', True)]}"/>
+                                     <field name="maintenance_part_name" options="{'no_create':True,'no_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                 </group>
                                 <group>
                                         <field name="create_uid"/>
@@ -43,9 +92,10 @@
                                         <field name="responsible_team" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                                         <field name="cancel_button_visibility" invisible="1"/>
                                         <field name="button_visible" invisible="1"/>
+                                        <field name="group_sub_equipment_visibility" invisible="1"/>
                                         <label for="time_duration" readonly="1"/>
                                         <div>
-                                            <field name="time_duration" widget="float_time" class="oe_inline" attrs="{'readonly': [('state', '!=', 'draft')]}"/><span class="ml8">hours</span>
+                                            <field name="time_duration" widget="float_time" class="oe_inline"/><span class="ml8">hours</span>
                                         </div>
                                         <field name="existing_status" readonly="1"/>
                                         <field name="upcoming_status" readonly="1"/>
@@ -66,7 +116,7 @@
                             <group>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h6>Picture Before Maintenance:</h6>
+                                        <h6>Foto Sebelum Pekerjaan :</h6>
                                         <div class="image-container">
                                             <field name="pic_before_maintenance" widget="image" options="{'size': [350, 350]}"/>
                                         </div>
@@ -74,7 +124,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <h6>Picture After Maintenance:</h6>
+                                        <h6>Foto Sesudah Pekerjaan :</h6>
                                         <div class="image-container">
                                             <field name="pic_after_maintenance" widget="image" options="{'size': [350, 350]}"/>
                                         </div>
@@ -93,7 +143,7 @@
         <field name="name">oa.machine.maintenance.calendar</field>
         <field name="model">oa.machine.maintenance</field>
         <field name="arch" type="xml">
-            <calendar date_start="task_planning_date" date_delay="time_duration" color="equip_id" event_limit="5" event_open_popup="true" mode="month">
+            <calendar date_start="task_planning_date" date_delay="time_duration" color="color" event_limit="5" event_open_popup="true" mode="month">
                 <field name="id" invisible="1"/>
                 <field name="name"/>
                 <field name="display_title"/>
@@ -107,7 +157,7 @@
          <field name="name">oa.machine.maintenance.tree</field>
          <field name="model">oa.machine.maintenance</field>
          <field name="arch" type="xml">
-                <tree>
+                <tree create="false" edit="false">
                     <field name="id_maintenance_task" optional="show"/>
                     <field name="name" optional="show"/>
                     <field name="maintenance_task_type" optional="show"/>
@@ -127,10 +177,10 @@
          </field>
     </record>
     <record id="form_maintenance_request_action" model="ir.actions.act_window">
-        <field name="name">Maintenance Tasklist</field>
+        <field name="name">Jadwal dan Status Pemeliharaan Mesin</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">oa.machine.maintenance</field>
-        <field name="view_mode">calendar,tree,form</field>
+        <field name="view_mode">calendar,tree,form,kanban</field>
         <field name="context">{}</field>
         <field name="domain">[]</field>
         <field name="help" type="html">

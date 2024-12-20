@@ -10,17 +10,32 @@
                                 <group>
                                      <field name="name"/>
                                      <field name="brand_name"/>
+                                     <field name="product_id"/>
                                      <field name="manuf_year"/>
+                                     <field name="equipment_date"/>
                                      <field name="serial_number"/>
                                      <field name="asset_number"/>
                                      <field name="pkt_number"/>
+                                     <field name="equipment_engine_number"/>
+                                     <field name="equipment_trans_axle"/>
                                 </group>
                                 <group>
                                     <field name="equipment_model"/>
+                                    <field name="equipment_weight"/>
+                                    <field name="equipment_dimension"/>
                                     <field name="equipment_capacity"/>
-                                    <h6><i>For Electrical Only</i></h6>
-                                    <field name="group_id" options="{'no_edit':True,'no_create':True}"/>
-                                    <field name="location_id" options="{'no_edit':True,'no_create':True}"/>
+                                    <field name="equipment_capacity_input"/>
+                                    <field name="equipment_power"/>
+                                    <field name="equipment_rated_engine"/>
+                                    <field name="equipment_engine_power"/>
+                                    <field name="equipment_calibration_nr"/>
+
+                                    <field name="rated_output"/>
+                                    <field name="group_id"/>
+                                    <field name="location_id"/>
+                                    <field name="btn_fix_routine_schedule"/>
+                                    <field name="general_maintenance_frequency" attrs="{'invisible': [('btn_set_schedule', '=', False)]}"/>
+                                    <field name="btn_set_schedule" invisible="1"/>
                                 </group>
                             </group>
                             <notebook>
@@ -32,14 +47,14 @@
                                             </div>
                                         </div>
                                 </page>
-                                <page string="Maintenance">
+                                <page string="Maintenance Frequency Per Part" attrs="{'invisible': [('btn_set_schedule', '=', True)]}">
                                     <field name="id_detail_maintenance">
                                         <tree editable="bottom">
                                                 <field name="name"/>
                                                 <field name="id_maintenance_type"/>
                                                 <field name="maintenance_freq"/>
-                                                <field name="percentage_condition_min"/>
-                                                <field name="percentage_condition_max"/>
+                                                <field name="part_name"/>
+                                                <field name="unit_of_measure"/>
                                          </tree>
                                     </field>
 
@@ -47,14 +62,30 @@
 
                             </notebook>
                         </sheet>
+                        <div class="oe_chatter">
+                              <field name="activity_ids"/>
+                              <field name="message_ids"/>
+                        </div>
                     </form>
             </field>
+    </record>
+
+     <record id="equipment_master_search" model="ir.ui.view">
+        <field name="name">oa.master.equipment.search</field>
+        <field name="model">oa.master.equipment</field>
+        <field name="arch" type="xml">
+                     <search string="Equipment Master Data Search">
+                         <group expand="0" string="Group By">
+                            <filter string = "Asset Group" name="group_group_id" domain="[]" context="{'group_by':'group_id'}"/>
+                         </group>
+                     </search>
+        </field>
     </record>
     <record id="equipment_master_tree" model="ir.ui.view">
         <field name="name">oa.master.equipment.tree</field>
         <field name="model">oa.master.equipment</field>
         <field name="arch" type="xml">
-            <tree string="Equipment List">
+            <tree string="Equipment List" expand="1">
                 <field name="name" optional="show"/>
                 <field name="brand_name" optional="show"/>
                 <field name="manuf_year" optional="show"/>
@@ -77,8 +108,9 @@
         <field name="res_model">oa.master.equipment</field>
         <field name="view_mode">tree,form</field>
         <field name="target">current</field>
-        <field name="context">{'uid': uid}</field>
+        <field name="context">{'search_default_group_group_id':True}</field>
         <field name="domain">[]</field>
+         <field name="view_id" ref="equipment_master_tree"/>
         <field name="help" type="html">
             <p class="o_view_noncontent_smiling_face">
                 Submit Your Equipment Master Data Here !

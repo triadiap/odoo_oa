@@ -117,10 +117,10 @@
                                      <field name="shift"/>
                                 </group>
                                 <group>
-                                    <field name="serial_number" readonly="0"/>
-                                    <field name="equipment_type" readonly="0"/>
-                                    <field name="manuf_year" readonly="0"/>
-                                    <field name="equipment_capacity" readonly="0"/>
+                                    <field name="serial_number" readonly="1"/>
+                                    <field name="equipment_type" readonly="1"/>
+                                    <field name="manuf_year" readonly="1"/>
+                                    <field name="equipment_capacity" readonly="1"/>
                                     <field name="existing_status"/>
                                     <field name="upcoming_status"/>
                                     <field name="pending_approval_by"/>
@@ -175,7 +175,7 @@
             </field>
     </record>
     <record id="kwh_data_action" model="ir.actions.act_window">
-        <field name="name">Electricity Consumptions</field>
+        <field name="name">Laporan Penggunaan Listrik PLTD</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">daily.kwh</field>
         <field name="view_mode">tree,form</field>
