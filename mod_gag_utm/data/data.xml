@@ -33,4 +33,20 @@
             <field name="company_id" eval="False"/>
         </record>
     </data>
+    <data>
+        <record id="seq_excavamini_dailyreport" model="ir.sequence">
+            <field name="name">Excavator Mini Daily Report ID Sequence Number</field>
+            <field name="code">oa.excavaminidaily.report</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+    <data>
+        <record id="seq_lv_dailyreport" model="ir.sequence">
+            <field name="name">LV Daily Report ID Sequence Number</field>
+            <field name="code">oa.lvdaily.report</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
 </odoo>
