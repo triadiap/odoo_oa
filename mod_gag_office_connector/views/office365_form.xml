@@ -47,6 +47,7 @@
                             <field name="client_secret"/>
                             <field name="tenant_id"/>
                             <field name="access_token" readonly="1"/>
+                             <field name="sender_email" placeholder="Sender Mail Address"/>
                         </group>
                     </group>
                      <!-- Button to update access token -->
@@ -56,7 +57,6 @@
                     <notebook>
                         <page string="Email">
                             <group string="Mail Send Testing">
-                                <field name="sender_email" placeholder="Sender Email"/>
                                 <field name="test_email_to" placeholder="Recipient Email"/>
                                 <field name="test_email_subject" placeholder="Email Subject"/>
                                 <field name="test_email_body" placeholder="Email Body"/>
