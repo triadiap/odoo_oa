@@ -9,26 +9,26 @@ class EquipmentMaintenance(models.Model):
     _description = 'Equipment Maintenance Management'
 
     ljjm_id = fields.Char(string='Report ID', readonly=True, copy=False, default='New',tracking=True)
-    equipment_id = fields.Many2one('oa.master.equipment',string='Equipment Name',required=True,tracking=True)
-    brand_model_type = fields.Char(string='Brand/Type/Year', tracking=True)
-    serial_number = fields.Char(string='Serial Number', tracking=True)
-    asset_number = fields.Char(string='Asset Number',tracking=True)
-    pkt_number = fields.Char(string='PKT Number',tracking=True)
-    kwh_equipment = fields.Char(string='Power (Kw)',tracking=True)
-    operator_name = fields.Many2one('res.users',tracking=True)
-    operator_sign_date = fields.Datetime(string='Operator Sign Date',tracking=True)
-    supervisor_name = fields.Many2one('res.users',tracking=True)
-    supervisor_sign_date = fields.Datetime(string='Supervisor Sign Date',tracking=True)
-    team_leader_name = fields.Many2one('res.users', tracking=True)
-    team_leader_sign_date = fields.Datetime(string='Team Leader / Manager Sign Date', tracking=True)
+    equipment_id = fields.Many2one('oa.master.equipment',string='Nama Equipment',required=True,tracking=True)
+    brand_model_type = fields.Char(string='Merek/Tipe/Tahun Pembuatan', tracking=True)
+    serial_number = fields.Char(string='Nomor Seri', tracking=True)
+    asset_number = fields.Char(string='Nomor Asset',tracking=True)
+    pkt_number = fields.Char(string='Code No',tracking=True)
+    kwh_equipment = fields.Char(string='Ampere',tracking=True)
+    operator_name = fields.Many2one('res.users',tracking=True, string="Nama Operator")
+    operator_sign_date = fields.Datetime(string='Tanggal Input Data Operator',tracking=True)
+    supervisor_name = fields.Many2one('res.users',tracking=True,string="Nama Supervisor")
+    supervisor_sign_date = fields.Datetime(string='Tanggal Persetujuan Supervisor',tracking=True)
+    team_leader_name = fields.Many2one('res.users', tracking=True,string="Nama Manajer")
+    team_leader_sign_date = fields.Datetime(string='Tanggal Persetujuan Manajer', tracking=True)
     section_name = fields.Char(string='Section / Division',tracking=True)
-    report_date = fields.Date(string='Date',tracking=True, required=True,default=fields.Date.context_today)
-    cumulative_hour = fields.Float(string='Cumulative Hour (B)',tracking=True,required=True)
-    plan_hour = fields.Float(string='Plan Hour (C)',tracking=True,default=12.00,required=True)
-    operation_hour = fields.Float(string='Operation Hour (D)',tracking=True)
-    service_hour = fields.Float(string='Service Hour (E)',tracking=True)
-    standby_hour = fields.Float(string='Standby Hour (F)',tracking=True)
-    total_operation_time = fields.Float(string='Total Operation Time (G)',tracking=True,compute='_compute_total_operation',store=True)
+    report_date = fields.Date(string='Tanggal Pelaporan',tracking=True, required=True,default=fields.Date.context_today)
+    cumulative_hour = fields.Float(string='Jam Kumulatif (B)',tracking=True,required=True)
+    plan_hour = fields.Float(string='Rencana Jam (C)',tracking=True,default=12.00,required=True)
+    operation_hour = fields.Float(string='Operasi (D)',tracking=True)
+    service_hour = fields.Float(string='Service (E)',tracking=True)
+    standby_hour = fields.Float(string='Standby (F)',tracking=True)
+    total_operation_time = fields.Float(string='Total (G)',tracking=True,compute='_compute_total_operation',store=True)
     tsc_mek = fields.Float(string='Tsc / Mek (H)',tracking=True)
     time_to_repair = fields.Float(string='Repair Time (J)',tracking=True)
     total_breakdown_time = fields.Float(string='Total Breakdown Hour (K)',tracking=True,compute='_compute_total_breakdown_hour',store=True)
@@ -53,14 +53,16 @@ class EquipmentMaintenance(models.Model):
     approval_route_id = fields.Many2one('approval.route', string='Approval Route', readonly=True)
     current_step_id = fields.Many2one('approval.step', string='Current Step', readonly=True,tracking=True)
     existing_status = fields.Char(string="Current Status", readonly=True, tracking=True)
-    upcoming_status = fields.Many2one('approval.step', string='Upcoming Status', readonly=True, tracking=True)
-    pending_approval_by = fields.Many2one('res.users', string="Pending Approval By", readonly=True, tracking=True)
+    upcoming_status = fields.Many2one('approval.step', string='Status Berikutnya', readonly=True, tracking=True)
+    pending_approval_by = fields.Many2one('res.users', string="Menunggu Persetujuan", readonly=True, tracking=True)
     button_visible = fields.Boolean(compute='_compute_button_visibility', store=False)
     # -------------------------------------------------------------------------------------#
     tracking_value_ids = fields.One2many(
         'mail.tracking.value', string='Field Change History',
         compute='_compute_tracking_value_ids', store=False
     )
+
+
 
     def _compute_tracking_value_ids(self):
         for record in self:
@@ -161,16 +163,40 @@ class EquipmentMaintenance(models.Model):
             sequence = self.env['ir.sequence'].next_by_code('oa.equipment.maintenance') or '00000'
             # Combine them into the final name
             vals['ljjm_id'] = f'LJJM-{sequence}'
-            vals['serial_number'] = self.equipment_id.serial_number
-            vals['pkt_number'] = self.equipment_id.pkt_number
-            vals ['kwh_equipment']= self.equipment_id.equipment_capacity
-            vals ['brand_model_type'] = f"{self.equipment_id.brand_name}/{self.equipment_id.equipment_model}/{self.equipment_id.manuf_year}"
-            # UAC Find the configured approval route for the current model for new document creation
+        if vals.get('ljjm_id'):
+            equip_id = self.env['oa.master.equipment'].browse(vals['equipment_id'])
+            vals.update({
+                'asset_number' : equip_id.asset_number,
+                'serial_number' : equip_id.serial_number,
+                'pkt_number' : equip_id.pkt_number,
+                'kwh_equipment' : equip_id.equipment_capacity,
+                'brand_model_type' : f"{equip_id.brand_name}/{equip_id.equipment_model}/{equip_id.manuf_year}"
+            })
+        else:
+            vals.update({
+                'asset_number': None,
+                'serial_number': None,
+                'pkt_number': None,
+                'kwh_equipment': None,
+                'brand_model_type': None
+            })
         config = self.env['oa.document.workflow.config'].search([('model_id.model', '=', self._name)], limit=1)
         if config:
             vals['approval_route_id'] = config.approval_route_id.id
-
         return super(EquipmentMaintenance, self).create(vals)
+
+    def write(self,vals):
+        for record in self:
+            if 'equipment_id' in vals or record.equipment_id:
+                equip_id = record.equipment_id if 'equipment_id' not in vals else self.env['oa.master.equipment'].browse(vals['equipment_id'])
+                vals.update({
+                    'asset_number': equip_id.asset_number,
+                    'serial_number': equip_id.serial_number,
+                    'pkt_number': equip_id.pkt_number,
+                    'kwh_equipment': equip_id.equipment_capacity,
+                    'brand_model_type': f"{equip_id.brand_name}/{equip_id.equipment_model}/{equip_id.manuf_year}"
+                })
+        return super(EquipmentMaintenance, self).write(vals)
 
     def action_open_budgets(self):
         print("Test")

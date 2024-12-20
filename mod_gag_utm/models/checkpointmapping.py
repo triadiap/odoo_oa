@@ -7,9 +7,9 @@ class MasterCheckPoints(models.Model):
     _name = "msdata.checkpoints"
     _description = "Checkpoint Master Data Mapping"
 
-    point_to_check = fields.Char(string="Point To Check", required=True)
+    point_to_check = fields.Char(string="Unit Name", required=True)
     ptc_description = fields.Text(string="Description")
-    group_id =  fields.Many2one('point.group', string="Area Group", required=True, tracking=False)
+    group_id =  fields.Many2one('point.group', string="Unit Group", required=True, tracking=False)
 
     def name_get(self):
         result = []

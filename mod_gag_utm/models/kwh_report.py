@@ -8,18 +8,19 @@ class NewDailyKWH(models.Model):
     _description = "Daily KWH Consumption Report"
 
     audit_id = fields.Char(string="Inspection ID", readonly=True, copy=False, default='New')
-    equipment_id = fields.Many2one('oa.master.equipment', string="Equipment", required=True, tracking=True)
-    checking_date = fields.Date('Checking Date', tracking=True, required=True)
+    equipment_id = fields.Many2one('oa.master.equipment', string="Nama Mesin", required=True, tracking=True)
+    checking_date = fields.Date('Tanggal Pelaporan', tracking=True, required=True)
     shift = fields.Selection([
-        ('1', ' I & II'),
-        ('2', ' II & III')
+        ('1', 'Shift 1'),
+        ('2', 'Shift 2'),
+        ('3', 'Shift 3')
     ], string="Shift", required=True, default='1', tracking=True)
     serial_number = fields.Char(string="Nomor Seri")
-    equipment_type = fields.Char(string="Tipe Equipment")
-    manuf_year = fields.Char(string="Manufacture Year")
+    equipment_type = fields.Char(string="Model")
+    manuf_year = fields.Char(string="Tahun Pembuatan")
     id_ceklist = fields.One2many('oa.hourly.kwh', 'checklist_id', string="Lines")
     total_quantity_display = fields.Char(string="Total Quantity", compute='_compute_total_quantity_display')
-    equipment_capacity = fields.Float(string="Capacity")
+    equipment_capacity = fields.Float(string="Ampere (A)")
     state = fields.Selection([
         ('draft', 'Draft'),
         ('approval_process', 'Approval Process'),
@@ -146,10 +147,39 @@ class NewDailyKWH(models.Model):
         config = self.env['oa.document.workflow.config'].search([('model_id.model', '=', self._name)], limit=1)
         if config:
                 vals['approval_route_id'] = config.approval_route_id.id
+        if vals.get('audit_id'):
+            equip_id = self.env['oa.master.equipment'].browse(vals['equipment_id'])
+            vals.update({
+                'serial_number': equip_id.serial_number,
+                'equipment_type': equip_id.equipment_model,
+                'manuf_year': equip_id.manuf_year,
+                'equipment_capacity': equip_id.equipment_capacity
+            })
+        else:
+            vals.update({
+                'serial_number': None,
+                'equipment_type': None,
+                'manuf_year': None,
+                'equipment_capacity': None
+            })
+
         self._compute_jml_kwh_per_shift()
         self._compute_jml_kwh()
 
         return super(NewDailyKWH, self).create(vals)
+
+    def write(self,vals):
+        for record in self:
+            if 'equipment_id' in vals or record.equipment_id:
+                equip_id = record.equipment_id if 'equipment_id' not in vals else self.env['oa.master.equipment'].browse(
+                    vals['equipment_id'])
+                vals.update({
+                    'serial_number': equip_id.serial_number,
+                    'equipment_type': equip_id.equipment_model,
+                    'manuf_year': equip_id.manuf_year,
+                    'equipment_capacity': equip_id.equipment_capacity
+                })
+        return super(NewDailyKWH, self).write(vals)
 
 
 
@@ -234,7 +264,7 @@ class ChartElectricityConsumptionPerYearPerUnit(models.Model):
     id = fields.Char('ID', readonly=True)
     month_number = fields.Char(string="Month Number")
     month_name = fields.Char(string="Month Name")
-    checkingyear = fields.Char(string="Year")
+    checkingyear = fields.Integer(string="Year")
     equipment_id = fields.Char(string="Equipment ID")
     equipment_name = fields.Char(string="Equipment Name")
     kwh_pershift = fields.Float(string="Kwh/Hour")
@@ -252,7 +282,7 @@ class ChartElectricityConsumptionPerYearPerUnit(models.Model):
                                m.month_name,
                                COALESCE(b.checkingyear,EXTRACT(YEAR FROM NOW())) AS checkingyear,
                                b.equipmentid AS equipment_id,
-                               b.equipment_name AS equipment_name,
+                               COALESCE(b.equipment_name,'Others') AS equipment_name,
                                COALESCE(b.kwh_pershift,0) AS kwh_pershift,
                                COALESCE(b.jmlkwh,0) AS jml_kwh
                               

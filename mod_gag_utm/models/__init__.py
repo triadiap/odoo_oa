@@ -10,7 +10,10 @@ from . import checklistgroups
 from . import auditbuilding
 from . import acmaintenance
 from . import equipmentmaintenance
-from . import maintenacetype
 from . import oamachinemaintenance
 from . import setpointavailibility
 from . import percentagemachinecondition
+from . import excavamini
+from . import excavaminireport
+from . import lvchecklist
+from . import lvdailyreport
