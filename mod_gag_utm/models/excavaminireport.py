@@ -208,28 +208,27 @@ class ExcavaMiniDailyChcklistReport(models.Model):
             self.excavamini_power = None
     def action_get_excavamini_checklist(self):
         getallchecklistmasterdata = self.env['oa.excavaceklist.indikator'].search([])
-        checkexistingdata = self.env['oa.excavaminidetail.checklist'].search([('report_id.id', '=', self.id)])
-        if checkexistingdata:
-            # Unlink (delete) the record
-            checkexistingdata.unlink()
-            for result in getallchecklistmasterdata:
-                vals = {
-                    'report_id': self.id,  # Use the extracted ID
-                    'name': result.id
-                }
-                self.env['oa.excavaminidetail.checklist'].create(vals)
-        else:
-            for result in getallchecklistmasterdata:
-                vals = {
-                    'report_id': self.id,  # Use the extracted ID
-                    'name': result.id
-                }
-                self.env['oa.excavaminidetail.checklist'].create(vals)
+        checkexistingdata = self.env['oa.excavaminidetail.checklist'].search([('report_id', '=', self.id)])
+        for record in checkexistingdata:
+            if record.exists():
+                try:
+                    record.unlink()
+                except Exception as e:
+                    print("Error deleting record ID %s: %s", record.id, str(e))
+                # Create new records
+        for result in getallchecklistmasterdata:
+            vals = {
+                        'report_id': self.id,  # Link to the current report
+                        'name': result.id,  # Reference to the checklist indikator
+                        'maintenance_freq': 0.0  # Default value if maintenance_freq is required
+                     }
+            self.env['oa.excavaminidetail.checklist'].create(vals)
+
 
 
 class ExcavaMiniDailyReportDetailChecklist(models.Model):
     _name = 'oa.excavaminidetail.checklist'
-    _inherit = ["mail.thread", "mail.activity.mixin", "oa.detailed.maintenance"]
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = 'Excavator Mini Detail Daily Checklist Report'
 
     name = fields.Many2one('oa.excavaceklist.indikator',tracking=True,required=True,string="Indikator Yang Diperiksa")

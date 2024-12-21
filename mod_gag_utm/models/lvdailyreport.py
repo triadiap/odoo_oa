@@ -210,30 +210,30 @@ class LVDailyChecklistReport(models.Model):
             self.lv_power = None
     def action_get_excavamini_checklist(self):
         getallchecklistmasterdata = self.env['oa.lv.checklistindikator'].search([])
-        checkexistingdata = self.env['oa.lvdetail.checklist'].search([('report_id_lv.id', '=', self.id)])
-        if checkexistingdata:
-            # Unlink (delete) the record
-            checkexistingdata.unlink()
-            for result in getallchecklistmasterdata:
-                vals = {
-                    'report_id_lv': self.id,  # Use the extracted ID
-                    'name': result.id,
-                    'subunit' : result.subunit.id
-                }
-                self.env['oa.lvdetail.checklist'].create(vals)
-        else:
-            for result in getallchecklistmasterdata:
-                vals = {
-                    'report_id_lv': self.id,  # Use the extracted ID
-                    'name': result.id,
-                    'subunit': result.subunit.id
-                }
-                self.env['oa.lvdetail.checklist'].create(vals)
+        checkexistingdata = self.env['oa.lvdetail.checklist'].search([('report_id_lv', '=', self.id)])
+        print("Existing records to unlink: %s",checkexistingdata.ids)
+        # Unlink existing records safely
+        for record in checkexistingdata:
+            if record.exists():
+                try:
+                    record.unlink()
+                except Exception as e:
+                    print("Error deleting record ID %s: %s", record.id, str(e))
+
+        # Create new records
+        for result in getallchecklistmasterdata:
+            vals = {
+                'report_id_lv': self.id,  # Link to the current report
+                'name': result.id,  # Reference to the checklist indikator
+                'subunit': result.subunit.id if result.subunit else None,  # Safeguard for missing subunit
+                'maintenance_freq': 0.0  # Default value if maintenance_freq is required
+            }
+            self.env['oa.lvdetail.checklist'].create(vals)
 
 
 class LVDailyReportDetailChecklist(models.Model):
     _name = 'oa.lvdetail.checklist'
-    _inherit = ["mail.thread", "mail.activity.mixin","oa.detailed.maintenance"]
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _description = 'Unit LV Detail Daily Checklist Report'
 
     name = fields.Many2one('oa.lv.checklistindikator',tracking=True,required=True,string="Indikator Yang Diperiksa")
