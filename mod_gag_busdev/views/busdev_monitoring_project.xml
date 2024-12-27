@@ -47,50 +47,82 @@
         <field name="model">busdev.monitoring.project</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" >
+                        <button name="button_p_amt" type="button" class="oe_stat_button" icon="fa-dollar" style="width:200px;">
+                            <div class="o_stat_info">
+                                <field string="Planned Amount" name="planned_amount" class="o_stat_value"/>
+                                <span class="o_stat_text">Planned Amount</span>
+                            </div>
+                        </button>
+                        <button name="button_u_amt" type="button" class="oe_stat_button" icon="fa-dollar" style="width:200px;">
+                            <div class="o_stat_info">
+                                <field string="Used Amount" name="used_amount" class="o_stat_value"/>
+                                <span class="o_stat_text">Used Amount</span>
+                            </div>
+                        </button>
+                        <button name="button_percent" type="button" class="oe_stat_button" icon="fa-percent" style="width:200px;">
+                            <div class="o_stat_info">
+                                <field string="Persentase" name="percentage" class="o_stat_value"/>
+                                <span class="o_stat_text">Percentage</span>
+                            </div>
+                        </button>
+                    </div>
                     <group>
-                        <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
-                        <field name="pic" attrs="{'readonly': [('id', '!=', False)]}"/>
-                        <field name="start_date" attrs="{'readonly': [('id', '!=', False)]}"/>
-                        <field name="notes"/>
-                        <field name="status_project"/>
+                        <group>
+                            <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
+                            <field name="pic" attrs="{'readonly': [('id', '!=', False)]}"/>
+                            <field name="start_date" attrs="{'readonly': [('id', '!=', False)]}"/>
+                            <field name="notes"/>
+                            <field name="status_project"/>
+                        </group>
+                        <group>
+                            <field name="klasifikasi"/>
+                            <field name="satuan_kerja"/>
+                            <field name="kepala_satker"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="budget_id"/>
+                            <field name="budget_line_id"/>
+                            <field name="currency_id" readonly="1"/>
+                            <field name="planned_amount"/>
+                            <field name="used_amount"/>
+                            <field name="percentage"/>
+                            <separator/>
+                            <field name="nama_vendor"/>
+                            <field name="due_date" attrs="{'readonly': [('id', '!=', False)]}"/>
+                        </group>
                     </group>
-                    <group>
-                        <field name="klasifikasi"/>
-                        <field name="satuan_kerja"/>
-                        <field name="kepala_satker"/>
-                        <field name="nama_vendor"/>
-                        <field name="due_date" attrs="{'readonly': [('id', '!=', False)]}"/>
-                    </group>
-                </group>
-                <notebook>
-                    <page string="Progress Project Investasi" name="busdev_progress">
-                        <field name="detail_items">
-                            <tree editable="bottom">
-                                <field name="date" width="50"/>
-                                <field name="progress" width="320"/>
-                            </tree>
-                        </field>
-                    </page>
-                    <page string="Dokumen Pendukung" name="busdev_dokumen">
-                        <field name="list_dokumen">
-                            <tree editable="bottom">
-                                <field name="name"/>
-                                <field name="file"/>
-                            </tree>
-                        </field>
-                    </page>
-                    <page string="Pembayaran" name="busdev_payment">
-                        <div style="width: 650px">
-                            <field name="list_pembayaran">
+                    <notebook>
+                        <page string="Progress Project Investasi" name="busdev_progress">
+                            <field name="detail_items">
                                 <tree editable="bottom">
-                                    <field name="termin" width="60%"/>
-                                    <field name="jumlah" width="40%"/>
+                                    <field name="date" width="50"/>
+                                    <field name="kriteria" width="80"/>
+                                    <field name="progress" width="240"/>
                                 </tree>
                             </field>
-                        </div>
-                    </page>
-                </notebook>
+                        </page>
+                        <page string="Dokumen Pendukung" name="busdev_dokumen">
+                            <field name="list_dokumen">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="file"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Pembayaran" name="busdev_payment">
+                            <div style="width: 650px">
+                                <field name="list_pembayaran">
+                                    <tree editable="bottom">
+                                        <field name="termin" width="50%"/>
+                                        <field name="currency_id" width="10%"/>
+                                        <field name="payment" width="40%"/>
+                                    </tree>
+                                </field>
+                            </div>
+                        </page>
+                    </notebook>
+                </sheet>
             </form>
         </field>
     </record>

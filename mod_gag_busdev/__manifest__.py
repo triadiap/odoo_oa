@@ -8,7 +8,7 @@
     'author': 'Internusa Cipta Solusi Perdana (ICSP)',
     'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
     'website': 'https://icsp.co.id',
-    'depends': ['hr'],
+    'depends': ['hr', 'account'],
     'data': [
         'security/ir.model.access.csv',
         'views/busdev_monitoring_project.xml',
