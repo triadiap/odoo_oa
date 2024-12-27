@@ -33,6 +33,7 @@
         'views/mo_work_request.xml',
         'views/mo_master_equipment.xml',
         'views/menulist.xml',
+        'report/report_minutes_meeting.xml',
         'views/assets.xml',
     ],
     'demo': [],
