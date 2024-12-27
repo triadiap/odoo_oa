@@ -12,7 +12,6 @@ class MasterChartOfAccount(models.Model):
     name = fields.Char(string="Account Name", required=True, tracking=True)
     coa_description = fields.Char(string="Description", tracking=True)
 
-
     def name_get(self):
         result = []
         for record in self:

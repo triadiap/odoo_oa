@@ -2,24 +2,24 @@
 <odoo>
     <!--    ini tampilan tabel depan-->
     <record id="chart_of_account_tree" model="ir.ui.view">
-        <field name="name">account.account.tree</field>
-        <field name="model">account.account</field>
+        <field name="name">tabel.coa.tree</field>
+        <field name="model">tabel.coa</field>
         <field name="arch" type="xml">
-            <tree string="Chart Of Accounts">
-                <field name="code" readonly="1"/>
-                <field name="name" readonly="1"/>
-                <field name="user_type_id" readonly="1"/>
-                <field name="create_date" readonly="1"/>
-                <field name="write_date" readonly="1"/>
+            <tree string="Chart Of Accounts" editable="bottom">
+                <field name="kode_coa"/>
+                <field name="name"/>
+                <field name="coa_description"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
             </tree>
         </field>
     </record>
     <record id="chart_of_account_action" model="ir.actions.act_window">
         <field name="name">Chart Of Accounts (COA)</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">account.account</field>
+        <field name="res_model">tabel.coa</field>
         <field name="view_mode">tree</field>
-        <field name="context">{'create': False,'edit': False}</field>
+        <field name="context">{}</field>
         <field name="domain"></field>
         <field name="help" type="html">
             <p class="o_view_noncontent_smiling_face">

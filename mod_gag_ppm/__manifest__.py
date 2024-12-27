@@ -8,7 +8,7 @@
     'author': 'Internusa Cipta Solusi Perdana (ICSP)',
     'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
     'website': 'https://icsp.co.id',
-    'depends': ['mail','mod_gag_uac','account'],
+    'depends': ['mail','mod_gag_uac'],
     'data': [
         'security/ir.model.access.csv',
         'wizards/payment_wizard_view.xml',
