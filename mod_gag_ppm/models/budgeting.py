@@ -211,7 +211,7 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
 
     _name ="detail.anggaran.perbulan"
     _description = "Detail Informasi Anggaran Perbulan Per Pillar"
-    anggaran_id = fields.Many2one('informasi.perpillar', string="Parent")
+    anggaran_id = fields.Many2one('informasi.perpillar', string="Parent", ondelete='cascade')
     currency_id = fields.Many2one('res.currency', string='Currency')
     nilai_anggaran = fields.Monetary(string='Budget Amount', help="Input Your Monhtly Budget", currency_field='currency_id', required=True)
     keterangan_budget = fields.Text(string="Program")
@@ -222,7 +222,7 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
     budget_status = fields.Many2one(related="anggaran_id.status_budget", string="Status")
     budget_activity_type = fields.Many2one("jenis.kegiatan", string="Activity Type", required=True)
     budget_activity_category = fields.Many2one("kategori.kegiatan", string="Category", required=True)
-    budget_chartofaccounts = fields.Many2one("tabel.coa", string="Chart Of Account(COA)", required=True)
+    budget_chartofaccounts = fields.Many2one("account.account", string="Chart Of Account(COA)", required=True)
     namapillar = fields.Char(related="anggaran_id.kode_pillar.nama_pillar", string="Pillar Name", store=True)
     budgetid = fields.Char(related="anggaran_id.budget_id", string="Budget ID")
     budgetname = fields.Char(related="anggaran_id.name", string="Budget ID")
@@ -232,6 +232,7 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
     percentage_of_balance = fields.Float(string='% of Balance', compute='_compute_percentage_of_balance')
     tahun_budget = fields.Selection(string='Year',related='anggaran_id.tahun_anggaran',store=True)
     date_of_fiscal = fields.Date(string='Month', related='anggaran_id.fiscal_date',store=True)
+
 
 
     @api.depends('nilai_anggaran')

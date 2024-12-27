@@ -192,7 +192,7 @@ class DetailBudgetTransaction(models.Model):
     _name = "detail.trans.perbudget"
     _description = "Detail of Transaction"
 
-    detail_trans_id = fields.Many2one('transaksi.anggaran', string="Parent")
+    detail_trans_id = fields.Many2one('transaksi.anggaran', string="Parent", ondelete='cascade')
     transaction_item = fields.Char(string="Item Name", required=True)
     currency_id = fields.Many2one('res.currency', string='Currency')
     transaction_amount = fields.Monetary(string='Price', help="Masukkan  Nilai Transaksi", currency_field='currency_id', required=True)

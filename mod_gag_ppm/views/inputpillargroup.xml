@@ -6,15 +6,15 @@
         <field name="model">pillar.group</field>
         <field name="arch" type="xml">
             <tree string="Activity Status" editable="bottom">
-                <field name="nama_pillar"/>
-                <field name="pillar_description"/>
+                 <field name="nama_pillar"/>
+                 <field name="pillar_description"/>
                  <field name="pillar_prefix"/>
                 <field name="create_date"/>
                 <field name="write_date"/>
             </tree>
         </field>
     </record>
-    <record id="ppm_pillar_group_action" model="ir.actions.act_window">
+     <record id="ppm_pillar_group_action" model="ir.actions.act_window">
         <field name="name">Pillar Group</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">pillar.group</field>
