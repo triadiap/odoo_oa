@@ -9,13 +9,17 @@
             name="Daily Production"
             sequence="1"
             action="gag_oa_qc_daily_production_action"/>
+        <menuitem id="gag_oa_qc_barging_plan_menu"
+            name="Plan Kapal"
+            sequence="2"
+            action="gag_oa_qc_barging_plan_action"/>
         <menuitem id="gag_oa_qc_barging_menu"
             name="Barging"
-            sequence="2"
+            sequence="3"
             action="gag_oa_qc_barging_action"/>
         <menuitem id="gag_oa_qc_stockopname"
             name="Stock Opname"
-            sequence="3"
+            sequence="4"
             action="gag_oa_qc_stockopname_action"/>
     </menuitem>
 </odoo>

@@ -65,7 +65,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>       
-                    <field name="custom_css" invisible="0"/>
+                    <field name="custom_css" invisible="1"/>
                 </header>
                 <group>
                     <field name="aktifitas"/>

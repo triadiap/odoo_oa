@@ -52,6 +52,7 @@
                                     <field name="jumlah"/>
                                     <field name="terbayar"/>
                                     <field name="tanggal_terbayar"/>
+                                    <field name="file"/>
                                 </tree>
                             </field>
                         </page>

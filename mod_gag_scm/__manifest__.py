@@ -8,7 +8,7 @@
     'author': 'Internusa Cipta Solusi Perdana (ICSP)',
     'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
     'website': 'https://icsp.co.id',
-    'depends': ['base','mail'],
+    'depends': ['base','mail','purchase'],
     'data': [
         'security/ir.model.access.csv',
         'views/nomor_surat.xml',

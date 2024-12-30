@@ -32,8 +32,7 @@
                     </div>
                     <group>
                         <group>
-                                <field name="contractor_id"
-                                domain="[('is_company', '=', True)]"/>
+                                <field name="contractor"/>
                                 <field name="buyer"/>
                                 <field name="commence_load"/>
                                 <field name="complete_load"/>
@@ -46,7 +45,9 @@
                             <field name="id_barging">
                                 <tree editable="bottom">
                                         <field name="no"/>
+                                        <field name="commence_load"/>
                                         <field name="tanggal"/>
+                                        <field name="barging_plan"/>
                                         <field name="tongkang"/>
                                         <field name="plant"/>
                                         <field name="loaded"/>
