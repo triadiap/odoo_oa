@@ -45,7 +45,7 @@ class ListTongkang(models.Model):
     tanggal =fields.Date('Tanggal')
     commence_load = fields.Date('Tanggal Loading',related = "barging_id.commence_load")
     barging_id = fields.Many2one('gag.oa.qc.barging', 'Parent')
-    plant = fields.Float("Plant (wmt)",digits=(0,2),related="barging_plan.target")
+    plant = fields.Float("Plant (wmt)",digits=(0,2),related="barging_plan.tonnage")
     loaded = fields.Float("Loaded (wmt)",digits=(0,2))
     cummulative = fields.Float("Cumm. (wmt)", compute="_calculate_progress",digits=(0,2))
     balance = fields.Float("Balance (wmt)",compute="_calculate_progress",digits=(0,2))
@@ -64,7 +64,7 @@ class ListTongkang(models.Model):
     @api.model
     def create(self, vals):        
         rec = super(ListTongkang, self).create(vals)
-        for detail in self.env['gag.oa.qc.daily.production'].search([('tanggal', '=',vals['tanggal'])]):
+        for detail in self.env['gag.oa.qc.daily.production'].search([('tanggal', '=',vals['commence_load'])]):
             self.env['gag.oa.qc.daily.production.barging'].create({'production_id':detail.id,'tongkang_id':rec.id})
             if(rec.contractor == "SMA"):
                 self.env['gag.oa.qc.daily.production.barging.sma'].create({'production_id':detail.id,'tongkang_id':rec.id})
@@ -76,20 +76,20 @@ class ListTongkang(models.Model):
         rec = super(ListTongkang, self).write(vals)
         for deletedId in self.env['gag.oa.qc.daily.production.barging'].search([('tongkang_id', '=',self.id)]):
             deletedId.unlink()
-        for detail in self.env['gag.oa.qc.daily.production'].search([('tanggal', '=',self.tanggal)]):
-            self.env['gag.oa.qc.daily.production.barging'].create({'production_id':detail.id,'tongkang_id':self.id})
-            
-        if(rec.contractor == "SMA"):
-            for deletedId in self.env['gag.oa.qc.daily.production.barging.sma'].search([('tongkang_id', '=',self.id)]):
-                deletedId.unlink()
-            for detail in self.env['gag.oa.qc.daily.production.barging.sma'].search([('tanggal', '=',self.tanggal)]):
-                self.env['gag.oa.qc.daily.production.barging.barging.sma'].create({'production_id':detail.id,'tongkang_id':self.id})
-        if(rec.contractor == "MKA"):
-            for deletedId in self.env['gag.oa.qc.daily.production.barging.mka'].search([('tongkang_id', '=',self.id)]):
-                deletedId.unlink()
-            for detail in self.env['gag.oa.qc.daily.production.barging.mka'].search([('tanggal', '=',self.tanggal)]):
-                self.env['gag.oa.qc.daily.production.barging.barging.mka'].create({'production_id':detail.id,'tongkang_id':self.id})
+        for deletedId in self.env['gag.oa.qc.daily.production.barging.sma'].search([('tongkang_id', '=',self.id)]):
+            deletedId.unlink()
+        for deletedId in self.env['gag.oa.qc.daily.production.barging.mka'].search([('tongkang_id', '=',self.id)]):
+            deletedId.unlink()
 
+        for detail in self.env['gag.oa.qc.daily.production'].search([('tanggal', '=',self.commence_load)]):
+            self.env['gag.oa.qc.daily.production.barging'].create({'production_id':detail.id,'tongkang_id':self.id})
+
+        if(self.contractor == "SMA"):
+            for detail in self.env['gag.oa.qc.daily.production'].search([('tanggal', '=',self.commence_load)]):
+                self.env['gag.oa.qc.daily.production.barging.sma'].create({'production_id':detail.id,'tongkang_id':self.id})
+        if(self.contractor == "MKA"):
+            for detail in self.env['gag.oa.qc.daily.production'].search([('tanggal', '=',self.commence_load)]):
+                self.env['gag.oa.qc.daily.production.barging.mka'].create({'production_id':detail.id,'tongkang_id':self.id})
         return rec
 
 class BargingPlan(models.Model):
