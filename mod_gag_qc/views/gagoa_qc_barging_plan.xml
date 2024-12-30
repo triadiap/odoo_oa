@@ -66,6 +66,23 @@
                 </sheet>
             </form>
         </field>
+    </record>    
+    <record id="gag_oa_qc_daily_production_detail_tree" model="ir.ui.view">
+        <field name="name">gag.oa.qc.daily.production.detail.tree</field>
+        <field name="model">gag.oa.qc.daily.production.detail</field>
+        <field name="arch" type="xml">
+            <tree string="Pile">
+                <field name="pile"/>
+                <field name="toonage"/>
+                <field name="ni"/>
+                <field name="co"/>
+                <field name="fe"/>
+                <field name="si"/>
+                <field name="ca"/>
+                <field name="mg"/>
+                <field name="bc"/>
+            </tree>
+        </field>
     </record>
     <record id="gag_oa_qc_barging_plan_action" model="ir.actions.act_window">
         <field name="name">Plan Kapal</field>
