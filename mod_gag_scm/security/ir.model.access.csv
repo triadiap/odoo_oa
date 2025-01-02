@@ -4,3 +4,11 @@ access_gag_oa_scm_evaluasi,access.gag.oa.scm.evaluasi,model_gag_oa_scm_evaluasi,
 access_gag_oa_scm_evaluasi_detail,access.gag.oa.scm.evaluasi.detal,model_gag_oa_scm_evaluasi_detail,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_summary,access.gag.oa.scm.evaluasi.summary,model_gag_oa_scm_evaluasi_summary,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_summary_detail,access.gag.oa.scm.evaluasi.summary.detal,model_gag_oa_scm_evaluasi_summary_detail,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor,access.gag.oa.scm.evaluasi.kontraktor,model_gag_oa_scm_evaluasi_kontraktor,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor_keselamatan,access.gag.oa.scm.evaluasi.kontraktor.keselamatan,model_gag_oa_scm_evaluasi_kontraktor_keselamatan,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor_lingkup,access.gag.oa.scm.evaluasi.kontraktor.lingkup,model_gag_oa_scm_evaluasi_kontraktor_lingkup,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor_pelaksanaan,access.gag.oa.scm.evaluasi.kontraktor.pelaksaan,model_gag_oa_scm_evaluasi_kontraktor_pelaksanaan,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor_qualifikasi,access.gag.oa.scm.evaluasi.kontraktor.qualifikasi,model_gag_oa_scm_evaluasi_kontraktor_qualifikasi,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor_koordinasi,access.gag.oa.scm.evaluasi.kontraktor.koordinasi,model_gag_oa_scm_evaluasi_kontraktor_koordinasi,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor_hak,access.gag.oa.scm.evaluasi.kontraktor.hak,model_gag_oa_scm_evaluasi_kontraktor_hak,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor_hasil,access.gag.oa.scm.evaluasi.kontraktor.hasil,model_gag_oa_scm_evaluasi_kontraktor_hasil,base.group_user,1,1,1,1

@@ -14,6 +14,7 @@
         'views/nomor_surat.xml',
         'views/scm_evaluasi_views.xml',
         'views/scm_evaluasi_summary_views.xml',
+        'views/scm_evaluasi_kontraktor_views.xml',
         'reports/gagoa_scm_evaluasi_report.xml',
         'reports/gagoa_scm_evaluasi_report_view.xml',
         'views/menu_views.xml',

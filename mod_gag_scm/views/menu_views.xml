@@ -17,8 +17,12 @@
                 name="Evaluasi Vendor"
                 sequence="2"
                 action="gag_oa_scm_evaluasi_action"/>   
-        <menuitem id="menu_gag_oa_scm_evaluasi_summary"
+        <menuitem id="menu_gag_oa_scm_evaluasi_kontraktor"
+                name="Evaluasi Kontraktor"
                 sequence="3"
+                action="gag_oa_scm_evaluasi_kontraktor_action"/>   
+        <menuitem id="menu_gag_oa_scm_evaluasi_summary"
+                sequence="4"
                 action="gag_oa_scm_evaluasi_summary_action"/>    
     </menuitem>
 </odoo>

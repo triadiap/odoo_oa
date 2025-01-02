@@ -2,53 +2,69 @@
 <odoo>
     <menuitem id="menu_gag_oa_hse_root" name="HSE" 
         web_icon="mod_gag_hse,static/description/icon.png"
-        sequence="1"/>
-
-    <menuitem id="menu_gag_oa_hse_input"
-              name="Pemeriksaan"
+        sequence="1">        
+        <menuitem id="menu_gag_oa_hse_pelaporan_pekerja"
+              name="Pelaporan HSE"
+              sequence="1"
+              action="gag_oa_hse_pelaporan_pekerja_action"/>
+        <menuitem id="menu_gag_oa_hse_pelaporan_kesehatan"
+              name="Pelaporan OH"
+              sequence="2"
+              action="gag_oa_hse_pelaporan_kesehatan_action"/>    
+        <menuitem id="menu_gag_oa_hse_pelaporan_reporting"
+              name="Laporan Statistik"
               sequence="3"
-              parent="menu_gag_oa_hse_root"/>       
-    <menuitem id="menu_gag_oa_hse_config"
-              name="Configuration"
-              sequence="4"
-              parent="menu_gag_oa_hse_root"/>        
+              >
+              <menuitem id= "menu_gag_oa_hse_pelaporan_reporting_vendor"
+                  name="Vendor"
+                  action="gag_oa_hse_pelaporan_reporting_action"
+              />
+              <menuitem id= "menu_gag_oa_hse_pelaporan_reporting_all"
+                  name="Keseluruhan"
+                  action="gag_oa_hse_pelaporan_reporting_all_action"
+              />
+      </menuitem>     
 
-    <menuitem id="menu_gag_oa_hse_evaluasimp"
-              name="Evaluasi MP"
-              sequence="2"
-              parent="menu_gag_oa_hse_root"
-              action="gag_oa_hse_evaluasimp_action"/>    
-
-    <menuitem id="menu_gag_oa_hse_ialk3"
-              name="IALK3"
-              sequence="1"
-              parent="menu_gag_oa_hse_root"
-              action="gag_oa_hse_ialk3_action"/>        
-
-    <menuitem id="menu_gag_oa_hse_pemeriksaan_sarana"
-              name="Pemeriksaan Sarana"
-              parent="menu_gag_oa_hse_input"
-              sequence="1"
-              action="gag_oa_hse_pemeriksaan_sarana_action"/>     
-
-    <menuitem id="menu_gag_oa_hse_pemeriksaan_peralatan"
-              name="Pemeriksaan Peralatan"
-              parent="menu_gag_oa_hse_input"
-              sequence="2"
-              action="gag_oa_hse_pemeriksaan_peralatan_action"/>      
-
-    <menuitem id="menu_gag_oa_hse_parameter"
-              name="Parameter"
-              parent="menu_gag_oa_hse_config"
-              action="gag_oa_hse_parameter_action"/>  
-
-    <menuitem id="menu_gag_oa_hse_parameter_sarana"
-              name="Pemeriksaan Sarana"
-              parent="menu_gag_oa_hse_config"
-              action="gag_oa_hse_parameter_sarana_action"/>    
-
-    <menuitem id="menu_gag_oa_hse_parameter_peralatan"
-              name="Pemeriksaan Peralatan"
-              parent="menu_gag_oa_hse_config"
-              action="gag_oa_hse_parameter_peralatan_action"/>    
+              
+        <menuitem id="menu_gag_oa_hse_spip"
+              name="SPIP"
+              sequence="3">     
+            <menuitem id="menu_gag_oa_hse_daftar_spip"
+                name="Daftar SPIP"
+                sequence="1"
+                action="gag_oa_hse_daftar_spip_action"/>    
+            <menuitem id="menu_gag_oa_hse_pelaporan_alat"
+                name="Pelaporan Alat"
+                sequence="2"
+                action="gag_oa_hse_pelaporan_alat_action"/>    
+        </menuitem>              
+        <menuitem id="menu_gag_oa_hse_rekap"
+              name="Rekap Data"
+              sequence="4">     
+            <menuitem id="menu_gag_oa_hse_rekap_jamkerja"
+                name="Jam Kerja"
+                sequence="1"
+                action="gag_oa_hse_rekap_jamkerja_action"/>    
+            <menuitem id="menu_gag_oa_hse_rekap_sakit"
+                name="Sakit"
+                sequence="2"
+                action="gag_oa_hse_rekap_sakit_action"/>    
+            <menuitem id="menu_gag_oa_hse_rekap_absen"
+                name="Absen Sakit"
+                sequence="3"
+                action="gag_oa_hse_rekap_absen_action"/>    
+            <menuitem id="menu_gag_oa_hse_rekap_spell"
+                name="Spell"
+                sequence="4"
+                action="gag_oa_hse_rekap_spell_action"/>    
+            <menuitem id="menu_gag_oa_hse_rekap_sakitkerja"
+                name="Kasus PAK"
+                sequence="5"
+                action="gag_oa_hse_rekap_sakitkerja_action"/>    
+        </menuitem>
+        <menuitem id="menu_gag_oa_hse_rekap_bibit"
+              name="Rekap Bibit"
+              sequence="5"
+              action="gag_oa_hse_rekap_bibit_action"/>   
+    </menuitem>
 </odoo>

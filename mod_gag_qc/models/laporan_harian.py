@@ -7,6 +7,7 @@ class DailyProductionReport(models.Model):
 
     tanggal = fields.Date('Tanggal report', required=True)
     site = fields.Char('Site', required=True)
+    file = fields.Binary('Attachment')
     id_production = fields.One2many('gag.oa.qc.daily.production.detail', 'production_id', 'Production Detail')
     id_tongkang = fields.One2many('gag.oa.qc.daily.production.barging', 'production_id', 'List Tongkan')
     id_tongkang_sma = fields.One2many('gag.oa.qc.daily.production.barging.sma', 'production_id', 'List Tongkan')

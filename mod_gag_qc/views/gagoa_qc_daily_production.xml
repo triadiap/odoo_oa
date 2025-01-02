@@ -32,6 +32,9 @@
                                 <field name="tanggal"/>
                                 <field name="site"/>
                         </group>
+                        <group>
+                                <field name="file"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Detail " name="gag_oa_qc_daily_production_detail_form">

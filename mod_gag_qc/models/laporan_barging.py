@@ -117,6 +117,7 @@ class BargingPlan(models.Model):
             result.append((record.id, name))  # or any other meaningful field
         return result
 
+    @api.depends('target','target_ni')
     def _calculate_target(self):
         for rec in self:
             rec.tonnage = float(sum(self.env['gag.oa.qc.barging.plan.detail'].search([('barging_plan', '=',rec.id)]).mapped('toonage')))            
@@ -128,8 +129,8 @@ class BargingPlan(models.Model):
             for detail in self.env['gag.oa.qc.barging.plan.detail'].search([('barging_plan', '=',rec.id)]):
                 tmpTotal1 += detail.ni*detail.toonage
                 tmpTotal2 += detail.toonage
-            if(tmpTotal2!=0):
-                rec.ni= tmpTotal1/tmpTotal2
+            if(tmpTotal2!=0 and rec.sisa_tonnage!=0):
+                rec.ni= tmpTotal1/tmpTotal2               
                 rec.sisa_ni = ((rec.target_ni* rec.target) - (rec.ni*rec.tonnage))/rec.sisa_tonnage
 
 class BargingPlanDetail(models.Model):
@@ -137,7 +138,7 @@ class BargingPlanDetail(models.Model):
     _description = "Detail rencana pengapalan harian"
 
     barging_plan = fields.Many2one("gag.oa.qc.barging.plan","Barging Plan")
-    stokpile_id = fields.Many2one("gag.oa.qc.daily.production.detail","UMT")
+    stokpile_id = fields.Many2one("gag.oa.qc.daily.production.detail","UMT",domain="[('tanggal_barging','=',False)]")
     toonage = fields.Float('Tonnage',digit=(0,4),related="stokpile_id.toonage")
     ni = fields.Float('Ni',digit=(0,2), related="stokpile_id.ni")
     co = fields.Float('Co',digit=(0,2), related="stokpile_id.co")

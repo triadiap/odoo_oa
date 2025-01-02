@@ -3,3 +3,8 @@ from.import evaluasi_mp
 from.import hse_pemeriksaan_sarana
 from.import hse_pemeriksaan_peralatan
 from.import hse_ialk3
+from.import pelaporan_hse
+from.import pelaporan_oh
+from.import pelaporan_reporting
+from.import hse_daftar_spip
+from.import rekap_bibit

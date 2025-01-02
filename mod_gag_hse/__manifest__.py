@@ -11,6 +11,7 @@
     'depends': ['mail'],
     'data': [
         'security/ir.model.access.csv',
+        'views/assets.xml',
         'views/hse_parameter_view.xml',
         'views/hse_parameter_sarana_view.xml',
         'views/hse_parameter_peralatan_view.xml',
@@ -18,10 +19,19 @@
         'views/hse_pemeriksaan_sarana_view.xml',
         'views/hse_pemeriksaan_peralatan_view.xml',
         'views/hse_ialk3_view.xml',
+        'views/hse_pelaporan_hse_view.xml',
+        'views/hse_pelaporan_oh_view.xml',
+        'views/hse_pelaporan_reporting_view.xml',
+        'views/hse_daftar_spip_view.xml',
+        'views/hse_rekap_bibit_view.xml',
+        'report/hse_pelaporan_report.xml',
+        'report/hse_pelaporan_report_view.xml',
         'views/menu_views.xml'
     ],
     'demo': [],
-    'qweb': [],
+    'qweb': [
+        "static/src/xml/bibit_dashboard.xml",
+    ],
     'installable': True,
     'application': True,
     'auto_install': False,
