@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_pelaporan" model="ir.actions.report">
+            <field name="name">Statistik Kesehatan Kerja</field>
+            <field name="model">gag.oa.hse.pelaporan.reporting</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">mod_gag_hse.report_pelaporan</field>
+            <field name="report_file">mod_gag_hse.report_pelaporan</field>
+            <field name="print_report_name">'Statistik Kesehatan Kerja'</field>
+            <field name="binding_model_id" ref="model_gag_oa_hse_pelaporan_reporting"/>
+        </record>
+        <record id="action_report_pelaporan_all" model="ir.actions.report">
+            <field name="name">Statistik Kesehatan Kerja</field>
+            <field name="model">gag.oa.hse.pelaporan.reporting.all</field>
+            <field name="report_type">qweb-html</field>
+            <field name="report_name">mod_gag_hse.report_pelaporan_all</field>
+            <field name="report_file">mod_gag_hse.report_pelaporan_all</field>
+            <field name="print_report_name">'Statistik Kesehatan Kerja'</field>
+            <field name="binding_model_id" ref="model_gag_oa_hse_pelaporan_reporting_all"/>
+        </record>
+    </data>
+</odoo>

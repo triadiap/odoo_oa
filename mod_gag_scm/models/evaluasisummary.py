@@ -9,15 +9,15 @@ class SCMEvaluasiSummary(models.Model):
     _description = 'Office Automation Evaluasi Vendor Summary'
 
     tahun  = fields.Char(string="Tahun", required=True)
-    vendor_name = fields.Char(string="Vendor Name", required=True)
+    vendor_name = fields.Many2one("res.partner",string="Vendor Name", required=True)
     nama_pengadaan = fields.Char(string="Nama Pengadaan", required=True)
     alamat = fields.Char(string="Alamat", required=True)
-    currency_id = fields.Many2one('res.currency', string='Currency')
-    nomor_kontrak = fields.Char(string="Nomor Kontrak", required=True)
-    nilai_kontrak = fields.Monetary(string="Nilai Kontrak",currency_field='currency_id', required=True)
+    currency_id = fields.Many2one('res.currency', string='Currency',related="nomor_kontrak.currency_id")
+    nomor_kontrak = fields.Many2one('purchase.contract',string="Nomor Kontrak", required=True)
+    nilai_kontrak = fields.Monetary(string="Nilai Kontrak",currency_field='currency_id', required=True,related="nomor_kontrak.nilai_kontrak")
     npwp = fields.Char(string="NPWP", required=True)    
-    mulai_kontrak = fields.Date(string="Mulai Kontrak", required=True)
-    selesai_kontrak = fields.Date(string="Selesai Kontrak")    
+    mulai_kontrak = fields.Date(string="Mulai Kontrak", required=True,related="nomor_kontrak.comancement_date")
+    selesai_kontrak = fields.Date(string="Selesai Kontrak",required=True,related="nomor_kontrak.completion_date")    
     detail_pembayaran = fields.One2many('gag.oa.scm.evaluasi.summary.detail','evaluasi_id')
     sisa_pembayaran = fields.Monetary(string="Sisa Pembayaran",currency_field='currency_id', compute="_sisa_pembayaran",stored="true")
 
@@ -45,4 +45,5 @@ class SCMEvaluasiSummaryDetail(models.Model):
     jumlah = fields.Monetary(string="Jumlah Transaksi",currency_field='currency_id', required=True)
     terbayar = fields.Boolean(String = "Status Terbayar")
     tanggal_terbayar = fields.Date(String = "Tanggal Terbayar")
+    file = fields.Binary(String = "Attachment")
 

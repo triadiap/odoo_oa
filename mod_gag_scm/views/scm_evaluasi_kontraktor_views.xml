@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_scm_evaluasi_kontraktor_view" model="ir.ui.view">
+        <field name="name">gag.oa.scm.evaluasi.kontraktor.view</field>
+        <field name="model">gag.oa.scm.evaluasi.kontraktor</field>
+        <field name="arch" type="xml">
+            <tree string="Evaluasi Kontraktor">
+                <field name="vendor"/>
+                <field name="nomor_kontrak"/>
+                <field name="tanggal_evaluasi"/>
+                <field name="rate_keselamatan"/>
+                <field name="rate_lingkup"/>
+                <field name="rate_pelaksanaan"/>
+                <field name="rate_qualifikasi"/>
+                <field name="rate_koordinasi"/>
+                <field name="rate_hak"/>
+                <field name="rate_hasil"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_scm_evaluasi_kontraktor_form" model="ir.ui.view">
+        <field name="name">gag.oa.scm.evaluasi.kontraktor.form</field>
+        <field name="model">gag.oa.scm.evaluasi.kontraktor</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                                <field name="vendor"/>
+                                <field name="nomor_kontrak"/>
+                                <field name="mulai_kontrak"/>
+                                <field name="selesai_kontrak"/>
+                        </group>
+                        <group>
+                                <field name="perode_evaluasi"/>
+                                <field name="tanggal_evaluasi"/>
+                                <field name="catatan"/>
+                        </group>
+                    </group>        
+                    <notebook>
+                        <page string="Keselamatan" name="gag_oa_scm_evaluasi_kontraktor_keselamatan_tree">
+                            <field name="hasil_keselamatan">
+                                <tree editable="bottom">
+                                    <field name="kriteria"/>
+                                    <field name="uraian"/>
+                                    <field name="rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Lingkup Kerja" name="gag_oa_scm_evaluasi_kontraktor_lingkup_tree">
+                            <field name="hasil_lingkup">
+                                <tree editable="bottom">
+                                    <field name="kriteria"/>
+                                    <field name="uraian"/>
+                                    <field name="rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Pelaksanaan" name="gag_oa_scm_evaluasi_kontraktor_pelaksanaan_tree">
+                            <field name="hasil_pelaksanaan">
+                                <tree editable="bottom">
+                                    <field name="kriteria"/>
+                                    <field name="uraian"/>
+                                    <field name="rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Qualifikasi" name="gag_oa_scm_evaluasi_kontraktor_qualifikasi_tree">
+                            <field name="hasil_qualifikasi">
+                                <tree editable="bottom">
+                                    <field name="kriteria"/>
+                                    <field name="uraian"/>
+                                    <field name="rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Koordinasi" name="gag_oa_scm_evaluasi_kontraktor_koordinasi_tree">
+                            <field name="hasil_koordinasi">
+                                <tree editable="bottom">
+                                    <field name="kriteria"/>
+                                    <field name="uraian"/>
+                                    <field name="rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Hak" name="gag_oa_scm_evaluasi_kontraktor_hak_tree">
+                            <field name="hasil_hak">
+                                <tree editable="bottom">
+                                    <field name="kriteria"/>
+                                    <field name="uraian"/>
+                                    <field name="rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Hasil Pekerjaan" name="gag_oa_scm_evaluasi_kontraktor_hasil_tree">
+                            <field name="hasil_hasil">
+                                <tree editable="bottom">
+                                    <field name="kriteria"/>
+                                    <field name="uraian"/>
+                                    <field name="rate"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="gag_oa_scm_evaluasi_kontraktor_action" model="ir.actions.act_window">
+        <field name="name">EVALUASI KINERJA KONTRAKTOR</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.scm.evaluasi.kontraktor</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your evaluasi Here !
+            </p>
+        </field>
+    </record>
+</odoo>

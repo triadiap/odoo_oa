@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!-- This template is for a table at the top of purchase views that shows some KPIs. -->
+    <t t-name="mod_gag_hse.BibitDashboard">
+        <div class="o_purchase_dashboard container">
+        <div class="row">            
+            <div class="col-sm-8">
+                
+            </div>   
+            <div class="col-sm-4">
+            <table class="table table-sm">
+                <!-- thead needed to avoid list view rendering error for some reason -->
+                <thead>
+                    <tr>
+                        <!-- can't use th tag due to list rendering error when no values in list... -->
+                        <td class="o_text">Total Masuk</td>
+                        <td><span><t t-esc="values['total_masuk']"/></span></td>
+                        <td class="o_text">Total Keluar</td>
+                        <td><span><t t-esc="values['total_keluar']"/></span></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="o_text">Stok</td>
+                        <td colspan="3"><span><t t-esc="values['total_stok']"/></span></td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div></div>
+    </t>
+</templates>

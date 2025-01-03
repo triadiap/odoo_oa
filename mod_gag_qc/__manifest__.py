@@ -14,6 +14,7 @@
         'views/gagoa_qc_daily_production.xml',
         'views/gagoa_qc_barging.xml',
         'views/gagoa_qc_stock_opname.xml',
+        'views/gagoa_qc_barging_plan.xml',
         'report/gagoa_qc_daily_production_report.xml',
         'report/gagoa_qc_daily_report.xml',
         'report/gagoa_qc_daily_production_report_view.xml',

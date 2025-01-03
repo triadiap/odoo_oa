@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_pelaporan_reporting_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.reporting.view</field>
+        <field name="model">gag.oa.hse.pelaporan.reporting</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom"> 
+                <field name="vendor"/>
+                <field name="year"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_reporting_action" model="ir.actions.act_window">
+        <field name="name">Laporan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.reporting</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your evaluasi Here !
+            </p>
+        </field>
+    </record>
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_pelaporan_reporting_all_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.reporting.all.view</field>
+        <field name="model">gag.oa.hse.pelaporan.reporting.all</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom"> 
+                <field name="year"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_reporting_all_action" model="ir.actions.act_window">
+        <field name="name">Laporan</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.reporting.all</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your evaluasi Here !
+            </p>
+        </field>
+    </record>
+</odoo>

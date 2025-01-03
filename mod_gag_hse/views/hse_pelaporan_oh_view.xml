@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_pelaporan_kesehatan_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.kesehatan.view</field>
+        <field name="model">gag.oa.hse.pelaporan.kesehatan</field>
+        <field name="arch" type="xml">
+            <tree string="Pelaporan Kesehatan">
+                <field name="name"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="total_sakit"/>
+                <field name="total_absen"/>
+                <field name="total_spell"/>
+                <field name="total_sakitkerja"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_kesehatan_form" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.kesehatan.form</field>
+        <field name="model">gag.oa.hse.pelaporan.kesehatan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                                <field name="name"/>
+                                <field name="month"/>
+                                <field name="year"/>
+                                <field name="vendor"/>
+                        </group>
+                    </group>        
+                    <notebook>
+                        <page string="Jumlah Pekerja Sakit" name="gag_oa_hse_pelaporan_kesehatan_sakit_tree">
+                            <field name="pelaporan_sakit">
+                                <tree editable="buttom">
+                                    <field name="satuan_kerja"/>
+                                    <field name="jumlah"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Jumlah Absen Sakit" name="gag_oa_hse_pelaporan_kesehatan_absen_tree">
+                            <field name="pelaporan_absen">
+                                <tree editable="buttom">
+                                    <field name="satuan_kerja"/>
+                                    <field name="jumlah"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Jumlah Spell" name="gag_oa_hse_pelaporan_kesehatan_spell_tree">
+                            <field name="pelaporan_spell">
+                                <tree editable="buttom">
+                                    <field name="satuan_kerja"/>
+                                    <field name="jumlah"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Jumlah Kasus PAK" name="gag_oa_hse_pelaporan_kesehatan_sakit_kerja_tree">
+                            <field name="pelaporan_sakit_kerja">
+                                <tree editable="buttom">
+                                    <field name="satuan_kerja"/>
+                                    <field name="jumlah"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Penyakit" name="gag_oa_hse_pelaporan_kesehatan_pernyakit_tree">
+                            <field name="pelaporan_penyakit">
+                                <tree editable="buttom">
+                                    <field name="nama"/>
+                                    <field name="lokasi_kerja"/>
+                                    <field name="rawat_jalan"/>
+                                    <field name="rawat_inap"/>
+                                    <field name="lama"/>
+                                    <field name="currency_id"/>
+                                    <field name="biaya"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_kesehatan_action" model="ir.actions.act_window">
+        <field name="name">PELAPORAN BULANAN KESEHATAN PERTAMBANGAN KONTRAKTOR</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.kesehatan</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your data Here !
+            </p>
+        </field>
+    </record>
+
+    
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_pelaporan_kesehatan_sakit_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.kesehatan.sakit.view</field>
+        <field name="model">gag.oa.hse.pelaporan.kesehatan.sakit</field>
+        <field name="arch" type="xml">
+            <tree string="Rekap Data Jam Kerja" create = "false">
+                <field name="vendor"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="satuan_kerja"/>
+                <field name="jumlah"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_rekap_sakit_action" model="ir.actions.act_window">
+        <field name="name">REKAP DATA PEKERJA SAKIT</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.kesehatan.sakit</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+    </record>
+    
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_pelaporan_kesehatan_absen_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.kesehatan.absen.view</field>
+        <field name="model">gag.oa.hse.pelaporan.kesehatan.absen</field>
+        <field name="arch" type="xml">
+            <tree string="Rekap Data Jam Kerja" create = "false">
+                <field name="vendor"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="satuan_kerja"/>
+                <field name="jumlah"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_rekap_absen_action" model="ir.actions.act_window">
+        <field name="name">REKAP DATA PEKERJA ABSEN KARENA SAKIT</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.kesehatan.absen</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+    </record>
+    
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_pelaporan_kesehatan_spell_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.kesehatan.spell.view</field>
+        <field name="model">gag.oa.hse.pelaporan.kesehatan.spell</field>
+        <field name="arch" type="xml">
+            <tree string="Rekap Data Jam Kerja" create = "false">
+                <field name="vendor"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="satuan_kerja"/>
+                <field name="jumlah"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_rekap_spell_action" model="ir.actions.act_window">
+        <field name="name">REKAP DATA SPELL</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.kesehatan.spell</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+    </record>
+    
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_pelaporan_kesehatan_sakitkerja_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.kesehatan.sakitkerja.view</field>
+        <field name="model">gag.oa.hse.pelaporan.kesehatan.sakitkerja</field>
+        <field name="arch" type="xml">
+            <tree string="Rekap Data Jam Kerja" create = "false">
+                <field name="vendor"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="satuan_kerja"/>
+                <field name="jumlah"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_rekap_sakitkerja_action" model="ir.actions.act_window">
+        <field name="name">REKAP DATA KASUS PAK</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.kesehatan.sakitkerja</field>
+        <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+    </record>
+</odoo>

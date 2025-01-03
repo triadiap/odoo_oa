@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>    <!-- Main report templates -->
+    <template id="report_pelaporan">
+        <t t-foreach="docs" t-as="data">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h5>
+                            <strong>Statistik Kesehatan Kerja Pertambangan Tahun <span t-field="data.year"/> <span t-field="data.vendor"/> </strong>
+                        </h5>
+                        <table class="table">
+                            <tbody>                
+                                <tr>
+                                    <td>No</td>
+                                    <td>Keterangan</td>
+                                    <td>Jan</td>
+                                    <td>Feb</td>
+                                    <td>Mar</td>
+                                    <td>Apr</td>
+                                    <td>May</td>
+                                    <td>Jun</td>
+                                    <td>Jul</td>
+                                    <td>Aug</td>
+                                    <td>Sep</td>
+                                    <td>Oct</td>
+                                    <td>Nov</td>
+                                    <td>Dec</td>
+                                </tr>
+                                <tr>
+                                    <td>A</td>
+                                    <td>Jumlah tenaga kerja</td>
+                                    <td><span t-field="data.jml_tenaga_kerja_jan"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_feb"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_mar"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_apr"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_may"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_jun"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_jul"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_aug"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_sep"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_oct"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_nov"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_dec"/></td>
+                                </tr>          
+                                <tr>
+                                    <td>B</td>
+                                    <td>Jumlah Jam kerja</td>
+                                    <td><span t-field="data.jml_jamkerja_jan"/></td>
+                                    <td><span t-field="data.jml_jamkerja_feb"/></td>
+                                    <td><span t-field="data.jml_jamkerja_mar"/></td>
+                                    <td><span t-field="data.jml_jamkerja_apr"/></td>
+                                    <td><span t-field="data.jml_jamkerja_may"/></td>
+                                    <td><span t-field="data.jml_jamkerja_jun"/></td>
+                                    <td><span t-field="data.jml_jamkerja_jul"/></td>
+                                    <td><span t-field="data.jml_jamkerja_aug"/></td>
+                                    <td><span t-field="data.jml_jamkerja_sep"/></td>
+                                    <td><span t-field="data.jml_jamkerja_oct"/></td>
+                                    <td><span t-field="data.jml_jamkerja_nov"/></td>
+                                    <td><span t-field="data.jml_jamkerja_dec"/></td>
+                                </tr>     
+                                <tr>
+                                    <td>C</td>
+                                    <td>Jumlah Pekerja yang Sakit (Tidak Termasuk Kecelakaan)</td>
+                                    <td><span t-field="data.jml_sakit_jan"/></td>
+                                    <td><span t-field="data.jml_sakit_feb"/></td>
+                                    <td><span t-field="data.jml_sakit_mar"/></td>
+                                    <td><span t-field="data.jml_sakit_apr"/></td>
+                                    <td><span t-field="data.jml_sakit_may"/></td>
+                                    <td><span t-field="data.jml_sakit_jun"/></td>
+                                    <td><span t-field="data.jml_sakit_jul"/></td>
+                                    <td><span t-field="data.jml_sakit_aug"/></td>
+                                    <td><span t-field="data.jml_sakit_sep"/></td>
+                                    <td><span t-field="data.jml_sakit_oct"/></td>
+                                    <td><span t-field="data.jml_sakit_nov"/></td>
+                                    <td><span t-field="data.jml_sakit_dec"/></td>
+                                </tr>  
+                                <tr>
+                                    <td>D</td>
+                                    <td>Jumlah Absensi Pekerja yang Sakit (Tidak Termasuk Kecelakaan)</td>
+                                    <td><span t-field="data.jml_absen_jan"/></td>
+                                    <td><span t-field="data.jml_absen_feb"/></td>
+                                    <td><span t-field="data.jml_absen_mar"/></td>
+                                    <td><span t-field="data.jml_absen_apr"/></td>
+                                    <td><span t-field="data.jml_absen_may"/></td>
+                                    <td><span t-field="data.jml_absen_jun"/></td>
+                                    <td><span t-field="data.jml_absen_jul"/></td>
+                                    <td><span t-field="data.jml_absen_aug"/></td>
+                                    <td><span t-field="data.jml_absen_sep"/></td>
+                                    <td><span t-field="data.jml_absen_oct"/></td>
+                                    <td><span t-field="data.jml_absen_nov"/></td>
+                                    <td><span t-field="data.jml_absen_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>E</td>
+                                    <td>Jumal Spell</td>
+                                    <td><span t-field="data.jml_spell_jan"/></td>
+                                    <td><span t-field="data.jml_spell_feb"/></td>
+                                    <td><span t-field="data.jml_spell_mar"/></td>
+                                    <td><span t-field="data.jml_spell_apr"/></td>
+                                    <td><span t-field="data.jml_spell_may"/></td>
+                                    <td><span t-field="data.jml_spell_jun"/></td>
+                                    <td><span t-field="data.jml_spell_jul"/></td>
+                                    <td><span t-field="data.jml_spell_aug"/></td>
+                                    <td><span t-field="data.jml_spell_sep"/></td>
+                                    <td><span t-field="data.jml_spell_oct"/></td>
+                                    <td><span t-field="data.jml_spell_nov"/></td>
+                                    <td><span t-field="data.jml_spell_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>F</td>
+                                    <td>Jumlah PAK</td>
+                                    <td><span t-field="data.jml_sakitkerja_jan"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_feb"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_mar"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_apr"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_may"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_jun"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_jul"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_aug"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_sep"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_oct"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_nov"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Rasio Kelayakan Kerja</td>
+                                    <td><span t-field="data.jml_kelayakan_jan"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_feb"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_mar"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_apr"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_may"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_jun"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_jul"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_aug"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_sep"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_oct"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_nov"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_dec"/> %</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Angka kesakitan Kasar (Crude Morbidity Rate)</td>
+                                    <td><span t-field="data.jml_kesakitan_jan"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_feb"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_mar"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_apr"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_may"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_jun"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_jul"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_aug"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_sep"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_oct"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_nov"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_dec"/> %</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Morbidity Frequency Rate</td>
+                                    <td><span t-field="data.jml_keseringan_jan"/></td>
+                                    <td><span t-field="data.jml_keseringan_feb"/></td>
+                                    <td><span t-field="data.jml_keseringan_mar"/></td>
+                                    <td><span t-field="data.jml_keseringan_apr"/></td>
+                                    <td><span t-field="data.jml_keseringan_may"/></td>
+                                    <td><span t-field="data.jml_keseringan_jun"/></td>
+                                    <td><span t-field="data.jml_keseringan_jul"/></td>
+                                    <td><span t-field="data.jml_keseringan_aug"/></td>
+                                    <td><span t-field="data.jml_keseringan_sep"/></td>
+                                    <td><span t-field="data.jml_keseringan_oct"/></td>
+                                    <td><span t-field="data.jml_keseringan_nov"/></td>
+                                    <td><span t-field="data.jml_keseringan_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Tingkat Keparahan Penyakit ( spell seventy rate)</td>
+                                    <td><span t-field="data.jml_keparahan_jan"/></td>
+                                    <td><span t-field="data.jml_keparahan_feb"/></td>
+                                    <td><span t-field="data.jml_keparahan_mar"/></td>
+                                    <td><span t-field="data.jml_keparahan_apr"/></td>
+                                    <td><span t-field="data.jml_keparahan_may"/></td>
+                                    <td><span t-field="data.jml_keparahan_jun"/></td>
+                                    <td><span t-field="data.jml_keparahan_jul"/></td>
+                                    <td><span t-field="data.jml_keparahan_aug"/></td>
+                                    <td><span t-field="data.jml_keparahan_sep"/></td>
+                                    <td><span t-field="data.jml_keparahan_oct"/></td>
+                                    <td><span t-field="data.jml_keparahan_nov"/></td>
+                                    <td><span t-field="data.jml_keparahan_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Absence Severity Rate</td>
+                                    <td><span t-field="data.jml_absenseverity_jan"/></td>
+                                    <td><span t-field="data.jml_absenseverity_feb"/></td>
+                                    <td><span t-field="data.jml_absenseverity_mar"/></td>
+                                    <td><span t-field="data.jml_absenseverity_apr"/></td>
+                                    <td><span t-field="data.jml_absenseverity_may"/></td>
+                                    <td><span t-field="data.jml_absenseverity_jun"/></td>
+                                    <td><span t-field="data.jml_absenseverity_jul"/></td>
+                                    <td><span t-field="data.jml_absenseverity_aug"/></td>
+                                    <td><span t-field="data.jml_absenseverity_sep"/></td>
+                                    <td><span t-field="data.jml_absenseverity_oct"/></td>
+                                    <td><span t-field="data.jml_absenseverity_nov"/></td>
+                                    <td><span t-field="data.jml_absenseverity_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Ratio PAK</td>
+                                    <td><span t-field="data.jml_ratiopak_jan"/></td>
+                                    <td><span t-field="data.jml_ratiopak_feb"/></td>
+                                    <td><span t-field="data.jml_ratiopak_mar"/></td>
+                                    <td><span t-field="data.jml_ratiopak_apr"/></td>
+                                    <td><span t-field="data.jml_ratiopak_may"/></td>
+                                    <td><span t-field="data.jml_ratiopak_jun"/></td>
+                                    <td><span t-field="data.jml_ratiopak_jul"/></td>
+                                    <td><span t-field="data.jml_ratiopak_aug"/></td>
+                                    <td><span t-field="data.jml_ratiopak_sep"/></td>
+                                    <td><span t-field="data.jml_ratiopak_oct"/></td>
+                                    <td><span t-field="data.jml_ratiopak_nov"/></td>
+                                    <td><span t-field="data.jml_ratiopak_dec"/></td>
+                                </tr>
+                            </tbody>
+                        </table>                        
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="report_pelaporan_all">
+        <t t-foreach="docs" t-as="data">
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h5>
+                            <strong>Statistik Kesehatan Kerja Pertambangan Tahun <span t-field="data.year"/> PT. GAG NIKEL </strong>
+                        </h5>
+                        <table class="table">
+                            <tbody>                
+                                <tr>
+                                    <td>No</td>
+                                    <td>Keterangan</td>
+                                    <td>Jan</td>
+                                    <td>Feb</td>
+                                    <td>Mar</td>
+                                    <td>Apr</td>
+                                    <td>May</td>
+                                    <td>Jun</td>
+                                    <td>Jul</td>
+                                    <td>Aug</td>
+                                    <td>Sep</td>
+                                    <td>Oct</td>
+                                    <td>Nov</td>
+                                    <td>Dec</td>
+                                </tr>
+                                <tr>
+                                    <td>A</td>
+                                    <td>Jumlah tenaga kerja</td>
+                                    <td><span t-field="data.jml_tenaga_kerja_jan"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_feb"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_mar"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_apr"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_may"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_jun"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_jul"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_aug"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_sep"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_oct"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_nov"/></td>
+                                    <td><span t-field="data.jml_tenaga_kerja_dec"/></td>
+                                </tr>          
+                                <tr>
+                                    <td>B</td>
+                                    <td>Jumlah Jam kerja</td>
+                                    <td><span t-field="data.jml_jamkerja_jan"/></td>
+                                    <td><span t-field="data.jml_jamkerja_feb"/></td>
+                                    <td><span t-field="data.jml_jamkerja_mar"/></td>
+                                    <td><span t-field="data.jml_jamkerja_apr"/></td>
+                                    <td><span t-field="data.jml_jamkerja_may"/></td>
+                                    <td><span t-field="data.jml_jamkerja_jun"/></td>
+                                    <td><span t-field="data.jml_jamkerja_jul"/></td>
+                                    <td><span t-field="data.jml_jamkerja_aug"/></td>
+                                    <td><span t-field="data.jml_jamkerja_sep"/></td>
+                                    <td><span t-field="data.jml_jamkerja_oct"/></td>
+                                    <td><span t-field="data.jml_jamkerja_nov"/></td>
+                                    <td><span t-field="data.jml_jamkerja_dec"/></td>
+                                </tr>     
+                                <tr>
+                                    <td>C</td>
+                                    <td>Jumlah Pekerja yang Sakit (Tidak Termasuk Kecelakaan)</td>
+                                    <td><span t-field="data.jml_sakit_jan"/></td>
+                                    <td><span t-field="data.jml_sakit_feb"/></td>
+                                    <td><span t-field="data.jml_sakit_mar"/></td>
+                                    <td><span t-field="data.jml_sakit_apr"/></td>
+                                    <td><span t-field="data.jml_sakit_may"/></td>
+                                    <td><span t-field="data.jml_sakit_jun"/></td>
+                                    <td><span t-field="data.jml_sakit_jul"/></td>
+                                    <td><span t-field="data.jml_sakit_aug"/></td>
+                                    <td><span t-field="data.jml_sakit_sep"/></td>
+                                    <td><span t-field="data.jml_sakit_oct"/></td>
+                                    <td><span t-field="data.jml_sakit_nov"/></td>
+                                    <td><span t-field="data.jml_sakit_dec"/></td>
+                                </tr>  
+                                <tr>
+                                    <td>D</td>
+                                    <td>Jumlah Absensi Pekerja yang Sakit (Tidak Termasuk Kecelakaan)</td>
+                                    <td><span t-field="data.jml_absen_jan"/></td>
+                                    <td><span t-field="data.jml_absen_feb"/></td>
+                                    <td><span t-field="data.jml_absen_mar"/></td>
+                                    <td><span t-field="data.jml_absen_apr"/></td>
+                                    <td><span t-field="data.jml_absen_may"/></td>
+                                    <td><span t-field="data.jml_absen_jun"/></td>
+                                    <td><span t-field="data.jml_absen_jul"/></td>
+                                    <td><span t-field="data.jml_absen_aug"/></td>
+                                    <td><span t-field="data.jml_absen_sep"/></td>
+                                    <td><span t-field="data.jml_absen_oct"/></td>
+                                    <td><span t-field="data.jml_absen_nov"/></td>
+                                    <td><span t-field="data.jml_absen_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>E</td>
+                                    <td>Jumal Spell</td>
+                                    <td><span t-field="data.jml_spell_jan"/></td>
+                                    <td><span t-field="data.jml_spell_feb"/></td>
+                                    <td><span t-field="data.jml_spell_mar"/></td>
+                                    <td><span t-field="data.jml_spell_apr"/></td>
+                                    <td><span t-field="data.jml_spell_may"/></td>
+                                    <td><span t-field="data.jml_spell_jun"/></td>
+                                    <td><span t-field="data.jml_spell_jul"/></td>
+                                    <td><span t-field="data.jml_spell_aug"/></td>
+                                    <td><span t-field="data.jml_spell_sep"/></td>
+                                    <td><span t-field="data.jml_spell_oct"/></td>
+                                    <td><span t-field="data.jml_spell_nov"/></td>
+                                    <td><span t-field="data.jml_spell_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>F</td>
+                                    <td>Jumlah PAK</td>
+                                    <td><span t-field="data.jml_sakitkerja_jan"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_feb"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_mar"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_apr"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_may"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_jun"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_jul"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_aug"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_sep"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_oct"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_nov"/></td>
+                                    <td><span t-field="data.jml_sakitkerja_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Rasio Kelayakan Kerja</td>
+                                    <td><span t-field="data.jml_kelayakan_jan"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_feb"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_mar"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_apr"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_may"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_jun"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_jul"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_aug"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_sep"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_oct"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_nov"/> %</td>
+                                    <td><span t-field="data.jml_kelayakan_dec"/> %</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Angka kesakitan Kasar (Crude Morbidity Rate)</td>
+                                    <td><span t-field="data.jml_kesakitan_jan"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_feb"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_mar"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_apr"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_may"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_jun"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_jul"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_aug"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_sep"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_oct"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_nov"/> %</td>
+                                    <td><span t-field="data.jml_kesakitan_dec"/> %</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Morbidity Frequency Rate</td>
+                                    <td><span t-field="data.jml_keseringan_jan"/></td>
+                                    <td><span t-field="data.jml_keseringan_feb"/></td>
+                                    <td><span t-field="data.jml_keseringan_mar"/></td>
+                                    <td><span t-field="data.jml_keseringan_apr"/></td>
+                                    <td><span t-field="data.jml_keseringan_may"/></td>
+                                    <td><span t-field="data.jml_keseringan_jun"/></td>
+                                    <td><span t-field="data.jml_keseringan_jul"/></td>
+                                    <td><span t-field="data.jml_keseringan_aug"/></td>
+                                    <td><span t-field="data.jml_keseringan_sep"/></td>
+                                    <td><span t-field="data.jml_keseringan_oct"/></td>
+                                    <td><span t-field="data.jml_keseringan_nov"/></td>
+                                    <td><span t-field="data.jml_keseringan_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Tingkat Keparahan Penyakit ( spell seventy rate)</td>
+                                    <td><span t-field="data.jml_keparahan_jan"/></td>
+                                    <td><span t-field="data.jml_keparahan_feb"/></td>
+                                    <td><span t-field="data.jml_keparahan_mar"/></td>
+                                    <td><span t-field="data.jml_keparahan_apr"/></td>
+                                    <td><span t-field="data.jml_keparahan_may"/></td>
+                                    <td><span t-field="data.jml_keparahan_jun"/></td>
+                                    <td><span t-field="data.jml_keparahan_jul"/></td>
+                                    <td><span t-field="data.jml_keparahan_aug"/></td>
+                                    <td><span t-field="data.jml_keparahan_sep"/></td>
+                                    <td><span t-field="data.jml_keparahan_oct"/></td>
+                                    <td><span t-field="data.jml_keparahan_nov"/></td>
+                                    <td><span t-field="data.jml_keparahan_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Absence Severity Rate</td>
+                                    <td><span t-field="data.jml_absenseverity_jan"/></td>
+                                    <td><span t-field="data.jml_absenseverity_feb"/></td>
+                                    <td><span t-field="data.jml_absenseverity_mar"/></td>
+                                    <td><span t-field="data.jml_absenseverity_apr"/></td>
+                                    <td><span t-field="data.jml_absenseverity_may"/></td>
+                                    <td><span t-field="data.jml_absenseverity_jun"/></td>
+                                    <td><span t-field="data.jml_absenseverity_jul"/></td>
+                                    <td><span t-field="data.jml_absenseverity_aug"/></td>
+                                    <td><span t-field="data.jml_absenseverity_sep"/></td>
+                                    <td><span t-field="data.jml_absenseverity_oct"/></td>
+                                    <td><span t-field="data.jml_absenseverity_nov"/></td>
+                                    <td><span t-field="data.jml_absenseverity_dec"/></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Ratio PAK</td>
+                                    <td><span t-field="data.jml_ratiopak_jan"/></td>
+                                    <td><span t-field="data.jml_ratiopak_feb"/></td>
+                                    <td><span t-field="data.jml_ratiopak_mar"/></td>
+                                    <td><span t-field="data.jml_ratiopak_apr"/></td>
+                                    <td><span t-field="data.jml_ratiopak_may"/></td>
+                                    <td><span t-field="data.jml_ratiopak_jun"/></td>
+                                    <td><span t-field="data.jml_ratiopak_jul"/></td>
+                                    <td><span t-field="data.jml_ratiopak_aug"/></td>
+                                    <td><span t-field="data.jml_ratiopak_sep"/></td>
+                                    <td><span t-field="data.jml_ratiopak_oct"/></td>
+                                    <td><span t-field="data.jml_ratiopak_nov"/></td>
+                                    <td><span t-field="data.jml_ratiopak_dec"/></td>
+                                </tr>
+                            </tbody>
+                        </table>                        
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

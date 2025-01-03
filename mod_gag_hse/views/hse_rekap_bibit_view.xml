@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_rekap_bibit_tree" model="ir.ui.view">
+        <field name="name">gag.oa.hse.rekap.bibit.tree</field>
+        <field name="model">gag.oa.hse.rekap.bibit</field>
+        <field name="arch" type="xml">
+            <tree string="Rekap Bibit" editable="bottom" js_class="bibit_list_dashboard" sample="1">
+                <field name="jenis"/>
+                <field name="kelompok"/>
+                <field name="tipe"/>
+                <field name="sumber"/>
+                <field name="pasokan"/>
+                <field name="tahun"/>
+                <field name="jumlah_masuk"/>
+                <field name="tanggal_masuk"/>
+                <field name="jumlah_keluar"/>
+                <field name="tanggal_keluar"/>
+                <field name="stok"/>
+                <field name="keterangan"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_rekap_bibit_action" model="ir.actions.act_window">
+        <field name="name">Rekap Bibit</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.rekap.bibit</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="domain"></field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your data here !
+            </p>
+        </field>
+    </record>
+</odoo>

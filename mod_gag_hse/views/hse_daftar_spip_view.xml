@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_daftar_spip_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.daftar.spip.view</field>
+        <field name="model">gag.oa.hse.daftar.spip</field>
+        <field name="arch" type="xml">
+            <tree string="Daftar SPIP">
+                <field name="department"/>
+                <field name="area"/>
+                <field name="tanggal"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_daftar_spip_form" model="ir.ui.view">
+        <field name="name">gag.oa.hse.daftar.spip.form</field>
+        <field name="model">gag.oa.hse.daftar.spip</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                                <field name="name"/>
+                                <field name="department"/>
+                                <field name="area"/>
+                                <field name="tanggal"/>
+                                <field name="file"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="SPIP Detail" name="gag_oa_hse_daftar_spip_detail_tree">
+                            <field name="spip_detail">
+                                <tree editable="bottom">
+                                    <field name="type"/>
+                                    <field name="deskripsi"/>
+                                    <field name="nomor"/>
+                                    <field name="kondisi"/>
+                                    <field name="keterangan"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="gag_oa_hse_daftar_spip_action" model="ir.actions.act_window">
+        <field name="name">DAFTAR SARANA, PRASARANA, INSTALASI DAN PERALATAN</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.daftar.spip</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your evaluasi Here !
+            </p>
+        </field>
+    </record>
+
+    <record id="gag_oa_hse_pelaporan_alat_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.alat.view</field>
+        <field name="model">gag.oa.hse.pelaporan.alat</field>
+        <field name="arch" type="xml">
+            <tree string="Daftar Alat">
+                <field name="vendor"/>
+                <field name="nama_agent"/>
+                <field name="tanggal"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_alat_form" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.alat.form</field>
+        <field name="model">gag.oa.hse.pelaporan.alat</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                                <field name="name"/>
+                                <field name="vendor"/>
+                                <field name="nama_agent"/>
+                                <field name="tanggal"/>
+                                <field name="file"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Alat Detail" name="gag_oa_hse_pelaporan_alat_detail_tree">
+                            <field name="alat_detail">
+                                <tree editable="bottom">
+                                    <field name="deskripsi"/>
+                                    <field name="nomor"/>
+                                    <field name="kondisi"/>
+                                    <field name="keterangan"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_alat_action" model="ir.actions.act_window">
+        <field name="name">DAFTAR ALAT DAN PERALATAN</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.alat</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your data Here !
+            </p>
+        </field>
+    </record>
+</odoo>
