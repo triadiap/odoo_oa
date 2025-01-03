@@ -42,6 +42,7 @@
             <field name="arch" type="xml">
                     <form>
                         <header>
+                                <field name="hide_css"/>
                                 <button name="%(mod_gag_ppm.action_my_wizard)d" string="Payment Confirmation" type="action" class="btn-primary" states="done"/>
                                 <button id="button-approval-process" name="action_approval_process" string="Submit To Approve" class="btn-primary" type="object" states="draft"/>
                                 <button id="button-confirm" name="%(mod_gag_ppm.budget_transaction_approval_form_wizard_action)d" string="Approve" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
@@ -83,7 +84,7 @@
                                      <field name="kode_anggaran"/>
                                       <field name="program_code"/>
                                      <field name="name" placeholder="Transaction Name"/>
-                                     <field name="year_budget"/>
+                                     <field name="year_budget" readonly="1"/>
                                 </group>
                                 <group>
                                         <field name="existing_status"/>

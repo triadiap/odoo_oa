@@ -14,7 +14,7 @@ class BudgetTransactionInput(models.Model):
     pillar_name = fields.Many2one('pillar.group', string="Pillar Name", required=True)
     program_code = fields.Many2one('detail.anggaran.perbulan', string="Program", required=True, tracking=True)
     kode_anggaran = fields.Many2one('informasi.perpillar', string="Budget Reference", required=True, tracking=True)
-    year_budget = fields.Char(string="Fiscal Year", store=True, tracking=True)
+    year_budget = fields.Char(string="Fiscal Year",tracking=True)
     id_transaction_detail = fields.One2many('detail.trans.perbudget', 'detail_trans_id', string="Lines")
     document_payment_id = fields.One2many('detail.payment','transid',string='Payments')
     total_expense_display = fields.Char(string="Total Quantity", compute='_compute_total_activity_expense')
@@ -27,7 +27,7 @@ class BudgetTransactionInput(models.Model):
     existing_status = fields.Char(string="Current Status", readonly=True, tracking=True)
     upcoming_status = fields.Many2one('approval.step', string='Upcoming Status', readonly=True, tracking=True)
     pending_approval_by = fields.Many2one('res.users', string="Pending Approval By", readonly=True, tracking=True)
-    button_visible = fields.Boolean(compute='_compute_button_visibility', store=False)
+    button_visible = fields.Boolean(compute='_compute_button_visibility', store=False, sanitize=False)
     # -------------------------------------------------------------------------------------#
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -38,7 +38,20 @@ class BudgetTransactionInput(models.Model):
         ('cancel', 'Cancelled'),
         ('paid', 'Paid')
     ], default="draft", string="Status", tracking=True)
+    hide_css = fields.Html(string='CSS', compute='_compute_btn_edit_activation', sanitize=False, store=False)
 
+    @api.depends('state')
+    def _compute_btn_edit_activation(self):
+        for record in self:
+            if record.state in ["approve","done","paid"]:
+                record.hide_css = ('''
+                                        <style>
+                                            .o_form_button_edit {display: none !important;}
+                                        </style>
+                                        '''
+                                   )
+            else:
+                record.hide_css = False
     def _compute_button_visibility(self):
         for record in self:
             # Ensure pending_approval_by is a valid user and assign True/False
@@ -81,8 +94,22 @@ class BudgetTransactionInput(models.Model):
         config = self.env['oa.document.workflow.config'].search([('model_id.model', '=', self._name)], limit=1)
         if config:
             vals['approval_route_id'] = config.approval_route_id.id
+            anggaranid = self.env['informasi.perpillar'].browse(vals['kode_anggaran'])
+            vals.update({
+                'year_budget': anggaranid.tahun_anggaran
+            })
 
         return super(BudgetTransactionInput, self).create(vals)
+
+    def write(self,vals):
+        kode_anggaran = vals.get('kode_anggaran')  # Safely get the value of 'kode_anggaran'
+        if kode_anggaran:
+            anggaranid = self.env['informasi.perpillar'].browse(kode_anggaran)
+            if anggaranid.exists():  # Check if the record exists
+                vals.update({
+                    'year_budget': anggaranid.tahun_anggaran
+                })
+        return super(BudgetTransactionInput, self).write(vals)
 
     def action_done(self):
         self.state = 'done'
@@ -183,7 +210,7 @@ class BudgetTransactionInput(models.Model):
             record.total_expense_display = f"Rp {float(total_jml_pengeluaran):,.2f}"
 
     @api.onchange('kode_anggaran')
-    def _kode_anggaran(self):
+    def _onchange_kode_anggaran(self):
         if self.kode_anggaran:
             self.year_budget = self.kode_anggaran.tahun_anggaran
         else:
@@ -285,24 +312,75 @@ class ExpenseAmountPerPillar(models.Model):
     fiscal_year = fields.Char(string='Fiscal Year')
     currency_id = fields.Many2one('res.currency',  string='Currency', default=lambda self: self.env.company.currency_id)
     jmlsubtotal = fields.Monetary(string='Total Expenses',currency_field='currency_id')
+    seq_number = fields.Integer(string="Sequence Number")
+    chart_label = fields.Char(string="Chart Label")
 
+    def name_get(self):
+        result = []
+        for record in self:
+            result.append((record.id, record.pillarname))  # or any other meaningful field
+        return result
     def init(self):
         tools.drop_view_if_exists(self._cr, 'expense_report_perpillar')
         self._cr.execute("""
                 CREATE OR REPLACE VIEW expense_report_perpillar AS (
-                    SELECT 
-                    row_number() OVER () AS id,
-                    p.nama_pillar AS pillarname,
-                    x.tahun_anggaran as fiscal_year,
-                    d.currency_id,
-                    SUM(COALESCE(d.transaction_subtotal,0)) AS jmlsubtotal
+                   SELECT 
+                     ROW_NUMBER() OVER (ORDER BY p.sequence) AS id,
+                     p.nama_pillar AS pillarname,
+                     SUM(COALESCE(d.transaction_subtotal,0)) AS jmlsubtotal,
+                     p.sequence AS seq_number,
+                     COALESCE(i.tahun_anggaran, CAST(EXTRACT(YEAR FROM CURRENT_DATE) AS VARCHAR)) AS fiscal_year,
+                     ROW_NUMBER() OVER (ORDER BY p.sequence)  || ' - ' || p.nama_pillar AS chart_label,
+                     d.currency_id
+                     
                     FROM pillar_group p
                     LEFT JOIN detail_trans_perbudget d ON p.nama_pillar = d.namapillar
-                    LEFT JOIN informasi_perpillar x ON p.id = x.kode_pillar
-                    WHERE x.tahun_anggaran IS NOT NULL
-                    GROUP BY p.nama_pillar,x.tahun_anggaran,d.currency_id
+                    LEFT JOIN informasi_perpillar i ON p.id = i.kode_pillar
+                    GROUP BY p.nama_pillar,  p.sequence, i.tahun_anggaran, d.currency_id
+                    HAVING SUM(COALESCE(d.transaction_subtotal, 0)) > 0
+                    ORDER BY p.sequence ASC
                 )
         """)
+class ExpenseAmountPerProgram(models.Model):
+    _name = 'expense.report.perprogram'
+    _description = 'Expense Amount Per Program'
+    _auto = False
+
+    program_code = fields.Integer(string="Program Code")
+    label_grafik = fields.Text(string="Program Name")
+    tahun_budget = fields.Char(string="Tahun Budget")
+    nama_pillar = fields.Char(string="Nama Pillar")
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
+    total_transaction = fields.Monetary(string='Total Transaction', currency_field='currency_id')
+    total_payment = fields.Monetary(string='Total Payment', currency_field='currency_id')
+
+    def init(self):
+        tools.drop_view_if_exists(self._cr, 'expense_report_perprogram')
+        self._cr.execute("""
+             CREATE OR REPLACE VIEW expense_report_perprogram AS (
+                    SELECT 
+                        row_number() OVER () AS id,
+                        x.namapillar || ' - ' || x.keterangan_budget AS label_grafik,
+                        d.kodeprogram AS program_code,
+                        x.tahun_budget AS tahun_budget,
+                        x.namapillar AS nama_pillar,
+                        x.currency_id,
+                        COALESCE(d.transaction_subtotal,0) AS total_transaction,
+                        COALESCE(SUM(y.val_payment),0) AS total_payment
+                    FROM detail_trans_perbudget d
+                    LEFT JOIN detail_anggaran_perbulan x ON d.kodeprogram = x.id
+                    LEFT JOIN detail_payment y ON d.detail_trans_id  = y.transid
+                    GROUP BY d.kodeprogram,x.keterangan_budget,COALESCE(d.transaction_subtotal,0),x.tahun_budget,x.namapillar,x.currency_id
+             )
+        """)
+    def name_get(self):
+        result = []
+        for record in self:
+            result.append((record.id, record.label_grafik))  # or any other meaningful field
+        return result
+
+
+
 
 
 

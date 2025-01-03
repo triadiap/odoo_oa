@@ -10,6 +10,7 @@
                 <field name="name" optional="show"/>
                 <field name="status_budget" optional="show"/>
                 <field name="kode_pillar" optional="show"/>
+                <field name="budget_month" optional="show"/>
                 <field name="tahun_anggaran" optional="show"/>
                 <field name="create_date" optional="show"/>
                 <field name="create_uid" optional="show"/>
@@ -26,7 +27,7 @@
             <field name="arch" type="xml">
                     <form>
                         <header>
-
+                              <field name="hide_css"/>
                               <button id="button-approval-process" name="action_approval_process" string="Submit To Approve" class="btn-primary" type="object" states="draft"/>
                               <button id="button-confirm" name="%(mod_gag_ppm.view_budgeting_form_wizard_action)d" string="Approve" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
                               <button id="button-reject" name="%(mod_gag_ppm.budgeting_cancelation_form_action)d" string="Reject" class="btn-primary" type="action" attrs="{'invisible': [('button_visible', '=', False)]}"/>
@@ -65,12 +66,13 @@
                             </div>
                             <group>
                                 <group>
-                                     <field name="name" placeholder="Budget Name"/>
-                                     <field name="kode_pillar"/>
-                                     <field name="tahun_anggaran"/>
-                                     <field name="budget_month"/>
+                                     <field name="name" placeholder="Budget Name" attrs="{'readonly': [('button_approve_activation', '=', False)]}"/>
+                                     <field name="kode_pillar" attrs="{'readonly': [('button_approve_activation', '=', False)]}"/>
+                                     <field name="tahun_anggaran" attrs="{'readonly': [('button_approve_activation', '=', False)]}"/>
+                                     <field name="budget_month" attrs="{'readonly': [('button_approve_activation', '=', False)]}"/>
                                      <field name="status_budget"/>
                                      <field name="fiscal_date" invisible="1"/>
+                                    <field name="button_approve_activation" invisible="1"/>
                                 </group>
                                 <group>
                                     <field name="existing_status"/>

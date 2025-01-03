@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script src="/mod_gag_ppm/static/js/sortable.min.js"></script>
+            <script src="/mod_gag_ppm/static/js/tree_view_drag.js"></script>
+        </xpath>
+    </template>
+</odoo>
+

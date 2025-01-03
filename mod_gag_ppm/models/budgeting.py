@@ -3,6 +3,7 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -16,7 +17,7 @@ class InputDataBudgeting(models.Model):
     name = fields.Char(string="Budget Name", required=True, tracking=True)
     kode_pillar = fields.Many2one('pillar.group', string="Pillar Name", required=True, tracking=True)
     status_budget = fields.Many2one('status.kegiatan',string="Budget Status", required=True, tracking=True, default=lambda self: self.env['status.kegiatan'].search([], limit=1))
-    tahun_anggaran = fields.Selection(selection='_get_years', string='Year', default=lambda self: str(datetime.now().year), tracking=True)
+    tahun_anggaran = fields.Selection(selection='_get_years', required=True, string='Year', default=lambda self: str(datetime.now().year), tracking=True)
     id_anggaran = fields.One2many('detail.anggaran.perbulan', 'anggaran_id', string="Lines")
     keterangan_anggaran = fields.Text(string="Notes", tracking=True)
     totalbudget_sum = fields.Char(string="Total Budget Count", compute='_compute_budget_sum')
@@ -32,6 +33,8 @@ class InputDataBudgeting(models.Model):
     pending_approval_by = fields.Many2one('res.users',string="Pending Approval By", readonly=True,tracking=True)
     button_visible = fields.Boolean(compute='_compute_button_visibility', store=False)
     # -------------------------------------------------------------------------------------#
+    button_approve_activation = fields.Boolean(compute='_compute_btn_approve_status_activation')
+    hide_css = fields.Html(string='CSS', compute='_compute_btn_approve_status_activation', sanitize=False, store=False)
 
 
     budget_month = fields.Selection([
@@ -57,6 +60,40 @@ class InputDataBudgeting(models.Model):
         ('rejected', 'Rejected'),
         ('cancel', 'Cancelled')
     ], default="draft", string="Status", tracking=True)
+
+    @api.depends('state')
+    def _compute_btn_approve_status_activation(self):
+        for record in self:
+            if record.state in ["approve", "done"]:
+                record.button_approve_activation = False
+                record.hide_css = ('''
+                                    <style>
+                                    .o_form_button_edit {display:none !important;}
+                                    </style>
+                                    '''
+                                   )
+            else:
+                record.button_approve_activation = True
+                record.hide_css = False
+
+    @api.depends('budget_month','tahun_anggaran')
+    def _compute_reference_date(self):
+        for record in self:
+            if record.budget_month:
+                try:
+                    # Convert budget_month to an integer
+                    month_count = int(record.budget_month)
+                    year = int(record.tahun_anggaran)
+                    # Add the integer value to the current date
+                    start_date = datetime(year, month_count, 1).date()
+                    end_date =  datetime(year, month_count, 1).date()
+                    for line in record.id_anggaran:
+                        if not line.activity_start_date or not line.activity_end_date:
+                            # Only update if the fields are empty
+                            line.activity_start_date = start_date
+                            line.activity_end_date = end_date
+                except ValueError:
+                   pass
 
     @property
     def uid(self):
@@ -232,8 +269,15 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
     percentage_of_balance = fields.Float(string='% of Balance', compute='_compute_percentage_of_balance')
     tahun_budget = fields.Selection(string='Year',related='anggaran_id.tahun_anggaran',store=True)
     date_of_fiscal = fields.Date(string='Month', related='anggaran_id.fiscal_date',store=True)
+    button_approve_activation = fields.Boolean(compute='_compute_btn_approve_status_activation',store=False)
 
-
+    def _compute_btn_approve_status_activation(self):
+        for record in self:
+            for line in record.anggaran_id:
+                if line.state in ["approve", "done"]:
+                    record.button_approve_activation = False
+                else:
+                    record.button_approve_activation = True
 
     @api.depends('nilai_anggaran')
     def _compute_percentage_of_balance(self):
