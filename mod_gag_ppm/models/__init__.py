@@ -5,5 +5,6 @@ from . import pillargroup
 from . import budgeting
 from . import user_input
 from . import chartofaccount
-from . import budgettransaction
 from . import activitylocation
+from . import detailpayment
+from . import budgettransaction

@@ -27,9 +27,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="ppm_coa_root"
-              name="Chart Of Accounts (COA)"
-              sequence="50"
-              action="chart_of_account_action"
-              parent="ppm_configuration_root"/>
 </odoo>

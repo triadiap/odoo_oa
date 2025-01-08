@@ -134,9 +134,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="ppm_budgeting_root"
-              name="Budgeting"
-              sequence="10"
-              parent="ppm_leftbar_menu"
-              action="budget_data_action"/>
 </odoo>

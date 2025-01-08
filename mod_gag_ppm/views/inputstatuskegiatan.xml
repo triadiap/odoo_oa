@@ -27,9 +27,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="ppm_status_root"
-              name="Activity Status"
-              sequence="30"
-              action="ppm_status_kegiatan_action"
-              parent="ppm_configuration_root"/>
 </odoo>

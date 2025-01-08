@@ -12,7 +12,7 @@ access_detail_trans_perbudget,access.detail.trans.perbudget,model_detail_trans_p
 access_daftar_lokasi,access.daftar.lokasi,model_daftar_lokasi,,1,1,1,1
 access_budget_expense_monthly_report,access.budget.expense.monthly.report,model_budget_expense_monthly_report,,1,1,1,1
 access_transaction_payment_wizard,access.transaction.payment.wizard,model_transaction_payment_wizard,,1,1,1,1
-access_detail.payment,access.detail.payment,model_detail_payment,,1,1,1,1
+access_detail_payment,access.detail.payment,model_detail_payment,,1,1,1,1
 access_expense_report_perpillar,access.expense.report.perpillar,model_expense_report_perpillar,,1,1,1,1
 access_budgeting_approval_wizard,access.budgeting.approval.wizard,model_budgeting_approval_wizard,,1,1,1,1
 access_transaction_approval_wizard,access.transaction.approval.wizard,model_transaction_approval_wizard,,1,1,1,1

@@ -207,11 +207,20 @@ class InputDataBudgeting(models.Model):
 
     def _compute_expense_sum(self):
         for rec in self:
-                totalexpense_sum = self.env['transaksi.anggaran'].search([('kode_anggaran','=',rec.id)])
-                findtransactioncodeby_BudgetID = totalexpense_sum.id
-                for record in self:
-                    totalexpense_sum = self.env['detail.trans.perbudget'].search([('detail_trans_id','=',findtransactioncodeby_BudgetID)]).mapped('transaction_subtotal')
-                    record.totalexpense_sum =  f"Rp {float(sum(totalexpense_sum)):,.2f}"
+            # Ensure only a single record is returned by the search.
+            totalexpense_sum = self.env['transaksi.anggaran'].search([('kode_anggaran', '=', rec.id)], limit=1)
+
+            if totalexpense_sum:
+                # Use the single record found.
+                findtransactioncodeby_BudgetID = totalexpense_sum.kode_anggaran.id
+
+                # Search for the related records in 'detail.trans.perbudget'
+                detail_records = self.env['detail.trans.perbudget'].search(
+                    [('kodeprogram', '=', findtransactioncodeby_BudgetID)])
+
+                # Sum the 'transaction_subtotal' values and format them
+                total_expense = sum(detail_records.mapped('transaction_subtotal'))
+                rec.totalexpense_sum = f"Rp {total_expense:,.2f}"
 
     def _compute_total_budget(self):
         for rec in self:
@@ -229,9 +238,9 @@ class InputDataBudgeting(models.Model):
 
     def hitungtransaksibudget(self):
         for rec in self:
-            totalexpense_sum = self.env['transaksi.anggaran'].search([('kode_anggaran', '=', rec.id)])
-            findtransactioncodeby_BudgetID = totalexpense_sum.id
-            totalexpense = float(sum(self.env['detail.trans.perbudget'].search([('detail_trans_id', '=', findtransactioncodeby_BudgetID)]).mapped('transaction_subtotal')))
+            totalexpense_sum = self.env['transaksi.anggaran'].search([('kode_anggaran', '=', rec.id)],limit=1)
+            findtransactioncodeby_BudgetID = totalexpense_sum.kode_anggaran.id
+            totalexpense = float(sum(self.env['detail.trans.perbudget'].search([('kodeprogram', '=', findtransactioncodeby_BudgetID)]).mapped('transaction_subtotal')))
         return totalexpense
 
     def _compute_balance_sum(self):
@@ -284,8 +293,8 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
         for rec in self:
             if rec.nilai_anggaran:
                 getprogramcode = self.env['transaksi.anggaran'].search([('program_code', '=', rec.id)])
-                prog_code = getprogramcode.id
-                total_exp = sum(self.env['detail.trans.perbudget'].search([('detail_trans_id', '=', prog_code)]).mapped(
+                prog_code = getprogramcode.kode_anggaran.id
+                total_exp = sum(self.env['detail.trans.perbudget'].search([('kodeprogram', '=', prog_code)]).mapped(
                     'transaction_subtotal'))
                 balance = rec.nilai_anggaran - total_exp
                 rec.percentage_of_balance = float(balance / rec.nilai_anggaran * 100)
@@ -294,8 +303,8 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
         for rec in self:
             if rec.nilai_anggaran:
                 getprogramcode = self.env['transaksi.anggaran'].search([('program_code', '=', rec.id)])
-                prog_code = getprogramcode.id
-                total_exp = sum(self.env['detail.trans.perbudget'].search([('detail_trans_id', '=', prog_code)]).mapped(
+                prog_code = getprogramcode.kode_anggaran.id
+                total_exp = sum(self.env['detail.trans.perbudget'].search([('kodeprogram', '=', prog_code)]).mapped(
                     'transaction_subtotal'))
                 rec.percentage_of_expense  = float(total_exp / rec.nilai_anggaran * 100)
     @api.depends('nilai_anggaran')
@@ -303,8 +312,8 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
         for rec in self:
             if rec.nilai_anggaran:
                 getprogramcode = self.env['transaksi.anggaran'].search([('program_code','=',rec.id)])
-                prog_code = getprogramcode.id
-                total_exp = sum(self.env['detail.trans.perbudget'].search([('detail_trans_id', '=', prog_code)]).mapped('transaction_subtotal'))
+                prog_code = getprogramcode.kode_anggaran.id
+                total_exp = sum(self.env['detail.trans.perbudget'].search([('kodeprogram', '=', prog_code)]).mapped('transaction_subtotal'))
                 balance = rec.nilai_anggaran - total_exp
                 rec.amount_balance = balance
     @api.depends('nilai_anggaran')
@@ -312,8 +321,8 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
         for rec in self:
             if rec.nilai_anggaran:
                 findprogramcode = self.env['transaksi.anggaran'].search([('program_code','=',rec.id)])
-                programcode = findprogramcode.id
-                totalexpenses = sum(self.env['detail.trans.perbudget'].search([('detail_trans_id', '=', programcode)]).mapped('transaction_subtotal'))
+                programcode = findprogramcode.kode_anggaran.id
+                totalexpenses = sum(self.env['detail.trans.perbudget'].search([('kodeprogram', '=', programcode)]).mapped('transaction_subtotal'))
                 rec.total_expenses = totalexpenses
 
     @api.depends('activity_start_date', 'activity_end_date')

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem
+              id="ppm_leftbar_menu"
+              name="PPM Monitoring"
+              web_icon="mod_gag_ppm,static/description/icon_ppm.png"
+              sequence="40"/>
+    <menuitem id="ppm_budgeting_root"
+              name="Budgeting"
+              sequence="10"
+              parent="ppm_leftbar_menu"
+              action="budget_data_action"/>
+    <menuitem id="ppm_configuration_root"
+              name="Configuration"
+              sequence="300"
+              parent="ppm_leftbar_menu"/>
+
+    <menuitem id="ppm_transaction_root"
+              name="Transaction"
+              sequence="20"
+              parent="ppm_leftbar_menu"
+              action="budget_realization_action"/>
+    <menuitem id="ppm_reporting_root"
+              name="Reporting"
+              sequence="80"
+              parent="ppm_leftbar_menu"
+              />
+    <menuitem id="ppm_jenis_root"
+              name="Activity Type"
+              sequence="10"
+              action="ppm_jenis_kegiatan_action"
+              parent="ppm_configuration_root"/>
+    <menuitem id="ppm_expensematrix_root"
+              name="Monthly Expenses"
+              sequence="30"
+              parent="ppm_reporting_root"
+              action="action_expensematrix_pivot"
+              />
+
+    <menuitem id="ppm_budgetingprogress_root"
+              name="PPM Tracking"
+              sequence="10"
+              parent="ppm_reporting_root"
+              action="ppm_tracking_action"
+              />
+    <menuitem id="ppm_budgetmatrix_root"
+              name="Monthly Budget"
+              sequence="20"
+              parent="ppm_reporting_root"
+              action="action_budgetmatrix_pivot"
+              />
+     <menuitem id="ppm_budgetexpense_root"
+              name="Monthly Budget vs Expense"
+              sequence="40"
+              parent="ppm_reporting_root"
+              action="action_budget_expense_monthly_report"
+              />
+     <menuitem id="ppm_expensesperpillar_root"
+              name="Yearly Expense Per Pillar"
+              sequence="50"
+              parent="ppm_reporting_root"
+              action="action_expense_perpillar_report"
+              />
+    <menuitem id="ppm_expensesperprogram_root"
+              name="Expense Report Per Program"
+              sequence="60"
+              parent="ppm_reporting_root"
+              action="action_expense_perprogram_report"
+              />
+
+    <menuitem id="ppm_location_master"
+              name="Location Master"
+              sequence="90"
+              action="activity_location_action"
+              parent="ppm_configuration_root"/>
+    <menuitem id="ppm_coa_root"
+              name="Chart Of Accounts (COA)"
+              sequence="50"
+              action="chart_of_account_action"
+              parent="ppm_configuration_root"/>
+    <menuitem id="ppm_kategori_root"
+              name="Category"
+              sequence="20"
+              action="ppm_kategori_kegiatan_action"
+              parent="ppm_configuration_root"/>
+    <menuitem id="ppm_pillar_root"
+                  name="Pillar Group"
+                  sequence="40"
+                  action="ppm_pillar_group_action"
+                  parent="ppm_configuration_root"/>
+    <menuitem id="ppm_status_root"
+              name="Activity Status"
+              sequence="30"
+              action="ppm_status_kegiatan_action"
+              parent="ppm_configuration_root"/>
+</odoo>

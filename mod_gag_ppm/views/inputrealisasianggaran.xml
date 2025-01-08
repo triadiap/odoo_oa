@@ -164,17 +164,4 @@
         <field name="view_mode">pivot</field>
         <field name="view_id" ref="view_ppm_expense_matrix_pivot"/>
     </record>
-
-
-    <menuitem id="ppm_transaction_root"
-              name="Transaction"
-              sequence="20"
-              parent="ppm_leftbar_menu"
-              action="budget_realization_action"/>
-     <menuitem id="ppm_expensematrix_root"
-              name="Monthly Expenses"
-              sequence="30"
-              parent="ppm_reporting_root"
-              action="action_expensematrix_pivot"
-              />
 </odoo>

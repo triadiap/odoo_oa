@@ -26,9 +26,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="ppm_location_master"
-              name="Location Master"
-              sequence="90"
-              action="activity_location_action"
-              parent="ppm_configuration_root"/>
 </odoo>

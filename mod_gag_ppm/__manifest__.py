@@ -23,9 +23,10 @@
         'views/forminputbudget.xml',
         'data/data.xml',
         'views/inputdatacoa.xml',
-        'views/reportdatabudgetdetail.xml',
         'views/inputrealisasianggaran.xml',
-        'views/formmasterlokasi.xml'
+        'views/formmasterlokasi.xml',
+        'views/reportdatabudgetdetail.xml',
+        'views/menu_views.xml'
     ],
     'assets': {
             'web.assets_backend': [
@@ -36,5 +37,5 @@
     'qweb': [],
     'installable': True,
     'application': True,
-    'auto_install': False,
+    'auto_install': False
 }

@@ -1,51 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="expense_report_perprogram_form" model="ir.ui.view">
-            <field name="name">expense.report.perprogram.form</field>
-            <field name="model">expense.report.perprogram</field>
-            <field name="arch" type="xml">
-                <form string="Expense Report Per Program" create="false" edit="false" delete="false">
-                    <sheet>
-                        <group>
-                            <field name="label_grafik" string="Description"/>
-                            <field name="tahun_budget"/>
-                            <field name="nama_pillar"/>
-                        </group>
-                        <group>
-                            <field name="total_transaction"/>
-                            <field name="total_payment"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-    </record>
-    <record id="view_tree_expense_report_perprogram" model="ir.ui.view">
-            <field name="name">expense.report.perprogram.tree</field>
-            <field name="model">expense.report.perprogram</field>
-            <field name="arch" type="xml">
-                <tree string="Expense Per Program" create="false" edit="false" delete="false">
-                    <field name="id" optional="hide"/>
-                    <field name="label_grafik" string="Description" optional="show"/>
-                    <field name="tahun_budget" optional="show"/>
-                    <field name="nama_pillar" optional="show"/>
-                    <field name="total_transaction" optional="show"/>
-                    <field name="total_payment" optional="show"/>
-                </tree>
-            </field>
-    </record>
-     <record id="view_expense_perprogram_report_chart" model="ir.ui.view">
-        <field name="name">expense.report.perprogram.chart</field>
-        <field name="model">expense.report.perprogram</field>
-        <field name="arch" type="xml">
-            <graph string="Expense Report Per Program" type="bar">
-                <field name="label_grafik" type="row"/>
-                <field name="currency_id" invisible="1"/>
-                <field name="total_payment" type="measure" string="Total Payment" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="total_transaction" type="measure" string="Total Transaction" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="tahun_budget" type="col"/>
-            </graph>
-        </field>
-    </record>
     <record id="expense_report_perpillar_form" model="ir.ui.view">
             <field name="name">expense.report.perpillar.form</field>
             <field name="model">expense.report.perpillar</field>
@@ -169,6 +123,52 @@
             </tree>
         </field>
     </record>
+    <record id="expense_report_perprogram_form" model="ir.ui.view">
+            <field name="name">expense.report.perprogram.form</field>
+            <field name="model">expense.report.perprogram</field>
+            <field name="arch" type="xml">
+                <form string="Expense Report Per Program" create="false" edit="false" delete="false">
+                    <sheet>
+                        <group>
+                            <field name="label_grafik" string="Description"/>
+                            <field name="tahun_budget"/>
+                            <field name="nama_pillar"/>
+                        </group>
+                        <group>
+                            <field name="total_transaction"/>
+                            <field name="total_payment"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+    </record>
+    <record id="view_tree_expense_report_perprogram" model="ir.ui.view">
+            <field name="name">expense.report.perprogram.tree</field>
+            <field name="model">expense.report.perprogram</field>
+            <field name="arch" type="xml">
+                <tree string="Expense Per Program" create="false" edit="false" delete="false">
+                    <field name="id" optional="hide"/>
+                    <field name="label_grafik" string="Description" optional="show"/>
+                    <field name="tahun_budget" optional="show"/>
+                    <field name="nama_pillar" optional="show"/>
+                    <field name="total_transaction" optional="show"/>
+                    <field name="total_payment" optional="show"/>
+                </tree>
+            </field>
+    </record>
+     <record id="view_expense_perprogram_report_chart" model="ir.ui.view">
+        <field name="name">expense.report.perprogram.chart</field>
+        <field name="model">expense.report.perprogram</field>
+        <field name="arch" type="xml">
+            <graph string="Expense Report Per Program" type="bar">
+                <field name="label_grafik" type="row"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="total_payment" type="measure" string="Total Payment" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="total_transaction" type="measure" string="Total Transaction" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="tahun_budget" type="col"/>
+            </graph>
+        </field>
+    </record>
     <record id="ppm_tracking_action" model="ir.actions.act_window">
         <field name="name">PPM Tracking</field>
         <field name="res_model">detail.anggaran.perbulan</field>
@@ -205,40 +205,4 @@
         <field name="view_id" ref="view_expense_perprogram_report_chart"/>
          <field name="context">{}</field>
     </record>
-
-     <menuitem id="ppm_reporting_root"
-              name="Reporting"
-              sequence="80"
-              parent="ppm_leftbar_menu"
-              />
-    <menuitem id="ppm_budgetingprogress_root"
-              name="PPM Tracking"
-              sequence="10"
-              parent="ppm_reporting_root"
-              action="ppm_tracking_action"
-              />
-    <menuitem id="ppm_budgetmatrix_root"
-              name="Monthly Budget"
-              sequence="20"
-              parent="ppm_reporting_root"
-              action="action_budgetmatrix_pivot"
-              />
-     <menuitem id="ppm_budgetexpense_root"
-              name="Monthly Budget vs Expense"
-              sequence="40"
-              parent="ppm_reporting_root"
-              action="action_budget_expense_monthly_report"
-              />
-     <menuitem id="ppm_expensesperpillar_root"
-              name="Yearly Expense Per Pillar"
-              sequence="50"
-              parent="ppm_reporting_root"
-              action="action_expense_perpillar_report"
-              />
-    <menuitem id="ppm_expensesperprogram_root"
-              name="Expense Report Per Program"
-              sequence="60"
-              parent="ppm_reporting_root"
-              action="action_expense_perprogram_report"
-              />
 </odoo>

@@ -26,9 +26,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="ppm_kategori_root"
-              name="Category"
-              sequence="20"
-              action="ppm_kategori_kegiatan_action"
-              parent="ppm_configuration_root"/>
 </odoo>

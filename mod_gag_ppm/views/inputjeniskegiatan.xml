@@ -26,18 +26,4 @@
             </p>
         </field>
     </record>
-    <menuitem
-              id="ppm_leftbar_menu"
-              name="PPM Monitoring"
-              web_icon="mod_gag_ppm,static/description/icon_ppm.png"
-              sequence="40"/>
-    <menuitem id="ppm_configuration_root"
-              name="Configuration"
-              sequence="300"
-              parent="ppm_leftbar_menu"/>
-    <menuitem id="ppm_jenis_root"
-              name="Activity Type"
-              sequence="10"
-              action="ppm_jenis_kegiatan_action"
-              parent="ppm_configuration_root"/>
 </odoo>

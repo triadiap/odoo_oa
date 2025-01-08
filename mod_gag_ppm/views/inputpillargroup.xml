@@ -28,9 +28,4 @@
             </p>
         </field>
     </record>
-     <menuitem id="ppm_pillar_root"
-                  name="Pillar Group"
-                  sequence="40"
-                  action="ppm_pillar_group_action"
-                  parent="ppm_configuration_root"/>
 </odoo>
