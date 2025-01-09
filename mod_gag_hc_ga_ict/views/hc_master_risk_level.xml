@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hc_master_risk_level_action" model="ir.actions.act_window">
+        <field name="name">Master Risk Level</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hc.master.risk.level</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                HC, GA, ICT - Master Risk Level
+            </p>
+        </field>
+    </record>
+
+    <record id="hc_master_risk_level_tree" model="ir.ui.view">
+        <field name="name">hc.master.risk.level.tree</field>
+        <field name="model">hc.master.risk.level</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="risk_level"/>
+                <field name="kuadran"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -15,6 +15,7 @@
         'views/hc_spplk.xml',
         'views/hc_risk_regist.xml',
         'views/hc_master_risk_type.xml',
+        'views/hc_master_risk_level.xml',
         'views/hc_nppd.xml',
         'report/report_nppd.xml',
         'report/report_risk_register.xml',

@@ -70,7 +70,7 @@ class HcRiskRegister(models.Model):
     @api.depends('risk_level')
     def _get_kuadran(self):
         for record in self:
-            kuadran = self.env['ptgn.md.risk.level'].search([('risk_level', '=', record.risk_level)], limit=1)
+            kuadran = self.env['hc.master.risk.level'].search([('risk_level', '=', record.risk_level)], limit=1)
             if (kuadran):
                 record.kuadran = kuadran.kuadran
             else:
@@ -123,7 +123,7 @@ class HcRiskRegister(models.Model):
     @api.depends('current_risk_level')
     def _get_current_kuadran(self):
         for record in self:
-            kuadran = self.env['ptgn.md.risk.level'].search([('risk_level', '=', record.current_risk_level)], limit=1)
+            kuadran = self.env['hc.master.risk.level'].search([('risk_level', '=', record.current_risk_level)], limit=1)
             if(kuadran):
                 record.current_kuadran = kuadran.kuadran
             else:
@@ -165,7 +165,7 @@ class HcRiskRegister(models.Model):
     @api.depends('residual_risk_level')
     def _get_residual_kuadran(self):
         for record in self:
-            kuadran = self.env['ptgn.md.risk.level'].search([('risk_level', '=', record.residual_risk_level)], limit=1)
+            kuadran = self.env['hc.master.risk.level'].search([('risk_level', '=', record.residual_risk_level)], limit=1)
             if (kuadran):
                 record.residual_kuadran = kuadran.kuadran
             else:
@@ -224,7 +224,7 @@ class HcRiskRegistItem(models.Model):
     @api.depends('item_risk_level')
     def _get_item_kuadran(self):
         for record in self:
-            kuadran = self.env['ptgn.md.risk.level'].search([('risk_level', '=', record.item_risk_level)], limit=1)
+            kuadran = self.env['hc.master.risk.level'].search([('risk_level', '=', record.item_risk_level)], limit=1)
             if (kuadran):
                 record.item_kuadran = kuadran.kuadran
             else:

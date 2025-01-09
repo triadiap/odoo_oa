@@ -6,6 +6,7 @@ access_hc_surat_perintah_pembelian_langsung,access.hc.surat.perintah.pembelian.l
 access_hc_risk_regist,access.hc.risk.regist,model_hc_risk_regist,,1,1,1,1
 access_hc_risk_regist_realisasi,access.hc.risk.regist.realisasi,model_hc_risk_regist_realisasi,,1,1,1,1
 access_hc_master_risk_type,access.hc.master.risk.type,model_hc_master_risk_type,,1,1,1,1
+access_hc_master_risk_level,access.hc.master.risk.level,model_hc_master_risk_level,,1,1,1,1
 access_hc_risk_regist_doc,access.hc.risk.regist.doc,model_hc_risk_regist_doc,,1,1,1,1
 access_hc_nppd,access.hc.nppd,model_hc_nppd,,1,1,1,1
 access_hc_nppd_items,access.hc.nppd.items,model_hc_nppd_items,,1,1,1,1
