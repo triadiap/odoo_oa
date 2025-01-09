@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="nppd_report"
+        model="hc.nppd"
+        string="Report NDPP"
+        report_type="qweb-html"
+        name="mod_gag_hc_ga_ict.nppd"
+        file="mod_gag_hc_ga_ict.nppd"
+        print_report_name="'NPPD_' + object.no_nota+'_'+object.tanggal"
+    />
+    <template id="nppd">
+    <t t-call="web.basic_layout"> <!-- Use the base layout -->
+        <h1>Nota Dinas Permintaan Pembayaran</h1>
+        <t t-if="docs">
+            <table width="25%">
+                <tr>
+                    <td><b>No. Nota</b></td>
+                    <td>:</td>
+                    <td><t t-esc="docs.no_nota"/></td>
+                </tr>
+                <tr>
+                    <td><b>Tanggal</b></td>
+                    <td>:</td>
+                    <td><t t-esc="docs.tanggal"/></td>
+                </tr>
+            </table>
+            <hr/>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Penjual / Kios</th>
+                        <th>Nama Barang</th>
+                        <th>Harga Total</th>
+                        <th>Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="docs.nppd_item" t-as="item">
+                        <tr>
+                            <td>
+                                <span t-field="item.tanggal"/>
+                            </td>
+                            <td>
+                                <span t-field="item.nama_kios"/>
+                            </td>
+                            <td>
+                                <span t-field="item.nama_barang"/>
+                            </td>
+                            <td>
+                                <span t-field="item.nominal"/>
+                            </td>
+                            <td>
+                                <span t-field="item.keterangan"/>
+                            </td>
+                        </tr>
+                    </t>
+                </tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><span>Total</span></td>
+                    <td style="align-text: right"><b><t t-esc="docs.total"/></b></td>
+                    <td></td>
+                </tr>
+            </table>
+        </t>
+        <t t-else="">
+            <p>No Record!</p>
+        </t>
+    </t>
+</template>
+</odoo>

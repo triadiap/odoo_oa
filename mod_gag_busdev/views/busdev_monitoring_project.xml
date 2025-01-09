@@ -47,6 +47,14 @@
         <field name="model">busdev.monitoring.project</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_approval_1"
+                        type="object" string="Approve"
+                        class="oe_highlight"
+                        attrs="{'invisible' : ['|', ('state', '!=', 'draft'), ('button_visible', '=', False)]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved"/>
+                    <field name="button_visible" invisible="1"/>
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box" >
                         <button name="button_p_amt" type="button" class="oe_stat_button" icon="fa-dollar" style="width:200px;">
@@ -84,8 +92,10 @@
                             <field name="budget_id"/>
                             <field name="budget_line_id"/>
                             <field name="currency_id" readonly="1"/>
-                            <field name="planned_amount"/>
-                            <field name="used_amount"/>
+                            <field name="planned_amount" attrs="{'readonly': [('id', '=', False)]}"
+                                    options = "{'no_create': True, 'no_open': True}"/>
+                            <field name="used_amount" attrs="{'readonly': [('id', '=', False)]}"
+                                    options = "{'no_create': True, 'no_open': True}"/>
                             <field name="percentage"/>
                             <separator/>
                             <field name="nama_vendor"/>
@@ -111,12 +121,14 @@
                             </field>
                         </page>
                         <page string="Pembayaran" name="busdev_payment">
-                            <div style="width: 650px">
+                            <div style="width: 850px">
                                 <field name="list_pembayaran">
                                     <tree editable="bottom">
-                                        <field name="termin" width="50%"/>
+                                        <field name="termin" width="35%"/>
+                                        <field name="plan_date" width="15%"/>
                                         <field name="currency_id" width="10%"/>
-                                        <field name="payment" width="40%"/>
+                                        <field name="plan" width="20%"/>
+                                        <field name="payment" width="20%"/>
                                     </tree>
                                 </field>
                             </div>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="qma_sarmut_glosarium_action" model="ir.actions.act_window">
+        <field name="name">QMA Glosarium Sasaran Mutu</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">qma.sarmut.glosarium</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN QMA Audit - Glosarium Sasaran Target Program Mutu K3 dan Lingkungan
+            </p>
+        </field>
+    </record>
+
+    <record id="qma_sarmut_glosarium_tree" model="ir.ui.view">
+        <field name="name">qma.sarmut.glosarium.tree</field>
+        <field name="model">qma.sarmut.glosarium</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="department_id"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="qma_sarmut_search" model="ir.ui.view">
+        <field name="name">qma.sarmut.search</field>
+        <field name="model">qma.sarmut</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="department_id"/>
+                <field name="year"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="qma_sarmut_glosarium_form" model="ir.ui.view">
+        <field name="name">qma.sarmut.glosarium.form</field>
+        <field name="model">qma.sarmut.glosarium</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="department_id"/>
+                        <field name="year"/>
+                    </group>
+                </group>
+                <field name="glo_detail">
+                    <tree>
+                        <field name="name"/>
+                        <field name="definisi"/>
+                        <field name="satuan"/>
+                        <field name="sasaran"/>
+                        <field name="arah"/>
+                        <field name="pencapaian_max"/>
+                        <field name="bobot"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

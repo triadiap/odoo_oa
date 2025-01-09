@@ -37,7 +37,13 @@
                             <field name="standard_ref"/>
                         </group>
                         <group>
-                            <field name="auditor">
+                            <field name="auditor_type"/>
+                            <field name="auditor" attrs="{'invisible' : [('auditor_type', '=', 'external')]}">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                            <field name="ex_auditor" attrs="{'invisible' : [('auditor_type', '=', 'internal')]}">
                                 <tree editable="bottom">
                                     <field name="name"/>
                                 </tree>
@@ -70,7 +76,9 @@
                         <page string="Corrective">
                             <group>
                                 <field name="corrective"/>
+                                <field name="file"/>
                                 <field name="photo" widget="image"/>
+                                <field name="link"/>
                                 <field name="verifikator"/>
                                 <field name="verification_date"/>
                                 <field name="status"/>

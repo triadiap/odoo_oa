@@ -8,3 +8,9 @@ access_corsec_list_sksp,access.corsec.list.sksp,model_corsec_list_sksp,,1,1,1,1
 access_corsec_dokumen_persyaratan,access.corsec.dokumen.persyaratan,model_corsec_dokumen_persyaratan,,1,1,1,1
 access_corsec_risalah_rapat_direksi_dok,access.corsec.risalah.rapat.direksi.dok,model_corsec_risalah_rapat_direksi_dok,,1,1,1,1
 access_corsec_risalah_rapat_komisaris_dok,access.corsec.risalah.rapat.komisaris.dok,model_corsec_risalah_rapat_komisaris_dok,,1,1,1,1
+access_corsec_doc_request,access.corsec.doc.request,model_corsec_doc_request,,1,1,1,1
+access_corsec_doc_request_akta_notaris,access.corsec.doc.request.akta.notaris,model_corsec_doc_request_akta_notaris,,1,1,1,1
+access_corsec_doc_request_bod_boc,access.corsec.doc.request.bod.boc,model_corsec_doc_request_bod_boc,,1,1,1,1
+access_corsec_doc_request_daftar_izin,access.corsec.doc.request.daftar.izin,model_corsec_doc_request_daftar_izin,,1,1,1,1
+access_corsec_doc_request_risalah_direksi,access.corsec.doc.request.risalah.direksi,model_corsec_doc_request_risalah_direksi,,1,1,1,1
+access_corsec_doc_request_risalah_komisaris,access.corsec.doc.request.risalah.komisaris,model_corsec_doc_request_risalah_komisaris,,1,1,1,1

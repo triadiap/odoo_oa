@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="qma_sarmut_action" model="ir.actions.act_window">
+        <field name="name">QMA Sasaran Mutu</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">qma.sarmut</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN QMA Audit - Sasaran Target Program Mutu K3 dan Lingkungan
+            </p>
+        </field>
+    </record>
+
+    <record id="qma_sarmut_tree" model="ir.ui.view">
+        <field name="name">qma.sarmut.tree</field>
+        <field name="model">qma.sarmut</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="department_id"/>
+                <field name="penilai"/>
+                <field name="periode"/>
+                <field name="year"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="qma_sarmut_search" model="ir.ui.view">
+        <field name="name">qma.sarmut.search</field>
+        <field name="model">qma.sarmut</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="department_id"/>
+                <field name="penilai"/>
+                <field name="periode"/>
+                <field name="year"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="qma_sarmut_form" model="ir.ui.view">
+        <field name="name">qma.sarmut.form</field>
+        <field name="model">qma.sarmut</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="department_id"/>
+                        <field name="manager_dept_id"/>
+                        <field name="penilai"/>
+                        <field name="nama_penilai"/>
+                    </group>
+                    <group>
+                        <field name="periode"/>
+                        <field name="year"/>
+                    </group>
+                </group>
+                <field name="sarmut_detail">
+                    <tree>
+                        <field name="sasaran"/>
+                        <field name="target"/>
+                        <field name="proker"/>
+                        <field name="q1_jan"/>
+                        <field name="q1_feb"/>
+                        <field name="q1_mar"/>
+                        <field name="q2_apr"/>
+                        <field name="q2_may"/>
+                        <field name="q2_jun"/>
+                        <field name="q3_jul"/>
+                        <field name="q3_aug"/>
+                        <field name="q3_sep"/>
+                        <field name="q4_oct"/>
+                        <field name="q4_nov"/>
+                        <field name="q4_dec"/>
+                    </tree>
+                </field>
+            </form>
+        </field>
+    </record>
+</odoo>

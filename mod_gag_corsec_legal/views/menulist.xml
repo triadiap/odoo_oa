@@ -6,4 +6,5 @@
     <menuitem id="cl_daftar_izin_root" name="Daftar Izin" parent="corsec_legal_root" sequence="30" action="corsec_daftar_izin_action"/>
     <menuitem id="cl_risalah_rapat_direksi_root" name="Risalah Rapat Direksi" parent="corsec_legal_root" sequence="40" action="corsec_risalah_rapat_direksi_action"/>
     <menuitem id="cl_risalah_rapat_komisaris_root" name="Risalah Rapat Komisaris" parent="corsec_legal_root" sequence="50" action="corsec_risalah_rapat_komisaris_action"/>
+    <menuitem id="cl_doc_request_root" name="Document Request" parent="corsec_legal_root" sequence="60" action="corsec_doc_request_action"/>
 </odoo>

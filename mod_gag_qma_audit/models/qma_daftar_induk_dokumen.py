@@ -19,11 +19,19 @@ class QmaDaftarIndukDokumen(models.Model):
         ("usulan", "Usulan"),
     ], string="Status Pengajuan", required=True, default="usulan")
     rev_0 = fields.Date(string="Revisi 0", required=True)
-    rev_1 = fields.Date(string="Revisi 1")
-    rev_2 = fields.Date(string="Revisi 2")
-    rev_3 = fields.Date(string="Revisi 3")
     status_dok = fields.Selection([
         ("aktif", "Aktif"),
         ("kadaluarsa", "Kadaluarsa"),
     ], string="Status Dokumen", required=True, default="aktif")
     file = fields.Binary(string="Soft Copy Dokumen")
+
+    rev_list = fields.One2many("qma.daftar.induk.dokumen.rev", "id_did", string="Revision History")
+
+class QmaDaftarIndukDokumenRev(models.Model):
+    _name = "qma.daftar.induk.dokumen.rev"
+    _description = "QMA Daftar Induk Dokumen Revision History"
+
+    name = fields.Char(string="Revision", required=True)
+    date = fields.Date(string="Date", required=True)
+
+    id_did = fields.Many2one("qma.daftar.induk.dokumen", string="ID DID")

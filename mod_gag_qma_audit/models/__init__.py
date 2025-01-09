@@ -5,3 +5,5 @@ from . import qma_master_jenis_dokumen
 from . import qma_master_status_sop
 from . import qma_internal_audit
 from . import qma_master_score
+from . import qma_sarmut
+from . import qma_sarmut_glosarium

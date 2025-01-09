@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="corsec_doc_request_action" model="ir.actions.act_window">
+        <field name="name">Corsec Doc Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">corsec.doc.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN Corsec and Legal - Document Request
+            </p>
+        </field>
+    </record>
+
+    <record id="corsec_doc_request_tree" model="ir.ui.view">
+        <field name="name">corsec.doc.request.tree</field>
+        <field name="model">corsec.doc.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="requester_user_id"/>
+                <field name="department_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="corsec_doc_request_form" model="ir.ui.view">
+        <field name="name">corsec.doc.request.form</field>
+        <field name="model">corsec.doc.request</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar-visible="draft,approved,rejected"/>
+                    <button name="action_approve"
+                        type="object" string="Approve"
+                        class="oe_highlight"
+                        attrs="{'invisible' : ['|', ('id', '=', False), ('state', 'in', ['approved', 'rejected'])]}"/>
+                    <button name="action_reject"
+                        type="object" string="Reject"
+                        class="oe_highlight"
+                        attrs="{'invisible' : ['|', ('id', '=', False), ('state', 'in', ['approved', 'rejected'])]}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="requester_user_id"/>
+                        <field name="department_id"/>
+                        <field name="req_doc"/>
+                        <field name="keperluan"/>
+                    </group>
+                    <div attrs="{'invisible': [('state', 'in', ['draft', 'rejected'])]}">
+                        <notebook>
+                            <page string="Akta Notaris">
+                                <field name="list_akta">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Dokumen BOD - BOC">
+                                <field name="list_bod_boc">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Dokumen Izin">
+                                <field name="list_did">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Risalah Rapat Direksi">
+                                <field name="list_risalah_direksi">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Risalah Rapat Komisaris">
+                                <field name="list_risalah_komisaris">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -174,6 +174,13 @@ class HcRiskRegister(models.Model):
     monitoring = fields.One2many("hc.risk.regist.realisasi", "id_risk_register", string="Monitoring Realisasi")
     dokumen = fields.One2many("hc.risk.regist.doc", "id_risk_reg", string="Dokumen Pendukung")
 
+    def name_get(self):
+        result = []
+        for record in self:
+            display_name = f"{record.department_id.display_name} {record.month}-{record.year}"  # Custom display
+            result.append((record.id, display_name))
+        return result
+
 class HcRiskRegistItem(models.Model):
     _name = "hc.risk.regist.realisasi"
     _description = "Model for Risk Register Monitoring Realisasi"

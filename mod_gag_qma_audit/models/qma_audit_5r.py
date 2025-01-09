@@ -27,87 +27,87 @@ class QmaFormAudit(models.Model):
     verif_one = fields.Many2one("hr.employee", string="Verifikator 1")
     verif_two = fields.Many2one("hr.employee", string="Verifikator 2")
 
-    ringkas_1 = fields.Many2one("qma.master.score", string="1. Makanan ", required=True)
+    ringkas_1 = fields.Many2one("qma.master.score", string="1. Makanan ")
     note_ringkas_1 = fields.Char(string="Catatan")
 
-    ringkas_2 = fields.Many2one("qma.master.score", string="2. Komponen / Bahan ", required=True)
+    ringkas_2 = fields.Many2one("qma.master.score", string="2. Komponen / Bahan ")
     note_ringkas_2 = fields.Char(string="Catatan")
 
-    ringkas_3 = fields.Many2one("qma.master.score", string="3. Peralatan Kerja ", required=True)
+    ringkas_3 = fields.Many2one("qma.master.score", string="3. Peralatan Kerja ")
     note_ringkas_3 = fields.Char(string="Catatan")
 
-    ringkas_4 = fields.Many2one("qma.master.score", string="4. Dokumen ", required=True)
+    ringkas_4 = fields.Many2one("qma.master.score", string="4. Dokumen ")
     note_ringkas_4 = fields.Char(string="Catatan")
 
-    ringkas_5 = fields.Many2one("qma.master.score", string="5. Pengendalian Visual ", required=True)
+    ringkas_5 = fields.Many2one("qma.master.score", string="5. Pengendalian Visual ")
     note_ringkas_5 = fields.Char(string="Catatan")
 
     ts_ringkas = fields.Integer(string="Total Score Ringkas", readonly=True, store=True, compute="_compute_ts_ringkas")
 
-    rapi_1 = fields.Many2one("qma.master.score", string="6. Meja Kerja ", required=True)
+    rapi_1 = fields.Many2one("qma.master.score", string="6. Meja Kerja ")
     note_rapi_1 = fields.Char(string="Catatan")
 
-    rapi_2 = fields.Many2one("qma.master.score", string="7. Alat Tulis Kantor (ATK) ", required=True)
+    rapi_2 = fields.Many2one("qma.master.score", string="7. Alat Tulis Kantor (ATK) ")
     note_rapi_2 = fields.Char(string="Catatan")
 
-    rapi_3 = fields.Many2one("qma.master.score", string="8. Peralatan ", required=True)
+    rapi_3 = fields.Many2one("qma.master.score", string="8. Peralatan ")
     note_rapi_3 = fields.Char(string="Catatan")
 
-    rapi_4 = fields.Many2one("qma.master.score", string="9. Kursi ", required=True)
+    rapi_4 = fields.Many2one("qma.master.score", string="9. Kursi ")
     note_rapi_4 = fields.Char(string="Catatan")
 
-    rapi_5 = fields.Many2one("qma.master.score", string="10. P3K ", required=True)
+    rapi_5 = fields.Many2one("qma.master.score", string="10. P3K ")
     note_rapi_5 = fields.Char(string="Catatan")
 
     ts_rapi = fields.Integer(string="Total Score Rapi", readonly=True, store=True, compute="_compute_ts_rapi")
 
-    resik_1 = fields.Many2one("qma.master.score", string="11. Lantai ", required=True)
+    resik_1 = fields.Many2one("qma.master.score", string="11. Lantai ")
     note_resik_1 = fields.Char(string="Catatan")
 
-    resik_2 = fields.Many2one("qma.master.score", string="12. Printer / Peralatan Kerja ", required=True)
+    resik_2 = fields.Many2one("qma.master.score", string="12. Printer / Peralatan Kerja ")
     note_resik_2 = fields.Char(string="Catatan")
 
-    resik_3 = fields.Many2one("qma.master.score", string="13. Tempat Sampah ", required=True)
+    resik_3 = fields.Many2one("qma.master.score", string="13. Tempat Sampah ")
     note_resik_3 = fields.Char(string="Catatan")
 
-    resik_4 = fields.Many2one("qma.master.score", string="14. Peralatan Kebersihan ", required=True)
+    resik_4 = fields.Many2one("qma.master.score", string="14. Peralatan Kebersihan ")
     note_resik_4 = fields.Char(string="Catatan")
 
-    resik_5 = fields.Many2one("qma.master.score", string="15. Kebersihan ", required=True)
+    resik_5 = fields.Many2one("qma.master.score", string="15. Kebersihan ")
     note_resik_5 = fields.Char(string="Catatan")
 
     ts_resik = fields.Integer(string="Total Score Resik", readonly=True, store=True, compute="_compute_ts_resik")
 
-    rawat_1 = fields.Many2one("qma.master.score", string="16. Peralatan Kerja ", required=True)
+    rawat_1 = fields.Many2one("qma.master.score", string="16. Peralatan Kerja ")
     note_rawat_1 = fields.Char(string="Catatan")
 
-    rawat_2 = fields.Many2one("qma.master.score", string="17. Berpakaian ", required=True)
+    rawat_2 = fields.Many2one("qma.master.score", string="17. Berpakaian ")
     note_rawat_2 = fields.Char(string="Catatan")
 
-    rawat_3 = fields.Many2one("qma.master.score", string="18. Kondisi Lingkungan ", required=True)
+    rawat_3 = fields.Many2one("qma.master.score", string="18. Kondisi Lingkungan ")
     note_rawat_3 = fields.Char(string="Catatan")
 
-    rawat_4 = fields.Many2one("qma.master.score", string="19. Pengumuman Tertulis ", required=True)
+    rawat_4 = fields.Many2one("qma.master.score", string="19. Pengumuman Tertulis ")
     note_rawat_4 = fields.Char(string="Catatan")
 
-    rawat_5 = fields.Many2one("qma.master.score", string="20. AC, Lampu, APAR ", required=True)
+    rawat_5 = fields.Many2one("qma.master.score", string="20. AC, Lampu, APAR ")
     note_rawat_5 = fields.Char(string="Catatan")
 
     ts_rawat = fields.Integer(string="Total Score Rawat", readonly=True, store=True, compute="_compute_ts_rawat")
 
-    rajin_1 = fields.Many2one("qma.master.score", string="21. Peraturan Perusahaan ", required=True)
+    rajin_1 = fields.Many2one("qma.master.score", string="21. Peraturan Perusahaan ")
     note_rajin_1 = fields.Char(string="Catatan")
 
-    rajin_2 = fields.Many2one("qma.master.score", string="22. Absensi ", required=True)
+    rajin_2 = fields.Many2one("qma.master.score", string="22. Absensi ")
     note_rajin_2 = fields.Char(string="Catatan")
 
-    rajin_3 = fields.Many2one("qma.master.score", string="23. Hub. Antar Pekerja ", required=True)
+    rajin_3 = fields.Many2one("qma.master.score", string="23. Hub. Antar Pekerja ")
     note_rajin_3 = fields.Char(string="Catatan")
 
-    rajin_4 = fields.Many2one("qma.master.score", string="24. Jobdesk ", required=True)
+    rajin_4 = fields.Many2one("qma.master.score", string="24. Jobdesk ")
     note_rajin_4 = fields.Char(string="Catatan")
 
-    rajin_5 = fields.Many2one("qma.master.score", string="25. SOP ", required=True)
+    rajin_5 = fields.Many2one("qma.master.score", string="25. SOP " )
     note_rajin_5 = fields.Char(string="Catatan")
 
     ts_rajin = fields.Integer(string="Total Score Rajin", readonly=True, store=True, compute="_compute_ts_rajin")
