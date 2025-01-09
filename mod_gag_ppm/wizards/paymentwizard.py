@@ -10,7 +10,7 @@ class TransactionPayment(models.TransientModel):
 
     nama_transaksi = fields.Char(string='Name')
     related_field = fields.Many2one('transaksi.anggaran', string='Related Model')
-    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.ref('base.IDR').id)
+    currency_id = fields.Many2one('res.currency', string='Currency',default=lambda self: self.env.company.currency_id.id)
     payment_value = fields.Monetary(string='Outstanding Payment', help="Payment Value", currency_field='currency_id', required=True)
     sum_transaction = fields.Monetary(string='Transaction', help="Transaction Value", currency_field='currency_id', required=True)
     memo_payment = fields.Text(string='Memo')

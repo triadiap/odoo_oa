@@ -103,6 +103,7 @@
                                                 <field name="budget_activity_type"/>
                                                 <field name="budget_activity_category"/>
                                                 <field name="budget_chartofaccounts" options="{'no_create': True,'no_edit': True}"/>
+                                                <field name="currency_id" invisible="1"/>
                                                 <field name="nilai_anggaran" widget="monetary"/>
                                         </tree>
                                     </field>

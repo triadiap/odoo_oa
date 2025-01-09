@@ -12,7 +12,7 @@
                 <field name="kodeprogram" type="row"/>
                 <field name="activity_name" type="row"/>
                 <field name="transaction_item" type="row"/>
-                <field name="transaction_subtotal" type="measure"/>
+                <field name="transaction_subtotal" type="measure" widget="monetary"/>
 
             </pivot>
         </field>
@@ -112,10 +112,11 @@
                                                 <field name="doc_reff_number"/>
                                                  <field name="file_field" filename="file_name"/>
 <!--                                                  Optional: Display the file name -->
+                                                <field name="currency_id" invisible="1"/>
                                                 <field name="file_name" invisible="1"/>
                                                 <field name="transaction_amount" widget="monetary"/>
                                                 <field name="transaction_qty"/>
-                                                <field name="transaction_subtotal"/>
+                                                <field name="transaction_subtotal" widget="monetary"/>
                                         </tree>
                                     </field>
                                     <div class="oe_inline oe_right">
@@ -128,6 +129,7 @@
                                                 <field name="create_date" readonly="1"/>
                                                 <field name="create_uid" readonly="1"/>
                                                 <field name="payment_memo" readonly="1"/>
+                                                 <field name="currency_id" invisible="1"/>
                                                  <field name="val_payment" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
                                         </tree>
                                     </field>

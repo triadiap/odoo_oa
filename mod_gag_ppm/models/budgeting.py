@@ -258,7 +258,7 @@ class InputDetailAnggaranPerBulanPerPillar(models.Model):
     _name ="detail.anggaran.perbulan"
     _description = "Detail Informasi Anggaran Perbulan Per Pillar"
     anggaran_id = fields.Many2one('informasi.perpillar', string="Parent", ondelete='cascade')
-    currency_id = fields.Many2one('res.currency', string='Currency')
+    currency_id = fields.Many2one('res.currency', string='Currency',default=lambda self: self.env.company.currency_id.id)
     nilai_anggaran = fields.Monetary(string='Budget Amount', help="Input Your Monhtly Budget", currency_field='currency_id', required=True)
     keterangan_budget = fields.Text(string="Program")
     activity_start_date = fields.Date(string='Start Date')

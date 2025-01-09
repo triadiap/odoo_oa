@@ -221,7 +221,7 @@ class DetailBudgetTransaction(models.Model):
 
     detail_trans_id = fields.Many2one('transaksi.anggaran', string="Parent", ondelete='cascade')
     transaction_item = fields.Char(string="Item Name", required=True)
-    currency_id = fields.Many2one('res.currency', string='Currency')
+    currency_id = fields.Many2one('res.currency', string='Currency',default=lambda self: self.env.company.currency_id.id)
     transaction_amount = fields.Monetary(string='Price', help="Masukkan  Nilai Transaksi", currency_field='currency_id', required=True)
     transaction_qty =  fields.Float(string='Quantity', required=True, tracking=True, default = 1.00)
     transaction_subtotal = fields.Float(string='Subtotal', readonly=True, compute='_compute_subtotal', store=True)
@@ -245,7 +245,7 @@ class BudgetExpenseMonthlyReport(models.Model):
     _auto = False
 
     id = fields.Integer('ID', readonly=True)
-    currency_id = fields.Many2one('res.currency', string='Currency')
+    currency_id = fields.Many2one('res.currency', string='Currency',default=lambda self: self.env.company.currency_id.id)
     month_number = fields.Char('Month Number')
     tahunanggaran = fields.Char('Budget Year')
     month_name = fields.Char('Month Name')
@@ -310,7 +310,7 @@ class ExpenseAmountPerPillar(models.Model):
 
     pillarname = fields.Char(string='Pillar Name')
     fiscal_year = fields.Char(string='Fiscal Year')
-    currency_id = fields.Many2one('res.currency',  string='Currency', default=lambda self: self.env.company.currency_id)
+    currency_id = fields.Many2one('res.currency',  string='Currency', default=lambda self: self.env.company.currency_id.id)
     jmlsubtotal = fields.Monetary(string='Total Expenses',currency_field='currency_id')
     seq_number = fields.Integer(string="Sequence Number")
     chart_label = fields.Char(string="Chart Label")
@@ -350,7 +350,7 @@ class ExpenseAmountPerProgram(models.Model):
     label_grafik = fields.Text(string="Program Name")
     tahun_budget = fields.Char(string="Tahun Budget")
     nama_pillar = fields.Char(string="Nama Pillar")
-    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
+    currency_id = fields.Many2one('res.currency', string='Currency',default=lambda self: self.env.company.currency_id.id)
     total_transaction = fields.Monetary(string='Total Transaction', currency_field='currency_id')
     total_payment = fields.Monetary(string='Total Payment', currency_field='currency_id')
 

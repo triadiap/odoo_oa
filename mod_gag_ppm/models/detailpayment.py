@@ -9,7 +9,7 @@ class DetailPaymentProcess(models.Model):
 
     transid = fields.Many2one('transaksi.anggaran', string='Related Model')
     name = fields.Char(string='Name of Transaction')
-    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.ref('base.IDR').id)
+    currency_id = fields.Many2one('res.currency', string='Currency',default=lambda self: self.env.company.currency_id.id)
     val_payment = fields.Monetary(string='Payment Amount', help="Payment Value", currency_field='currency_id', required=True)
     budget_trans = fields.Monetary(string='Outstanding Balance', help="Outstanding Balance", currency_field='currency_id', required=True)
     payment_memo = fields.Text(string='Memo')
