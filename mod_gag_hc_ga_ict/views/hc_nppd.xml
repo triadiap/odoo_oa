@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hc_nppd_action" model="ir.actions.act_window">
+        <field name="name">HC NDPP</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hc.nppd</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                PTGN HC, GA, ICT - NDPP
+            </p>
+        </field>
+    </record>
+
+    <record id="hc_nppd_tree" model="ir.ui.view">
+        <field name="name">hc.nppd.tree</field>
+        <field name="model">hc.nppd</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="no_nota"/>
+                <field name="tanggal"/>
+                <field name="total"/>
+                <field name="nppd_item"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hc_nppd_search" model="ir.ui.view">
+        <field name="name">hc.nppd.search</field>
+        <field name="model">hc.nppd</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="no_nota"/>
+                <field name="tanggal"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hc_nppd_form" model="ir.ui.view">
+        <field name="name">hc.nppd.form</field>
+        <field name="model">hc.nppd</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="no_nota"/>
+                            <field name="tanggal"/>
+                        </group>
+                    </group>
+                    <field name="nppd_item">
+                        <tree editable="bottom">
+                            <field name="spplk_id"/>
+                            <field name="tanggal"/>
+                            <field name="jam" widget="float_time"/>
+                            <field name="nama_kios"/>
+                            <field name="nama_barang"/>
+                            <field name="keterangan"/>
+                            <field name="currency_id" readonly="True"/>
+                            <field name="nominal" sum="Total"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from datetime import datetime
 
 class BusdevMonitoringProjectInv(models.Model):
     _name = "busdev.monitoring.project"
@@ -31,12 +32,12 @@ class BusdevMonitoringProjectInv(models.Model):
         "crossovered.budget",
         string="Cost Center",
         check_company=True,
-        domain="[('company_id', 'in', [company_id, False]), ('department_id', '=', [satuan_kerja, False])]"
+        domain="[('company_id', 'in', [company_id, False]), ('department_id', '=', [satuan_kerja, False])]",
     )
     budget_line_id = fields.Many2one(
         "crossovered.budget.lines",  # Note: it's "budget.lines", not "budget.line"
         string="Budget",
-        domain="[('crossovered_budget_id', '=', budget_id)]"
+        domain="[('crossovered_budget_id', '=', budget_id)]",
     )
     currency_id = fields.Many2one(
         'res.currency',
@@ -51,6 +52,50 @@ class BusdevMonitoringProjectInv(models.Model):
     detail_items = fields.One2many("busdev.monitoring.project.detail", "id_project", string="Progres")
     list_dokumen = fields.One2many("busdev.project.document", "id_project_d", string="Dokumen")
     list_pembayaran = fields.One2many("busdev.project.payment", "id_project_p", string="Dokumen")
+
+    approval_1 = fields.Many2one("res.users", string="Approved By")
+    approval_date_1 = fields.Date(string="Approved At")
+    state = fields.Selection([
+        ("draft", "Draft"),
+        ("approved", "Approved")
+    ], string="Status", default="draft")
+
+    approval_route_id = fields.Many2one('approval.route', string='Approval Route', readonly=True)
+    current_step_id = fields.Many2one('approval.step', string='Current Step', readonly=True, tracking=True)
+    existing_status = fields.Char(string="Current Status", readonly=True, tracking=True)
+    upcoming_status = fields.Many2one('approval.step', string='Upcoming Status', readonly=True, tracking=True)
+    pending_approval_by = fields.Many2one('res.users', string="Pending Approval By", readonly=True, tracking=True)
+    button_visible = fields.Boolean(string="BVS", compute='_compute_button_visibility', store=False)
+
+    @api.model
+    def create(self, vals):
+        # UAC Find the configured approval route for the current model for new document creation
+        config = self.env['oa.document.workflow.config'].search([('model_id.model', '=', self._name)], limit=1)
+        if config:
+            vals['approval_route_id'] = config.approval_route_id.id
+            next_step = self.env['oa.document.workflow.config'].search([('model_id.model', '=', self._name)],
+                                                                       limit=1).approval_route_id.step_ids.sorted(
+                key='sequence')[0]
+            vals['current_step_id'] = next_step.id
+            vals['state'] = 'draft'
+            vals['existing_status'] = 'Draft'
+            vals['pending_approval_by'] = next_step.user_id.id
+            vals['upcoming_status'] = next_step.id
+
+        return super(BusdevMonitoringProjectInv, self).create(vals)
+
+    def _compute_button_visibility(self):
+        for record in self:
+            # Ensure pending_approval_by is a valid user and assign True/False
+            if record.pending_approval_by:
+                record.button_visible = (record.current_step_id.user_id.id == self.env.user.id)
+            else:
+                record.button_visible = False
+
+    def action_approval_1(self):
+        self.state = "approved"
+        self.approval_1 = self.env.user.id
+        self.approval_date_1 = datetime.today()
 
     @api.onchange('satuan_kerja')
     def _get_satker_manager(self):
@@ -95,12 +140,14 @@ class BusdevProjectPayment(models.Model):
     _description = "Model for BUSDEV Project Payment"
 
     termin = fields.Char(string="Termin", required=True)
+    plan_date = fields.Date(string="Plan Date", required=True)
     currency_id = fields.Many2one(
         'res.currency',
         string='Currency',
         required=True,
         related="id_project_p.budget_line_id.currency_id"
     )
-    payment = fields.Monetary(string="Jumlah", required=True)
+    plan = fields.Monetary(string="Plan", required=True)
+    payment = fields.Monetary(string="Actual", required=True)
 
     id_project_p = fields.Many2one("busdev.monitoring.project", string="ID Project")

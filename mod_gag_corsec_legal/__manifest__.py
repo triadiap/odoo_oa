@@ -8,7 +8,7 @@
     'author': 'Internusa Cipta Solusi Perdana (ICSP)',
     'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
     'website': 'https://icsp.co.id',
-    'depends': [],
+    'depends': ['base', 'mail', 'bus'],
     'data': [
         'security/ir.model.access.csv',
         'views/corsec_list_akta_notaris.xml',
@@ -16,8 +16,10 @@
         'views/corsec_daftar_izin.xml',
         'views/corsec_risalah_rapat_direksi.xml',
         'views/corsec_risalah_rapat_komisaris.xml',
+        'views/corsec_doc_request.xml',
         'views/menulist.xml',
         'views/assets.xml',
+        'data/check_doc_expiry.xml'
     ],
     'demo': [],
     'qweb': [],

@@ -14,28 +14,43 @@ class QmaInternalAudit(models.Model):
     standard_ref = fields.Char(string="Standard Ref.", required=True)
 
     audit_issue = fields.Text(string="Penjelasan Ketidaksesuaian / Peluang Perbaikan", required=True)
-    issue_auditee = fields.Many2one('hr.employee', string="Auditee")
-    issue_auditor = fields.Many2one('hr.employee', string="Auditor")
+    issue_auditee = fields.Many2one('hr.employee', string="Auditee", required=True)
+    issue_auditor = fields.Many2one('hr.employee', string="Auditor", required=True)
 
-    root_cause = fields.Text(string="Akar Masalah dan Rencana Tindakan Korektif")
-    root_cause_auditee = fields.Many2one('hr.employee', string="Auditee")
-    root_cause_auditor = fields.Many2one('hr.employee', string="Auditor")
+    root_cause = fields.Text(string="Akar Masalah dan Rencana Tindakan Korektif", required=True)
+    root_cause_auditee = fields.Many2one('hr.employee', string="Auditee", required=True)
+    root_cause_auditor = fields.Many2one('hr.employee', string="Auditor", required=True)
 
-    corrective = fields.Text(string="Bukti Tindakan Perbaikan dan Komentar Verifikator")
-    verifikator = fields.Many2one("qma.internal.audit.auditor", string="Verifikator", domain="[('id_ia_main', '=', id)]")
-    verification_date = fields.Date(string="Tanggal Penyelesaian")
+    corrective = fields.Text(string="Bukti Tindakan Perbaikan dan Komentar Verifikator", required=True)
+    verifikator = fields.Many2one("qma.internal.audit.auditor", string="Verifikator", domain="[('id_ia_main', '=', id)]", required=True)
+    verification_date = fields.Date(string="Tanggal Penyelesaian", required=True)
     status = fields.Selection([
         ("Berulang", "Berulang"),
         ("Ditutup", "Ditutup")
-    ], string="Status Tindakan Perbaikan")
+    ], string="Status Tindakan Perbaikan", required=True)
+    file = fields.Binary(string="File / Dokumen")
     photo = fields.Binary(string="Foto", attachment=True)
+    link = fields.Char(string="Link")
 
+    auditor_type = fields.Selection([
+        ("internal", "Internal"),
+        ("external", "Eksternal"),
+    ], string="Kelompok Auditor", default="internal")
     auditor = fields.One2many("qma.internal.audit.auditor", "id_ia_main", string="Auditor")
+    ex_auditor = fields.One2many("qma.internal.audit.external.auditor", "id_ia_main", string="External Auditor")
 
 class QmaInternalAuditor(models.Model):
     _name = "qma.internal.audit.auditor"
     _description = "QMA IA Auditor"
 
     name = fields.Many2one("res.users", string="Auditor", required=True)
+
+    id_ia_main = fields.Many2one("qma.internal.audit", string="ID IA Main")
+
+class QmaExternalAuditor(models.Model):
+    _name = "qma.internal.audit.external.auditor"
+    _description = "QMA IA External Auditor"
+
+    name = fields.Char(string="Auditor", required=True)
 
     id_ia_main = fields.Many2one("qma.internal.audit", string="ID IA Main")

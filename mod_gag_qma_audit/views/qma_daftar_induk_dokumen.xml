@@ -29,9 +29,6 @@
                 <field name="no_dok_penyesuaian"/>
                 <field name="status_pengajuan"/>
                 <field name="rev_0"/>
-                <field name="rev_1"/>
-                <field name="rev_2"/>
-                <field name="rev_3"/>
                 <field name="status_dok"/>
                 <field name="file"/>
             </tree>
@@ -51,9 +48,6 @@
                 <field name="no_dok_penyesuaian"/>
                 <field name="status_pengajuan"/>
                 <field name="rev_0"/>
-                <field name="rev_1"/>
-                <field name="rev_2"/>
-                <field name="rev_3"/>
                 <field name="status_dok"/>
                 <field name="file"/>
             </tree>
@@ -74,9 +68,6 @@
                 <field name="no_dok_penyesuaian"/>
                 <field name="status_pengajuan"/>
                 <field name="rev_0"/>
-                <field name="rev_1"/>
-                <field name="rev_2"/>
-                <field name="rev_3"/>
                 <field name="status_dok"/>
                 <field name="file"/>
             </search>
@@ -101,13 +92,22 @@
                     <group>
                         <field name="status_pengajuan"/>
                         <field name="rev_0"/>
-                        <field name="rev_1"/>
-                        <field name="rev_2"/>
-                        <field name="rev_3"/>
                         <field name="status_dok"/>
                         <field name="file"/>
                     </group>
                 </group>
+                <notebook>
+                    <page string="Revision History">
+                        <div style="width: 550px">
+                            <field name="rev_list">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                </tree>
+                            </field>
+                        </div>
+                    </page>
+                </notebook>
             </form>
         </field>
     </record>

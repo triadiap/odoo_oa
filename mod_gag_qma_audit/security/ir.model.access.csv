@@ -6,4 +6,10 @@ access_qma_master_jenis_dokumen,access.qma.master.jenis.dokumen,model_qma_master
 access_qma_master_status_sop,access.qma.master.status.sop,model_qma_master_status_sop,,1,1,1,1
 access_qma_internal_audit,access.qma.internal.audit,model_qma_internal_audit,,1,1,1,1
 access_qma_internal_audit_auditor,access.qma.internal.audit.auditor,model_qma_internal_audit_auditor,,1,1,1,1
+access_qma_internal_audit_external_auditor,access.qma.internal.audit.external.auditor,model_qma_internal_audit_external_auditor,,1,1,1,1
 access_qma_master_score,access.qma.master.score,model_qma_master_score,,1,1,1,1
+access_qma_daftar_induk_dokumen_rev,access.qma.daftar.induk.dokumen.rev,model_qma_daftar_induk_dokumen_rev,,1,1,1,1
+access_qma_sarmut,access.qma.sarmut,model_qma_sarmut,,1,1,1,1
+access_qma_sarmut_detail,access.qma.sarmut.detail,model_qma_sarmut_detail,,1,1,1,1
+access_qma_sarmut_glosarium,access.qma.sarmut.glosarium,model_qma_sarmut_glosarium,,1,1,1,1
+access_qma_sarmut_glosarium_detail,access.qma.sarmut.glosarium.detail,model_qma_sarmut_glosarium_detail,,1,1,1,1

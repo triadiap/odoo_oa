@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="risk_register_report"
+        model="hc.risk.regist"
+        string="Report Risk Register"
+        report_type="qweb-html"
+        name="mod_gag_hc_ga_ict.risk_register"
+        file="mod_gag_hc_ga_ict.risk_register"
+        print_report_name="'Risk Register_' + object.month+'_'+object.year+'_'+object.department_id"
+    />
+    <template id="risk_register">
+        <style>
+            .report-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .report-table th,
+            .report-table td {
+                border: 1px solid #000; /* Black border */
+                padding: 8px;
+                text-align: left;
+            }
+
+            .report-table th{
+                text-align: center
+            }
+
+            .report-table thead {
+                background-color: #1c2ea3; /* Light gray header */
+                color: #fff; /* Dark text for headers */
+            }
+        </style>
+    <t t-call="web.basic_layout"> <!-- Use the base layout -->
+        <h1>Risk Register</h1>
+        <t t-if="docs">
+            <h4><t t-esc="docs.kuadran"/> - <t t-esc="docs.tipe_resiko_kbumn"/></h4>
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th colspan="7" style="text-align: center">Identifikasi Resiko</th>
+                    </tr>
+                    <tr>
+                        <th style="text-align: center">Sasaran Strategis</th>
+                        <th style="text-align: center">Sasaran/KPI Unit Kerja</th>
+                        <th style="text-align: center">Tahapan Proses Bisnis</th>
+                        <th style="text-align: center">No. Resiko</th>
+                        <th style="text-align: center">Kejadian Resiko</th>
+                        <th style="text-align: center">Tipe Resiko</th>
+                        <th style="text-align: center">Tipe Resiko sesuai Taksonomi KBUMN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><t t-esc="docs.sasaran_strategis"/></td>
+                        <td><t t-esc="docs.sasaran_kpi"/></td>
+                        <td><t t-esc="docs.tahapan"/></td>
+                        <td><t t-esc="docs.no_resiko"/></td>
+                        <td><t t-esc="docs.kejadian_resiko"/></td>
+                        <td><t t-esc="docs.tipe_resiko.display_name"/></td>
+                        <td><t t-esc="docs.tipe_resiko_kbumn"/></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="report-table" style="margin-top: 12px">
+                <thead>
+                    <tr>
+                        <th colspan="10" style="text-align: center">Penilaian Resiko Inheren</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="3" style="text-align: center">Sumber Penyebab Resiko</th>
+                        <th colspan="4">Key Risk Indicator</th>
+                        <th rowspan="3">Penjelasan Dampak Resiko (Kualitatif)</th>
+                        <th colspan="4" rowspan="2">Tingkat Resiko Inheren</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Parameter</th>
+                        <th colspan="3">Threshold</th>
+                    </tr>
+                    <tr>
+                        <th>Green</th>
+                        <th>Yellow</th>
+                        <th>Red</th>
+                        <th>L</th>
+                        <th>D</th>
+                        <th>Risk Level</th>
+                        <th>Kuadran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td><t t-esc="docs.sumber_resiko"/></td>
+                    <td><t t-esc="docs.parameter"/></td>
+                    <td><t t-esc="docs.t_green"/></td>
+                    <td><t t-esc="docs.t_yellow"/></td>
+                    <td><t t-esc="docs.t_red"/></td>
+                    <td><t t-esc="docs.penjelasan_dampak"/></td>
+                    <td style="text-align: center"><t t-esc="docs.tingkat_resiko_l"/></td>
+                    <td style="text-align: center"><t t-esc="docs.tingkat_resiko_d"/></td>
+                    <td style="text-align: center"><t t-esc="docs.risk_level"/></td>
+                    <td style="text-align: center"><t t-esc="docs.kuadran"/></td>
+                </tbody>
+            </table>
+
+            <table class="report-table" style="margin-top: 12px">
+                <thead>
+                    <tr>
+                        <th colspan="8" style="text-align: center">Penilaian Kontrol Existing dan Current Risk</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Kontrol Proses Bisnis Yang Ada Saat Ini</th>
+                        <th rowspan="2">Sifat Kontrol</th>
+                        <th colspan="2">Penilaian Kontrol</th>
+                        <th colspan="4">Tingkat Resiko Saat Ini (Current)</th>
+                    </tr>
+                    <tr>
+                        <th>Desain</th>
+                        <th>Implementasi</th>
+                        <th>L</th>
+                        <th>D</th>
+                        <th>Risk Level</th>
+                        <th>Kuadran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><t t-esc="docs.kontrol_proses"/></td>
+                        <td><t t-esc="docs.sifat_kontrol"/></td>
+                        <td><t t-esc="docs.pn_desain"/></td>
+                        <td><t t-esc="docs.pn_implementasi"/></td>
+                        <td style="text-align: center"><t t-esc="docs.current_tingkat_resiko_l"/></td>
+                        <td style="text-align: center"><t t-esc="docs.current_tingkat_resiko_d"/></td>
+                        <td style="text-align: center"><t t-esc="docs.current_risk_level"/></td>
+                        <td style="text-align: center"><t t-esc="docs.current_kuadran"/></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="report-table" style="width: 50%; margin-top: 12px">
+                <thead>
+                    <tr>
+                        <th colspan="6" style="text-align: center">Rencana Mitigasi Resiko</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">Rencana Mitigasi</th>
+                        <th>Action Plan</th>
+                        <th colspan="4">Target Resiko Residual</th>
+                    </tr>
+                    <tr>
+                        <th>Detail Aktivitas</th>
+                        <th>L</th>
+                        <th>D</th>
+                        <th>Risk Level</th>
+                        <th>Kuadran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><t t-esc="docs.rencana_mitigasi"/></td>
+                        <td><t t-esc="docs.detail_aktivitas"/></td>
+                        <td style="text-align: center"><t t-esc="docs.residual_tingkat_resiko_l"/></td>
+                        <td style="text-align: center"><t t-esc="docs.residual_tingkat_resiko_d"/></td>
+                        <td style="text-align: center"><t t-esc="docs.residual_risk_level"/></td>
+                        <td style="text-align: center"><t t-esc="docs.residual_kuadran"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="report-table" style="width: 50%; margin-top: 12px">
+                <thead>
+                    <tr>
+                        <th colspan="6" style="text-align: center">Monitoring Realisasi</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2" width="50%">Progres Mitigasi</th>
+                        <th rowspan="2">Penjelasan Sisa Dampak Resiko (Kualitatif)</th>
+                        <th colspan="4">Realisasi Tingkat Resiko Residual</th>
+                    </tr>
+                    <tr>
+                        <th>L</th>
+                        <th>D</th>
+                        <th>Risk Level</th>
+                        <th>Kuadran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-foreach="docs.monitoring" t-as="item">
+                        <tr>
+                            <td><t t-esc="item.progress_mitigasi"/></td>
+                            <td><t t-esc="item.p_sisa_dampak_resiko"/></td>
+                            <td style="text-align: center"><t t-esc="item.item_tingkat_resiko_l"/></td>
+                            <td style="text-align: center"><t t-esc="item.item_tingkat_resiko_d"/></td>
+                            <td style="text-align: center"><t t-esc="item.item_risk_level"/></td>
+                            <td style="text-align: center"><t t-esc="item.item_kuadran"/></td>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+        </t>
+        <t t-else="">
+            <p>No Record!</p>
+        </t>
+    </t>
+</template>
+</odoo>

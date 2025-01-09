@@ -80,6 +80,10 @@
                         </div>
                     </page>
                 </notebook>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="mod_gag_corsec_legal.group_oa_jakarta"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>

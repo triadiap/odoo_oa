@@ -18,6 +18,8 @@
         'views/qma_master_status_sop.xml',
         'views/qma_internal_audit.xml',
         'views/qma_master_score.xml',
+        'views/qma_sarmut.xml',
+        'views/qma_sarmut_glosarium.xml',
         'views/menulist.xml',
         'views/assets.xml',
     ],

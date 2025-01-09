@@ -5,7 +5,12 @@
 <!--    <menuitem id="qma_lfia_root" name="List Finding Internal Audit" parent="qma_root" sequence="20" action="qma_lfia_action"/>-->
     <menuitem id="qma_ia_root" name="Internal Audit" parent="qma_root" sequence="20" action="qma_internal_audit_action"/>
     <menuitem id="qma_form_audit_root" name="Form Audit 5R" parent="qma_root" sequence="30" action="qma_form_audit_action"/>
-    <menuitem id="qma_master_data_root" name="Master Data" parent="qma_root" sequence="40"/>
+
+    <menuitem id="qma_sarmut_root" name="Sasaran Mutu" parent="qma_root" sequence="40"/>
+    <menuitem id="qma_sarmut_action_root" name="Sasaran Mutu" parent="qma_sarmut_root" sequence="10" action="qma_sarmut_action"/>
+    <menuitem id="qma_sarmut_glo_action_root" name="Glosarium" parent="qma_sarmut_root" sequence="20" action="qma_sarmut_glosarium_action"/>
+
+    <menuitem id="qma_master_data_root" name="Master Data" parent="qma_root" sequence="50"/>
     <menuitem id="qma_master_jenis_dokumen_root" name="Jenis Dokumen" parent="qma_master_data_root" sequence="10" action="qma_master_jenis_dokumen_action"/>
     <menuitem id="qma_master_status_sop_root" name="Status SOP" parent="qma_master_data_root" sequence="20" action="qma_master_status_sop_action"/>
     <menuitem id="qma_master_score_root" name="Score Audit 5R" parent="qma_master_data_root" sequence="30" action="qma_master_score_action"/>
