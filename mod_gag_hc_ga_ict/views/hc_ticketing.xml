@@ -58,6 +58,7 @@
                         <field name="name"/>
                         <field name="divisi"/>
                         <field name="tanggal"/>
+                        <field name="tanggal_off"/>
                         <field name="keterangan"/>
                         <field name="tujuan"/>
                         <field name="state" readonly="True"/>

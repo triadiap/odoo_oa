@@ -101,6 +101,7 @@
         <field name="model">gag.oa.scm.evaluasi.detail</field>
         <field name="arch" type="xml">
             <graph string="Evaluasi Vendor" sample="1" >
+                <field name="tanggal" interval="month" />
                 <field name="vendor_id"/>
                 <field name="jumlah_nilai" type="measure"/>
             </graph>

@@ -47,7 +47,8 @@ class HcTicketingItems(models.Model):
     leave_id = fields.Many2one('hr.leave', string="Ref. Cuti", domain=[('state', '=', 'validate'), ('holiday_status_id', '=', 1)])
     name = fields.Char(string="Nama Karyawan", related="leave_id.employee_id.name", readonly=True, store=True)
     divisi = fields.Char(string="Divisi", related="leave_id.employee_id.department_id.name", readonly=True, store=True)
-    tanggal = fields.Date(string="Tanggal", related="leave_id.request_date_from", readonly=True, store=True)
+    tanggal = fields.Date(string="Tanggal Cuti", related="leave_id.request_date_from", readonly=True, store=True)
+    tanggal_off = fields.Date(string="Tanggal Keberangkatan", required=True)
     keterangan = fields.Char(string="Keterangan", default="Off", readonly=True)
     tujuan = fields.Char(string="Tujuan", required=True)
     state = fields.Selection([
@@ -59,7 +60,7 @@ class HcTicketingItems(models.Model):
 
     def set_done(self):
         for record in self:
-            self.state = "done"
+            record.state = "done"
 
 class HcTicketingItemsOn(models.Model):
     _name = "hc.ticketing.items.on"

@@ -27,7 +27,7 @@ class SCMEvaluasiVendorDetail(models.Model):
     vendor_id = fields.Many2one("res.partner",string="Vendor Name",related = "evaluasi_id.vendor_name",store=True)
     po = fields.Many2one('purchase.order',string = 'NO PO',required=True, domain="[('purchase_type', '=', 'pembelian_langsung'),('partner_id','=',vendor_id)]")
     evaluasi_id = fields.Many2one('gag.oa.scm.evaluasi','Evaluasi')
-    tanggal = fields.Datetime(string="Tanggal Transaksi", required=True,related="po.date_approve")
+    tanggal = fields.Datetime(string="Tanggal Transaksi", related="po.date_approve",store=True)
     currency_id = fields.Many2one('res.currency', string='Currency',related="po.currency_id")
     jumlah = fields.Monetary(string="Jumlah Transaksi",currency_field='currency_id', required=True, related="po.amount_total")
     nilai_harga = fields.Integer(string="Harga", required=True,default=1)

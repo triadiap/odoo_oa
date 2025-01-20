@@ -30,3 +30,8 @@ access_gag_oa_hse_daftar_spip_detail,access.gag.oa.hse.daftar.spip.detail,model_
 access_gag_oa_hse_pelaporan_alat,access.gag.oa.hse.pelaporan.alat,model_gag_oa_hse_pelaporan_alat,base.group_user,1,1,1,1
 access_gag_oa_hse_pelaporan_alat_detail,access.gag.oa.hse.pelaporan.alat.detail,model_gag_oa_hse_pelaporan_alat_detail,base.group_user,1,1,1,1
 access_gag_oa_hse_rekap_bibit,access.gag.oa.hse.rekap.bibit,model_gag_oa_hse_rekap_bibit,base.group_user,1,1,1,1
+access_wizard_excel_report,access.wizard.excel.report,model_wizard_excel_report,base.group_user,1,1,1,1
+access_gag_oa_hse_pelaporan_pekerja_limbah_bbm,access.gag.oa.hse.pelaporan.pekerja.limbah.bbm,model_gag_oa_hse_pelaporan_pekerja_limbah_bbm,base.group_user,1,1,1,1
+access_gag_oa_hse_pelaporan_pekerja_limbah_b3,access.gag.oa.hse.pelaporan.pekerja.limbah.b3,model_gag_oa_hse_pelaporan_pekerja_limbah_b3,base.group_user,1,1,1,1
+access_gag_oa_hse_pelaporan_pekerja_limbah_non3,access.gag.oa.hse.pelaporan.pekerja.limbah.nonb3,model_gag_oa_hse_pelaporan_pekerja_limbah_nonb3,base.group_user,1,1,1,1
+access_gag_oa_hse_pelaporan_template,access.gag.oa.hse.pelaporan.template,model_gag_oa_hse_pelaporan_template,base.group_user,1,1,1,1

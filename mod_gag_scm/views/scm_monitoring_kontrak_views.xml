@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_scm_monitoring_kontrak_tree" model="ir.ui.view">
+        <field name="name">gag.oa.scm.monitoring.kontrak.tree</field>
+        <field name="model">gag.oa.scm.monitoring.kontrak</field>
+        <field name="arch" type="xml">
+            <tree string="List Kontrak" editable="bottom">
+                <field name="vendor_name"/>
+                <field name="deskripsi"/>
+                <field name="nomor_kontrak"/>
+                <field name="tgl_kontrak"/>
+                <field name="nilai_kontrak"/>
+                <field name="mulai_kontrak"/>
+                <field name="selesai_kontrak"/>
+                <field name="justification"/>
+                <field name="status"/>
+                <field name="status_lease"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_scm_monitoring_kontrak_action" model="ir.actions.act_window">
+        <field name="name">Monitoring Kontrak</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.scm.monitoring.kontrak</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{}</field>
+        <field name="domain"></field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your master data here !
+            </p>
+        </field>
+    </record>
+</odoo>

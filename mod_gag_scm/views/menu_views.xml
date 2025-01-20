@@ -8,21 +8,54 @@
         <menuitem id="menu_gag_oa_scm_evaluasi_dashboard"
                 name="Dashboard"
                 sequence="1"
-                action="gag_oa_scm_evaluasi_detail_action"/>    
-        <menuitem id="menu_gag_oa_scm_nomor_surat"
-                name="Nomor Surat"
-                sequence="4"
-                action="gag_oa_scm_document_number_action"/>    
+                action="gag_oa_scm_evaluasi_detail_action"/>  
+        <menuitem id="menu_gag_oa_scm_evaluasi_summary"
+                sequence="2"
+                action="gag_oa_scm_evaluasi_summary_action"/>      
         <menuitem id="menu_gag_oa_scm_evaluasi"
                 name="Evaluasi Vendor"
-                sequence="2"
-                action="gag_oa_scm_evaluasi_action"/>   
-        <menuitem id="menu_gag_oa_scm_evaluasi_kontraktor"
-                name="Evaluasi Kontraktor"
                 sequence="3"
-                action="gag_oa_scm_evaluasi_kontraktor_action"/>   
-        <menuitem id="menu_gag_oa_scm_evaluasi_summary"
+                action="gag_oa_scm_evaluasi_action"/>   
+        <menuitem id="mod_gag_oa_scm_evaluasi"
+                name = "Evaluasi Kontraktor"
                 sequence="4"
-                action="gag_oa_scm_evaluasi_summary_action"/>    
+                >
+                <menuitem id="menu_gag_oa_scm_evaluasi_kontraktor"
+                        name="Satker"
+                        sequence="1"
+                        action="gag_oa_scm_evaluasi_kontraktor_action"/>   
+                <menuitem id="menu_gag_oa_scm_evaluasi_kinerja"
+                        name="Vendor Management"
+                        sequence="2"
+                        action="gag_oa_scm_evaluasi_kinerja_action"/>  
+        </menuitem>
+        <menuitem id="menu_gag_oa_scm_nomor_surat"
+                name="Nomor Surat"
+                sequence="6"
+                action="gag_oa_scm_document_number_action"/>    
+        <menuitem id="menu_gag_oa_scm_monitoring_kontrak"
+                name="Monitoring Kontrak"
+                sequence="7"
+                action="gag_oa_scm_monitoring_kontrak_action"/>    
+        <menuitem id="menu_gag_oa_scm_monitoring_nomor"
+                name="Monitoring Nomor"          
+                sequence="8"> 
+                <menuitem id="menu_gag_oa_scm_monitoring_nomor_lelang"
+                        name="Pelelangan"
+                        sequence="1"
+                        action="gag_oa_scm_monitoring_nomor_lelang_action"/>       
+                <menuitem id="menu_gag_oa_scm_monitoring_nomor_pemila"
+                        name="Pemilihan Lansung"
+                        sequence="2"
+                        action="gag_oa_scm_monitoring_nomor_pemila_action"/>     
+                <menuitem id="menu_gag_oa_scm_monitoring_nomor_kontrak"
+                        name="Kontrak"
+                        sequence="3"
+                        action="gag_oa_scm_monitoring_nomor_kontrak_action"/>       
+                <menuitem id="menu_gag_oa_scm_monitoring_nomor_spk"
+                        name="SPK"
+                        sequence="4"
+                        action="gag_oa_scm_monitoring_nomor_spk_action"/>        
+                </menuitem>
     </menuitem>
 </odoo>

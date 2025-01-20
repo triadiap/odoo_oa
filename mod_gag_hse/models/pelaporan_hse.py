@@ -30,6 +30,9 @@ class  PelaporanHSE(models.Model):
     pelaporan_kopetensi = fields.One2many("gag.oa.hse.pelaporan.pekerja.kopetensi","pelaporan_id","kopetensi")
     pelaporan_alat = fields.One2many("gag.oa.hse.pelaporan.pekerja.alat","pelaporan_id","alat")
     pelaporan_bbm = fields.One2many("gag.oa.hse.pelaporan.pekerja.bbm","pelaporan_id","bbm")
+    pelaporan_limbah_bbm = fields.One2many("gag.oa.hse.pelaporan.pekerja.limbah.bbm","pelaporan_id","Limbah BBM")
+    pelaporan_limbah_b3 = fields.One2many("gag.oa.hse.pelaporan.pekerja.limbah.b3","pelaporan_id","Limbah B3")
+    pelaporan_limbah_nonb3 = fields.One2many("gag.oa.hse.pelaporan.pekerja.limbah.nonb3","pelaporan_id","Limbah NON B3")
 
     total_pekerja = fields.Integer("Total Pekerja",compute="_calculate_total")
     total_jamkerja = fields.Integer("Total Jam Kerja",compute="_calculate_total")
@@ -76,18 +79,65 @@ class  PelaporanHSE(models.Model):
 
         # Iterate through rows and process data
         totalBBM = 0
+        for deletedId in self.env['gag.oa.hse.pelaporan.pekerja.limbah.bbm'].search([('pelaporan_id', '=',self.id)]):
+            deletedId.unlink()
         for row_index in range(5, sheet.nrows):  # Skip the header row
             if(sheet.cell_value(row_index, 8)!=""):
                 totalBBM += float(sheet.cell_value(row_index, 8))  # Example: Column 1
+                self.env['gag.oa.hse.pelaporan.pekerja.limbah.bbm'].create({
+                    'pelaporan_id': self.id,
+                    'sumber' : sheet.cell_value(row_index, 3),
+                    'unit' : sheet.cell_value(row_index, 4),
+                    'type': sheet.cell_value(row_index, 5),
+                    'process': sheet.cell_value(row_index, 6),
+                    'jenis_bbm': sheet.cell_value(row_index, 7),
+                    'jumlah_pemakaian': float(sheet.cell_value(row_index, 8)),
+                    'keterangan': sheet.cell_value(row_index, 9)
+                })
 
-        self.env['gag.oa.hse.pelaporan.pekerja.bbm'].create({
-            'pelaporan_id': self.id,
-            'jumlah_bulan_lalu' : 0,
-            'jumlah_penerimaan' : 0,
-            'jenis_bbm': 'SOLAR',
-            'jumlah_pemakaian': totalBBM
-        })
+                
+        sheet = workbook.sheet_by_index(1)  # Assuming the first sheet
+        for deletedId in self.env['gag.oa.hse.pelaporan.pekerja.limbah.b3'].search([('pelaporan_id', '=',self.id)]):
+            deletedId.unlink()
+        # Iterate through rows and process data
+        for row_index in range(5, sheet.nrows):  # Skip the header row
+            if(sheet.cell_value(row_index, 8)!=""):
+                self.env['gag.oa.hse.pelaporan.pekerja.limbah.b3'].create({
+                    'pelaporan_id': self.id,
+                    'jenis' : sheet.cell_value(row_index, 3),
+                    'sumber' : sheet.cell_value(row_index, 4),
+                    'process': sheet.cell_value(row_index, 5),
+                    'satuan': sheet.cell_value(row_index, 6),
+                    'jumlah_pemakaian': sheet.cell_value(row_index, 7),
+                    'jumlah_limbah': float(sheet.cell_value(row_index, 8)),
+                    'jumlah_diserahkan': float(sheet.cell_value(row_index, 9)),
+                    'keterangan': sheet.cell_value(row_index, 10)
+                })
+                
+        for deletedId in self.env['gag.oa.hse.pelaporan.pekerja.limbah.nonb3'].search([('pelaporan_id', '=',self.id)]):
+            deletedId.unlink()
+        sheet = workbook.sheet_by_index(2)  # Assuming the first sheet
+        # Iterate through rows and process data
+        for row_index in range(5, sheet.nrows):  # Skip the header row
+            if(sheet.cell_value(row_index, 8)!=""):
+                self.env['gag.oa.hse.pelaporan.pekerja.limbah.nonb3'].create({
+                    'pelaporan_id': self.id,
+                    'jenis' : sheet.cell_value(row_index, 3),
+                    'process': sheet.cell_value(row_index, 4),
+                    'satuan': sheet.cell_value(row_index, 5),
+                    'jumlah_pemakaian': sheet.cell_value(row_index, 6),
+                    'jumlah_limbah': float(sheet.cell_value(row_index, 7)),
+                    'jumlah_dimanfaatkan': float(sheet.cell_value(row_index, 8)),
+                    'keterangan': sheet.cell_value(row_index, 9)
+                })
 
+        #self.env['gag.oa.hse.pelaporan.pekerja.bbm'].create({
+        #    'pelaporan_id': self.id,
+        #    'jumlah_bulan_lalu' : 0,
+        #    'jumlah_penerimaan' : 0,
+        #    'jenis_bbm': 'SOLAR',
+        #    'jumlah_pemakaian': totalBBM
+        #})
         return {
             'type': 'ir.actions.client',
             'tag': 'reload',
@@ -174,3 +224,92 @@ class PelaporanHSETBBM(models.Model):
     def _calculate_sisa(self):
         for rec in self:
             rec.jumlah_sisa_bulan_ini = rec.jumlah - rec.jumlah_pemakaian
+
+class PelaporanHSELimbahBBM(models.Model):
+    _name = "gag.oa.hse.pelaporan.pekerja.limbah.bbm"
+    _description = "Pelaporan limbah (Penggunaan BBM)"
+
+    pelaporan_id = fields.Many2one("gag.oa.hse.pelaporan.pekerja","Pelaporan")
+    vendor = fields.Char("Nama Vendor",related = "pelaporan_id.vendor.name",store=True)
+    month = fields.Selection([
+        ('1', 'Januari'),
+        ('2', 'Februari'),
+        ('3', 'Maret'),
+        ('4', 'April'),
+        ('5', 'Mei'),
+        ('6', 'Juni'),
+        ('7', 'Juli'),
+        ('8', 'Agustus'),
+        ('9', 'September'),
+        ('10', 'Oktober'),
+        ('11', 'November'),
+        ('12', 'Desember'),
+        ],"Bulan",related = "pelaporan_id.month",store=True)
+    year = fields.Char("Tahun",related = "pelaporan_id.year",store=True)
+    sumber = fields.Char('Sumber Emisi',required = True)
+    unit = fields.Char('Deskripsi Unit',required = True)
+    type = fields.Char('Tipe Unit',required = True)
+    process = fields.Char('Unit Process',required = True)
+    jenis_bbm = fields.Char('Jenis Bahan Bakar',required = True)
+    jumlah_pemakaian = fields.Integer("Jumlah Pemakaian",required = True)
+    keterangan = fields.Char('Keterangan')
+
+class PelaporanHSELimbahB3(models.Model):
+    _name = "gag.oa.hse.pelaporan.pekerja.limbah.b3"
+    _description = "Pelaporan limbah (NERACA LIMBAH B3)"
+
+    pelaporan_id = fields.Many2one("gag.oa.hse.pelaporan.pekerja","Pelaporan")
+    vendor = fields.Char("Nama Vendor",related = "pelaporan_id.vendor.name",store=True)
+    month = fields.Selection([
+        ('1', 'Januari'),
+        ('2', 'Februari'),
+        ('3', 'Maret'),
+        ('4', 'April'),
+        ('5', 'Mei'),
+        ('6', 'Juni'),
+        ('7', 'Juli'),
+        ('8', 'Agustus'),
+        ('9', 'September'),
+        ('10', 'Oktober'),
+        ('11', 'November'),
+        ('12', 'Desember'),
+        ],"Bulan",related = "pelaporan_id.month",store=True)
+    year = fields.Char("Tahun",related = "pelaporan_id.year",store=True)
+    jenis = fields.Char('Jenis Limbah',required = True)
+    sumber = fields.Char('Sumber Unit',required = True)
+    process = fields.Char('Unit Process',required = True)
+    satuan = fields.Char('Satuan',required = True)
+    jumlah_pemakaian = fields.Integer("Jumlah Pemakaian",required = True)
+    jumlah_limbah = fields.Integer("Jumlah limbah yang dihasilkan ",required = True)
+    jumlah_diserahkan = fields.Integer("Jumlah yang diserahkan",required = True)
+    keterangan = fields.Char('Keterangan')
+
+
+class PelaporanHSELimbahNonB3(models.Model):
+    _name = "gag.oa.hse.pelaporan.pekerja.limbah.nonb3"
+    _description = "Pelaporan limbah (NERACA LIMBAH NON B3)"
+
+    pelaporan_id = fields.Many2one("gag.oa.hse.pelaporan.pekerja","Pelaporan")
+    vendor = fields.Char("Nama Vendor",related = "pelaporan_id.vendor.name",store=True)
+    month = fields.Selection([
+        ('1', 'Januari'),
+        ('2', 'Februari'),
+        ('3', 'Maret'),
+        ('4', 'April'),
+        ('5', 'Mei'),
+        ('6', 'Juni'),
+        ('7', 'Juli'),
+        ('8', 'Agustus'),
+        ('9', 'September'),
+        ('10', 'Oktober'),
+        ('11', 'November'),
+        ('12', 'Desember'),
+        ],"Bulan",related = "pelaporan_id.month",store=True)
+    year = fields.Char("Tahun",related = "pelaporan_id.year",store=True)
+    jenis = fields.Char('Jenis Limbah',required = True)
+    process = fields.Char('Unit Process',required = True)
+    satuan = fields.Char('Satuan',required = True)
+    jumlah_pemakaian = fields.Integer("Jumlah Pemakaian",required = True)
+    jumlah_limbah = fields.Integer("Jumlah limbah yang dihasilkan ",required = True)
+    jumlah_dimanfaatkan = fields.Integer("Jumlah yang dimanfaatkan",required = True)
+    keterangan = fields.Char('Keterangan')

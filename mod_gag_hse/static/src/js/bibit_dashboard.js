@@ -1,4 +1,4 @@
-odoo.define('purchase.dashboard', function (require) {
+odoo.define('mod_gag_hse.dashboard', function (require) {
     "use strict";
     
     /**

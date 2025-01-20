@@ -88,6 +88,38 @@
                                 </tree>
                             </field>
                         </page>
+                        <page string="Limbah BBM" name="gag_oa_hse_pelaporan_pekerja_limbah_bbm_tree">
+                            <field name="pelaporan_limbah_bbm">
+                                <tree editable="buttom">
+                                    <field name="sumber"/>
+                                    <field name="unit"/>
+                                    <field name="process"/>
+                                    <field name="jenis_bbm"/>
+                                    <field name="jumlah_pemakaian"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Limbah B3" name="gag_oa_hse_pelaporan_pekerja_limbah_b3_tree">
+                            <field name="pelaporan_limbah_b3">
+                                <tree editable="buttom">
+                                    <field name="jenis"/>
+                                    <field name="sumber"/>
+                                    <field name="process"/>
+                                    <field name="satuan"/>
+                                    <field name="jumlah_pemakaian"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Limbah NON B3" name="gag_oa_hse_pelaporan_pekerja_limbah_nonb3_tree">
+                            <field name="pelaporan_limbah_nonb3">
+                                <tree editable="buttom">
+                                    <field name="jenis"/>
+                                    <field name="process"/>
+                                    <field name="satuan"/>
+                                    <field name="jumlah_pemakaian"/>
+                                </tree>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -130,6 +162,151 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">gag.oa.hse.pelaporan.pekerja.jamkerja</field>
         <field name="view_mode">tree</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your evaluasi Here !
+            </p>
+        </field>
+    </record>
+    
+     <!--    ini tampilan tabel depan-->
+    <record id="gag_oa_hse_pelaporan_pekerja_limbah_bbm_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.pekerja.limbah.bbm.view</field>
+        <field name="model">gag.oa.hse.pelaporan.pekerja.limbah.bbm</field>
+        <field name="arch" type="xml">
+            <tree string="Rekap Data Limbah BBM" create = "false">
+                <field name="vendor"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="sumber"/>
+                <field name="unit"/>
+                <field name="type"/>
+                <field name="process"/>
+                <field name="jenis_bbm"/>
+                <field name="jumlah_pemakaian"/>
+                <field name="keterangan"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_pekerja_limbah_bbm_pivot" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.pekerja.limbah.bbm.pivot</field>
+        <field name="model">gag.oa.hse.pelaporan.pekerja.limbah.bbm</field>
+        <field name="arch" type="xml">
+            <pivot string="Pivot Data Limbah BBM" default_order="jumlah_pemakaian desc">
+                <field name="vendor" type="row"/>
+                <field name="unit" type="row"/>
+                <field name="year" type="col"/>
+                <field name="month" type="col"/>
+                <field name="jumlah_pemakaian" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="gag_oa_hse_rekap_limbah_bbm_action" model="ir.actions.act_window">
+        <field name="name">REKAP DATA PENGGUNAAN BBM</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.pekerja.limbah.bbm</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your evaluasi Here !
+            </p>
+        </field>
+    </record>
+
+
+    
+     <!--    ini tampilan tabel depan limbah b3-->
+    <record id="gag_oa_hse_pelaporan_pekerja_limbah_b3_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.pekerja.limbah.b3.view</field>
+        <field name="model">gag.oa.hse.pelaporan.pekerja.limbah.b3</field>
+        <field name="arch" type="xml">
+            <tree string="Rekap Data Limbah B3" create = "false">
+                <field name="vendor"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="jenis"/>
+                <field name="sumber"/>
+                <field name="process"/>
+                <field name="satuan"/>
+                <field name="jumlah_pemakaian"/>
+                <field name="jumlah_limbah"/>
+                <field name="jumlah_diserahkan"/>
+                <field name="keterangan"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_pekerja_limbah_b3_pivot" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.pekerja.limbah.b3.pivot</field>
+        <field name="model">gag.oa.hse.pelaporan.pekerja.limbah.b3</field>
+        <field name="arch" type="xml">
+            <pivot string="Pivot Data Limbah B3" default_order="jumlah_limbah desc">
+                <field name="vendor" type="row"/>
+                <field name="jenis" type="row"/>
+                <field name="year" type="col"/>
+                <field name="month" type="col"/>
+                <field name="jumlah_limbah" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="gag_oa_hse_rekap_limbah_b3_action" model="ir.actions.act_window">
+        <field name="name">REKAP DATA LIMBAH B3</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.pekerja.limbah.b3</field>
+        <field name="view_mode">tree,pivot</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit Your evaluasi Here !
+            </p>
+        </field>
+    </record>
+
+
+     <!--    ini tampilan tabel depan limbah non b3-->
+    <record id="gag_oa_hse_pelaporan_pekerja_limbah_nonb3_view" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.pekerja.limbah.nonb3.view</field>
+        <field name="model">gag.oa.hse.pelaporan.pekerja.limbah.nonb3</field>
+        <field name="arch" type="xml">
+            <tree string="Rekap Data Limbah Non B3" create = "false">
+                <field name="vendor"/>
+                <field name="month"/>
+                <field name="year"/>
+                <field name="jenis"/>
+                <field name="process"/>
+                <field name="satuan"/>
+                <field name="jumlah_pemakaian"/>
+                <field name="jumlah_limbah"/>
+                <field name="jumlah_dimanfaatkan"/>
+                <field name="keterangan"/>
+            </tree>
+        </field>
+    </record>
+    <record id="gag_oa_hse_pelaporan_pekerja_limbah_nonb3_pivot" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.pekerja.limbah.nonb3.pivot</field>
+        <field name="model">gag.oa.hse.pelaporan.pekerja.limbah.nonb3</field>
+        <field name="arch" type="xml">
+            <pivot string="Pivot Data Limbah Non B3" default_order="jumlah_limbah desc">
+                <field name="vendor" type="row"/>
+                <field name="jenis" type="row"/>
+                <field name="year" type="col"/>
+                <field name="month" type="col"/>
+                <field name="jumlah_limbah" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="gag_oa_hse_rekap_limbah_nonb3_action" model="ir.actions.act_window">
+        <field name="name">REKAP DATA LIMBAH NON B3</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gag.oa.hse.pelaporan.pekerja.limbah.nonb3</field>
+        <field name="view_mode">tree,pivot</field>
         <field name="target">current</field>
         <field name="context">{}</field>
         <field name="domain">[]</field>

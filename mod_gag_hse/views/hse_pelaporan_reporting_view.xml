@@ -5,12 +5,36 @@
         <field name="name">gag.oa.hse.pelaporan.reporting.view</field>
         <field name="model">gag.oa.hse.pelaporan.reporting</field>
         <field name="arch" type="xml">
-            <tree editable="bottom"> 
+            <tree> 
                 <field name="vendor"/>
                 <field name="year"/>
+                <field name="excel_file" filename="file_name"/>
                 <field name="create_date"/>
                 <field name="create_uid"/>
             </tree>
+        </field>
+    </record>    
+    <record id="gag_oa_hse_pelaporan_reporting_form" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.reporting.form</field>
+        <field name="model">gag.oa.hse.pelaporan.reporting</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <header>                    
+                    </header>     
+                    <group>
+                        <group>
+                            <field name="vendor"/> 
+                            <field name="year"/>
+                            <field name="file_name" invisible="1"/>
+                            <field name="excel_file" filename="file_name" readonly = "1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Generate" type="object" name="generate_excel_report" class="btn-primary" />
+                    </footer>
+                </sheet>       
+            </form>
         </field>
     </record>
     <record id="gag_oa_hse_pelaporan_reporting_action" model="ir.actions.act_window">
@@ -32,11 +56,34 @@
         <field name="name">gag.oa.hse.pelaporan.reporting.all.view</field>
         <field name="model">gag.oa.hse.pelaporan.reporting.all</field>
         <field name="arch" type="xml">
-            <tree editable="bottom"> 
+            <tree> 
                 <field name="year"/>
                 <field name="create_date"/>
                 <field name="create_uid"/>
             </tree>
+        </field>
+    </record>
+    
+    <record id="gag_oa_hse_pelaporan_reporting_all_form" model="ir.ui.view">
+        <field name="name">gag.oa.hse.pelaporan.reporting.all.form</field>
+        <field name="model">gag.oa.hse.pelaporan.reporting.all</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <header>                    
+                    </header>     
+                    <group>
+                        <group>
+                            <field name="year"/>
+                            <field name="file_name" invisible="1"/>
+                            <field name="excel_file" filename="file_name" readonly = "1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Generate" type="object" name="generate_excel_report" class="btn-primary" />
+                    </footer>
+                </sheet>       
+            </form>
         </field>
     </record>
     <record id="gag_oa_hse_pelaporan_reporting_all_action" model="ir.actions.act_window">
