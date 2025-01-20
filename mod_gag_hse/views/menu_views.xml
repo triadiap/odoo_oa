@@ -61,10 +61,26 @@
                 name="Kasus PAK"
                 sequence="5"
                 action="gag_oa_hse_rekap_sakitkerja_action"/>    
+            <menuitem id="menu_gag_oa_hse_rekap_limbah_bbm"
+                name="Rekap Penggunaan BBM"
+                sequence="6"
+                action="gag_oa_hse_rekap_limbah_bbm_action"/>    
+            <menuitem id="menu_gag_oa_hse_rekap_limbah_b3"
+                name="Rekap Limbah B3"
+                sequence="6"
+                action="gag_oa_hse_rekap_limbah_b3_action"/>    
+            <menuitem id="menu_gag_oa_hse_rekap_limbah_nonb3"
+                name="Rekap Limbah Non B3"
+                sequence="6"
+                action="gag_oa_hse_rekap_limbah_nonb3_action"/>    
         </menuitem>
         <menuitem id="menu_gag_oa_hse_rekap_bibit"
               name="Rekap Bibit"
               sequence="5"
               action="gag_oa_hse_rekap_bibit_action"/>   
+        <menuitem id="menu_gag_oa_hse_pelaporan_template"
+              name="Template File"
+              sequence="10"
+              action="gag_oa_hse_pelaporan_template_action"/>   
     </menuitem>
 </odoo>

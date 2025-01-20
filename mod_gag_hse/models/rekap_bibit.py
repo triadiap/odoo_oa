@@ -34,15 +34,9 @@ class HSERekapBibit(models.Model):
     tanggal_masuk = fields.Date('Tanggal bibit masuk')
     jumlah_keluar = fields.Integer('Jumlah bibit keluar')
     tanggal_keluar = fields.Date('Tanggal bibit keluar')
-    stok = fields.Integer('Stok Bibit',compute="_calculate_stok", store = True)
+    stok = fields.Integer('Stok Bibit')
     keterangan = fields.Char('Keterangan')
 
-    @api.depends("jumlah_masuk","jumlah_keluar")
-    def _calculate_stok(self):
-        for rec in self:
-            total_awal = 0
-            #total_awal = float(sum(self.env['gag.oa.hse.rekap.bibit'].search([('id','<',rec.id)]).mapped('jumlah_masuk')))-float(sum(self.env['gag.oa.hse.rekap.bibit'].search([('id','<',rec.id)]).mapped('jumlah_keluar')))
-            rec.stok = total_awal + rec.jumlah_masuk - rec.jumlah_keluar
 
     @api.model
     def retrieve_dashboard(self):
