@@ -232,6 +232,7 @@ class DetailBudgetTransaction(models.Model):
     kodeprogram = fields.Many2one(related="detail_trans_id.program_code", string="Program", store=True)
     namapillar = fields.Char(related="detail_trans_id.pillar_name.nama_pillar", string="Pillar Name", store=True)
     activity_name = fields.Char(related="detail_trans_id.name", string="Description", store=True)
+    anggaran_code = fields.Many2one(related="detail_trans_id.kode_anggaran",string="Kode Anggaran",store=True)
 
     @api.depends('transaction_qty', 'transaction_amount')
     def _compute_subtotal(self):

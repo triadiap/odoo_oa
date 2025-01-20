@@ -72,6 +72,7 @@ class InputDataBudgeting(models.Model):
                                     </style>
                                     '''
                                    )
+
             else:
                 record.button_approve_activation = True
                 record.hide_css = False
@@ -207,20 +208,13 @@ class InputDataBudgeting(models.Model):
 
     def _compute_expense_sum(self):
         for rec in self:
-            # Ensure only a single record is returned by the search.
-            totalexpense_sum = self.env['transaksi.anggaran'].search([('kode_anggaran', '=', rec.id)], limit=1)
-
-            if totalexpense_sum:
-                # Use the single record found.
-                findtransactioncodeby_BudgetID = totalexpense_sum.kode_anggaran.id
-
-                # Search for the related records in 'detail.trans.perbudget'
-                detail_records = self.env['detail.trans.perbudget'].search(
-                    [('kodeprogram', '=', findtransactioncodeby_BudgetID)])
-
-                # Sum the 'transaction_subtotal' values and format them
-                total_expense = sum(detail_records.mapped('transaction_subtotal'))
-                rec.totalexpense_sum = f"Rp {total_expense:,.2f}"
+            totalexpense = 0.0
+            cektransaksianggaran = self.env['transaksi.anggaran'].search([('kode_anggaran.id', '=', rec.id)], limit=1)
+            findidtransactiondetail = cektransaksianggaran.kode_anggaran.id
+            if findidtransactiondetail:
+                detail_transaction = self.env['detail.trans.perbudget'].search([('anggaran_code.id', '=', findidtransactiondetail)])
+                totalexpense = sum(detail_transaction.mapped('transaction_subtotal'))
+            rec.totalexpense_sum =  f"Rp {totalexpense:,.2f}"
 
     def _compute_total_budget(self):
         for rec in self:
@@ -238,9 +232,9 @@ class InputDataBudgeting(models.Model):
 
     def hitungtransaksibudget(self):
         for rec in self:
-            totalexpense_sum = self.env['transaksi.anggaran'].search([('kode_anggaran', '=', rec.id)],limit=1)
-            findtransactioncodeby_BudgetID = totalexpense_sum.kode_anggaran.id
-            totalexpense = float(sum(self.env['detail.trans.perbudget'].search([('kodeprogram', '=', findtransactioncodeby_BudgetID)]).mapped('transaction_subtotal')))
+            cektransaksianggaran = self.env['transaksi.anggaran'].search([('kode_anggaran', '=', rec.id)],limit=1)
+            findtransactioncodeby_BudgetID = cektransaksianggaran.kode_anggaran.id
+            totalexpense = float(sum(self.env['detail.trans.perbudget'].search([('anggaran_code', '=', findtransactioncodeby_BudgetID)]).mapped('transaction_subtotal')))
         return totalexpense
 
     def _compute_balance_sum(self):
