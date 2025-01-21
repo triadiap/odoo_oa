@@ -8,6 +8,8 @@
             <tree>
                 <field name="name" optional="show"/>
                 <field name="menu_id" optional="show"/>
+                <field name="is_model_name_valid" invisible="1"/>
+                <field name="child_menu_id" optional="show"/>
                 <field name="create_uid" optional="show"/>
                 <field name="write_uid" optional="show"/>
                 <field name="create_date" optional="show"/>
@@ -22,11 +24,21 @@
         <field name="model">oa.tutorial.management</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="hide_css"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="menu_id" options="{'no_create':True}"/>
-                        <field name="content" widget="html"/>
+                        <field name="menu_id" options="{'no_create':True,'no_edit':True}"/>
+                        <field name="child_menu_id" options="{'no_create':True,'no_edit':True}"/>
+                        <field name="create_uid" string="Created By"/>
+                    </group>
+                    <group>
+                         <div>
+                             <h4>Tutorial :</h4>
+                            <field name="content" widget="html"/>
+                        </div>
                     </group>
                 </sheet>
             </form>
@@ -38,6 +50,7 @@
         <field name="name">Tutorials</field>
         <field name="res_model">oa.tutorial.management</field>
         <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
         <field name="domain">[]</field>
     </record>
 

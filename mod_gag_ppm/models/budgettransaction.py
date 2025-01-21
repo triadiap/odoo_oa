@@ -330,14 +330,12 @@ class ExpenseAmountPerPillar(models.Model):
                      p.nama_pillar AS pillarname,
                      SUM(COALESCE(d.transaction_subtotal,0)) AS jmlsubtotal,
                      p.sequence AS seq_number,
-                     COALESCE(i.tahun_anggaran, CAST(EXTRACT(YEAR FROM CURRENT_DATE) AS VARCHAR)) AS fiscal_year,
-                     ROW_NUMBER() OVER (ORDER BY p.sequence)  || ' - ' || p.nama_pillar AS chart_label,
-                     d.currency_id
+                     ROW_NUMBER() OVER (ORDER BY p.sequence)  || ' - ' || p.nama_pillar AS chart_label
                      
                     FROM pillar_group p
                     LEFT JOIN detail_trans_perbudget d ON p.nama_pillar = d.namapillar
                     LEFT JOIN informasi_perpillar i ON p.id = i.kode_pillar
-                    GROUP BY p.nama_pillar,  p.sequence, i.tahun_anggaran, d.currency_id
+                    GROUP BY p.nama_pillar,  p.sequence
                     HAVING SUM(COALESCE(d.transaction_subtotal, 0)) > 0
                     ORDER BY p.sequence ASC
                 )

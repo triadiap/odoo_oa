@@ -17,7 +17,7 @@ class InputDataBudgeting(models.Model):
     name = fields.Char(string="Budget Name", required=True, tracking=True)
     kode_pillar = fields.Many2one('pillar.group', string="Pillar Name", required=True, tracking=True)
     status_budget = fields.Many2one('status.kegiatan',string="Budget Status", required=True, tracking=True, default=lambda self: self.env['status.kegiatan'].search([], limit=1))
-    tahun_anggaran = fields.Selection(selection='_get_years', required=True, string='Year', default=lambda self: str(datetime.now().year), tracking=True)
+    tahun_anggaran = fields.Selection(selection='_get_years', required=True, string='Year', tracking=True)
     id_anggaran = fields.One2many('detail.anggaran.perbulan', 'anggaran_id', string="Lines")
     keterangan_anggaran = fields.Text(string="Notes", tracking=True)
     totalbudget_sum = fields.Char(string="Total Budget Count", compute='_compute_budget_sum')
@@ -163,7 +163,7 @@ class InputDataBudgeting(models.Model):
     def _get_years(self):
         current_year = datetime.now().year
         year_range = 10  # Number of years to generate
-        years = [(str(year), str(year)) for year in range(current_year, current_year + year_range)]
+        years = [(str(year), str(year)) for year in range(current_year - 1, current_year + year_range)]
         return years
 
 

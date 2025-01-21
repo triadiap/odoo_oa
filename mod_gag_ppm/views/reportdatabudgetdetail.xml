@@ -8,7 +8,8 @@
                     <sheet>
                         <group>
                             <field name="pillarname"/>
-                            <field name="fiscal_year" widget="Char"/>
+                            <field name="jmlsubtotal"/>
+                            <field name="chart_label"/>
                         </group>
                         <group>
                             <field name="jmlsubtotal"/>
@@ -22,9 +23,9 @@
         <field name="model">expense.report.perpillar</field>
         <field name="arch" type="xml">
             <search string="Budget And Expense Report Search">
-                <field name="fiscal_year" filter_domain="[('fiscal_year', '=', self)]" string="Fiscal Year"/>
+                <field name="pillarname" filter_domain="[('pillarname', '=', self)]" string="Pillar Name"/>
                 <separator/>
-                <filter string ="By Year" name="fiscal_year"/>
+                <filter string ="Pillar Name" name="pillarname"/>
             </search>
         </field>
     </record>
@@ -33,9 +34,10 @@
             <field name="model">expense.report.perpillar</field>
             <field name="arch" type="xml">
                 <tree string="Expense Report Per Pillar" create="false" edit="false" delete="false">
-                    <field name="pillarname"/>
-                    <field name="fiscal_year" widget="Char"/>
-                    <field name="jmlsubtotal"/>
+                    <field name="id"/>
+                    <field name="pillarname" optional="show"/>
+                    <field name="jmlsubtotal" optional="show"/>
+                    <field name="chart_label" optional="show"/>
                 </tree>
             </field>
     </record>
@@ -46,8 +48,7 @@
             <graph string="Expense Report Per Pillar" type="bar">
                 <field name="chart_label" type="row"/>
                 <field name="currency_id" invisible="1"/>
-                <field name="jmlsubtotal" type="measure" string="Total Expense" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="fiscal_year" type="col"/>
+                <field name="jmlsubtotal" string="Total Expense" widget="monetary" options="{'currency_field': 'currency_id'}" type="measure"/>
             </graph>
         </field>
     </record>
