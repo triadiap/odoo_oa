@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+     <record id="module_category_helpdesk_administration" model="ir.module.category">
+        <field name="name">IT Helpdesk</field>
+         <field name="description">User Role Category IT Helpdesk Services Team</field>
+    </record>
+    <record id="group_it_helpdesk_officer" model="res.groups">
+        <field name="name">Helpdesk-Officer</field>
+        <field name="category_id" ref="module_category_helpdesk_administration"/>
+    </record>
+</odoo>

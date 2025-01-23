@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem id="menu_helpdesk_root" name="OA Helpdesk" sequence="1" web_icon="odm_icsp_helpdesk,static/description/icon_helpdesk.png"/>
+
+    <menuitem id="menu_ticketing_root"
+              name="Open Ticket"
+              parent="menu_helpdesk_root"
+              action="it_support_action"
+              sequence="10"/>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+<!--        Sequences for auto document prefix number-->
+        <record id="seq_ticket_number" model="ir.sequence">
+            <field name="name">Helpdesk Ticket Number</field>
+            <field name="code">oa.issue.ticketing</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

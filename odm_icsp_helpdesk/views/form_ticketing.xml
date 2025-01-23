@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+     <record id="it_support_ticketing_form" model="ir.ui.view">
+            <field name="name">oa.issue.ticketing.form</field>
+            <field name="model">oa.issue.ticketing</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="hide_css"/>
+                        <button id="button-inprogress" name="action_inprogress" class="btn-primary" string="Confirmed" type="object" icon="fa-check"  attrs="{'invisible': [('button_inprogress_visible', '=', False)]}"/>
+                        <button id="button-reslove" name="action_resolve" string="Resolve" context="{'action_id': active_id}"  type="object" icon="fa-repeat" attrs="{'invisible': [('button_resolve_visible', '=', False)]}"/>
+                        <button id="button-cancel" name="action_cancel" string="Cancel" context="{'action_id': active_id}"  type="object" icon="fa-times" attrs="{'invisible': [('button_cancel_visible', '=', False)]}"/>
+                        <button id="button-revoke" name="action_back_to_submit" string="Set As Submitted" context="{'action_id': active_id}"  type="object" icon="fa-undo" attrs="{'invisible': [('button_revoke_visible', '=', False)]}"/>
+                        <button id="button-done" name="action_done" string="Done" context="{'action_id': active_id}"  type="object" icon="fa-check" class="btn-primary" attrs="{'invisible': [('button_done_visible', '=', False)]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="submitted,inprogress,done"/>
+                    </header>
+                    <sheet>
+                          <div class="oe_title">
+                                <h1>
+                                     <field name="name" readonly="1"/>
+                                </h1>
+                            </div>
+                            <group class="row">
+                                <field name="issue_title"/>
+                                <field name="menu_id" options="{'no_create':True,'no_edit':True}"/>
+                                <field name="child_menu_id" options="{'no_create':True,'no_edit':True}"/>
+                                <field name="button_inprogress_visible" invisible="1"/>
+                                <field name="button_done_visible" invisible="1"/>
+                                <field name="button_resolve_visible" invisible="1"/>
+                                <field name="button_cancel_visible" invisible="1"/>
+                                <field name="button_revoke_visible" invisible="1"/>
+                            </group>
+                            <group class="row">
+                                <group class="col-md-6">
+                                        <field name="create_date"/>
+                                        <field name="create_uid"/>
+                                </group>
+                                <group class="col-md-6">
+                                        <field name="request_type"/>
+                                        <field name="write_uid"/>
+                                        <field name="write_date"/>
+                                </group>
+                            </group>
+                          <group style="padding-left:0px;">
+                             <div class="row" style="margin-left:1px;">
+                                 <h8><b>Describe Your Issue Here</b></h8>
+                                <field name="issue_description"/>
+                            </div>
+                         </group>
+
+                            <notebook>
+                                <page string="Upload Your Document Here (If Any)">
+                                     <field name="id_attachment">
+                                        <tree editable="bottom">
+                                            <field name="name" optional="show"/>
+                                            <field name="file_field" optional="show"/>
+                                            <field name="create_uid" optional="show"/>
+                                            <field name="create_date" optional="show"/>
+                                            <field name="write_uid" optional="show"/>
+                                            <field name="write_date" optional="show"/>
+                                        </tree>
+                                     </field>
+                                </page>
+                            </notebook>
+                    </sheet>
+                     <div class="oe_chatter">
+                                    <field name="activity_ids"/>
+                                    <field name="message_ids"/>
+                     </div>
+                </form>
+            </field>
+     </record>
+    <record id="it_support_request_tree" model="ir.ui.view">
+         <field name="name">oa.issue.ticketing.tree</field>
+         <field name="model">oa.issue.ticketing</field>
+         <field name="arch" type="xml">
+                <tree>
+                    <field name="name" optional="show"/>
+                    <field name="issue_title" optional="show"/>
+                    <field name="menu_id" optional="show"/>
+                    <field name="child_menu_id" optional="show"/>
+                    <field name="state" optional="show"/>
+                    <field name="request_type" optional="show"/>
+                    <field name="create_uid" optional="show"/>
+                    <field name="create_date" optional="show"/>
+                    <field name="write_uid" optional="show"/>
+                    <field name="write_date" optional="show"/>
+                </tree>
+         </field>
+    </record>
+    <record id="it_support_action" model="ir.actions.act_window">
+        <field name="name">IT Support Request</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">oa.issue.ticketing</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your request here!
+            </p>
+        </field>
+    </record>
+</odoo>
