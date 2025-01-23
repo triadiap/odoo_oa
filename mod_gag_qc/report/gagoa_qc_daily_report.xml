@@ -10,7 +10,7 @@
                         </h5>
                         <h6>
                             <strong>Date Update: </strong>
-                            <span t-field="daily_production.tanggal"/>
+                            <span t-field="daily_production.tanggal_update"/>
                             <br/>
                             <strong>Date As Per: </strong>
                             <span t-field="daily_production.tanggal"/>
@@ -92,7 +92,7 @@
                                         </tr>           
                                         <tr>
                                             <td>Ore</td>
-                                            <td>0</td>
+                                            <td><span t-field="daily_production.waiting_essay_sma"/></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -215,7 +215,7 @@
                                         </tr>           
                                         <tr>
                                             <td>Ore</td>
-                                            <td>0</td>
+                                            <td><span t-field="daily_production.waiting_essay_mka"/></td>
                                         </tr>
                                     </tbody>
                                 </table>

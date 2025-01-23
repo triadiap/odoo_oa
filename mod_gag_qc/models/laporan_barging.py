@@ -138,8 +138,8 @@ class BargingPlanDetail(models.Model):
     _description = "Detail rencana pengapalan harian"
 
     barging_plan = fields.Many2one("gag.oa.qc.barging.plan","Barging Plan")
-    stokpile_id = fields.Many2one("gag.oa.qc.daily.production.detail","UMT",domain="[('tanggal_barging','=',False)]")
-    toonage = fields.Float('Tonnage',digit=(0,4),related="stokpile_id.toonage")
+    stokpile_id = fields.Many2one("gag.oa.qc.daily.production.detail","UMT",domain="[('tanggal_barging','=',False),('ni','<>',0)]")
+    toonage = fields.Float('Tonnage',digit=(0,4),related="stokpile_id.total_tonnage")
     ni = fields.Float('Ni',digit=(0,2), related="stokpile_id.ni")
     co = fields.Float('Co',digit=(0,2), related="stokpile_id.co")
     fe = fields.Float('Fe',digit=(0,2), related="stokpile_id.fe")

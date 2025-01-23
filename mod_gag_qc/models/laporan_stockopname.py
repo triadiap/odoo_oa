@@ -1,6 +1,8 @@
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
 from datetime import datetime
+from odoo.exceptions import UserError
+import base64
+import xlrd
 
 class StockOpname(models.Model):
     _name = "gag.oa.qc.stockopname"
@@ -23,7 +25,59 @@ class StockOpname(models.Model):
         ('12', 'Desember'),
     ], string="Month", required=True, default='1', tracking=True)
     id_stockopname = fields.One2many('gag.oa.qc.stockopname.detail', 'stockopname_id', 'Stock Detail')
+    
 
+    file = fields.Binary("File Stock Opname")
+    file_name = fields.Char(string="File Name", required=True)
+
+
+    @api.onchange('file')
+    def _onchange_file(self):
+        """Automatically set the file name when a file is selected."""
+        if self.file and self.file_name:
+            # File name is automatically set during file upload
+            self.file_name = self.file_name
+        elif self.file:
+            self.file_name = 'uploaded_file.xlsx'  # Default name if none is provided
+        else:
+            self.file_name = ''
+
+    def process_excel_file(self):
+        if not self.file:
+            raise UserError(_("Please upload an Excel file."))
+        if not self.file_name:
+            raise UserError(_("File name is missing."))
+
+
+        # Decode the file
+        file_content = base64.b64decode(self.file)
+
+        # Open the workbook
+        workbook = xlrd.open_workbook(file_contents=file_content)
+        sheet = workbook.sheet_by_index(0)  # Assuming the first sheet
+
+        # Iterate through rows and process data
+        for deletedId in self.env['gag.oa.qc.stockopname.detail'].search([('stockopname_id', '=',self.id)]):
+            deletedId.unlink()
+        for row_index in range(2, sheet.nrows):  # Skip the header row
+            if(sheet.cell_value(row_index, 2)!=""):
+                self.env['gag.oa.qc.stockopname.detail'].create({
+                    'stockopname_id': self.id,
+                    'pile' : sheet.cell_value(row_index, 2),
+                    'toonage' : float(sheet.cell_value(row_index, 3)),
+                    'ni' : float(sheet.cell_value(row_index, 4)),
+                    'co': float(sheet.cell_value(row_index, 5)),
+                    'fe': float(sheet.cell_value(row_index, 6)),
+                    'si': float(sheet.cell_value(row_index, 7)),
+                    'ca': float(sheet.cell_value(row_index, 8)),
+                    'mg': float(sheet.cell_value(row_index, 9)),
+                    'bc': float(sheet.cell_value(row_index, 10))
+                })
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }       
+            
     @api.depends('month','year')
     def _compute_name(self):
         for record in self:

@@ -73,7 +73,7 @@
         <field name="arch" type="xml">
             <tree string="Pile">
                 <field name="pile"/>
-                <field name="toonage"/>
+                <field name="total_tonnage"/>
                 <field name="ni"/>
                 <field name="co"/>
                 <field name="fe"/>
