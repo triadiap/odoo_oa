@@ -1,1 +1,1 @@
-from . import tutorialmanagement
+from . import managementtutorial

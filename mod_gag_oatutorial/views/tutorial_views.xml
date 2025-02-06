@@ -1,14 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="tutorial_search" model="ir.ui.view">
+        <field name="name">oa.management.tutorial.search</field>
+        <field name="model">oa.management.tutorial</field>
+        <field name="arch" type="xml">
+            <search string = "Menu Name">
+                <field name="name"/>
+                <field name="menu_id"/>
+                <field name="child_menu_id"/>
+                <group expand="0" string="Group By">
+                        <filter string = "Menu" name="group_menu_id" domain="[]" context="{'group_by':'menu_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="menu_id" string="Satuan Kerja" select="multi" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
     <!-- Tree View -->
     <record id="view_tutorial_tree" model="ir.ui.view">
-        <field name="name">oa.tutorial.management.tree</field>
-        <field name="model">oa.tutorial.management</field>
+        <field name="name">oa.management.tutorial.tree</field>
+        <field name="model">oa.management.tutorial</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree expand="1">
                 <field name="name" optional="show"/>
                 <field name="menu_id" optional="show"/>
-                <field name="is_model_name_valid" invisible="1"/>
                 <field name="child_menu_id" optional="show"/>
                 <field name="create_uid" optional="show"/>
                 <field name="write_uid" optional="show"/>
@@ -20,8 +36,8 @@
 
     <!-- Form View -->
     <record id="view_tutorial_form" model="ir.ui.view">
-        <field name="name">oa.tutorial.management.form</field>
-        <field name="model">oa.tutorial.management</field>
+        <field name="name">oa.management.tutorial.form</field>
+        <field name="model">oa.management.tutorial</field>
         <field name="arch" type="xml">
             <form>
                 <header>
@@ -48,9 +64,11 @@
     <!-- Actions -->
     <record id="action_tutorials" model="ir.actions.act_window">
         <field name="name">Tutorials</field>
-        <field name="res_model">oa.tutorial.management</field>
+        <field name="res_model">oa.management.tutorial</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{}</field>
+        <field name="view_id" ref="view_tutorial_tree"/>
+        <field name="target">current</field>
+        <field name="context">{'search_default_group_menu_id':True}</field>
         <field name="domain">[]</field>
     </record>
 

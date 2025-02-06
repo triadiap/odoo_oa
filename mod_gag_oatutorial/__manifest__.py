@@ -8,10 +8,10 @@
     'author': 'Internusa Cipta Solusi Perdana (ICSP)',
     'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
     'website': 'https://icsp.co.id',
-    'depends': ['base'],
+    'depends': ['base','web'],
     'data': [
         'security/ir.model.access.csv',
-        'security/ir_ui_menu_security.xml',
+        'views/asset_global.xml',
         'views/tutorial_views.xml',
         'views/menu_views.xml'
     ],
@@ -20,4 +20,9 @@
     'installable': True,
     'application': True,
     'auto_install': False,
+    'assets': {
+                'web.assets_backend': [
+                    'mod_gag_oatutorial/static/src/js/tree_button_tutorial.js'
+                ],
+        }
 }

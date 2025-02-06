@@ -1,0 +1,8 @@
+<odoo>
+    <template id="global_tree_button_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/mod_gag_oatutorial/static/src/js/tree_button_tutorial.js"></script>
+            <link rel="stylesheet" type="text/css" href="/mod_gag_oatutorial/static/src/css/custom_styles.css"/>
+        </xpath>
+    </template>
+</odoo>
