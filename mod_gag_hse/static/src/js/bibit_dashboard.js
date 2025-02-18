@@ -39,6 +39,7 @@ odoo.define('mod_gag_hse.dashboard', function (require) {
         events:_.extend({}, ListRenderer.prototype.events, {
             'click .o_dashboard_action': '_onDashboardActionClicked',
         }),
+        xmlDependencies: ['/mod_gag_hse/static/src/xml/bibit_dashboard.xml'],
         /**
          * @override
          * @private
