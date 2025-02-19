@@ -42,3 +42,4 @@ access_mo_lkh_delay_rain_prod,access.mo.lkh.delay.rain.prod,model_mo_lkh_delay_r
 access_mo_lkh_delay_rain_brg,access.mo.lkh.delay.rain.brg,model_mo_lkh_delay_rain_brg,,1,1,1,1
 access_mo_lkh_delay_slippery_prod,access.mo.lkh.delay.slippery.prod,model_mo_lkh_delay_slippery_prod,,1,1,1,1
 access_mo_lkh_delay_slippery_brg,access.mo.lkh.delay.slippery.brg,model_mo_lkh_delay_slippery_brg,,1,1,1,1
+access_mo_master_apd,access.mo.master.apd,model_mo_master_apd,,1,1,1,1
