@@ -8,7 +8,7 @@
     'author': 'Internusa Cipta Solusi Perdana (ICSP)',
     'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
     'website': 'https://icsp.co.id',
-    'depends': ['mail', 'general_ptgn_masterdata', 'mod_gag_uac'],
+    'depends': ['mail', 'mod_gag_uac'],
     'data': [
         'security/ir.model.access.csv',
         'views/mo_purchase_req.xml',
@@ -32,6 +32,7 @@
         'views/mo_permintaan_pengeluaran_barang.xml',
         'views/mo_work_request.xml',
         'views/mo_master_equipment.xml',
+        'views/mo_master_apd.xml',
         'views/menulist.xml',
         'report/report_minutes_meeting.xml',
         'views/assets.xml',

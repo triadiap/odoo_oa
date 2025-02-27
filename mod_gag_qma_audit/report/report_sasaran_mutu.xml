@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="paperformat_sarmut" model="report.paperformat">
+        <field name="name">QMA Sasaran Mutu</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Landscape</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">3</field>
+        <field name="dpi">90</field>
+    </record>
+    <report
+        id="sasaran_mutu_report"
+        model="qma.sarmut"
+        string="Report Sasaran Mutu"
+        report_type="qweb-pdf"
+        name="mod_gag_qma_audit.sasaran_mutu"
+        file="mod_gag_qma_audit.sasaran_mutu"
+        print_report_name="'SASARAN_MUTU_'+object.department_id.name+'_'+object.periode+'_'+object.year"
+        paperformat="paperformat_sarmut"
+    />
+    <template id="sasaran_mutu">
+        <t t-call="web.basic_layout">
+            <t t-if="docs">
+                <table class="w-border">
+                    <tr style="border: 1px solid black; border-collapse: collapse;">
+                        <td width="15%" style="border: 1px solid black; border-collapse: collapse;">
+                            <img t-attf-src="/mod_gag_qma_audit/static/src/img/logo_gag.png" alt="Image Description" />
+                        </td>
+                        <td class="text-center" width="70%" style="border: 1px solid black; border-collapse: collapse;">
+                            <h4 class="bold">SASARAN TARGET PROGRAM MUTU K3 DAN LINGKUNGAN</h4>
+                        </td>
+                        <td width="15%" style="border: 1px solid black; border-collapse: collapse;">
+                            <img t-attf-src="/mod_gag_qma_audit/static/src/img/GN_SHE.png" alt="Image Description" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" colspan="3" style="border: 1px solid black; border-collapse: collapse;">
+                            <h5 class="bold">FORM-QMA-01.R0</h5>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <table style="width: 100%">
+                    <tr>
+                        <td style="width: 50%">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td width="45%">Satuan Kerja</td>
+                                    <td width="2%" style="text-align: center">:</td>
+                                    <td width="53%">
+                                        <t t-esc="docs.department_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="45%">Nama Kepala Satuan Kerja</td>
+                                    <td width="5%" style="text-align: center">:</td>
+                                    <td width="50%">
+                                        <t t-esc="docs.manager_dept_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="45%">Penilai</td>
+                                    <td width="5%" style="text-align: center">:</td>
+                                    <td width="50%">
+                                        <t t-esc="docs.penilai"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="45%">Nama Penilai</td>
+                                    <td width="5%" style="text-align: center">:</td>
+                                    <td width="50%">
+                                        <t t-esc="docs.nama_penilai"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 50%;">
+                            <table style="width: 100%">
+                                <tr>
+                                    <td width="45%">Periode</td>
+                                    <td width="5%" style="text-align: center">:</td>
+                                    <td width="50%">
+                                        <t t-esc="docs.periode"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="45%">Tahun</td>
+                                    <td width="5%" style="text-align: center">:</td>
+                                    <td width="50%">
+                                        <t t-esc="docs.year"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <table class="w-border area-data">
+                    <thead style="background: #c2c2c2;">
+                        <tr>
+                            <th width="5%" style="border: 1px solid black; border-collapse: collapse;" rowspan="2">NO.</th>
+                            <th width="15%" style="border: 1px solid black; border-collapse: collapse;" rowspan="2">SASARAN</th>
+                            <th width="10%" style="border: 1px solid black; border-collapse: collapse;" rowspan="2">TARGET</th>
+                            <th width="10%" style="border: 1px solid black; border-collapse: collapse;" rowspan="2">PROGRAM KERJA</th>
+                            <th width="10%" style="border: 1px solid black; border-collapse: collapse;" rowspan="2">PENANGGUNG JAWAB</th>
+                            <th width="12.5%" style="border: 1px solid black; border-collapse: collapse; text-align: center;" colspan="3">Q1</th>
+                            <th width="12.5%" style="border: 1px solid black; border-collapse: collapse; text-align: center;" colspan="3">Q2</th>
+                            <th width="12.5%" style="border: 1px solid black; border-collapse: collapse; text-align: center;" colspan="3">Q3</th>
+                            <th width="12.5%" style="border: 1px solid black; border-collapse: collapse; text-align: center;" colspan="3">Q4</th>
+                        </tr>
+                        <tr>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">JAN</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">FEB</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">MAR</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">APR</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">MEI</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">JUN</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">JUL</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">AGU</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">SEP</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">OKT</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">NOV</th>
+                            <th style="border: 1px solid black; border-collapse: collapse; text-align: center;">DES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="counter" t-value="1"/>
+                        <t t-foreach="docs.sarmut_detail" t-as="item">
+                            <tr style="border: 1px solid black; border-collapse: collapse;">
+                                <td style="border: 1px solid black; border-collapse: collapse; text-align: center;">
+                                    <t t-esc="counter"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.sasaran"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.target"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.proker"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.penanggung_jawab"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q1_jan"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q1_feb"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q1_mar"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q2_apr"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q2_may"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q2_jun"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q3_jul"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q3_aug"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q3_sep"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q4_oct"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q4_nov"/>
+                                </td>
+                                <td style="border: 1px solid black; border-collapse: collapse;">
+                                    <t t-esc="item.q4_dec"/>
+                                </td>
+                            </tr>
+                            <t t-set="counter" t-value="counter + 1"/>
+                        </t>
+                    </tbody>
+                </table>
+                <br/><br/>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 33%">
+                            Mengetahui,
+                            <br/><br/><br/><br/><br/><br/>
+                            ...............................
+                        </td>
+                        <td style="width: 33%">
+
+                        </td>
+                        <td style="width: 33%">
+                            Disetujui Oleh,
+                            <br/><br/><br/><br/><br/><br/>
+                            ...............................
+                        </td>
+                    </tr>
+                </table>
+            </t>
+        </t>
+    </template>
+</odoo>

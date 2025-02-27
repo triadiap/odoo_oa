@@ -29,19 +29,19 @@ class HcRiskRegister(models.Model):
     sasaran_kpi = fields.Char(string="Sasaran/KPI Unit Kerja")
     sasaran_mind_id = fields.Char(string="Sasaran/KPI MIND ID")
     tahapan = fields.Char(string="Tahapan Proses Bisnis")
-    no_resiko = fields.Char(string="No. Resiko")
-    kejadian_resiko = fields.Text(string="Kejadian Resiko")
-    tipe_resiko = fields.Many2one("hc.master.risk.type", string="Tipe Resiko", required=True) # Change with master data tipe resiko
-    tipe_resiko_kbumn = fields.Char(related="tipe_resiko.taksonomi", string="Tipe Resiko Sesuai Taksonomi KBUMN", readonly=True) # Change with related fields based on master data tipe resiko
+    no_resiko = fields.Char(string="No. Risiko")
+    kejadian_resiko = fields.Text(string="Kejadian Risiko")
+    tipe_resiko = fields.Many2one("hc.master.risk.type", string="Tipe Risiko", required=True) # Change with master data tipe resiko
+    tipe_resiko_kbumn = fields.Char(related="tipe_resiko.taksonomi", string="Tipe Risiko Sesuai Taksonomi KBUMN", readonly=True) # Change with related fields based on master data tipe resiko
 
     # Penilaian Resiko Inheren
-    sumber_resiko = fields.Text(string="Sumber Penyebab Resiko")
+    sumber_resiko = fields.Text(string="Sumber Penyebab Risiko")
     parameter = fields.Char(string="Parameter")
     t_green = fields.Char(string="Hijau")
     t_yellow = fields.Char(string="Kuning")
     t_red = fields.Char(string="Merah")
-    penjelasan_dampak = fields.Char(string="Penjelasan Dampak Resiko (Kualitatif)")
-    nilai_dampak = fields.Float(string="Nilai Dampak Resiko (Kuantitatif - IDR)")
+    penjelasan_dampak = fields.Char(string="Penjelasan Dampak Risiko (Kualitatif)")
+    nilai_dampak = fields.Float(string="Nilai Dampak Risiko (Kuantitatif - IDR)")
     tingkat_resiko_l = fields.Selection([
         ("1", "1"),
         ("2", "2"),

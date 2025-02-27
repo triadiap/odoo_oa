@@ -1,6 +1,8 @@
 from odoo import api, models, fields, _
+import logging
 
 class NotaNppd(models.Model):
+    _logger = logging.getLogger(__name__)
     _name = "hc.nppd"
     _description = "Model for Nota NPPD"
 
@@ -73,6 +75,21 @@ class NotaNppd(models.Model):
                 # Update the state of the related spplk_id
                 spplk.write({'state': 'submitted'})  # Set the state you need here
 
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        _logger.error("====== Report is being called ======")  # Debug line
+
+        res = super(NotaNppd, self)._get_report_values(docids, data)
+        appr_list = self.env['hc.master.approval.ndpp'].search([])
+        _logger.error(f"Approval data found: {appr_list}")  # Debug line
+
+        res.update({
+            'doc_ids': docids,
+            'doc_model': 'your.model.name',  # Replace with your actual model
+            'appr_list': appr_list,
+        })
+        return res
+
 class NotaNppdItem(models.Model):
     _name = "hc.nppd.items"
     _description = "Model for Nota NPPD Items"
@@ -102,3 +119,19 @@ class NotaNppdItem(models.Model):
 
         # Proceed with deleting the hc.nppd record
         return super(NotaNppdItem, self).unlink()
+
+class NotaNppdReport(models.AbstractModel):
+    _name = 'report.mod_gag_hc_ga_ict.nppd'  # Must match the 'name' in your XML
+    _description = 'Report NDPP'
+
+    @api.model
+    def _get_report_values(self, docids, data=None):
+        docs = self.env['hc.nppd'].browse(docids)  # Get the requested records
+        appr_list = self.env['hc.master.approval.ndpp'].search([])  # Fetch approval list
+
+        return {
+            'doc_ids': docids,
+            'doc_model': 'hc.nppd',
+            'docs': docs,
+            'appr_list': appr_list,  # Approval list for signatures
+        }

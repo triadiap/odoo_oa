@@ -15,6 +15,20 @@
         </field>
     </record>
 
+    <record id="qma_internal_audit_tree" model="ir.ui.view">
+        <field name="name">qma.internal.audit.tree</field>
+        <field name="model">qma.internal.audit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="area"/>
+                <field name="audit_date"/>
+                <field name="tim_no"/>
+                <field name="auditee"/>
+            </tree>
+        </field>
+    </record>
+
     <record id="qma_internal_audit_form" model="ir.ui.view">
         <field name="name">qma.internal.audit.form</field>
         <field name="model">qma.internal.audit</field>

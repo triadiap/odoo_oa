@@ -9,4 +9,5 @@
     <menuitem id="hc_master_root" parent="hc_root" name="Master Data" sequence="40"/>
     <menuitem id="hc_master_risk_level" name="Risk Level" parent="hc_master_root" sequence="10" action="hc_master_risk_level_action"/>
     <menuitem id="hc_master_risk_type" name="Risk Type" parent="hc_master_root" sequence="20" action="hc_master_risk_type_action"/>
+    <menuitem id="hc_master_appr_ndpp" name="Approval NDPP" parent="hc_master_root" sequence="30" action="hc_master_appr_ndpp_action"/>
 </odoo>

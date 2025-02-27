@@ -4,3 +4,4 @@ from . import hc_risk_register
 from . import hc_master_risk_type
 from . import hc_master_risk_level
 from . import nota_nppd
+from . import hc_master_appr_ndpp

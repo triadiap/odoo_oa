@@ -14,6 +14,13 @@ class QmaSarmut(models.Model):
 
     sarmut_detail = fields.One2many("qma.sarmut.detail", "id_sarmut", string="Detail")
 
+    def name_get(self):
+        result = []
+        for record in self:
+            display_name = f"{record.department_id.name} - {record.periode} {record.year}"  # Custom display
+            result.append((record.id, display_name))
+        return result
+
     def _get_years(self):
         current_year = datetime.now().year
         return [(str(year), str(year)) for year in range(current_year - 1, current_year + 2 )]
@@ -25,17 +32,18 @@ class QmaSarmutDetail(models.Model):
     sasaran = fields.Char(string="Sasaran", required=True)
     target = fields.Char(string="Target", required=True)
     proker = fields.Text(string="Program Kerja", required=True)
-    q1_jan = fields.Char(string="Q1 Jan", required=True)
-    q1_feb = fields.Char(string="Q1 Feb", required=True)
-    q1_mar = fields.Char(string="Q1 Mar", required=True)
-    q2_apr = fields.Char(string="Q2 Apr", required=True)
-    q2_may = fields.Char(string="Q2 May", required=True)
-    q2_jun = fields.Char(string="Q2 Jun", required=True)
-    q3_jul = fields.Char(string="Q3 Jul", required=True)
-    q3_aug = fields.Char(string="Q3 Aug", required=True)
-    q3_sep = fields.Char(string="Q3 Sep", required=True)
-    q4_oct = fields.Char(string="Q4 Oct", required=True)
-    q4_nov = fields.Char(string="Q4 Nov", required=True)
-    q4_dec = fields.Char(string="Q4 dec", required=True)
+    penanggung_jawab = fields.Char(string="Penanggung Jawab")
+    q1_jan = fields.Char(string="Q1 Jan")
+    q1_feb = fields.Char(string="Q1 Feb")
+    q1_mar = fields.Char(string="Q1 Mar")
+    q2_apr = fields.Char(string="Q2 Apr")
+    q2_may = fields.Char(string="Q2 May")
+    q2_jun = fields.Char(string="Q2 Jun")
+    q3_jul = fields.Char(string="Q3 Jul")
+    q3_aug = fields.Char(string="Q3 Aug")
+    q3_sep = fields.Char(string="Q3 Sep")
+    q4_oct = fields.Char(string="Q4 Oct")
+    q4_nov = fields.Char(string="Q4 Nov")
+    q4_dec = fields.Char(string="Q4 dec")
 
     id_sarmut = fields.Many2one("qma.sarmut", string="ID Parent Sarmut")

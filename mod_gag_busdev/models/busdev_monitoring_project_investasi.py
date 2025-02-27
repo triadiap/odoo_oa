@@ -32,7 +32,7 @@ class BusdevMonitoringProjectInv(models.Model):
         "crossovered.budget",
         string="Cost Center",
         check_company=True,
-        domain="[('company_id', 'in', [company_id, False]), ('department_id', '=', [satuan_kerja, False])]",
+        domain="[('company_id', 'in', [company_id, False]), ('x_department_id', '=', [satuan_kerja, False])]",
     )
     budget_line_id = fields.Many2one(
         "crossovered.budget.lines",  # Note: it's "budget.lines", not "budget.line"
@@ -133,6 +133,7 @@ class BusdevProjectDocument(models.Model):
 
     name = fields.Char(string="Nama Dokumen", required=True)
     file = fields.Binary(string="Soft Copy", required=True)
+    upload_date = fields.Date(string="Tanggal")
     id_project_d = fields.Many2one("busdev.monitoring.project", string="ID Project")
 
 class BusdevProjectPayment(models.Model):
@@ -149,5 +150,6 @@ class BusdevProjectPayment(models.Model):
     )
     plan = fields.Monetary(string="Plan", required=True)
     payment = fields.Monetary(string="Actual", required=True)
+    actual_date = fields.Date(string="Actual Payment Date")
 
     id_project_p = fields.Many2one("busdev.monitoring.project", string="ID Project")

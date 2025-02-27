@@ -21,13 +21,13 @@ class QmaInternalAudit(models.Model):
     root_cause_auditee = fields.Many2one('hr.employee', string="Auditee", required=True)
     root_cause_auditor = fields.Many2one('hr.employee', string="Auditor", required=True)
 
-    corrective = fields.Text(string="Bukti Tindakan Perbaikan dan Komentar Verifikator", required=True)
-    verifikator = fields.Many2one("qma.internal.audit.auditor", string="Verifikator", domain="[('id_ia_main', '=', id)]", required=True)
-    verification_date = fields.Date(string="Tanggal Penyelesaian", required=True)
+    corrective = fields.Text(string="Bukti Tindakan Perbaikan dan Komentar Verifikator")
+    verifikator = fields.Many2one("qma.internal.audit.auditor", string="Verifikator", domain="[('id_ia_main', '=', id)]")
+    verification_date = fields.Date(string="Tanggal Penyelesaian")
     status = fields.Selection([
         ("Berulang", "Berulang"),
         ("Ditutup", "Ditutup")
-    ], string="Status Tindakan Perbaikan", required=True)
+    ], string="Status Tindakan Perbaikan")
     file = fields.Binary(string="File / Dokumen")
     photo = fields.Binary(string="Foto", attachment=True)
     link = fields.Char(string="Link")
@@ -38,6 +38,13 @@ class QmaInternalAudit(models.Model):
     ], string="Kelompok Auditor", default="internal")
     auditor = fields.One2many("qma.internal.audit.auditor", "id_ia_main", string="Auditor")
     ex_auditor = fields.One2many("qma.internal.audit.external.auditor", "id_ia_main", string="External Auditor")
+
+    def name_get(self):
+        result = []
+        for record in self:
+            display_name = f" Code {record.code} : {record.area} - {record.audit_date}"  # Custom display
+            result.append((record.id, display_name))
+        return result
 
 class QmaInternalAuditor(models.Model):
     _name = "qma.internal.audit.auditor"

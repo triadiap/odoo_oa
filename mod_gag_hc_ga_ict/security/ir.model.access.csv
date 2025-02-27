@@ -11,3 +11,4 @@ access_hc_risk_regist_doc,access.hc.risk.regist.doc,model_hc_risk_regist_doc,,1,
 access_hc_nppd,access.hc.nppd,model_hc_nppd,,1,1,1,1
 access_hc_nppd_items,access.hc.nppd.items,model_hc_nppd_items,,1,1,1,1
 access_hc_nppd_items,access.hc.nppd.items,model_hc_nppd_items,,1,1,1,1
+access_hc_master_approval_ndpp,access.hc.master.approval.ndpp,model_hc_master_approval_ndpp,,1,1,1,1

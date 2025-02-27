@@ -65,6 +65,35 @@
                     <td></td>
                 </tr>
             </table>
+            <div style="width:33.3%; float: left">
+                Pulau Gag, <t t-esc="docs.tanggal"/><br/>
+                Dibuat Oleh,
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <t t-esc="docs.create_uid.name"/>
+            </div>
+            <t t-if="appr_list and len(appr_list) > 0">
+                <div style="width:33.3%; float: left">
+                    Mengetahui,
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <t t-esc="appr_list[0].name.name"/><br/>
+                    <t t-esc="appr_list[0].jabatan"/><br/>
+                </div>
+                <div style="width:33.3%; float: left">
+                    On Behalf GA Asst. Manager,
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <t t-esc="appr_list[1].name.name"/><br/>
+                    <t t-esc="appr_list[1].jabatan"/><br/>
+                </div>
+            </t>
         </t>
         <t t-else="">
             <p>No Record!</p>

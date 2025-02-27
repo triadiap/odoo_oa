@@ -32,7 +32,7 @@ class MoPermintaanApd(models.Model):
     pending_approval_by = fields.Many2one('res.users', string="Pending Approval By", readonly=True, tracking=True)
     button_visible = fields.Boolean(string="BVS", compute='_compute_button_visibility', store=False)
 
-    id_item = fields.Many2many("ptgn.apd.item", string="Jenis APD yang diajukan")
+    id_item = fields.Many2many("mo.master.apd", string="Jenis APD yang diajukan")
 
     @api.model
     def create(self, vals):

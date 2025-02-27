@@ -63,6 +63,7 @@
                         <field name="sasaran"/>
                         <field name="target"/>
                         <field name="proker"/>
+                        <field name="penanggung_jawab"/>
                         <field name="q1_jan"/>
                         <field name="q1_feb"/>
                         <field name="q1_mar"/>
@@ -77,6 +78,33 @@
                         <field name="q4_dec"/>
                     </tree>
                 </field>
+            </form>
+        </field>
+    </record>
+
+    <record id="qma_sarmut_child_form" model="ir.ui.view">
+        <field name="name">qma.sarmut.detail.form</field>
+        <field name="model">qma.sarmut.detail</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="sasaran"/>
+                    <field name="target"/>
+                    <field name="proker"/>
+                    <field name="penanggung_jawab"/>
+                    <field name="q1_jan"/>
+                    <field name="q1_feb"/>
+                    <field name="q1_mar"/>
+                    <field name="q2_apr"/>
+                    <field name="q2_may"/>
+                    <field name="q2_jun"/>
+                    <field name="q3_jul"/>
+                    <field name="q3_aug"/>
+                    <field name="q3_sep"/>
+                    <field name="q4_oct"/>
+                    <field name="q4_nov"/>
+                    <field name="q4_dec"/>
+                </group>
             </form>
         </field>
     </record>

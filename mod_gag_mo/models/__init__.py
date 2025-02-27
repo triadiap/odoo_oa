@@ -21,3 +21,4 @@ from . import mo_permintaan_pengeluaran_barang_gudang
 from . import mo_work_request
 
 from . import mo_master_equipment
+from . import mo_master_apd

@@ -20,6 +20,8 @@
         'views/qma_master_score.xml',
         'views/qma_sarmut.xml',
         'views/qma_sarmut_glosarium.xml',
+        'report/report_internal_audit.xml',
+        'report/report_sasaran_mutu.xml',
         'views/menulist.xml',
         'views/assets.xml',
     ],

@@ -27,4 +27,5 @@
 
     <menuitem id="mo_master_root" name="Master Data" parent="mo_root" sequence="30"/>
     <menuitem id="mo_master_equipment_root" name="Equipment" parent="mo_master_root" sequence="10" action="mo_master_equipment_action"/>
+    <menuitem id="mo_master_apd_root" name="APD" parent="mo_master_root" sequence="20" action="mo_permintaan_apd_item_action"/>
 </odoo>

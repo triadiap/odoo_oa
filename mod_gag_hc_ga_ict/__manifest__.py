@@ -8,7 +8,7 @@
     'author': 'Internusa Cipta Solusi Perdana (ICSP)',
     'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
     'website': 'https://icsp.co.id',
-    'depends': ['hr_holidays'],
+    'depends': ['hr', 'hr_holidays'],
     'data': [
         'security/ir.model.access.csv',
         'views/hc_ticketing.xml',
@@ -19,6 +19,7 @@
         'views/hc_nppd.xml',
         'report/report_nppd.xml',
         'report/report_risk_register.xml',
+        'views/hc_master_appr_ndpp.xml',
         'views/menulist.xml',
         'views/assets.xml',
     ],

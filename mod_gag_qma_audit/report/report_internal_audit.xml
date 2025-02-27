@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="internal_audit_report"
+        model="qma.internal.audit"
+        string="Form PTP"
+        report_type="qweb-html"
+        name="mod_gag_qma_audit.internal_audit"
+        file="mod_gag_qma_audit.internal_audit"
+        print_report_name="'Form_PTP_IA_' + object.code+'_'+object.audit_date"
+    />
+    <template id="internal_audit">
+        <style>
+            table{
+                width: 100%
+            }
+            table.tb-data td{
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 5px;
+            }
+            .text-center {
+                text-align: center
+            }
+            .bold {
+                font-weight: bold
+            }
+            .strike {
+                text-decoration: line-through
+            }
+        </style>
+        <t t-call="web.basic_layout">
+            <t t-if="docs">
+                <table border="1">
+                    <tr>
+                        <td width="15%">
+                            <img t-attf-src="/mod_gag_qma_audit/static/src/img/logo_gag.png" alt="Image Description" />
+                        </td>
+                        <td class="text-center" width="70%">
+                            <h4 class="bold">PERMINTAAN TINDAKAN PERBAIKAN</h4>
+                        </td>
+                        <td width="15%">
+                            <img t-attf-src="/mod_gag_qma_audit/static/src/img/GN_SHE.png" alt="Image Description" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-center" colspan="3">
+                            <h5 class="bold">FORM-AU.04.R0</h5>
+                        </td>
+                    </tr>
+                </table>
+                <h5 class="text-center">CODE: <t t-esc="docs.code"/></h5>
+                <table class="tb-data" border="1" style="margin-top: 20px">
+                    <tr>
+                        <td class="bold" width="15%">
+                            Area Audit :
+                        </td>
+                        <td width="50%">
+                            <t t-esc="docs.area"/>
+                        </td>
+                        <td class="bold" width="10%">Tanggal :</td>
+                        <td width="15%">
+                            <t t-esc="docs.audit_date"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold" width="15%">
+                            Auditor :
+                        </td>
+                        <td width="50%">
+                            <t t-if="docs.auditor_type == 'internal'">
+                                <t t-foreach="docs.auditor" t-as="item">
+                                    <t t-esc="item.name.display_name"/>,
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <t t-foreach="docs.ex_auditor" t-as="item">
+                                    <t t-esc="item.name"/>,
+                                </t>
+                            </t>
+                        </td>
+                        <td class="bold" width="10%">Tim</td>
+                        <td width="15%">
+                            <t t-esc="docs.tim_no"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold" width="15%">
+                            Audit Kriteria :
+                        </td>
+                        <td colspan="3">
+                            <t t-esc="docs.audit_kriteria"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold" width="15%">
+                            Auditee :
+                        </td>
+                        <td colspan="3">
+                            <t t-esc="docs.auditee.display_name"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold" width="15%">
+                            Refernsi Dokumen :
+                        </td>
+                        <td width="50%">
+                            <t t-esc="docs.ref_doc"/>
+                        </td>
+                        <td class="bold" width="10%">Standard Ref. :</td>
+                        <td width="15%">
+                            <t t-esc="docs.standard_ref"/>
+                        </td>
+                    </tr>
+                </table>
+                <table class="tb-data" border="1" style="margin-top: 20px">
+                    <tr>
+                        <td class="bold text-center" colspan="4">
+                            Penjelasan Ketidaksesuaian / Peluang Perbaikan :
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <t t-esc="docs.audit_issue"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold" width="15%">
+                            Auditee :
+                        </td>
+                        <td width="35%">
+                            <t t-esc="docs.issue_auditee.display_name"/>
+                        </td>
+                        <td class="bold" width="15%">
+                            Auditor :
+                        </td>
+                        <td width="35%">
+                            <t t-esc="docs.issue_auditor.display_name"/>
+                        </td>
+                    </tr>
+                </table>
+                <table class="tb-data" border="1" style="margin-top: 20px">
+                    <tr>
+                        <td class="bold text-center" colspan="4">
+                            Akar Masalah dan Rencana Tindakan Korektif :
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <t t-esc="docs.root_cause"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold" width="15%">
+                            Auditee :
+                        </td>
+                        <td width="35%">
+                            <t t-esc="docs.root_cause_auditee.display_name"/>
+                        </td>
+                        <td class="bold" width="15%">
+                            Tanggal Penyelesaian :
+                        </td>
+                        <td width="35%">
+                            <t t-esc="docs.root_cause_auditor.display_name"/>
+                        </td>
+                    </tr>
+                </table>
+                <table class="tb-data" border="1" style="margin-top: 20px">
+                    <tr>
+                        <td class="bold text-center" colspan="4">
+                            Bukti Tindakan Perbaikan dan Komentar Verifikator :
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <t t-esc="docs.corrective"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="bold" width="15%">
+                            Verifikator :
+                        </td>
+                        <td width="35%">
+                            <t t-esc="docs.verifikator.display_name"/>
+                        </td>
+                        <td class="bold" width="15%">
+                            Tanggal :
+                        </td>
+                        <td width="35%">
+                            <t t-esc="docs.verification_date"/>
+                        </td>
+                    </tr>
+                </table>
+                <table class="tb-data" border="1" style="margin-top: 20px">
+                    <tr>
+                        <td width="60%">Status Tindakan Perbaikan</td>
+                        <td width="20%" t-att-class="'text-center '+ (docs.status == 'Ditutup' and 'strike' or '')">Berulang</td>
+                        <td width="20%" t-att-class="'text-center '+ (docs.status == 'Berulang' and 'strike' or '')">Ditutup</td>
+                    </tr>
+                </table>
+            </t>
+        </t>
+    </template>
+</odoo>

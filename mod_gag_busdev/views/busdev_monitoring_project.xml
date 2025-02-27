@@ -115,20 +115,22 @@
                         <page string="Dokumen Pendukung" name="busdev_dokumen">
                             <field name="list_dokumen">
                                 <tree editable="bottom">
-                                    <field name="name"/>
-                                    <field name="file"/>
+                                    <field name="name" width="50%"/>
+                                    <field name="upload_date" width="15%"/>
+                                    <field name="file" width="35%"/>
                                 </tree>
                             </field>
                         </page>
                         <page string="Pembayaran" name="busdev_payment">
-                            <div style="width: 850px">
+                            <div>
                                 <field name="list_pembayaran">
                                     <tree editable="bottom">
-                                        <field name="termin" width="35%"/>
+                                        <field name="termin" width="30%"/>
                                         <field name="plan_date" width="15%"/>
-                                        <field name="currency_id" width="10%"/>
+                                        <field name="currency_id" width="5%"/>
                                         <field name="plan" width="20%"/>
                                         <field name="payment" width="20%"/>
+                                        <field name="actual_date" width="10%"/>
                                     </tree>
                                 </field>
                             </div>
