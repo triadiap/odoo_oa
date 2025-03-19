@@ -32,7 +32,7 @@ class BusdevMonitoringProjectInv(models.Model):
         "crossovered.budget",
         string="Cost Center",
         check_company=True,
-        domain="[('company_id', 'in', [company_id, False]), ('x_department_id', '=', [satuan_kerja, False])]",
+        domain="[('company_id', 'in', [company_id, False]), ('department_id', '=', [satuan_kerja, False])]",
     )
     budget_line_id = fields.Many2one(
         "crossovered.budget.lines",  # Note: it's "budget.lines", not "budget.line"
