@@ -28,9 +28,9 @@ class MoLkhMinedevItems(models.Model):
         ("DUBAI BARAT", "DUBAI BARAT"),
     ], string="Objek Pengamatan", required=True)
     kondisi_tanggul = fields.Selection([
-        ("1", "1"),
-        ("2", "2"),
-        ("3", "3"),
+        ("1", "1 (Aman)"),
+        ("2", "2 (Diperlukan Rencana Penanganan (4-7 Hari))"),
+        ("3", "3 (Segera Ditangani (1-3 Hari))"),
     ], string="Kondisi Tanggul", required=True)
     saluran_air = fields.Selection([
         ("1", "1"),

@@ -3,7 +3,6 @@
     <menuitem id="mo_root" web_icon="mod_gag_mo,static/description/icon.png" name="MO" sequence="10"/>
     <menuitem id="mo_ops_root" name="Mine Operation" parent="mo_root" sequence="10"/>
     <menuitem id="mo_lkh_root" name="LKH Mitra" sequence="10" parent="mo_ops_root" action="mo_lkh_action"/>
-    <menuitem id="mo_job_pending_root" name="Job Pending" parent="mo_ops_root" sequence="20" action="mo_job_pending_action"/>
     <menuitem id="mo_bmm_root" name="Barging Material Movement" parent="mo_ops_root" sequence="30" action="mo_bmm_action"/>
     <menuitem id="mo_pmm_root" name="Production Material Movement" parent="mo_ops_root" sequence="40" action="mo_pmm_action"/>
     <menuitem id="mo_lkh_minedev_root" name="LKH Mine Dev" parent="mo_ops_root" sequence="50" action="mo_lkh_minedev_action"/>
@@ -22,10 +21,12 @@
 <!--    <menuitem id="mo_daftarhadir_root" name="Daftar Hadir Pekerja Shift" parent="mo_adm_root" sequence="90" action="mo_daftarhadir_action"/>-->
     <menuitem id="mo_safety_talk_root" name="Safety Talk" parent="mo_adm_root" sequence="100" action="mo_safety_talk_action"/>
     <menuitem id="mo_permintaan_apd_root" name="Permintaan APD" parent="mo_adm_root" sequence="110" action="mo_permintaan_apd_action"/>
+    <menuitem id="mo_job_pending_root" name="Job Pending" parent="mo_adm_root" sequence="120" action="mo_job_pending_action"/>
 <!--    <menuitem id="mo_sk_sakit_root" name="Surat Keterangan Sakit" parent="mo_adm_root" sequence="120" action="mo_sk_sakit_action"/>-->
 <!--    <menuitem id="mo_permintaan_pengeluaran_barang_root" name="Permintaan Pengeluaran Barang Gudang" parent="mo_adm_root" sequence="130" action="mo_permintaan_pengeluaran_barang_action"/>-->
 
     <menuitem id="mo_master_root" name="Master Data" parent="mo_root" sequence="30"/>
     <menuitem id="mo_master_equipment_root" name="Equipment" parent="mo_master_root" sequence="10" action="mo_master_equipment_action"/>
     <menuitem id="mo_master_apd_root" name="APD" parent="mo_master_root" sequence="20" action="mo_permintaan_apd_item_action"/>
+    <menuitem id="mo_master_lokasi_root" name="Lokasi / Front" parent="mo_master_root" sequence="30" action="mo_master_lokasi_action"/>
 </odoo>

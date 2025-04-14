@@ -13,15 +13,43 @@ class MoLkh(models.Model):
     ], string="Shift", required=True, default="1")
     mitra = fields.Many2one("res.partner", string="Nama Mitra", required=True)
 
-    standby_unsafe_buldozer = fields.Char(string="Buldozer")
-    standby_unsafe_excavator = fields.Char(string="Excavator")
-    standby_unsafe_alat_angkut = fields.Char(string="Alat Angkut (ADT/DT)")
-    standby_no_op_buldozer = fields.Char(string="Buldozer")
-    standby_no_op_excavator = fields.Char(string="Excavator")
-    standby_no_op_alat_angkut = fields.Char(string="Alat Angkut (ADT/DT)")
-    breakdown_buldozer = fields.Char(string="Buldozer")
-    breakdown_excavator = fields.Char(string="Excavator")
-    breakdown_alat_angkut = fields.Char(string="Alat Angkut (ADT/DT)")
+    standby_unsafe_buldozer = fields.Many2many("mo.master.equipment.bulldozer",'standby_unsafe_bulldozer_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Bulldozer",
+                                      domain="[('id_master.partner_id', '=', mitra)]")
+    standby_unsafe_excavator = fields.Many2many("mo.master.equipment.excavator",'standby_unsafe_excavator_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Excavator",
+                                       domain="[('id_master.partner_id', '=', mitra)]")
+    standby_unsafe_alat_angkut = fields.Many2many("mo.master.equipment.alatangkut",'standby_unsafe_alat_angkut_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Alat Angkut", domain="[('id_master.partner_id', '=', mitra)]")
+
+
+    standby_no_op_buldozer = fields.Many2many("mo.master.equipment.bulldozer",'standby_no_op_bulldozer_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Bulldozer",
+                                      domain="[('id_master.partner_id', '=', mitra)]")
+    standby_no_op_excavator = fields.Many2many("mo.master.equipment.excavator",'standby_no_op_excavator_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Excavator",
+                                       domain="[('id_master.partner_id', '=', mitra)]")
+    standby_no_op_alat_angkut = fields.Many2many("mo.master.equipment.alatangkut",'standby_no_op_alat_angkut_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Alat Angkut", domain="[('id_master.partner_id', '=', mitra)]")
+
+
+    breakdown_buldozer = fields.Many2many("mo.master.equipment.bulldozer",'breakdown_bulldozer_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Bulldozer",
+                                      domain="[('id_master.partner_id', '=', mitra)]")
+    breakdown_excavator = fields.Many2many("mo.master.equipment.excavator",'breakdown_excavator_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Excavator",
+                                       domain="[('id_master.partner_id', '=', mitra)]")
+    breakdown_alat_angkut = fields.Many2many("mo.master.equipment.alatangkut",'breakdown_alat_angkut_rel',  # Unique relation table name
+        'record_id',
+        'bulldozer_id', string="Alat Angkut", domain="[('id_master.partner_id', '=', mitra)]")
 
     bool_mh = fields.Boolean(string="MH", default=False)
     unit_mh = fields.Char(string="No. Unit")
@@ -60,10 +88,20 @@ class MoLkhBarging(models.Model):
 
     partner_id = fields.Many2one("res.partner", related="lkh_id.mitra", store=True, readonly=True)
     barge_no = fields.Char(string="Barging Number", required=True)
+    nama_kapal = fields.Char(string="Nama Kapal", required=True)
+    plan = fields.Char(string="Plan")
+    total_tonnage = fields.Float(string='Belum Termuat')
+    loaded = fields.Float(string='Termuat')
+    balance = fields.Float(string='Balance', compute='_compute_balance', store=True, readonly=True)
     rit_count = fields.Integer(string="Rit count", required=True)
     barge_buldozer = fields.Many2many("mo.master.equipment.bulldozer", string="Bulldozer", domain="[('id_master.partner_id', '=', partner_id)]")
     barge_excavator = fields.Many2many("mo.master.equipment.excavator", string="Excavator", domain="[('id_master.partner_id', '=', partner_id)]")
     barge_alat_angkut = fields.Many2many("mo.master.equipment.alatangkut", string="Alat Angkut", domain="[('id_master.partner_id', '=', partner_id)]")
+
+    @api.depends('total_tonnage', 'loaded')
+    def _compute_balance(self):
+        for record in self:
+            record.balance = record.total_tonnage - record.loaded
 class MoLkhOreMaterial(models.Model):
     _name="mo.lkh.ore"
 
@@ -71,8 +109,8 @@ class MoLkhOreMaterial(models.Model):
     lkh_id = fields.Many2one("mo.lkh.main", string="LKH ID")
 
     partner_id = fields.Many2one("res.partner", related="lkh_id.mitra", store=True, readonly=True)
-    location = fields.Char(string="Lokasi Angkut", required=True)
-    location_drop = fields.Char(string="Lokasi Tujuan", required=True)
+    location = fields.Many2one("mo.master.lokasi", string="Lokasi Angkut", required=True)
+    location_drop = fields.Many2one("mo.master.lokasi", string="Lokasi Tujuan", required=True)
     ore_adt_rit_count = fields.Integer(string="ADT Rit", default=0)
     ore_dt_rit_count = fields.Integer(string="DT Rit", default=0)
     ore_buldozer = fields.Many2many("mo.master.equipment.bulldozer", string="Bulldozer",
@@ -132,8 +170,9 @@ class MoLkhDelayRainProd(models.Model):
     _name = "mo.lkh.delay.rain.prod"
     _description = "Model for MO LKH Delay Rain Prod"
 
-    w_from = fields.Datetime(string="Rain Prod. Start")
-    w_to = fields.Datetime(string="Rain Prod. End")
+    w_from = fields.Float(string="Rain Prod. Start")
+    w_to = fields.Float(string="Rain Prod. End")
+    curah = fields.Float(string="Curah Hujan (mm)")
     notes = fields.Char(string="Notes")
 
     lkh_id = fields.Many2one("mo.lkh.main", string="LKH ID")
@@ -142,8 +181,9 @@ class MoLkhDelayRainBrg(models.Model):
     _name = "mo.lkh.delay.rain.brg"
     _description = "Model for MO LKH Delay Rain Barging"
 
-    w_from = fields.Datetime(string="Rain Brg. Start")
-    w_to = fields.Datetime(string="Rain Brg. End")
+    w_from = fields.Float(string="Rain Brg. Start")
+    w_to = fields.Float(string="Rain Brg. End")
+    curah = fields.Float(string="Curah Hujan (mm)")
     notes = fields.Char(string="Notes")
 
     lkh_id = fields.Many2one("mo.lkh.main", string="LKH ID")
@@ -152,8 +192,8 @@ class MoLkhDelaySlipperyProd(models.Model):
     _name = "mo.lkh.delay.slippery.prod"
     _description = "Model for MO LKH Delay Slippery Prod"
 
-    w_from = fields.Datetime(string="Slippery Prod. Start")
-    w_to = fields.Datetime(string="Slippery Prod. End")
+    w_from = fields.Float(string="Slippery Prod. Start")
+    w_to = fields.Float(string="Slippery Prod. End")
     notes = fields.Char(string="Notes")
 
     lkh_id = fields.Many2one("mo.lkh.main", string="LKH ID")
@@ -162,8 +202,8 @@ class MoLkhDelaySlipperyBrg(models.Model):
     _name = "mo.lkh.delay.slippery.brg"
     _description = "Model for MO LKH Delay Slippery Barging"
 
-    w_from = fields.Datetime(string="Slippery Brg. Start")
-    w_to = fields.Datetime(string="Slippery Brg. End")
+    w_from = fields.Float(string="Slippery Brg. Start")
+    w_to = fields.Float(string="Slippery Brg. End")
     notes = fields.Char(string="Notes")
 
     lkh_id = fields.Many2one("mo.lkh.main", string="LKH ID")

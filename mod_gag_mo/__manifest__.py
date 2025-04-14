@@ -33,6 +33,7 @@
         'views/mo_work_request.xml',
         'views/mo_master_equipment.xml',
         'views/mo_master_apd.xml',
+        'views/mo_master_lokasi.xml',
         'views/menulist.xml',
         'report/report_minutes_meeting.xml',
         'views/assets.xml',

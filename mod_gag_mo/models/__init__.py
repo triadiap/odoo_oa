@@ -22,3 +22,4 @@ from . import mo_work_request
 
 from . import mo_master_equipment
 from . import mo_master_apd
+from . import mo_master_lokasi

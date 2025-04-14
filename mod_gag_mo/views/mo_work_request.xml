@@ -56,6 +56,14 @@
                         <field name="notes"/>
                         <field name="req_by"/>
                         <field name="req_date"/>
+                        <field name="rev_by"/>
+                        <field name="rev_date"/>
+                        <field name="approved_by"/>
+                        <field name="approved_date"/>
+                        <field name="work_by"/>
+                        <field name="work_date"/>
+                        <field name="acc_by"/>
+                        <field name="acc_date"/>
                     </group>
                 </sheet>
             </form>

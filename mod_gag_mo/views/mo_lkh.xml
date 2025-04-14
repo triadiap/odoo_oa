@@ -45,11 +45,16 @@
                         <field name="barge_items">
                             <tree editable="bottom">
                                 <field name="partner_id" invisible="1"/>
-                                <field name="barge_no" width="50"/>
+                                <field name="barge_no" width="20"/>
+                                <field name="nama_kapal" width="20"/>
+                                <field name="plan" width="10"/>
+                                <field name="total_tonnage"/>
+                                <field name="loaded"/>
+                                <field name="balance"/>
                                 <field name="rit_count" width="20"/>
-                                <field name="barge_buldozer" widget="many2many_tags" width="30"/>
-                                <field name="barge_excavator" widget="many2many_tags" width="30"/>
-                                <field name="barge_alat_angkut" widget="many2many_tags" width="30"/>
+                                <field name="barge_buldozer" widget="many2many_tags" width="20"/>
+                                <field name="barge_excavator" widget="many2many_tags" width="20"/>
+                                <field name="barge_alat_angkut" widget="many2many_tags" width="20"/>
                             </tree>
                         </field>
                     </page>
@@ -103,6 +108,12 @@
                         </group>
                         <group>
                             <group>
+                                <separator string="Breakdown" />
+                                <field name="breakdown_buldozer" />
+                                <field name="breakdown_excavator" />
+                                <field name="breakdown_alat_angkut" />
+                            </group>
+                            <group>
                                 <separator string="Equipment Support"/>
                                 <field name="bool_mh"/>
                                 <field name="unit_mh" attrs="{'invisible' : [('bool_mh', '=', False)]}"/>
@@ -123,8 +134,9 @@
                                 <separator string="Rain Production"/>
                                 <field name="rain_prod_items" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="w_from"/>
-                                        <field name="w_to"/>
+                                        <field name="w_from" widget="float_time"/>
+                                        <field name="w_to" widget="float_time"/>
+                                        <field name="curah"/>
                                         <field name="notes"/>
                                     </tree>
                                 </field>
@@ -133,8 +145,9 @@
                                 <separator string="Rain Barging"/>
                                 <field name="rain_brg_items" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="w_from"/>
-                                        <field name="w_to"/>
+                                        <field name="w_from" widget="float_time"/>
+                                        <field name="w_to" widget="float_time"/>
+                                        <field name="curah"/>
                                         <field name="notes"/>
                                     </tree>
                                 </field>
@@ -145,8 +158,8 @@
                                 <separator string="Slippery Production"/>
                                 <field name="slippery_prod_items" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="w_from"/>
-                                        <field name="w_to"/>
+                                        <field name="w_from" widget="float_time"/>
+                                        <field name="w_to" widget="float_time"/>
                                         <field name="notes"/>
                                     </tree>
                                 </field>
@@ -155,8 +168,8 @@
                                 <separator string="Slippery Barging"/>
                                 <field name="slippery_brg_items" nolabel="1">
                                     <tree editable="bottom">
-                                        <field name="w_from"/>
-                                        <field name="w_to"/>
+                                        <field name="w_from" widget="float_time"/>
+                                        <field name="w_to" widget="float_time"/>
                                         <field name="notes"/>
                                     </tree>
                                 </field>

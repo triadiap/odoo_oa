@@ -21,8 +21,14 @@ class MoWorkRequest(models.Model):
         ("draft", "Draft"),
         ("approved", "Approved"),
     ], string="Status", default="draft")
+    rev_by = fields.Many2one("res.users", string="Review By")
+    rev_date = fields.Date(string="Review Date")
     approved_by = fields.Many2one("res.users", string="Approved By")
     approved_date = fields.Date(string="Approved Date")
+    work_by = fields.Many2one("res.users", string="Performed By")
+    work_date = fields.Date(string="Performed Date")
+    acc_by = fields.Many2one("res.users", string="Accepted By")
+    acc_date = fields.Date(string="Accepted Date")
 
     approval_route_id = fields.Many2one('approval.route', string='Approval Route', readonly=True)
     current_step_id = fields.Many2one('approval.step', string='Current Step', readonly=True, tracking=True)

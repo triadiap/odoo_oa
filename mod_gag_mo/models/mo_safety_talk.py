@@ -5,7 +5,7 @@ class MoSafetyTalk(models.Model):
     _description = "Model for MO Safety Talk module"
 
     waktu_tanggal = fields.Datetime(string="Waktu / Tanggal", required=True)
-    divisi = fields.Char(string="Divisi", required=True)
+    divisi = fields.Char(string="Satuan Kerja", required=True)
     tema = fields.Text(string="Tema")
     items = fields.One2many("mo.safety.talk.item", "id_items", string="Jumlah Pekerja")
 
