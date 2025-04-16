@@ -33,14 +33,21 @@
                                 <field name="site"/>
                         </group>
                         <group>
+                                <field name="file_upload" filename='file_name_upload'/>
+                                <field name="file_name_upload"/>
                                 <field name="file"/>
                         </group>
-                    </group>
+                    </group>         
+                    <footer>
+                        <button string="Process" type="object" name="process_excel_file" class="btn-primary" />
+                    </footer>
                     <notebook>
                         <page string="Detail " name="gag_oa_qc_daily_production_detail_form">
                             <field name="id_production">
                                 <tree editable="bottom" import="true">
                                     <field name="pile"/>
+                                    <field name="asal_lokasi"/>
+                                    <field name="lokasi_dumping"/>
                                     <field name="toonage"/>
                                     <field name="ni"/>
                                     <field name="co"/>
@@ -48,7 +55,7 @@
                                     <field name="si"/>
                                     <field name="ca"/>
                                     <field name="mg"/>
-                                    <field name="bc"/>
+                                    <field name="sm"/>
                                 </tree>                                
                             </field>
                         </page>

@@ -57,7 +57,7 @@
         </field>
     </record>
     <record id="gag_oa_scm_evaluasi_action" model="ir.actions.act_window">
-        <field name="name">Evaluasi Vendor</field>
+        <field name="name">Evaluasi Kontrak</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">gag.oa.scm.evaluasi</field>
         <field name="view_mode">tree,form</field>

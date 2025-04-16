@@ -24,3 +24,6 @@ class  SCMMonotoringKontrak(models.Model):
         ('lease','lease'),
         ('non lease','non lease'),
         ],"Lease/Non Lease") 
+    jaminan_no = fields.Char(string="Nomor Jaminan Pelaksanaan")  
+    jaminan_nama = fields.Char(string="Nama Penjamin")  
+    jaminan_nilai = fields.Monetary(string="Nilai Jaminan",currency_field='currency_id')  

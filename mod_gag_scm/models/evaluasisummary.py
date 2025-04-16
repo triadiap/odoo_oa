@@ -46,4 +46,5 @@ class SCMEvaluasiSummaryDetail(models.Model):
     terbayar = fields.Boolean(String = "Status Terbayar")
     tanggal_terbayar = fields.Date(String = "Tanggal Terbayar")
     file = fields.Binary(String = "Attachment")
+    invoice = fields.Char("Nomor Invoice")
 

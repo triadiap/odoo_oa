@@ -134,7 +134,10 @@ class  PelaporanSPIP(models.Model):
 class  PelaporanSPIPDetail(models.Model):
     _name = "gag.oa.hse.daftar.spip.detail"
     _description = "DAFTAR SARANA, PRASARANA, INSTALASI DAN PERALATAN DETAIL"
+    
 
+    department = fields.Char("Department",related = "daftar_spip.department")
+    area = fields.Char("Lokasi Area",related = "daftar_spip.area")
     type = fields.Selection([
         ('Sarana','Sarana'),
         ('Prasarana','Prasarana'),
@@ -212,9 +215,7 @@ class  PelaporanSPIPDetail(models.Model):
     nomor = fields.Char("Nomor Alat",required = True)    
     kondisi = fields.Selection([('Baik','Baik'),('Buruk','Buruk')],"Kondisi",required = True)
     keterangan = fields.Char("Keterangan")    
-    
-
-    
+        
 
 class PelaporanSPIPTemplate(models.Model):
     _name = "gag.oa.hse.pelaporan.template"

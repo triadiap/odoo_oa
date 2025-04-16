@@ -16,6 +16,9 @@
                 <field name="justification"/>
                 <field name="status"/>
                 <field name="status_lease"/>
+                <field name="jaminan_no"/>
+                <field name="jaminan_nama"/>
+                <field name="jaminan_nilai"/>
             </tree>
         </field>
     </record>

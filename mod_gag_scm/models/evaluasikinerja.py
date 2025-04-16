@@ -62,6 +62,33 @@ class  SCMevaluasiKinerja(models.Model):
 
             rec.nilai_akhir = (rec.nilai_pengadaan*0.25)+(rec.nilai_pengerjaan*0.75)-rec.nilai_sanksi
 
+    def process_generate_kriteria(self):
+        for data in self.env["gag.oa.scm.evaluasi.kinerja.kriteria"].search([('jenis','=','motivasi')]):
+            self.env['gag.oa.scm.evaluasi.kinerja.motivasi'].create({
+                'evaluasi_id': self.id,
+                'kriteria' : data.kriteria,
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kinerja.kriteria"].search([('jenis','=','harga')]):
+            self.env['gag.oa.scm.evaluasi.kinerja.harga'].create({
+                'evaluasi_id': self.id,
+                'kriteria' : data.kriteria,
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kinerja.kriteria"].search([('jenis','=','pengiriman')]):
+            self.env['gag.oa.scm.evaluasi.kinerja.pengiriman'].create({
+                'evaluasi_id': self.id,
+                'kriteria' : data.kriteria,
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kinerja.kriteria"].search([('jenis','=','kualitas')]):
+            self.env['gag.oa.scm.evaluasi.kinerja.kualitas'].create({
+                'evaluasi_id': self.id,
+                'kriteria' : data.kriteria,
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kinerja.kriteria"].search([('jenis','=','sanksi')]):
+            self.env['gag.oa.scm.evaluasi.kinerja.sanksi'].create({
+                'evaluasi_id': self.id,
+                'kriteria' : data.kriteria,
+            })
+
 class SCMEvaluasiKinerjaMotivasi(models.Model):
     _name = "gag.oa.scm.evaluasi.kinerja.motivasi"
     _description = "EVALUASI KINERJA MITRA VENDOR MANAGEMENT (Motivasi)"
@@ -140,3 +167,15 @@ class SCMEvaluasiKinerjaSanksi(models.Model):
     nilai = fields.Integer('Total Score')
     keterangan = fields.Char('Keterangan Pendukung')
 
+class SCMEvaluasiKenerjaKriteria(models.Model):
+    _name = "gag.oa.scm.evaluasi.kinerja.kriteria"
+    _description = "EVALUASI KINERJA MITRA VENDOR MANAGEMENT (Kriteria)"
+
+    jenis = fields.Selection([
+        ('motivasi','Motifasi Dan Keinginan'),
+        ('harga','harga'),
+        ('pengiriman','Kinerja Pengiriman'),
+        ('kualitas','Kualitas Pengiriman'),
+        ('sanksi','Sanksi dan Teguran'),
+        ],"Jenis",required = True)
+    kriteria = fields.Char("Kriteria",required = True)

@@ -11,3 +11,4 @@ class SCMNomorSurat(models.Model):
     no_surat = fields.Char(string="Nomor Surat", required=True)
     keterangan = fields.Char(string="Keterangan", required=True)
     tanggal  = fields.Date(string="Tanggal Surat", required=True)
+    tanggal_diterima  = fields.Date(string="Tanggal Surat Diterima")

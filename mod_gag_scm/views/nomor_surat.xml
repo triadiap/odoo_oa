@@ -9,6 +9,7 @@
                 <field name="no_surat"/>
                 <field name="keterangan"/>
                 <field name="tanggal"/>
+                <field name="tanggal_diterima"/>
             </tree>
         </field>
     </record>

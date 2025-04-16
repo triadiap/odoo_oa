@@ -8,7 +8,7 @@ class SCMMonotoringNomorLelang(models.Model):
     _name="gag.oa.scm.monitoring.nomor.lelang"
     _description = "Daftar nomor lelang"
 
-    bantex = fields.Char('Bantex')
+    bantex = fields.Char('Arsip Divisi')
     nomor = fields.Char('Nomor',required=True)
     keterangan = fields.Char('Keterangan',required = True)
     currency_id = fields.Many2one('res.currency', string='Currency',default=lambda self: self.env.company.currency_id.id)
@@ -34,7 +34,7 @@ class SCMMonotoringNomorPemila(models.Model):
     _name="gag.oa.scm.monitoring.nomor.pemila"
     _description = "Daftar nomor pemilihan langsung"
 
-    bantex = fields.Char('Bantex')
+    bantex = fields.Char('Arsip Divisi')
     nomor = fields.Char('Nomor',required=True)
     keterangan = fields.Char('Keterangan',required = True)
     currency_id = fields.Many2one('res.currency', string='Currency')
@@ -61,7 +61,7 @@ class SCMMonotoringNomorKontrak(models.Model):
     _name="gag.oa.scm.monitoring.nomor.kontrak"
     _description = "Daftar nomor kontrak"
 
-    bantex = fields.Char('Bantex')
+    bantex = fields.Char('Arsip Divisi')
     nomor_lelang = fields.Many2one('gag.oa.scm.monitoring.nomor.lelang','Nomor Lelang')
     nomor_pemila = fields.Many2one('gag.oa.scm.monitoring.nomor.pemila','Nomor Pemila')
     nomor = fields.Char('Nomor',required=True)
@@ -97,7 +97,7 @@ class SCMMonotoringNomorSPK(models.Model):
     _name="gag.oa.scm.monitoring.nomor.spk"
     _description = "Daftar nomor SPK"
 
-    bantex = fields.Char('Bantex')
+    bantex = fields.Char('Arsip Divisi')
     nomor_lelang = fields.Many2one('gag.oa.scm.monitoring.nomor.lelang','Nomor Lelang')
     nomor_pemila = fields.Many2one('gag.oa.scm.monitoring.nomor.pemila','Nomor Pemila')
     nomor = fields.Char('Nomor',required=True)

@@ -110,6 +110,56 @@ class  SCMevaluasiKontraktor(models.Model):
             if(total1!=0):
                 rec.rate_hasil = total2/total1
 
+    def process_generate_kriteria(self):
+        for data in self.env["gag.oa.scm.evaluasi.kontraktor.kriteria"].search([('jenis','=','keselamatan')]):
+            self.env['gag.oa.scm.evaluasi.kontraktor.keselamatan'].create({
+                'evaluasi': self.id,
+                'kriteria' : data.kriteria,
+                'uraian' : data.uraian,
+                'rate':'5',
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kontraktor.kriteria"].search([('jenis','=','lingkup')]):
+            self.env['gag.oa.scm.evaluasi.kontraktor.lingkup'].create({
+                'evaluasi': self.id,
+                'kriteria' : data.kriteria,
+                'uraian' : data.uraian,
+                'rate':'5',
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kontraktor.kriteria"].search([('jenis','=','pelaksanaan')]):
+            self.env['gag.oa.scm.evaluasi.kontraktor.pelaksanaan'].create({
+                'evaluasi': self.id,
+                'kriteria' : data.kriteria,
+                'uraian' : data.uraian,
+                'rate':'5',
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kontraktor.kriteria"].search([('jenis','=','qualifikasi')]):
+            self.env['gag.oa.scm.evaluasi.kontraktor.qualifikasi'].create({
+                'evaluasi': self.id,
+                'kriteria' : data.kriteria,
+                'uraian' : data.uraian,
+                'rate':'5',
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kontraktor.kriteria"].search([('jenis','=','koordinasi')]):
+            self.env['gag.oa.scm.evaluasi.kontraktor.koordinasi'].create({
+                'evaluasi': self.id,
+                'kriteria' : data.kriteria,
+                'uraian' : data.uraian,
+                'rate':'5',
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kontraktor.kriteria"].search([('jenis','=','hak')]):
+            self.env['gag.oa.scm.evaluasi.kontraktor.hak'].create({
+                'evaluasi': self.id,
+                'kriteria' : data.kriteria,
+                'uraian' : data.uraian,
+                'rate':'5',
+            })
+        for data in self.env["gag.oa.scm.evaluasi.kontraktor.kriteria"].search([('jenis','=','hasil')]):
+            self.env['gag.oa.scm.evaluasi.kontraktor.hasil'].create({
+                'evaluasi': self.id,
+                'kriteria' : data.kriteria,
+                'uraian' : data.uraian,
+                'rate':'5',
+            })
 
 class SCMevaluasiKontraktorKeselamatan(models.Model):
     _name = "gag.oa.scm.evaluasi.kontraktor.keselamatan"
@@ -176,3 +226,20 @@ class SCMevaluasiKontraktorhasil(models.Model):
     kriteria = fields.Char("Kriteria",required = True)
     uraian = fields.Char("Uraian",required = True)
     rate = fields.Selection([('1','1'),('2','2'),('3','3'),('4','4'),('5','5')],required = True)
+
+    
+class SCMevaluasiKontraktorKriteria(models.Model):
+    _name = "gag.oa.scm.evaluasi.kontraktor.kriteria"
+    _description = "EVALUASI KINERJA KONTRAKTOR (Kriteria)"
+
+    jenis = fields.Selection([
+        ('keselamatan','Keselamatan'),
+        ('lingkup','Lingkup Kerja'),
+        ('pelaksanaan','Pelaksanaan'),
+        ('qualifikasi','Qualifikasi'),
+        ('koordinasi','Koordinasi'),
+        ('hak','Hak'),
+        ('hasil','Hasil Pekerjaan'),
+        ],"Jenis",required = True)
+    kriteria = fields.Char("Kriteria",required = True)
+    uraian = fields.Char("Uraian",required = True)

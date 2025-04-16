@@ -1,6 +1,8 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 from datetime import timedelta
+import base64
+import xlrd
 
 class DailyProductionReport(models.Model):
     _name = "gag.oa.qc.daily.production"
@@ -10,6 +12,8 @@ class DailyProductionReport(models.Model):
     tanggal_update = fields.Date('Tanggal Update',compute='_calculate_tanggal_update')
     site = fields.Char('Site', required=True)
     file = fields.Binary('Attachment')
+    file_upload = fields.Binary('Import File')
+    file_name_upload = fields.Char('Import File Name')
     id_production = fields.One2many('gag.oa.qc.daily.production.detail', 'production_id', 'Production Detail')
     id_tongkang = fields.One2many('gag.oa.qc.daily.production.barging', 'production_id', 'List Tongkan')
     id_tongkang_sma = fields.One2many('gag.oa.qc.daily.production.barging.sma', 'production_id', 'List Tongkan')
@@ -148,7 +152,44 @@ class DailyProductionReport(models.Model):
 
     waiting_essay_sma = fields.Float("Waiting Essay",compute="_total_waiting",digit=(0,4))
     waiting_essay_mka = fields.Float("Waiting Essay",compute="_total_waiting",digit=(0,4))
+    
+    def process_excel_file(self):
+        if not self.file_upload:
+            raise ValidationError(_("Please upload an Excel file."))
+        if not self.file_name_upload:
+            raise ValidationError(_("File name is missing."))
 
+
+        # Decode the file
+        file_content = base64.b64decode(self.file_upload)
+
+        # Open the workbook
+        workbook = xlrd.open_workbook(file_contents=file_content)
+        sheet = workbook.sheet_by_index(0)  # Assuming the first sheet
+
+        # Iterate through rows and process data
+        for deletedId in self.env['gag.oa.qc.daily.production.detail'].search([('production_id', '=',self.id)]):
+            deletedId.unlink()
+        for row_index in range(4, sheet.nrows):  # Skip the header row
+            if(sheet.cell_value(row_index, 2)!=""):
+                self.env['gag.oa.qc.daily.production.detail'].create({
+                    'production_id': self.id,
+                    'pile' : sheet.cell_value(row_index, 2),
+                    'asal_lokasi' : sheet.cell_value(row_index, 3),
+                    'lokasi_dumping' : sheet.cell_value(row_index, 4),
+                    'toonage' : float(sheet.cell_value(row_index, 5)),
+                    'ni' : float(sheet.cell_value(row_index, 6)),
+                    'co': float(sheet.cell_value(row_index, 7)),
+                    'fe': float(sheet.cell_value(row_index, 8)),
+                    'si': float(sheet.cell_value(row_index, 9)),
+                    'ca': float(sheet.cell_value(row_index, 10)),
+                    'mg': float(sheet.cell_value(row_index, 11)),
+                    'sm': float(sheet.cell_value(row_index, 14))
+                })
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }       
     def _calculate_tanggal_update(self):
         for rec in self:
             if rec.tanggal:
@@ -772,6 +813,8 @@ class DailyProductionDetail(models.Model):
     tanggal = fields.Date("Tanggal", related = 'production_id.tanggal')
     tanggal_barging = fields.Date("Tanggal barging")
     pile = fields.Char('Pile',required = True)
+    asal_lokasi = fields.Char('Asal Lokasi',required = True)
+    lokasi_dumping = fields.Char('Lokasi Dumping',required = True)
     toonage = fields.Float('Tonnage',digit=(0,4),required=True)
     total_tonnage = fields.Float('Total Tonnage',digit=(0,4),stored=True,compute='_calculate_total_tonnage')
     ni = fields.Float('Ni',digit=(0,2))
@@ -781,6 +824,7 @@ class DailyProductionDetail(models.Model):
     ca = fields.Float('Ca',digit=(0,2))
     mg = fields.Float('Mg',digit=(0,2))
     bc = fields.Float('Bc',digit=(0,2))
+    sm = fields.Float('Sm',digit=(0,2))
 
     def name_get(self):
         result = []

@@ -4,7 +4,7 @@
         web_icon="mod_gag_hse,static/description/icon.png"
         sequence="1">        
         <menuitem id="menu_gag_oa_hse_pelaporan_pekerja"
-              name="Pelaporan HSE"
+              name="Pelaporan Keselamatan Pertambangan"
               sequence="1"
               action="gag_oa_hse_pelaporan_pekerja_action"/>
         <menuitem id="menu_gag_oa_hse_pelaporan_kesehatan"
@@ -73,6 +73,10 @@
                 name="Rekap Limbah Non B3"
                 sequence="6"
                 action="gag_oa_hse_rekap_limbah_nonb3_action"/>    
+            <menuitem id="menu_gag_oa_hse_rekap_spip"
+                name="Rekap SPIP"
+                sequence="7"
+                action="gag_oa_hse_rekap_spip_action"/>
         </menuitem>
         <menuitem id="menu_gag_oa_hse_rekap_bibit"
               name="Rekap Bibit"

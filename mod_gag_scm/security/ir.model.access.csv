@@ -12,12 +12,14 @@ access_gag_oa_scm_evaluasi_kontraktor_qualifikasi,access.gag.oa.scm.evaluasi.kon
 access_gag_oa_scm_evaluasi_kontraktor_koordinasi,access.gag.oa.scm.evaluasi.kontraktor.koordinasi,model_gag_oa_scm_evaluasi_kontraktor_koordinasi,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_kontraktor_hak,access.gag.oa.scm.evaluasi.kontraktor.hak,model_gag_oa_scm_evaluasi_kontraktor_hak,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_kontraktor_hasil,access.gag.oa.scm.evaluasi.kontraktor.hasil,model_gag_oa_scm_evaluasi_kontraktor_hasil,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kontraktor_kriteria,access.gag.oa.scm.evaluasi.kontraktor.kriteria,model_gag_oa_scm_evaluasi_kontraktor_kriteria,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_kinerja,access.gag.oa.scm.evaluasi.kinerja,model_gag_oa_scm_evaluasi_kinerja,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_kinerja_motivasi,access.gag.oa.scm.evaluasi.kinerja.motivasi,model_gag_oa_scm_evaluasi_kinerja_motivasi,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_kinerja_harga,access.gag.oa.scm.evaluasi.kinerja.harga,model_gag_oa_scm_evaluasi_kinerja_harga,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_kinerja_pengiriman,access.gag.oa.scm.evaluasi.kinerja.pengiriman,model_gag_oa_scm_evaluasi_kinerja_pengiriman,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_kinerja_kualitas,access.gag.oa.scm.evaluasi.kinerja.kualitas,model_gag_oa_scm_evaluasi_kinerja_kualitas,base.group_user,1,1,1,1
 access_gag_oa_scm_evaluasi_kinerja_sanksi,access.gag.oa.scm.evaluasi.kinerja.sanksi,model_gag_oa_scm_evaluasi_kinerja_sanksi,base.group_user,1,1,1,1
+access_gag_oa_scm_evaluasi_kinerja_kriteria,access.gag.oa.scm.evaluasi.kinerja.kriteria,model_gag_oa_scm_evaluasi_kinerja_kriteria,base.group_user,1,1,1,1
 access_gag_oa_scm_monitoring_kontrak,access.gag.oa.scm.monitoring.kontrak,model_gag_oa_scm_monitoring_kontrak,base.group_user,1,1,1,1
 access_gag_oa_scm_monitoring_nomor_lelang,access.gag.oa.scm.monitoring.nomor.lelang,model_gag_oa_scm_monitoring_nomor_lelang,base.group_user,1,1,1,1
 access_gag_oa_scm_monitoring_nomor_pemila,access.gag.oa.scm.monitoring.nomor.pemila,model_gag_oa_scm_monitoring_nomor_pemila,base.group_user,1,1,1,1

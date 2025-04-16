@@ -42,6 +42,7 @@
                                 <field name="mulai_kontrak"/>
                                 <field name="selesai_kontrak"/>
                                 <field name="nilai_kontrak"/>
+                                <field name="sisa_pembayaran"/>
                         </group>
                     </group>
                     <notebook>
@@ -51,6 +52,7 @@
                                     <field name="currency_id"/>
                                     <field name="jumlah"/>
                                     <field name="terbayar"/>
+                                    <field name="invoice"/>
                                     <field name="tanggal_terbayar"/>
                                     <field name="file"/>
                                 </tree>
@@ -62,7 +64,7 @@
         </field>
     </record>
     <record id="gag_oa_scm_evaluasi_summary_action" model="ir.actions.act_window">
-        <field name="name">Evaluasi Summary</field>
+        <field name="name">Monitoring Pembayaran</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">gag.oa.scm.evaluasi.summary</field>
         <field name="view_mode">tree,form</field>
