@@ -6,7 +6,7 @@ class BusdevMonitoringProjectInv(models.Model):
     _description = "Model for BUSDEV Monitoring Project"
 
     name = fields.Char(string="Nama Investasi", required=True)
-    pic = fields.Many2one("res.users", string="PIC", required=True)
+    pic = fields.Many2many("res.users", string="PIC", required=True)
     start_date = fields.Date(string="Tanggal Mulai Pekerjaan", required=True)
     due_date = fields.Date(string="Due Date")
     notes = fields.Text(string="Keterangan")

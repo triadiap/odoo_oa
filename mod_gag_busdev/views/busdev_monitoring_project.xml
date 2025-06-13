@@ -79,7 +79,7 @@
                     <group>
                         <group>
                             <field name="name" attrs="{'readonly': [('id', '!=', False)]}"/>
-                            <field name="pic" attrs="{'readonly': [('id', '!=', False)]}"/>
+                            <field name="pic" widget="many2many_tags" attrs="{'readonly': [('id', '!=', False)]}"/>
                             <field name="start_date" attrs="{'readonly': [('id', '!=', False)]}"/>
                             <field name="notes"/>
                             <field name="status_project"/>
