@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Grup Custom untuk Admin Report -->
+        <record id="group_odm_admin" model="res.groups">
+            <field name="name">Document Monitoring Admin</field>
+            <field name="category_id" ref="base.module_category_administration"/>
+            <field name="comment">Grup admin khusus untuk mengakses semua laporan dalam modul Document Monitoring.</field>
+        </record>
+    </data>
+</odoo>

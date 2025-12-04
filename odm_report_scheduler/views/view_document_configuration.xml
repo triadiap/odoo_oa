@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_docmon_logs_tree" model="ir.ui.view">
+        <field name="name">odm.document.mail.log.tree</field>
+        <field name="model">odm.document.mail.log</field>
+        <field name="arch" type="xml">
+            <tree string="Document Monitoring Status Logs" create="false" edit="false" delete="false">
+                <field name="configuration_id" string="Report Name" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="user_id" string="Person Name" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="email" string="Email Address" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="scheduled_time" string="Scheduled Time" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="notification_time" string="Notification Time" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="status" string="Status" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="error_message" string="Error Message" options="{'no_edit':True,'no_create':True}" optional="show"/>
+                <field name="sent_at" string="Sent Date" options="{'no_edit':True,'no_create':True}" optional="show"/>
+            </tree>
+        </field>
+    </record>
+       <!-- Action for All Logs -->
+    <record id="action_docmon_all_logs" model="ir.actions.act_window">
+        <field name="name">Document Monitoring Logs</field>
+        <field name="res_model">odm.document.mail.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_docmon_logs_tree"/>
+        <field name="context">{'search_default_order': 'timestamp desc'}</field>
+    </record>
+    <!-- Action for Failed Logs -->
+    <record id="action_docmon_failed_log" model="ir.actions.act_window">
+        <field name="name">Failed Logs</field>
+        <field name="res_model">odm.document.mail.log</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('status', '=', 'failed'),('configuration_id', '=', context.get('default_docmon_log_id2'))]</field>
+    </record>
+     <!-- Action for Success Logs -->
+    <record id="action_docmon_success_log" model="ir.actions.act_window">
+        <field name="name">Success Logs</field>
+        <field name="res_model">odm.document.mail.log</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('status', '=', 'success'),('configuration_id', '=', context.get('default_docmon_log_id'))]</field>
+    </record>
+    <record id="document_configuration_search" model="ir.ui.view">
+        <field name="name">odm.document.configuration.search</field>
+        <field name="model">odm.document.configuration</field>
+        <field name="arch" type="xml">
+            <search string = "Report Status">
+                    <field name="name"/>
+                    <field name="config_description"/>
+                    <field name="document_type"/>
+                    <field name="report_ownership"/>
+                    <group expand="0" string="Group By">
+                            <filter string = "Document Type" name="document_type_id" domain="[]" context="{'group_by':'document_type'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="document_type" string="Report Type" select="multi" enable_counters="1"/>
+                        <field name="reporting_period" string="Reporting Period" select="multi" enable_counters="1"/>
+                        <field name="report_ownership" string="Report Ownership" select="multi" enable_counters="1"/>
+                        <field name="department_ids" string="Departments" select="multi" enable_counters="1"/>
+                    </searchpanel>
+            </search>
+        </field>
+    </record>
+    <record id="document_configuration_tree" model="ir.ui.view">
+         <field name="name">odm.document.configuration.tree</field>
+         <field name="model">odm.document.configuration</field>
+         <field name="arch" type="xml">
+            <tree expand="1">
+                <field name="document_type" string="Report Name" optional="show"/>
+                <field name="name" string="File Name" optional="show"/>
+                <field name="reporting_period" optional="show"/>
+                <field name="remaining_time" string="Reminder Sent (days)" optional="show"/>
+                <field name="report_ownership" string="Reviewer" optional="show" widget="many2many_tags"/>
+                <field name="department_ids" optional="show" widget="many2many_tags"/>
+                <field name="report_activation" optional="show" widget="boolean_toggle" readonly="1"/>
+                <field name="create_uid" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_document_configuration_form" model="ir.ui.view">
+        <field name="name">odm.document.configuration.form</field>
+        <field name="model">odm.document.configuration</field>
+        <field name="arch" type="xml">
+                <form string="Document Configuration">
+                     <header>
+                         <button id="button-approval-process" name="manual_notification_process" style="padding:5px;" string="Manual Trigger" class="btn-primary fa fa-magic" type="object"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                                 <button name="%(action_docmon_success_log)d" type="action" class="oe_stat_button" icon="fa-check" style="width:200px;" context="{'default_docmon_log_id': id}">
+                                     <div class="o_stat_info">
+                                            <field string="Count Of Hits" name="count_success" class="o_stat_value"/>
+                                            <span class="o_stat_text">Notification Success</span>
+                                     </div>
+                                </button>
+                                 <button name="%(action_docmon_failed_log)d" type="action" class="oe_stat_button" icon="fa-times" style="width:200px;" context="{'default_docmon_log_id2': id}">
+                                     <div class="o_stat_info">
+                                            <field string="Count Of Hits" name="count_failed" class="o_stat_value"/>
+                                            <span class="o_stat_text">Notification Failed</span>
+                                     </div>
+                                </button>
+                        </div>
+                        <div>
+                            <group>
+                                <field name="document_type" string="Report Name"/>
+                                <field name="name" string="File Name"/>
+                                <field name="reporting_period"/>
+                                <field name="report_hour" attrs="{'invisible': [('reporting_period', '!=', 'daily')],'required': [('reporting_period', '=', 'daily')]}"/>
+                                <field name="report_day" attrs="{'invisible': [('reporting_period', '!=', 'weekly')],'required': [('reporting_period', '=', 'weekly')]}"/>
+                                <field name="report_date" attrs="{'invisible': [('reporting_period', 'not in', ('monthly','yearly','quarterly','semester','tree_month'))],'required': [('reporting_period', 'in', ('monthly','yearly','quarterly','semester','tree_month'))]}" placeholder="1 - 31" options="{'max': 31, 'min': 1}" />
+                                <field name="report_month" attrs="{'invisible': [('reporting_period', 'not in', ('yearly'))],'required': [('reporting_period', 'in', ('yearly'))]}"/>
+                                <field name="remaining_time" string="Reminder Sent (days before deadline)"/>
+                                <field name="config_description"/>
+                                <field name="department_ids" widget="many2many_tags"/>
+                                <field name="mail_config_id"/>
+                                <field name="report_ownership" string="Reviewer" widget="many2many_tags"/>
+                                <field name="report_activation" widget="boolean_toggle"/>
+                            </group>
+                        </div>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+
+        </field>
+
+    </record>
+    <record id="document_configuration_action" model="ir.actions.act_window">
+        <field name="name">Report Configuration</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odm.document.configuration</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+         <field name="context">{'search_default_document_type_id':True}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your request here!
+            </p>
+        </field>
+    </record>
+</odoo>

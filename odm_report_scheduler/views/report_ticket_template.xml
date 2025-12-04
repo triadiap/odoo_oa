@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <template id="report_ticket_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="docs[0]"/>
+                <div class="page">
+                    <h2 style="text-align:center; margin-bottom:20px;">Document Receipt Note</h2>
+                    <table class="table table-sm" style="width: 100%; margin-bottom: 20px;">
+                        <tr>
+                            <td><strong>Report Code</strong></td>
+                            <td><t t-esc="doc.receipt_code or '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Report Name</strong></td>
+                            <td><t t-esc="doc.name or '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Report Type</strong></td>
+                            <td><t t-esc="doc.doc_type.name if doc.doc_type else '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td><t t-esc="doc.state or '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deadline</strong></td>
+                            <td><t t-esc="doc.deadline_time.strftime('%d %B %Y %H:%M') if doc.deadline_time else '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Updated By</strong></td>
+                            <td><t t-esc="doc.write_uid.name if doc.write_uid.name else '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Last Updated</strong></td>
+                            <td><t t-esc="doc.write_date.strftime('%d %B %Y %H:%M') if doc.write_date else '-'"/></td>
+                        </tr>
+                    </table>
+
+                    <h4 style="margin-top:30px;">Description</h4>
+                    <div t-if="doc.report_description">
+                        <t t-raw="doc.report_description"/>
+                    </div>
+                    <div t-if="not doc.report_description">
+                        <p>-</p>
+                    </div>
+
+                    <h4 style="margin-top:30px;">Attachment(s)</h4>
+                    <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background-color: #f0f0f0;">
+                                <th style="border: 1px solid #ccc; padding: 6px;">#</th>
+                                <th style="border: 1px solid #ccc; padding: 6px;">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="counter" t-value="1"/>
+                            <t t-foreach="doc.attachment_ids" t-as="attachment">
+                                <tr>
+                                    <td style="border: 1px solid #ccc; padding: 6px;"><t t-esc="counter"/></td>
+                                    <td style="border: 1px solid #ccc; padding: 6px;"><t t-esc="attachment.name"/></td>
+                                </tr>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </t>
+                            <t t-if="not doc.attachment_ids">
+                                <tr>
+                                    <td colspan="2" style="text-align:center; border: 1px solid #ccc; padding: 6px;">No attachments available.</td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

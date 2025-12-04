@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_send_email_wizard_form" model="ir.ui.view">
+        <field name="name">odm.send.mail.wizard.form</field>
+        <field name="model">odm.send.mail.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Share Document By Email">
+                <group>
+                    <field name="file_data" invisible="1"/>
+                    <label for="file_data"/>
+                    <div>
+                        <span class="fa fa-paperclip" style="margin-right:8px; font-size:16px;"></span>
+                        <field name="file_name" readonly="1"/>
+                    </div>
+                </group>
+                <group>
+                    <field name="email_to_ids" widget="many2many_tags" options="{'create': True}"/>
+                    <field name="email_cc_ids" widget="many2many_tags" options="{'create': True}"/>
+                    <field name="subject"/>
+                    <field name="body" widget="html"/>
+                </group>
+
+                <footer>
+                    <button string="Send Email"
+                            name="action_send_email"
+                            type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

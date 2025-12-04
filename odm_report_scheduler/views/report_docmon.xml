@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_docmon_pivot" model="ir.ui.view">
+        <field name="name">odm.report.submission.pivot</field>
+        <field name="model">odm.report.submission</field>
+        <field name="arch" type="xml">
+            <pivot string="Daily Monitoring">
+                <!-- Date as column -->
+                <field name="deadline_time" type="col" interval="month"/>
+                <field name="submission_freq" type="row"/>
+                <field name="doc_type" type="row"/>
+                <field name="conf_id" type="row"/>
+                <field name="state" type="col"/>
+            </pivot>
+        </field>
+    </record>
+    <record id="action_report_submission_pivot" model="ir.actions.act_window">
+        <field name="name">Daily Monitoring</field>
+        <field name="res_model">odm.report.submission</field>
+        <field name="view_mode">pivot</field>
+        <field name="view_id" ref="view_docmon_pivot"/>
+    </record>
+    <report
+        id="report_ticket_action"
+        model="odm.report.submission"
+        string="Receipt Note"
+        report_type="qweb-pdf"
+        name="odm_report_scheduler.report_ticket_template"
+        file="odm_report_scheduler.report_ticket_template"
+        print_report_name="'Ticket - %s' % (object.name)"
+    />
+</odoo>

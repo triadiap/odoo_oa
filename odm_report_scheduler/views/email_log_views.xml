@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="document_external_share_search" model="ir.ui.view">
+        <field name="name">odm.email.log.search</field>
+        <field name="model">odm.email.log</field>
+        <field name="arch" type="xml">
+            <search string = "External Document Sharing Logs">
+                    <field name="send_date" optional="show"/>
+                    <field name="attachment_id" optional="show"/>
+                    <field name="email_to" optional="show"/>
+                    <field name="email_cc" optional="show"/>
+                    <field name="subject" optional="show"/>
+                    <field name="user_id" optional="show"/>
+                    <field name="namareport" optional="show"/>
+                    <field name="documenttype" optional="show"/>
+            </search>
+        </field>
+    </record>
+    <record id="view_odm_email_log_tree" model="ir.ui.view">
+        <field name="name">odm.email.log.tree</field>
+        <field name="model">odm.email.log</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false" delete="false">
+                <field name="send_date" optional="show"/>
+                <field name="attachment_id" optional="show"/>
+                <field name="email_to" optional="show"/>
+                <field name="email_cc" optional="show"/>
+                <field name="subject" optional="show"/>
+                <field name="user_id" optional="show"/>
+                <field name="namareport" optional="show"/>
+                <field name="documenttype" optional="show"/>
+                <field name="create_uid" optional="show"/>
+                <field name="create_date" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_odm_email_log_form" model="ir.ui.view">
+        <field name="name">odm.email.log.form</field>
+        <field name="model">odm.email.log</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" action="false">
+                <group>
+                    <field name="send_date" readonly="1"/>
+                    <field name="user_id" readonly="1"/>
+                    <field name="attachment_id" readonly="1"/>
+                    <field name="namareport" readonly="1"/>
+                    <field name="documenttype" readonly="1"/>
+                </group>
+                <group>
+                    <field name="email_to" readonly="1"/>
+                    <field name="email_cc" readonly="1"/>
+                </group>
+                <group>
+                    <field name="subject" readonly="1"/>
+                    <field name="body" readonly="1"/>
+                </group>
+                <group>
+                    <field name="file_name" readonly="1"/>
+                    <field name="file_data" filename="file_name" readonly="1"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="action_odm_email_log" model="ir.actions.act_window">
+        <field name="name">Document External Share Logs</field>
+        <field name="res_model">odm.email.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

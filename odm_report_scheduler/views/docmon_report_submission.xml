@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="report_tasklist_search" model="ir.ui.view">
+        <field name="name">odm.report.submission.search</field>
+        <field name="model">odm.report.submission</field>
+        <field name="arch" type="xml">
+            <search string = "Report Status">
+                    <field name="name"/>
+                    <field name="doc_type"/>
+                    <field name="state"/>
+                    <field name="submission_freq"/>
+                    <searchpanel>
+                        <field name="doc_type" string="Report Name" select="multi"/>
+                        <field name="conf_id" string="File Name" select="multi"/>
+                        <field name="state" string="Document Status" select="multi" enable_counters="1"/>
+                    </searchpanel>
+            </search>
+        </field>
+    </record>
+    <record id="view_docmon_submission_tree" model="ir.ui.view">
+        <field name="name">odm.report.submission.tree</field>
+        <field name="model">odm.report.submission</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="receipt_code" optional="show"/>
+                <field name="doc_type" string="Report Name" optional="show"/>
+                <field name="name" string="File Name" optional="show"/>
+                <field name="deadline_time" optional="show"/>
+                <field name="state" optional="show"/>
+                <field name="user_owner" optional="show" widget="many2many_tags"/>
+                <field name="department_id" optional="show"/>
+                <field name="write_uid" optional="show"/>
+                <field name="write_date" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="report_submission_form" model="ir.ui.view">
+            <field name="name">odm.report.submission.form</field>
+            <field name="model">odm.report.submission</field>
+            <field name="arch" type="xml">
+                    <form action="false" create="false">
+                        <field name="state" invisible="1"/>
+                        <header>
+                             <button name="action_print_ticket" string="Print Receipt" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'completed')]}"/>
+                             <field name="state" widget="statusbar" statusbar_visible="draft,pending,completed"/>
+                        </header>
+                        <sheet>
+                            <div class="oe_title">
+                                <h1>
+                                     <field name="receipt_code" readonly="1"/>
+                                </h1>
+                            </div>
+                            <group>
+                                <group>
+                                     <field name="name" readonly="True"/>
+                                     <field name="submission_freq" readonly="True"/>
+                                      <field name="doc_type" readonly="True"/>
+                                </group>
+                                <group>
+                                        <field name="deadline_time" readonly="True"/>
+                                        <field name="department_id" readonly="True"/>
+                                        <field name="realization_date" attrs="{'readonly': [('state', '=', 'completed')], 'required': [('state', 'in', ['draft', 'pending'])]}"/>
+                                </group>
+                            </group>
+                            <group>
+                                 <div>
+                                     <h5>Description :</h5>
+                                    <field name="report_description" widget="html" attrs="{'readonly': [('state', '=', 'completed')]}"/>
+                                </div>
+                            </group>
+                            <notebook>
+                                <page string="Attachments">
+                                    <field name="attachment_ids" attrs="{'readonly': [('state', '=', 'completed')]}">
+                                        <tree editable="bottom">
+                                                <field name="name"/>
+                                                <field name="uploaded_file" filename="file_name"/>
+                                                <field name="file_name" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </sheet>
+                         <div class="oe_chatter">
+                                    <field name="activity_ids"/>
+                                    <field name="message_ids"/>
+                         </div>
+                    </form>
+            </field>
+    </record>
+    <record id="view_report_submission_schedule_calendar" model="ir.ui.view">
+        <field name="name">odm.report.submission.calendar</field>
+        <field name="model">odm.report.submission</field>
+        <field name="arch" type="xml">
+            <calendar date_start="deadline_time" color="status_color" event_open_popup="true" mode="month">
+                <field name="id" invisible="1"/>
+                <field name="doc_type"/>
+                <field name="name"/>
+                <field name="receipt_code"/>
+                <field name="submission_freq"/>
+                <field name="department_id"/>
+                <field name="state"  filters="1"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="view_docmon_submission_kanban" model="ir.ui.view">
+        <field name="name">odm.report.submission.kanban</field>
+        <field name="model">odm.report.submission</field>
+        <field name="arch" type="xml">
+            <kanban string="Report Tasklist">
+                <field name="name"/>
+                <field name="deadline_time"/>
+                <templates>
+                    <t t-name="kanban-box">
+                                                    <div t-attf-class="oe_kanban_global_click">
+                                                        <div class="o_kanban_card_header">
+                                                            <div class="o_kanban_card_header_title">
+                                                                <div class="o_primary">
+                                                                    <h4><field name="name"/></h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="o_kanban_card_content">
+                                                            <div>
+                                                                Deadline: <field name="deadline_time" widget="datetime"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="docmon_report_submission_action" model="ir.actions.act_window">
+        <field name="name">Report Tasklist</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">odm.report.submission</field>
+        <field name="view_mode">tree,kanban,calendar,form</field>
+        <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_docmon_submission_tree')}), (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_docmon_submission_kanban')}), (0, 0, {'view_mode': 'calendar', 'view_id': ref('view_report_submission_schedule_calendar')}), (0, 0, {'view_mode': 'form', 'view_id': ref('report_submission_form')})]"/>
+        <field name="target">current</field>
+         <field name="context">{}</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Submit your request here!
+            </p>
+        </field>
+    </record>
+</odoo>

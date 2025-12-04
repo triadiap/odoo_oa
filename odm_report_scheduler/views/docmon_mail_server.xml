@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- ir.mail.server -->
+        <record model="ir.ui.view" id="docmon_mail_server_form">
+            <field name="model">docmon.mail.server</field>
+            <field name="arch" type="xml">
+                <form string="Outgoing Mail Servers">
+                  <sheet>
+                    <group col="4">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="active" widget="boolean_toggle"/>
+                    </group>
+                    <group col="4" string="Connection Information">
+                        <field name="smtp_host"/>
+                        <field name="smtp_port" options="{'format': false}"/>
+                        <field name="smtp_debug" groups="base.group_no_one"/>
+                     </group>
+                     <group string="Security and Authentication" colspan="4">
+                        <field name="smtp_encryption"/>
+                        <field name="smtp_user"/>
+                        <field name="smtp_pass" password="True"/>
+                        <button name="test_smtp_connection" type="object" string="Test Connection" icon="fa-television"/>
+                    </group>
+                  </sheet>
+                    <div class="oe_chatter">
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="docmon_mail_server_list">
+            <field name="model">docmon.mail.server</field>
+            <field name="arch" type="xml">
+                <tree string="Outgoing Mail Servers">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="smtp_host"/>
+                    <field name="smtp_user"/>
+                    <field name="smtp_encryption"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_docmon_mail_server_search" model="ir.ui.view">
+            <field name="model">docmon.mail.server</field>
+            <field name="arch" type="xml">
+                <search string="Outgoing Mail Servers">
+                    <field name="name"
+                        filter_domain="['|', '|', ('name','ilike',self), ('smtp_host','ilike',self), ('smtp_user','ilike',self)]"
+                        string="Outgoing Mail Server"/>
+                    <field name="smtp_encryption"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="document_mail_server_configuration_action">
+            <field name="name">Outgoing Mail Servers</field>
+            <field name="res_model">docmon.mail.server</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="docmon_mail_server_list" />
+            <field name="search_view_id" ref="view_docmon_mail_server_search"/>
+        </record>
+</odoo>

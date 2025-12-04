@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="completion_report_menu" model="ir.actions.act_url">
+        <field name="name">Report Completion</field>
+        <field name="url">/report/completion</field>
+        <field name="target">self</field>
+    </record>
+
+    <menuitem id="menu_document_compiler_root" name="Document Monitoring" sequence="1" web_icon="odm_report_scheduler,static/description/icon_document_compiler.png"/>
+
+    <menuitem id="menu_document_configuration_root"
+              name="Configuration"
+              parent="menu_document_compiler_root"
+              sequence="20"
+              groups="odm_report_scheduler.group_odm_admin"/>
+    <menuitem id="menu_report_submission_root"
+              name="Tasklist"
+              parent="menu_document_compiler_root"
+              sequence="30"/>
+    <menuitem id="menu_report_attachment_root"
+              name="Documentation"
+              parent="menu_report_submission_root"
+              action="action_odm_report_attachments"
+              sequence="10"/>
+    <menuitem id="menu_tasklist_submission_root"
+              name="Report Submission"
+              parent="menu_report_submission_root"
+              action="docmon_report_submission_action"
+              sequence="30"/>
+    <menuitem id="menu_report_review_root"
+              name="Review"
+              parent="menu_document_compiler_root"
+              action="action_odm_report_submission_review"
+              sequence="30"/>
+     <menuitem id="menu_submission_activity_report_root"
+              name="Report"
+              parent="menu_document_compiler_root"
+              sequence="50"
+               groups="odm_report_scheduler.group_odm_admin"/>
+    <menuitem id="menu_configuration_document"
+              name="Report Setting"
+              parent="menu_document_configuration_root"
+              action="document_configuration_action"
+              sequence="10"
+              groups="odm_report_scheduler.group_odm_admin"/>
+    <menuitem id="menu_document_type_configuration"
+              name="Document Type"
+              parent="menu_document_configuration_root"
+              action="document_type_configuration_action"
+              sequence="20"
+              groups="odm_report_scheduler.group_odm_admin"/>
+    <menuitem id="menu_document_mail_server_configuration"
+              name="Mail Server"
+              parent="menu_document_configuration_root"
+              action="document_mail_server_configuration_action"
+              sequence="30"
+              groups="odm_report_scheduler.group_odm_admin"/>
+    <menuitem id="menu_daily_report_report_submission"
+              name="Daily Monitoring"
+              parent="menu_submission_activity_report_root"
+              action="action_report_submission_pivot"
+              sequence="10"
+              groups="odm_report_scheduler.group_odm_admin"/>
+    <menuitem id="menu_dashboard_view"
+              name="Completion Report"
+              parent="menu_submission_activity_report_root"
+              action="action_completion_report"
+              sequence="20"/>
+    <menuitem id="menu_email_log_view_root"
+              name="Document External Share Logs"
+              parent="menu_submission_activity_report_root"
+              action="action_odm_email_log"
+              sequence="30"
+              groups="odm_report_scheduler.group_odm_admin"/>
+</odoo>

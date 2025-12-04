@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_odm_report_submission_review_tree" model="ir.ui.view">
+            <field name="name">odm.report.submission.review.tree</field>
+            <field name="model">odm.report.submission</field>
+            <field name="arch" type="xml">
+                <tree string="Report Submissions for Review" create="false">
+                    <field name="name"/>
+                    <field name="deadline_time"/>
+                    <field name="state"/>
+                    <field name="department_id"/>
+                    <field name="write_uid" string="Submitted By"/>
+                    <field name="write_date" string="Submission Date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="report_submission_review_form" model="ir.ui.view">
+            <field name="name">odm.report.submission.review.form</field>
+            <field name="model">odm.report.submission</field>
+            <field name="arch" type="xml">
+                    <form action="false" create="false" edit="false">
+                        <header>
+                                 <button id="button-complete" name="action_complete" string="Set As Complete" class="btn-primary" type="object" states="pending"/>
+                                 <button id="button-draft" name="action_draft" string="Set As Draft" class="btn-primary" type="object" states="completed"/>
+                                 <button name="action_print_ticket" string="Print Receipt" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'completed')]}"/>
+                                 <field name="state" widget="statusbar" statusbar_visible="draft,pending,completed"/>
+                        </header>
+                        <sheet>
+                            <div class="oe_title">
+                                <h1>
+                                     <field name="receipt_code" readonly="1"/>
+                                </h1>
+                            </div>
+                            <group>
+                                <group>
+                                     <field name="name" readonly="True"/>
+                                     <field name="submission_freq" readonly="True"/>
+                                      <field name="doc_type" readonly="True"/>
+                                </group>
+                                <group>
+                                        <field name="deadline_time" readonly="True"/>
+                                        <field name="department_id" readonly="True"/>
+                                        <field name="realization_date" readonly="True"/>
+                                </group>
+                            </group>
+                            <group>
+                                 <div>
+                                     <h5>Description :</h5>
+                                    <field name="report_description" widget="html" readonly="True"/>
+                                </div>
+                            </group>
+                            <notebook>
+                                <page string="Attachments">
+                                    <field name="attachment_ids" readonly="True">
+                                        <tree editable="bottom">
+                                                <field name="name"/>
+                                                <field name="uploaded_file"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </sheet>
+                         <div class="oe_chatter">
+                                    <field name="activity_ids"/>
+                                    <field name="message_ids"/>
+                         </div>
+                    </form>
+            </field>
+    </record>
+
+        <record id="action_odm_report_submission_review" model="ir.actions.act_window">
+            <field name="name">Review Report Submission</field>
+            <field name="res_model">odm.report.submission</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_odm_report_submission_review_tree')}), (0, 0, {'view_mode': 'form', 'view_id': ref('report_submission_review_form')})]"/>
+            <field name="domain">[('user_owner', '=', uid), ('state', 'in', ['pending', 'completed'])]</field>
+            <field name="context">{'is_review_view': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No report submissions found for review.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

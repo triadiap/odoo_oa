@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+    <!-- Document Pop up viewer        -->
+        <record id="view_custom_document_preview_form" model="ir.ui.view">
+            <field name="name">odm.report.attachments.preview</field>
+            <field name="model">odm.report.attachments</field>
+            <field name="priority">999</field> <!-- Prioritas rendah agar tidak muncul sbg default -->
+            <field name="arch" type="xml">
+                <form string="Document Preview">
+                    <sheet>
+                        <!-- HARUS ADA -->
+                        <field name="thumbnail_icon" invisible="1"/>
+                        <field name="mimetype" invisible="1"/>
+                            <div class="oe_title">
+                                    <label for="name" class="oe_edit_only"/>
+                                    <h1>
+                                        <field name="name"/>
+                                    </h1>
+                            </div>
+                            <group>
+                                <field name="code_receipt"/>
+                                <field name="document_type"/>
+                                <field name="report_name"/>
+                                <field name="state_submission"/>
+                                <field name="create_uid"/>
+                                <field name="create_date"/>
+                                <field name="write_uid"/>
+                                <field name="write_date"/>
+                                <field name="report_desc"/>
+                            </group>
+                              <div attrs="{'invisible': [('thumbnail_icon', '!=', 'image')]}" class="full-preview">
+                                  <field name="uploaded_image_base64" widget="image"/>
+                              </div>
+                             <div attrs="{'invisible': [('mimetype', '!=', 'application/pdf')]}" class="full-preview">
+                                  <field name="uploaded_file" widget="pdf_viewer" filename="file_name"/>
+                             </div>
+                    </sheet>
+                    <footer>
+                        <button string="Close" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <!--  Search Panel      -->
+     <record id="odm_report_attachment_search" model="ir.ui.view">
+        <field name="name">odm.report.attachments.search</field>
+        <field name="model">odm.report.attachments</field>
+        <field name="arch" type="xml">
+            <search string = "File Search">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="report_name"/>
+                    <field name="submission_id"/>
+                    <field name="file_name"/>
+                    <field name="download_url"/>
+                    <field name="state_submission"/>
+                    <field name="code_receipt"/>
+                    <field name="document_type"/>
+                    <searchpanel>
+                        <field name="state_submission" string="Document Status" select="multi" enable_counters="1"/>
+                        <field name="document_type" string="Document Category" select="multi" enable_counters="1"/>
+                    </searchpanel>
+            </search>
+        </field>
+    </record>
+         <!--  Kanban Card      -->
+    <record id="view_odm_report_attachments_kanban" model="ir.ui.view">
+        <field name="name">odm.report.attachments.kanban</field>
+        <field name="model">odm.report.attachments</field>
+        <field name="arch" type="xml">
+            <kanban class="o_modules_kanban" create="false">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="submission_id"/>
+                <field name="uploaded_file"/>
+                <field name="file_name"/>
+                <field name="download_url"/>
+                <field name="state_submission"/>
+                <field name="mimetype"/>
+                <field name="thumbnail_icon"/>
+                <field name="create_uid"/>
+                <field name="create_date"/>
+                <field name="write_uid"/>
+                <field name="write_date"/>
+                 <field name="code_receipt"/>
+                <field name="document_type"/>
+                <field name="report_name"/>
+                <field name="document_sent_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_module_vignette">
+                            <div class="o_dropdown_kanban dropdown" tabindex="-1">
+                                <a class="dropdown-toggle o-no-caret btn" data-toggle="dropdown" data-display="static" href="#" role="button" aria-label="Click Here" title="Click Here">
+                                    <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                    <a type="object" name="action_open_pdf_viewer" role="menuitem" class="dropdown-item">Preview</a>
+                                    <a t-if="record.download_url.raw_value" role="menuitem" class="dropdown-item o-hidden-ios" target="_blank" t-att-href="record.download_url.raw_value">Download</a>
+                                    <a name="action_open_send_email_form" type="object" role="menuitem" class="dropdown-item">Share By Email</a>
+                                </div>
+                            </div>
+                             <div class="oe_module_icon" alt="Icon" style="margin-bottom:20px;">
+
+                               <t t-if="record.thumbnail_icon.value == 'image'" class="oe_module_icon">
+                                    <field name="uploaded_file" widget="image" style="width:60px; height:60px;"/>
+                                </t>
+                                <t t-else="">
+                                    <img t-att-src="record.thumbnail_icon.value" style="width:60px; height:60px;" />
+                                </t>
+                             </div>
+                            <div class="o_kanban_body_content">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th>Description:</th>
+                                        <td><t t-esc="record.name.raw_value"/></td>
+                                    </tr>
+                                    <tr>
+                                        <th>File Name:</th>
+                                        <td><div><t t-esc="record.file_name.raw_value or 'attachment.bin'"/></div></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Report Name:</th>
+                                        <td><div><t t-esc="record.report_name.raw_value"/></div></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Report Type:</th>
+                                        <td><div><t t-esc="record.document_type.value"/></div></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Receipt Code:</th>
+                                        <td><div><t t-esc="record.code_receipt.raw_value"/></div></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Status:</th>
+                                        <td>
+                                             <t t-if="record.state_submission.raw_value == 'draft'">
+                                                <h5><span class="badge badge-in-progress">Draft</span></h5>
+                                            </t>
+                                            <t t-if="record.state_submission.raw_value == 'completed'">
+                                                <h5><span class="badge badge-completed">Completed</span></h5>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <a type="object"
+                                   name="action_view_email_log"
+                                   class="email-counter-kanban">
+                                    <i class="fa fa-paper-plane"></i>
+                                    <span t-esc="record.document_sent_count.value"/> × sent
+                                </a>
+
+                            </div>
+                        </div>
+
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_odm_report_attachments" model="ir.actions.act_window">
+        <field name="name">Documentation Files</field>
+        <field name="res_model">odm.report.attachments</field>
+        <field name="view_mode">kanban</field>
+    </record>
+    </data>
+</odoo>

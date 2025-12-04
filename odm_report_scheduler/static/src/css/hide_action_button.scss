@@ -1,0 +1,101 @@
+.o_cp_action_menus {
+    display: none !important;
+}
+.badge-new {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.badge-in-progress {
+    background-color: orange;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.badge-completed {
+    background-color: green;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+/* Membuat container preview full width */
+.full-preview {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 20px;
+}
+
+/* Untuk widget PDF agar full width */
+.full-preview iframe {
+    width: 100% !important;
+    height: 80vh !important;   /* Supaya tinggi menyesuaikan layar */
+    border: none;
+}
+
+/* Untuk image agar tidak mengecil */
+.full-preview img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+}
+
+/* Force container image full width */
+.full-preview .o_field_image {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Force image inside widget to full width */
+.full-preview .o_field_image img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+}
+
+/* Jika masih dibatasi oleh div luar */
+.full-preview .image-preview {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.docmon_kanban_record {
+    position: relative !important;
+    padding-bottom: 60px !important; /* ruang untuk tombol */
+}
+/* Kontainer tombol: pojok kanan bawah */
+.docmon_kanban_bottom_buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+/* Jika tombol tertutup konten, tambahkan padding untuk body */
+.o_kanban_body_content {
+    padding-bottom: 20px;
+}
+
+.email-counter-kanban {
+    position: absolute;
+    bottom: 8px;
+    right: 10px;
+    background: #ff9800;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-size: 11px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.email-counter-kanban:hover {
+    background:#e6e8eb;
+}
+

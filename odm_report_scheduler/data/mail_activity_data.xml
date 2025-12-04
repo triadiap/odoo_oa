@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_activity_type_report_submission" model="mail.activity.type">
+            <field name="name">Report Submission</field>
+            <field name="res_model_id" ref="odm_report_scheduler.model_odm_report_submission"/>
+            <field name="summary">Submit Your Report</field>
+            <field name="icon">fa-file-text-o</field>
+            <field name="delay_count">0</field>
+            <field name="delay_unit">days</field>
+            <field name="category">default</field>
+        </record>
+    </data>
+</odoo>

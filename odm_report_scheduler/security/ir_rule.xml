@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="rule_odm_submission_user" model="ir.rule">
+            <field name="name">Submission Visible for Own Department</field>
+            <field name="model_id" ref="odm_report_scheduler.model_odm_report_submission"/>
+            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+            <field name="domain_force">[('department_id', '=', user.employee_id.department_id.id)]</field>
+        </record>
+
+        <record id="rule_odm_submission_admin" model="ir.rule">
+            <field name="name">Submission Admin Access</field>
+            <field name="model_id" ref="odm_report_scheduler.model_odm_report_submission"/>
+            <field name="groups" eval="[(4, ref('odm_report_scheduler.group_odm_admin'))]"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+        </record>
+<!--        <record id="rule_odm_submission_admin" model="ir.rule">-->
+<!--            <field name="name">Submission Admin Access</field>-->
+<!--            <field name="model_id" ref="odm_report_scheduler.model_odm_report_submission"/>-->
+<!--            <field name="groups" eval="[(4, ref('base.group_system'))]"/>-->
+<!--            <field name="domain_force">[(1, '=', 1)]</field> &lt;!&ndash; Selalu True, artinya akses penuh &ndash;&gt;-->
+<!--        </record>-->
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_odm_document_configuration,access.odm.document.configuration,model_odm_document_configuration,,1,1,1,1
+access_oa_reporting_type,access.oa.reporting.type,model_oa_reporting_type,,1,1,1,1
+access_docmon_mail_server,access.docmon.mail.server,model_docmon_mail_server,,1,1,1,1
+access_odm_document_mail_log,access.odm.document.mail.log,model_odm_document_mail_log,,1,1,1,1
+access_odm_report_submission,access.odm.report.submission,model_odm_report_submission,,1,1,1,1
+access_odm_report_attachments,access.odm.report.attachments,model_odm_report_attachments,,1,1,1,1
+access_hr_department,access.hr.department,hr.model_hr_department,,1,0,0,0
+access_odm_send_mail_wizard,access.odm.send.mail.wizard,model_odm_send_mail_wizard,,1,1,1,1
+access_docmon_mail_recipient,access.docmon.mail.recipient,model_docmon_mail_recipient,,1,1,1,1
+access_odm_email_log,access.odm.email.log,model_odm_email_log,,1,1,1,1
