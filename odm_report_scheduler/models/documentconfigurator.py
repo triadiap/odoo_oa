@@ -387,17 +387,20 @@ class DocumentConfiguration(models.Model):
 
             # Buat jadwal baru
             for dept in departments:
+                # Define the end of the current year for the generation limit
+                current_year_end = datetime(fields.Datetime.now().year, 12, 31, 23, 59, 59) # End of current year
+
                 # Use a "cursor" to keep track of where we are in time for generation
                 last_deadline = fields.Datetime.now()
 
-                # Define how many submissions to generate to cover roughly 2 years
+                # Define how many submissions to generate to cover roughly 1 year
                 num_submissions_to_generate = {
-                    'daily': 365 * 2,
-                    'weekly': 104,
-                    'monthly': 24,
-                    'quarterly': 8,
-                    'semester': 4,
-                    'yearly': 2,
+                    'daily': 365,
+                    'weekly': 52,
+                    'monthly': 12,
+                    'quarterly': 4,
+                    'semester': 2,
+                    'yearly': 1,
                 }.get(config.reporting_period, 0)
 
                 if num_submissions_to_generate == 0:
@@ -429,42 +432,48 @@ class DocumentConfiguration(models.Model):
                         next_deadline = datetime.combine(next_date, datetime.min.time()) # Defaults to midnight
 
                     elif config.reporting_period == 'monthly':
-                        month += 1
-                        if month > 12:
-                            month = 1
-                            year += 1
-                        try:
+                        # Check current month first
+                        candidate_year, candidate_month = last_deadline.year, last_deadline.month
+                        day = min(config.report_date or 1, monthrange(candidate_year, candidate_month)[1])
+                        candidate_deadline = datetime(candidate_year, candidate_month, day)
+                        
+                        if candidate_deadline > last_deadline:
+                            next_deadline = candidate_deadline
+                        else:
+                            # If deadline for current month has passed, move to the next month
+                            month = last_deadline.month + 1
+                            year = last_deadline.year
+                            if month > 12:
+                                month = 1
+                                year += 1
                             day = min(config.report_date or 1, monthrange(year, month)[1])
                             next_deadline = datetime(year, month, day)
-                        except ValueError:
-                            _logger.error("Invalid date configuration for monthly report %s", config.name)
-                            break
 
-                    elif config.reporting_period in ['quarterly', 'semester']:
-                        months_map = {'quarterly': [3, 6, 9, 12], 'semester': [6, 12]}
+                    elif config.reporting_period in ['quarterly', 'semester', 'tree_month']:
+                        months_map = {
+                            'quarterly': [3, 6, 9, 12], 
+                            'semester': [6, 12],
+                            'tree_month': [4, 8, 12]
+                        }
                         possible_months = months_map[config.reporting_period]
                         
                         found_next = False
-                        # Check in the same year first, starting from the month after the last deadline's month
+                        # Check for a valid month in the current year
                         for m in possible_months:
-                            if year == last_deadline.year and m <= last_deadline.month:
-                                continue
-                            try:
-                                day = min(config.report_date or 1, monthrange(year, m)[1])
-                                next_deadline = datetime(year, m, day)
-                                found_next = True
-                                break
-                            except ValueError: continue
+                            if m >= last_deadline.month:
+                                day = min(config.report_date or 1, monthrange(last_deadline.year, m)[1])
+                                candidate_deadline = datetime(last_deadline.year, m, day)
+                                if candidate_deadline > last_deadline:
+                                    next_deadline = candidate_deadline
+                                    found_next = True
+                                    break
                         
-                        if not found_next: # If not found, move to the first valid month of the next year
-                            year += 1
+                        if not found_next: 
+                            # If no valid month in the current year, find the first valid month in the next year
+                            year = last_deadline.year + 1
                             m = possible_months[0]
-                            try:
-                                day = min(config.report_date or 1, monthrange(year, m)[1])
-                                next_deadline = datetime(year, m, day)
-                            except ValueError: 
-                                _logger.error("Invalid date configuration for %s", config.name)
-                                break
+                            day = min(config.report_date or 1, monthrange(year, m)[1])
+                            next_deadline = datetime(year, m, day)
                     
                     elif config.reporting_period == 'yearly':
                         year = last_deadline.year if last_deadline.month < (int(config.report_month) if config.report_month else 1) else last_deadline.year + 1
@@ -477,6 +486,10 @@ class DocumentConfiguration(models.Model):
                             break
 
                     if next_deadline:
+                        # Stop if the next deadline is beyond the current year
+                        if next_deadline > current_year_end:
+                            break
+
                         if next_deadline > fields.Datetime.now():
                             self.env['odm.report.submission'].create({
                                 'conf_id': config.id,

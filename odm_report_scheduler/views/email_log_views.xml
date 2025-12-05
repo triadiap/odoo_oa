@@ -13,6 +13,9 @@
                     <field name="user_id" optional="show"/>
                     <field name="namareport" optional="show"/>
                     <field name="documenttype" optional="show"/>
+                    <searchpanel>
+                         <field name="attachment_id" string="Document Attachment" select="single" enable_counters="1"/>
+                    </searchpanel>
             </search>
         </field>
     </record>
