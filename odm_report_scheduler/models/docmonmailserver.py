@@ -87,8 +87,8 @@ class DocMailServer(models.Model):
     name = fields.Char(string='Description', required=True, index=True, tracking=True)
     smtp_host = fields.Char(string='SMTP Server', required=True, help="Hostname or IP of SMTP server", tracking=True)
     smtp_port = fields.Integer(string='SMTP Port', required=True, default=25, help="SMTP Port. Usually 465 for SSL, and 25 or 587 for other cases.", tracking=True)
-    smtp_user = fields.Char(string='Username', help="Optional username for SMTP authentication", groups='base.group_system', tracking=True)
-    smtp_pass = fields.Char(string='Password', help="Optional password for SMTP authentication", groups='base.group_system', tracking=True)
+    smtp_user = fields.Char(string='Username', help="Optional username for SMTP authentication", tracking=True)
+    smtp_pass = fields.Char(string='Password', help="Optional password for SMTP authentication", tracking=True)
     smtp_encryption = fields.Selection([('none', 'None'),
                                         ('starttls', 'TLS (STARTTLS)'),
                                         ('ssl', 'SSL/TLS')],

@@ -540,3 +540,11 @@ class DocumentMailLog(models.Model):
     ], string='Status Pengiriman')
     error_message = fields.Text(string='Pesan Kesalahan (Jika Ada)')
     sent_at = fields.Datetime(string='Tanggal Pengiriman', default=fields.Datetime.now)
+    documenttype = fields.Many2one(related="configuration_id.document_type")
+
+    def name_get(self):
+        result = []
+        for record in self:
+            name = f"{record.configuration_id.name} - {record.status} - {record.user_id.name}"
+            result.append((record.id, name))  # or any other meaningful field
+        return result

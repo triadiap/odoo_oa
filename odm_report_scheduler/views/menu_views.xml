@@ -72,4 +72,10 @@
               action="action_odm_email_log"
               sequence="30"
               groups="odm_report_scheduler.group_odm_admin"/>
+    <menuitem id="menu_document_notification_log"
+                  name="Document Notification Logs"
+                  parent="menu_submission_activity_report_root"
+                  action="action_docmon_all_logs"
+                  sequence="40"
+                  groups="odm_report_scheduler.group_odm_admin"/>
 </odoo>
