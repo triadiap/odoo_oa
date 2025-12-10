@@ -1,6 +1,8 @@
 # `-*- coding: utf-8 -*-
 from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
+from email.mime.text import MIMEText
+from smtplib import SMTP_SSL
 from pytz import timezone, UTC
 from datetime import date, datetime, timedelta
 import random
@@ -289,13 +291,13 @@ class ReportSubmission(models.Model):
         # Find draft submissions that are not daily or weekly
         submissions = self.with_context(skip_custom_search=True).search([
             ('state', '=', 'draft'),
-            ('submission_freq', 'not in', ['daily', 'weekly'])
+            ('submission_freq', 'not in', ['daily'])
         ])
 
         submissions_to_remind = []
         for sub in submissions:
             # Check if the submission is linked to a configuration with a reminder set
-            if sub.conf_id and sub.conf_id.remaining_time > 0:
+            if sub.conf_id and sub.conf_id.remaining_time >= 0:
                 reminder_date = sub.deadline_time.date() - timedelta(days=sub.conf_id.remaining_time)
                 if reminder_date == today:
                     submissions_to_remind.append(sub)
@@ -352,8 +354,32 @@ class ReportSubmission(models.Model):
                 with SMTP_SSL(mail_server.smtp_host, mail_server.smtp_port, timeout=10) as server:
                     server.login(mail_server.smtp_user, mail_server.smtp_pass)
                     server.sendmail(mail_server.smtp_user, recipient_emails, msg.as_string())
+
+                    for user in department_users:
+                        if user.partner_id and user.partner_id.email:
+                            self.env['odm.document.mail.log'].create({
+                                'configuration_id': sub.conf_id.id,
+                                'user_id': user.id,
+                                'email': user.partner_id.email,
+                                'scheduled_time': sub.deadline_time,
+                                'notification_time': fields.Datetime.now(),
+                                'status': 'success',
+                                'error_message': None,
+                                'sent_at': fields.Datetime.now(),
+                            });
+
                     _logger.info(f"Successfully sent email reminder for submission '{sub.name}'.")
             except Exception as e:
+                self.env['odm.document.mail.log'].create({
+                    'configuration_id': sub.conf_id.id,
+                    'user_id': user.id,
+                    'email': user.partner_id.email,
+                    'scheduled_time': sub.deadline_time,
+                    'notification_time': fields.Datetime.now(),
+                    'status': 'failed',
+                    'error_message': e,
+                    'sent_at': fields.Datetime.now(),
+                });
                 _logger.error(f"Failed to send email for submission '{sub.name}'. Error: {e}", exc_info=True)        
 
 class ReportAttachmentList(models.Model):
