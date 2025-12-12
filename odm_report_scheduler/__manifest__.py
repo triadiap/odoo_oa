@@ -29,12 +29,11 @@
         'views/menu_views.xml',
         'views/assets.xml',
     ],
-    'qweb': [
-        'static/src/xml/completion_report_qweb.xml',  # QWeb templates go here
+    'qweb':[
+        'views/qweb_completion_report.xml',
     ],
     'demo': [],
     'installable': True,
     'application': True,
     'auto_install': False,
-    'assets': {}
 }
