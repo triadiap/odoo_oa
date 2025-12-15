@@ -4,8 +4,10 @@
         <template id="assets_backend" inherit_id="web.assets_backend" name="Hide Action Button Assets">
             <xpath expr="." position="inside">
                 <link rel="stylesheet" type="text/scss" href="/odm_report_scheduler/static/src/css/hide_action_button.scss"/>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
-            <script type="text/javascript" src="/odm_report_scheduler/static/src/js/completion_report.js"></script>
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+
+                <!-- QWEB Loader -->
+                <script type="text/javascript" src="/odm_report_scheduler/static/src/js/completion_report.js"></script>
             </xpath>
         </template>
     </data>

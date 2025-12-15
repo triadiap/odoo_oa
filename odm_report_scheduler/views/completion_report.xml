@@ -4,5 +4,6 @@
     <record id="action_completion_report" model="ir.actions.client">
         <field name="name">Completion Report</field>
         <field name="tag">completion_report_dashboard</field>
+        <field name="target">main</field>
     </record>
 </odoo>

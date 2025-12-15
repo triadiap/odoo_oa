@@ -29,8 +29,8 @@
         'views/menu_views.xml',
         'views/assets.xml',
     ],
-    'qweb':[
-        'views/qweb_completion_report.xml',
+    'qweb': [
+        'static/src/xml/completion_report_qweb.xml'
     ],
     'demo': [],
     'installable': True,
