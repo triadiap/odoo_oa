@@ -128,8 +128,6 @@ odoo.define('odm_report_scheduler.completion_report', function (require) {
             self._updateDashboard();
         },
     });
-
     core.action_registry.add('completion_report_dashboard', CompletionDashboard);
-
     return CompletionDashboard;
 });

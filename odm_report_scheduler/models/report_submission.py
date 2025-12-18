@@ -76,6 +76,29 @@ class ReportSubmission(models.Model):
         store=True,  # MUST be stored in the database for proper sorting
         readonly=True
     )
+    submission_result = fields.Selection(
+        [
+            ('ontime', 'On Time'),
+            ('late', 'Late'),
+        ],
+        string="Submission Result",
+        compute="_compute_submission_result",
+        store=True,
+        tracking=True
+    )
+
+    @api.depends('deadline_time', 'realization_date')
+    def _compute_submission_result(self):
+        for rec in self:
+            if rec.deadline_time and rec.realization_date:
+                deadline_date = rec.deadline_time.date()
+
+                if rec.realization_date <= deadline_date:
+                    rec.submission_result = 'ontime'
+                else:
+                    rec.submission_result = 'late'
+            else:
+                rec.submission_result = False
 
     # Compute Method: Assigns the priority number
     @api.depends('state')

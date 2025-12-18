@@ -1,0 +1,49 @@
+/* Hide dashboard card control icons (Odoo 14 legacy icons) */
+.oe_dashboard .oe_icon.oe_close,
+.oe_dashboard .oe_icon.oe_fold,
+.oe_dashboard .oe_icon.oe_minimize {
+    display: none !important;
+}
+
+/* ===============================
+   ODOO 14 DASHBOARD – FINAL FIX
+   =============================== */
+
+/* 1️⃣ Hilangkan tombol control (sudah Anda pakai) */
+.oe_dashboard .oe_icon.oe_close,
+.oe_dashboard .oe_icon.oe_fold,
+.oe_dashboard .oe_icon.oe_minimize {
+    display: none !important;
+}
+
+/* 2️⃣ MATIKAN DRAG HANYA DI HEADER */
+.oe_dashboard .oe_dashboard_header {
+    cursor: default !important;
+    pointer-events: none;   /* <- ini kuncinya */
+}
+
+/* 3️⃣ PASTIKAN CONTENT TETAP INTERAKTIF */
+.oe_dashboard .oe_dashboard_action,
+.oe_dashboard .oe_dashboard_action * {
+    pointer-events: auto !important;
+}
+
+/* 🔒 Disable dashboard drag handle */
+.oe_header.ui-sortable-handle {
+    cursor: default !important;
+    pointer-events: none !important;
+}
+
+/* 🟢 Tetap izinkan klik pada isi card (chart) */
+.oe_header.ui-sortable-handle * {
+    pointer-events: none !important;
+}
+
+/* Optional: hide toolbar icon area */
+.oe_dashboard_header .oe_button {
+    display: none !important;
+}
+
+button.oe_dashboard_link_change_layout.btn.btn-secondary {
+    display: none !important;
+}

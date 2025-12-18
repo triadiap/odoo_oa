@@ -12,6 +12,7 @@
     'data': [
         'security/odm_groups.xml',
         'wizards/send_document_email_wizard.xml',
+        'wizards/reporting_type_delete_wizard.xml',
         'security/ir.model.access.csv',
         'security/ir_rule.xml',
         'data/mail_activity_data.xml',
