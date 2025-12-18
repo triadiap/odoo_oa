@@ -51,8 +51,6 @@ class PrintController(http.Controller):
             domain.append(('doc_type', '=', int(doc_type_id)))
         if conf_id:
             domain.append(('conf_id', '=', int(conf_id)))
-        if department_id:
-            domain.append(('department_id', '=', int(department_id)))
             
         valid_submissions = submission_obj.with_context(skip_custom_search=True).search(domain)
 

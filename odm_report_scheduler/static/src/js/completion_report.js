@@ -11,7 +11,6 @@ odoo.define('odm_report_scheduler.completion_report', function (require) {
         events: {
             'change #doc_type_filter': '_onDocTypeChange',
             'change #report_name_filter': '_onReportNameChange',
-            'change #department_filter': '_onDepartmentChange',
         },
 
         init: function(parent, action) {
@@ -61,7 +60,6 @@ odoo.define('odm_report_scheduler.completion_report', function (require) {
             if (!this.initial_filters_rendered) {
                 this._populateSelect(this.$('#doc_type_filter'), this.initial_filters.doc_types, "All Document Types");
                 this._populateSelect(this.$('#report_name_filter'), this.initial_filters.report_names, "All Report Names");
-                this._populateSelect(this.$('#department_filter'), this.initial_filters.departments, "All Departments");
                 this.initial_filters_rendered = true;
             }
             this.$('.display-4').eq(0).text(this.dashboard_data.total_processed_reports);
@@ -104,7 +102,6 @@ odoo.define('odm_report_scheduler.completion_report', function (require) {
             var filters = {
                 doc_type_id: this.$('#doc_type_filter').val(),
                 conf_id: this.$('#report_name_filter').val(),
-                department_id: this.$('#department_filter').val(),
             };
             this._fetchDashboardData(filters).then(function() {
                 self._renderDashboard();
@@ -128,20 +125,8 @@ odoo.define('odm_report_scheduler.completion_report', function (require) {
 
         _onReportNameChange: function(e) {
             var self = this;
-            var conf_id = $(e.currentTarget).val();
-
-            rpc.query({
-                route: '/report/completion/get_departments',
-                params: {conf_id: conf_id}
-            }).then(function(data) {
-                self._populateSelect(self.$('#department_filter'), data, "All Departments");
-                self._updateDashboard();
-            });
+            self._updateDashboard();
         },
-
-        _onDepartmentChange: function() {
-            this._updateDashboard();
-        }
     });
 
     core.action_registry.add('completion_report_dashboard', CompletionDashboard);
