@@ -1,4 +1,4 @@
-odoo.define('odm_report_scheduler.dashboard', function (require) {
+odoo.define('odm_report_scheduler.completion_report', function (require) {
     "use strict";
 
     var AbstractAction = require('web.AbstractAction');
