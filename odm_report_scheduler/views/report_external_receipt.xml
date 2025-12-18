@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <template id="template_external_receipt">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-set="doc" t-value="docs[0]"/>
+                <div class="page">
+                    <h2 style="text-align:center; margin-bottom:20px;">Email Delivery Report</h2>
+                    <table class="table table-sm" style="width: 100%; margin-bottom: 20px;">
+                        <tr>
+                            <td><strong>Email Send To</strong></td>
+                            <td><t t-esc="doc.email_to or '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Carbon Copy (CC)</strong></td>
+                            <td><t t-esc="doc.email_cc or '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Subject</strong></td>
+                            <td><t t-esc="doc.subject or '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Attachment</strong></td>
+                            <td><t t-esc="doc.attachment_id.name or '-'"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Send Date</strong></td>
+                            <td><t t-esc="doc.send_date.strftime('%d-%m-%Y %H:%M:%S') if doc.send_date else '-'"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

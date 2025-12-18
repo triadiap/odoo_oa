@@ -8,7 +8,7 @@
     'author': 'Bayu Sulistiawan',
     'maintainer': 'Internusa Cipta Solusi Perdana (ICSP)',
     'website': 'https://icsp.co.id',
-    'depends': ['base','mail','web', 'hr'],
+    'depends': ['base','mail','web', 'hr', 'board'],
     'data': [
         'security/odm_groups.xml',
         'wizards/send_document_email_wizard.xml',
@@ -21,6 +21,7 @@
         'views/docmon_mail_server.xml',
         'views/docmon_report_submission.xml',
         'views/report_ticket_template.xml',
+        'views/report_external_receipt.xml',
         'views/report_docmon.xml',
         'views/reportreview.xml',
         'views/completion_report.xml',

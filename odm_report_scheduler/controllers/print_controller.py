@@ -73,3 +73,13 @@ class PrintController(http.Controller):
             'late_reports': late_count,
             'total_processed_reports': len(valid_submissions),
         }
+
+    @http.route('/print/external_receipt/<int:doc_id>', type='http', auth='user')
+    def print_external_receipt(self, doc_id, **kwargs):
+        pdf = request.env.ref('odm_report_scheduler.report_external_receipt')._render_qweb_pdf([doc_id])[0]
+        pdfhttpheaders = [
+            ('Content-Type', 'application/pdf'),
+            ('Content-Length', len(pdf)),
+            ('Content-Disposition', 'inline; filename="receipt_note.pdf"')
+        ]
+        return request.make_response(pdf, headers=pdfhttpheaders)

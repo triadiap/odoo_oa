@@ -28,7 +28,7 @@
                 <field name="deadline_time" optional="show"/>
                 <field name="state" optional="show"/>
                 <field name="user_owner" optional="show" widget="many2many_tags"/>
-                <field name="department_id" optional="show"/>
+                <field name="report_pic_id" optional="show"/>
                 <field name="write_uid" optional="show"/>
                 <field name="write_date" optional="show"/>
             </tree>
@@ -58,7 +58,7 @@
                                 </group>
                                 <group>
                                         <field name="deadline_time" readonly="True"/>
-                                        <field name="department_id" readonly="True"/>
+                                        <field name="report_pic_id" readonly="True"/>
                                         <field name="realization_date" attrs="{'readonly': [('state', '=', 'completed')], 'required': [('state', 'in', ['draft', 'pending'])]}"/>
                                 </group>
                             </group>
@@ -97,7 +97,7 @@
                 <field name="name"/>
                 <field name="receipt_code"/>
                 <field name="submission_freq"/>
-                <field name="department_id"/>
+                <field name="report_pic_id"/>
                 <field name="state"  filters="1"/>
             </calendar>
         </field>

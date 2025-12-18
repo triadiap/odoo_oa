@@ -85,7 +85,7 @@
                         <field name="document_type" string="Report Type" select="multi" enable_counters="1"/>
                         <field name="reporting_period" string="Reporting Period" select="multi" enable_counters="1"/>
                         <field name="report_ownership" string="Report Ownership" select="multi" enable_counters="1"/>
-                        <field name="department_ids" string="Departments" select="multi" enable_counters="1"/>
+                        <field name="report_pic_ids" string="Report PIC" select="multi" enable_counters="1"/>
                     </searchpanel>
             </search>
         </field>
@@ -100,7 +100,7 @@
                 <field name="reporting_period" optional="show"/>
                 <field name="remaining_time" string="Reminder Sent (days)" optional="show"/>
                 <field name="report_ownership" string="Reviewer" optional="show" widget="many2many_tags"/>
-                <field name="department_ids" optional="show" widget="many2many_tags"/>
+                <field name="report_pic_ids" optional="show" widget="many2many_tags"/>
                 <field name="report_activation" optional="show" widget="boolean_toggle" readonly="1"/>
                 <field name="create_uid" optional="show"/>
                 <field name="create_date" optional="show"/>
@@ -143,7 +143,7 @@
                                 <field name="report_month" attrs="{'invisible': [('reporting_period', 'not in', ('yearly'))],'required': [('reporting_period', 'in', ('yearly'))]}"/>
                                 <field name="remaining_time" string="Reminder Sent (days before deadline)"/>
                                 <field name="config_description"/>
-                                <field name="department_ids" widget="many2many_tags"/>
+                                <field name="report_pic_ids" widget="many2many_tags"/>
                                 <field name="mail_config_id"/>
                                 <field name="report_ownership" string="Reviewer" widget="many2many_tags"/>
                                 <field name="report_activation" widget="boolean_toggle"/>

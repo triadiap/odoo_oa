@@ -40,8 +40,8 @@ class DocumentConfiguration(models.Model):
     document_type = fields.Many2one("oa.reporting.type",string="Report Type",required=True,tracking=True)
     remaining_time = fields.Integer(string="Remaining Time", required=True, tracking=True)
     report_activation = fields.Boolean(string="Activation Status",required=True,default=True,tracking=True)
-    report_ownership = fields.Many2many("res.users",required=True,string="Ownership",tracking=True)
-    department_ids = fields.Many2many("hr.department", string="Departments", tracking=True)
+    report_ownership = fields.Many2many("res.users", relation='odm_config_user_ownership_rel', column1='config_id', column2='user_id', string="Ownership", required=True, tracking=True)
+    report_pic_ids = fields.Many2many("res.users", relation='odm_config_user_pic_rel', column1='config_id', column2='user_id', string="Report PIC", required=True, tracking=True)
     mail_config_id = fields.Many2one("docmon.mail.server", string="Mail Configuration", default=lambda self: self._default_mail_config(), tracking=True)
 
     @api.model
@@ -156,7 +156,7 @@ class DocumentConfiguration(models.Model):
             self.report_hour = False
         if self.reporting_period != 'weekly':
             self.report_day = False
-        if self.reporting_period not in ['monthly','yearly','tree_month','semester','quarterly']:
+        if self.reporting_period not in ['monthly','yearly','quarterly','semester']:
             self.report_date = False
         if self.reporting_period not in ['yearly']:
             self.report_month = False
@@ -382,11 +382,11 @@ class DocumentConfiguration(models.Model):
                 future_submissions.unlink()
 
             # Tentukan departemen
-            departments = config.department_ids or self.env['hr.department'].search([])
-            _logger.info("Generating submissions for %s department(s).", len(departments))
+            pics = config.report_pic_ids
+            _logger.info("Generating submissions for %s department(s).", len(pics))
 
             # Buat jadwal baru
-            for dept in departments:
+            for user in pics:
                 # Define the end of the current year for the generation limit
                 current_year_end = datetime(fields.Datetime.now().year, 12, 31, 23, 59, 59) # End of current year
 
@@ -497,7 +497,7 @@ class DocumentConfiguration(models.Model):
                                 'submission_freq': config.reporting_period,
                                 'doc_type': config.document_type.id,
                                 'deadline_time': next_deadline,
-                                'department_id': dept.id,
+                                'report_pic_id': user.id,
                                 # 'realization_date': next_deadline.date() #Removed
                             })
                         last_deadline = next_deadline
@@ -521,7 +521,7 @@ class DocumentConfiguration(models.Model):
 
     def write(self, vals):
         res = super(DocumentConfiguration, self).write(vals)
-        if any(field in vals for field in ['reporting_period', 'report_date', 'department_ids']):
+        if any(field in vals for field in ['reporting_period', 'report_date', 'report_pic_ids']):
             self._generate_future_submissions()
         return res
 

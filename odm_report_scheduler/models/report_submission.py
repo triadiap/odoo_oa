@@ -37,7 +37,8 @@ class ReportSubmission(models.Model):
     attachment_ids = fields.One2many(
         'odm.report.attachments',
         'submission_id',
-        string='Attachment List'
+        string='Attachment List',
+        tracking = True
     )
     deadline_day = fields.Selection(
         [('monday', 'Senin'),
@@ -62,7 +63,7 @@ class ReportSubmission(models.Model):
          ('11', 'November'),
          ('12', 'Desember')],
         string="Deadline Month", tracking=True)
-    department_id = fields.Many2one("hr.department", string="Department", tracking=True)
+    report_pic_id = fields.Many2one("res.users", string="Report PIC", tracking=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('pending', 'Pending Review'),
@@ -120,14 +121,14 @@ class ReportSubmission(models.Model):
             return super(ReportSubmission, self).search(args, offset=offset, limit=limit, order=order, count=count)
             
         # Explicitly filter by the current user's department
-        user_department_id = self.env.user.employee_id.department_id.id
-        if user_department_id:
+        user_id = self.env.user.id
+        if user_id:
             # Ensure args is a mutable list
             if args is None:
                 args = []
             elif not isinstance(args, list):
                 args = list(args)
-            args.append(('department_id', '=', user_department_id))
+            args.append(('report_pic_id', '=', user_id))
 
         all_user_records = super(ReportSubmission, self).search(args, order='deadline_time asc')
 
@@ -218,6 +219,7 @@ class ReportSubmission(models.Model):
             # When an attachment is added, the state becomes 'pending'
             if record.state == 'draft' and record.attachment_ids and record.report_description:
                 record.state = 'pending'
+                self._send_email_to_reviewer()
                 # And we clear the activity for the user who submitted it
                 activities_for_user = record.activity_ids.filtered(lambda act: act.user_id == self.env.user)
                 if activities_for_user:
@@ -260,29 +262,23 @@ class ReportSubmission(models.Model):
 
         for sub in submissions:
             _logger.info(f"Processing submission: {sub.name} (ID: {sub.id})")
-            # Find all users in that submission's department
-            department_users = self.env['res.users'].search([
-                ('employee_ids.department_id', '=', sub.department_id.id)
+            # Check if an activity already exists for this user and submission
+            activity = self.env['mail.activity'].search([
+                ('res_id', '=', sub.id),
+                ('res_model_id', '=', self.env.ref('odm_report_scheduler.model_odm_report_submission').id),
+                ('user_id', '=', sub.report_pic_id.id),
+                ('activity_type_id', '=', activity_type.id)
             ])
-
-            for user in department_users:
-                # Check if an activity already exists for this user and submission
-                activity = self.env['mail.activity'].search([
-                    ('res_id', '=', sub.id),
-                    ('res_model_id', '=', self.env.ref('odm_report_scheduler.model_odm_report_submission').id),
-                    ('user_id', '=', user.id),
-                    ('activity_type_id', '=', activity_type.id)
-                ])
-                if not activity:
-                    # Create activity if it doesn't exist
-                    self.env['mail.activity'].create({
-                        'res_id': sub.id,
-                        'res_model_id': self.env.ref('odm_report_scheduler.model_odm_report_submission').id,
-                        'activity_type_id': activity_type.id,
-                        'summary': activity_type.summary,
-                        'date_deadline': sub.deadline_time.date(),
-                        'user_id': user.id,
-                    })
+            if not activity:
+                # Create activity if it doesn't exist
+                self.env['mail.activity'].create({
+                    'res_id': sub.id,
+                    'res_model_id': self.env.ref('odm_report_scheduler.model_odm_report_submission').id,
+                    'activity_type_id': activity_type.id,
+                    'summary': activity_type.summary,
+                    'date_deadline': sub.deadline_time.date(),
+                    'user_id': sub.report_pic_id.id,
+                })
 
     def _cron_email_reminder(self):
         _logger.info("Starting cron job: Email Reminder")
@@ -291,13 +287,14 @@ class ReportSubmission(models.Model):
         # Find draft submissions that are not daily or weekly
         submissions = self.with_context(skip_custom_search=True).search([
             ('state', '=', 'draft'),
-            ('submission_freq', 'not in', ['daily'])
         ])
 
         submissions_to_remind = []
         for sub in submissions:
             # Check if the submission is linked to a configuration with a reminder set
-            if sub.conf_id and sub.conf_id.remaining_time >= 0:
+            if sub.conf_id.reporting_period == 'daily' and sub.deadline_time.date() == today:
+                submissions_to_remind.append(sub)
+            elif sub.conf_id and sub.conf_id.remaining_time >= 0:
                 reminder_date = sub.deadline_time.date() - timedelta(days=sub.conf_id.remaining_time)
                 if reminder_date == today:
                     submissions_to_remind.append(sub)
@@ -309,31 +306,23 @@ class ReportSubmission(models.Model):
             if not mail_server:
                 _logger.warning(f"Submission '{sub.name}' (ID: {sub.id}) is missing mail configuration. Skipping email reminder.")
                 continue
-
-            if not sub.department_id:
-                _logger.warning(f"Submission '{sub.name}' (ID: {sub.id}) has no department assigned. Skipping email reminder.")
-                continue
             
-            department_users = self.env['res.users'].search([
-                ('employee_ids.department_id', '=', sub.department_id.id)
+            user = self.env['res.users'].search([
+                ('id', '=', sub.report_pic_id.id)
             ])
 
-            if not department_users:
-                _logger.warning(f"No users found for department '{sub.department_id.name}' on submission '{sub.name}'. Skipping.")
-                continue
-
-            recipient_emails = [user.partner_id.email for user in department_users if user.partner_id and user.partner_id.email]
+            recipient_emails = [user.partner_id.email]
             if not recipient_emails:
-                _logger.warning(f"Users in department '{sub.department_id.name}' have no email addresses for submission '{sub.name}'. Skipping.")
+                _logger.warning(f"User doesn't have email address. Skipping.")
                 continue
 
             # Construct email subject and body
-            subject = f"Reminder: Report Submission '{sub.name}' for {sub.department_id.name}"
+            subject = f"Reminder: Report Submission '{sub.name}'"
             deadline_str = sub.deadline_time.strftime('%A, %d %B %Y')
             body_html = f"""
             <html>
                 <body>
-                    <p>Dear Satker {sub.department_id.name},</p>
+                    <p>Dear Bapak/Ibu {user.name},</p>
                     <p>Ini adalah pengingat bahwa report "<strong>{sub.name}</strong>" harus dilengkapi sebelum hari <strong>{deadline_str}</strong>.<br/>
                     Silahkan melengkapi report tersebut dengan <a href="https://gagnikel.id/web/login" target="_blank">login melalui link berikut</a> dan masuk ke menu 'Document Monitoring' di aplikasi Odoo</p>
                                         
@@ -355,18 +344,16 @@ class ReportSubmission(models.Model):
                     server.login(mail_server.smtp_user, mail_server.smtp_pass)
                     server.sendmail(mail_server.smtp_user, recipient_emails, msg.as_string())
 
-                    for user in department_users:
-                        if user.partner_id and user.partner_id.email:
-                            self.env['odm.document.mail.log'].create({
-                                'configuration_id': sub.conf_id.id,
-                                'user_id': user.id,
-                                'email': user.partner_id.email,
-                                'scheduled_time': sub.deadline_time,
-                                'notification_time': fields.Datetime.now(),
-                                'status': 'success',
-                                'error_message': None,
-                                'sent_at': fields.Datetime.now(),
-                            });
+                    self.env['odm.document.mail.log'].create({
+                        'configuration_id': sub.conf_id.id,
+                        'user_id': user.id,
+                        'email': user.partner_id.email,
+                        'scheduled_time': sub.deadline_time,
+                        'notification_time': fields.Datetime.now(),
+                        'status': 'success',
+                        'error_message': None,
+                        'sent_at': fields.Datetime.now(),
+                    });
 
                     _logger.info(f"Successfully sent email reminder for submission '{sub.name}'.")
             except Exception as e:
@@ -380,15 +367,41 @@ class ReportSubmission(models.Model):
                     'error_message': e,
                     'sent_at': fields.Datetime.now(),
                 });
-                _logger.error(f"Failed to send email for submission '{sub.name}'. Error: {e}", exc_info=True)        
+                _logger.error(f"Failed to send email for submission '{sub.name}'. Error: {e}", exc_info=True)
+    def _send_email_to_reviewer(self):
+        conf_id = self.conf_id
+        mail_server = conf_id.mail_config_id
+        reviewer = conf_id.report_ownership
+        subject = f"Report Menunggu Review - {conf_id.name}"
+
+        for user in reviewer:
+            receipient = user.partner_id.email
+            body = f"""
+                <html>
+                    <body>
+                        <p>Dear Bapak/Ibu {user.name},</p>
+                        <p>Report {conf_id.name} baru saja di-submit oleh {self.report_pic_id.name}. Silahkan <a href="https://gagnikel.id/web/login" target="_blank">login melalui link berikut</a> dan masuk ke menu 'Document Monitoring' untuk mereview.</p>
+                                            
+                        <p>Terima kasih,<br/><em>Odoo System (Automated Message)</em></p>
+                    </body>
+                </html>
+                """
+            msg = MIMEText(body, 'html')
+            msg['Subject'] = subject
+            msg['From'] = mail_server.smtp_user
+            msg['To'] = receipient
+
+            with SMTP_SSL(mail_server.smtp_host, mail_server.smtp_port, timeout=10) as server:
+                server.login(mail_server.smtp_user, mail_server.smtp_pass)
+                server.sendmail(mail_server.smtp_user, receipient, msg.as_string())
 
 class ReportAttachmentList(models.Model):
     _name = 'odm.report.attachments'
     _description = 'Report Attachment List'
 
     submission_id = fields.Many2one('odm.report.submission', string='Report Name', ondelete='cascade')
-    name = fields.Char(string="Description", required=True)
-    uploaded_file = fields.Binary(string="Document Attachment")
+    name = fields.Char(string="Description", required=True, tracking=True)
+    uploaded_file = fields.Binary(string="Document Attachment", tracking=True)
 
     file_name = fields.Char(string="File Name", required=True)
     mimetype = fields.Char(string="MIME Type", compute="_compute_mimetype", store=True)

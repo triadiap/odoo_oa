@@ -44,3 +44,10 @@ class OdmEmailLog(models.Model):
             name = f"{record.documenttype} - {record.namareport} - {record.file_name}"
             result.append((record.id, name))  # or any other meaningful field
         return result
+
+    def action_print_receipt(self):
+        return {
+            'type': 'ir.actions.act_url',
+            'url': '/print/external_receipt/%s' % self.id,
+            'target': 'new',
+        }

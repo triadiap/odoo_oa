@@ -36,6 +36,7 @@
                 <field name="create_date" optional="show"/>
                 <field name="write_uid" optional="show"/>
                 <field name="write_date" optional="show"/>
+                <button name="action_print_receipt" type="object" string="Print Receipt" icon="fa-print"/>
             </tree>
         </field>
     </record>
@@ -72,4 +73,13 @@
         <field name="res_model">odm.email.log</field>
         <field name="view_mode">tree,form</field>
     </record>
+    <report
+        id="report_external_receipt"
+        model="odm.email.log"
+        string="Receipt Note"
+        report_type="qweb-pdf"
+        name="odm_report_scheduler.template_external_receipt"
+        file="odm_report_scheduler.report_external_receipt"
+        print_report_name="'Email Receipt - %s' % (object.name)"
+    />
 </odoo>
