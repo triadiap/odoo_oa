@@ -142,6 +142,36 @@
                 </kanban>
             </field>
         </record>
+        <record id="view_odm_report_submission_search_dashboard" model="ir.ui.view">
+            <field name="name">odm.report.submission.search.dashboard</field>
+            <field name="model">odm.report.submission</field>
+            <field name="arch" type="xml">
+                <search string="Dashboard Filters">
+                    <field name="doc_type" string="Document Type"/>
+                    <field name="conf_id" string="Report Name"/>
+                    <separator/>
+                    <filter string="On Time" name="on_time" domain="[('submission_result', '=', 'ontime')]"/>
+                    <filter string="Late" name="late" domain="[('submission_result', '=', 'late')]"/>
+                    <separator/>
+                    <filter string="Completed Today" name="completed_today" domain="[('realization_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Document Type" name="group_doc_type" context="{'group_by': 'doc_type'}"/>
+                        <filter string="Report Name" name="group_conf_id" context="{'group_by': 'conf_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="act_completion_report" model="ir.actions.act_window">
+            <field name="name">Report Completion</field>
+            <field name="res_model">odm.report.submission</field>
+            <field name="view_mode">graph</field>
+            <field name="view_id" ref="odm_report_scheduler.view_odm_report_submission_graph_pie"/>
+            <field name="search_view_id" ref="odm_report_scheduler.view_odm_report_submission_search_dashboard"/>
+            <field name="domain">
+                [('submission_result','!=',False)]
+            </field>
+        </record>
 
         <record id="docmon_report_submission_action" model="ir.actions.act_window">
             <field name="name">Report Tasklist</field>

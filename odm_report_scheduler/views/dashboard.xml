@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record id="act_completion_report" model="ir.actions.act_window">
-        <field name="name">Report Completion</field>
-        <field name="res_model">odm.report.submission</field>
-        <field name="view_mode">graph</field>
-        <field name="view_id" ref="odm_report_scheduler.view_odm_report_submission_graph_pie"/>
-        <field name="domain">
-            [('submission_result','!=',False)]
-        </field>
-    </record>
     <record id="dashboard_form_view" model="ir.ui.view">
         <field name="name">Dashboard Form</field>
         <field name="model">board.board</field>

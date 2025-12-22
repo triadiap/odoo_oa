@@ -78,4 +78,10 @@
                   action="action_docmon_all_logs"
                   sequence="40"
                   groups="odm_report_scheduler.group_odm_admin"/>
+    <menuitem id="menu_dashboard_completiion_report"
+                  name="Completion Report Dashboard"
+                  parent="menu_submission_activity_report_root"
+                  action="act_completion_report"
+                  sequence="50"
+                  groups="odm_report_scheduler.group_odm_admin"/>
 </odoo>

@@ -24,6 +24,7 @@
         'views/report_ticket_template.xml',
         'views/report_external_receipt.xml',
         'views/report_docmon.xml',
+        'views/dashboard.xml',
         'views/reportreview.xml',
         'views/completion_report.xml',
         'views/odm_report_attachment_file_kanban.xml',
@@ -32,8 +33,13 @@
         'views/assets.xml',
     ],
     'qweb': [
-        'static/src/xml/completion_report_qweb.xml'
+        'static/src/xml/completion_report_qweb.xml',
     ],
+    'assets': {
+        'web.assets_qweb': [
+            'odm_report_scheduler/static/src/xml/completion_report_qweb.xml',
+        ],
+    },
     'demo': [],
     'installable': True,
     'application': True,

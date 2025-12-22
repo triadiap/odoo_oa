@@ -32,6 +32,8 @@ class ReportSubmission(models.Model):
     deadline_time = fields.Datetime(string='Deadline Time',required=True,tracking=True)
     report_description = fields.Html(string="Description", sanitize=False)
     conf_id = fields.Many2one("odm.document.configuration",string="Configuration_ID")
+    conf_doc_type_id = fields.Many2one(related="conf_id.document_type", string="Config Document Type", store=True)
+    conf_name = fields.Char(related="conf_id.name", string="Config Name", store=True)
     user_owner = fields.Many2many("res.users",string="Report Owner",related="conf_id.report_ownership",readonly=True,store=False)
     status_color = fields.Integer(string="Color")
     attachment_ids = fields.One2many(
