@@ -114,9 +114,6 @@
         <field name="model">odm.document.configuration</field>
         <field name="arch" type="xml">
                 <form string="Document Configuration">
-                     <header>
-                         <button id="button-approval-process" name="manual_notification_process" style="padding:5px;" string="Manual Trigger" class="btn-primary fa fa-magic" type="object"/>
-                    </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                                  <button name="%(action_docmon_success_log)d" type="action" class="oe_stat_button" icon="fa-check" style="width:200px;" context="{'default_docmon_log_id': id}">
