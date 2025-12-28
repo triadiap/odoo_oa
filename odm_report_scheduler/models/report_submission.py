@@ -65,7 +65,7 @@ class ReportSubmission(models.Model):
          ('11', 'November'),
          ('12', 'Desember')],
         string="Deadline Month", tracking=True)
-    report_pic_id = fields.Many2one("res.users", string="Report PIC", tracking=True)
+    # report_pic_id = fields.Many2one("res.users", string="Report PIC", tracking=True)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('pending', 'Pending Review'),
@@ -87,6 +87,11 @@ class ReportSubmission(models.Model):
         compute="_compute_submission_result",
         store=True,
         tracking=True
+    )
+    parent_report_pic_ids = fields.Many2many(
+        related='conf_id.report_pic_ids',
+        string='Report PICs',
+        readonly=True
     )
 
     @api.depends('deadline_time', 'realization_date')
@@ -153,7 +158,7 @@ class ReportSubmission(models.Model):
                 args = []
             elif not isinstance(args, list):
                 args = list(args)
-            args.append(('report_pic_id', '=', user_id))
+            args.append(('conf_id.report_pic_ids', 'in', [user_id]))
 
         all_user_records = super(ReportSubmission, self).search(args, order='deadline_time asc')
 
@@ -286,24 +291,25 @@ class ReportSubmission(models.Model):
         activity_type = self.env.ref('odm_report_scheduler.mail_activity_type_report_submission')
 
         for sub in submissions:
-            _logger.info(f"Processing submission: {sub.name} (ID: {sub.id})")
-            # Check if an activity already exists for this user and submission
-            activity = self.env['mail.activity'].search([
-                ('res_id', '=', sub.id),
-                ('res_model_id', '=', self.env.ref('odm_report_scheduler.model_odm_report_submission').id),
-                ('user_id', '=', sub.report_pic_id.id),
-                ('activity_type_id', '=', activity_type.id)
-            ])
-            if not activity:
-                # Create activity if it doesn't exist
-                self.env['mail.activity'].create({
-                    'res_id': sub.id,
-                    'res_model_id': self.env.ref('odm_report_scheduler.model_odm_report_submission').id,
-                    'activity_type_id': activity_type.id,
-                    'summary': activity_type.summary,
-                    'date_deadline': sub.deadline_time.date(),
-                    'user_id': sub.report_pic_id.id,
-                })
+            for user in parent_report_pic_ids:
+                _logger.info(f"Processing submission: {sub.name} (ID: {sub.id})")
+                # Check if an activity already exists for this user and submission
+                activity = self.env['mail.activity'].search([
+                    ('res_id', '=', sub.id),
+                    ('res_model_id', '=', self.env.ref('odm_report_scheduler.model_odm_report_submission').id),
+                    ('user_id', '=', user.id),
+                    ('activity_type_id', '=', activity_type.id)
+                ])
+                if not activity:
+                    # Create activity if it doesn't exist
+                    self.env['mail.activity'].create({
+                        'res_id': sub.id,
+                        'res_model_id': self.env.ref('odm_report_scheduler.model_odm_report_submission').id,
+                        'activity_type_id': activity_type.id,
+                        'summary': activity_type.summary,
+                        'date_deadline': sub.deadline_time.date(),
+                        'user_id': user.id,
+                    })
 
     def _cron_email_reminder(self):
         _logger.info("Starting cron job: Email Reminder")
@@ -333,7 +339,7 @@ class ReportSubmission(models.Model):
                 continue
             
             user = self.env['res.users'].search([
-                ('id', '=', sub.report_pic_id.id)
+                ('id', 'in', parent_report_pic_ids.ids)
             ])
 
             recipient_emails = [user.partner_id.email]
@@ -405,7 +411,7 @@ class ReportSubmission(models.Model):
                 <html>
                     <body>
                         <p>Dear Bapak/Ibu {user.name},</p>
-                        <p>Report {conf_id.name} baru saja di-submit oleh {self.report_pic_id.name}. Silahkan <a href="https://gagnikel.id/web/login" target="_blank">login melalui link berikut</a> dan masuk ke menu 'Document Monitoring' untuk mereview.</p>
+                        <p>Report {conf_id.name} baru saja di-submit oleh {self.write_uid.name}. Silahkan <a href="https://gagnikel.id/web/login" target="_blank">login melalui link berikut</a> dan masuk ke menu 'Document Monitoring' untuk mereview.</p>
                                             
                         <p>Terima kasih,<br/><em>Odoo System (Automated Message)</em></p>
                     </body>

@@ -5,7 +5,7 @@
             <field name="name">Submission Visible for Own Department</field>
             <field name="model_id" ref="odm_report_scheduler.model_odm_report_submission"/>
             <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-            <field name="domain_force">[('report_pic_id', '=', user.id)]</field>
+            <field name="domain_force">[('parent_report_pic_ids', 'in', [user.id])]</field>
         </record>
 
         <record id="rule_odm_submission_admin" model="ir.rule">

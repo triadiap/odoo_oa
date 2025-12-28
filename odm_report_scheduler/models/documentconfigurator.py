@@ -386,123 +386,124 @@ class DocumentConfiguration(models.Model):
             _logger.info("Generating submissions for %s department(s).", len(pics))
 
             # Buat jadwal baru
-            for user in pics:
-                # Define the end of the current year for the generation limit
-                current_year_end = datetime(fields.Datetime.now().year, 12, 31, 23, 59, 59) # End of current year
+            # Define the end of the current year for the generation limit
+            current_year_end = datetime(fields.Datetime.now().year, 12, 31, 23, 59, 59)  # End of current year
 
-                # Use a "cursor" to keep track of where we are in time for generation
-                last_deadline = fields.Datetime.now()
+            # Use a "cursor" to keep track of where we are in time for generation
+            last_deadline = fields.Datetime.now()
 
-                # Define how many submissions to generate to cover roughly 1 year
-                num_submissions_to_generate = {
-                    'daily': 365,
-                    'weekly': 52,
-                    'monthly': 12,
-                    'quarterly': 4,
-                    'semester': 2,
-                    'yearly': 1,
-                }.get(config.reporting_period, 0)
+            # Define how many submissions to generate to cover roughly 1 year
+            num_submissions_to_generate = {
+                'daily': 365,
+                'weekly': 52,
+                'monthly': 12,
+                'quarterly': 4,
+                'semester': 2,
+                'yearly': 1,
+            }.get(config.reporting_period, 0)
 
-                if num_submissions_to_generate == 0:
-                    _logger.warning("Unsupported reporting period '%s' for config '%s'. Skipping generation.", config.reporting_period, config.name)
-                    continue
+            if num_submissions_to_generate == 0:
+                _logger.warning("Unsupported reporting period '%s' for config '%s'. Skipping generation.",
+                                config.reporting_period, config.name)
+                continue
 
-                for _ in range(num_submissions_to_generate):
-                    next_deadline = None
-                    year, month = last_deadline.year, last_deadline.month
+            for _ in range(num_submissions_to_generate):
+                next_deadline = None
+                year, month = last_deadline.year, last_deadline.month
 
-                    if config.reporting_period == 'daily':
-                        hour = int(config.report_hour or 0) # Moved here
-                        current_date = last_deadline.date()
-                        while True:
-                            current_date += timedelta(days=1)
-                            if current_date.weekday() < 5: # Monday to Friday
-                                next_deadline = datetime.combine(current_date, datetime.min.time()).replace(hour=hour)
-                                break
-                    
-                    elif config.reporting_period == 'weekly':
-                        if not config.report_day:
-                            _logger.warning("Weekly report '%s' is missing a 'report_day', cannot generate schedule.", config.name)
-                            break
-                        target_weekday = WEEKDAY_MAPPING.get(config.report_day)
-                        days_ahead = (target_weekday - last_deadline.weekday() + 7) % 7
-                        if days_ahead == 0:
-                            days_ahead = 7
-                        next_date = last_deadline.date() + timedelta(days=days_ahead)
-                        next_deadline = datetime.combine(next_date, datetime.min.time()) # Defaults to midnight
-
-                    elif config.reporting_period == 'monthly':
-                        # Check current month first
-                        candidate_year, candidate_month = last_deadline.year, last_deadline.month
-                        day = min(config.report_date or 1, monthrange(candidate_year, candidate_month)[1])
-                        candidate_deadline = datetime(candidate_year, candidate_month, day)
-                        
-                        if candidate_deadline > last_deadline:
-                            next_deadline = candidate_deadline
-                        else:
-                            # If deadline for current month has passed, move to the next month
-                            month = last_deadline.month + 1
-                            year = last_deadline.year
-                            if month > 12:
-                                month = 1
-                                year += 1
-                            day = min(config.report_date or 1, monthrange(year, month)[1])
-                            next_deadline = datetime(year, month, day)
-
-                    elif config.reporting_period in ['quarterly', 'semester', 'tree_month']:
-                        months_map = {
-                            'quarterly': [3, 6, 9, 12], 
-                            'semester': [6, 12],
-                            'tree_month': [4, 8, 12]
-                        }
-                        possible_months = months_map[config.reporting_period]
-                        
-                        found_next = False
-                        # Check for a valid month in the current year
-                        for m in possible_months:
-                            if m >= last_deadline.month:
-                                day = min(config.report_date or 1, monthrange(last_deadline.year, m)[1])
-                                candidate_deadline = datetime(last_deadline.year, m, day)
-                                if candidate_deadline > last_deadline:
-                                    next_deadline = candidate_deadline
-                                    found_next = True
-                                    break
-                        
-                        if not found_next: 
-                            # If no valid month in the current year, find the first valid month in the next year
-                            year = last_deadline.year + 1
-                            m = possible_months[0]
-                            day = min(config.report_date or 1, monthrange(year, m)[1])
-                            next_deadline = datetime(year, m, day)
-                    
-                    elif config.reporting_period == 'yearly':
-                        year = last_deadline.year if last_deadline.month < (int(config.report_month) if config.report_month else 1) else last_deadline.year + 1
-                        try:
-                            month = int(config.report_month) if config.report_month else 1
-                            day = min(config.report_date or 1, monthrange(year, month)[1])
-                            next_deadline = datetime(year, month, day)
-                        except (ValueError, TypeError):
-                            _logger.error("Invalid date/month configuration for yearly report %s", config.name)
+                if config.reporting_period == 'daily':
+                    hour = int(config.report_hour or 0)  # Moved here
+                    current_date = last_deadline.date()
+                    while True:
+                        current_date += timedelta(days=1)
+                        if current_date.weekday() < 5:  # Monday to Friday
+                            next_deadline = datetime.combine(current_date, datetime.min.time()).replace(hour=hour)
                             break
 
-                    if next_deadline:
-                        # Stop if the next deadline is beyond the current year
-                        if next_deadline > current_year_end:
-                            break
+                elif config.reporting_period == 'weekly':
+                    if not config.report_day:
+                        _logger.warning("Weekly report '%s' is missing a 'report_day', cannot generate schedule.",
+                                        config.name)
+                        break
+                    target_weekday = WEEKDAY_MAPPING.get(config.report_day)
+                    days_ahead = (target_weekday - last_deadline.weekday() + 7) % 7
+                    if days_ahead == 0:
+                        days_ahead = 7
+                    next_date = last_deadline.date() + timedelta(days=days_ahead)
+                    next_deadline = datetime.combine(next_date, datetime.min.time())  # Defaults to midnight
 
-                        if next_deadline > fields.Datetime.now():
-                            self.env['odm.report.submission'].create({
-                                'conf_id': config.id,
-                                'name': config.name,
-                                'submission_freq': config.reporting_period,
-                                'doc_type': config.document_type.id,
-                                'deadline_time': next_deadline,
-                                'report_pic_id': user.id,
-                                # 'realization_date': next_deadline.date() #Removed
-                            })
-                        last_deadline = next_deadline
+                elif config.reporting_period == 'monthly':
+                    # Check current month first
+                    candidate_year, candidate_month = last_deadline.year, last_deadline.month
+                    day = min(config.report_date or 1, monthrange(candidate_year, candidate_month)[1])
+                    candidate_deadline = datetime(candidate_year, candidate_month, day)
+
+                    if candidate_deadline > last_deadline:
+                        next_deadline = candidate_deadline
                     else:
-                        break # Stop if no more deadlines can be generated
+                        # If deadline for current month has passed, move to the next month
+                        month = last_deadline.month + 1
+                        year = last_deadline.year
+                        if month > 12:
+                            month = 1
+                            year += 1
+                        day = min(config.report_date or 1, monthrange(year, month)[1])
+                        next_deadline = datetime(year, month, day)
+
+                elif config.reporting_period in ['quarterly', 'semester', 'tree_month']:
+                    months_map = {
+                        'quarterly': [3, 6, 9, 12],
+                        'semester': [6, 12],
+                        'tree_month': [4, 8, 12]
+                    }
+                    possible_months = months_map[config.reporting_period]
+
+                    found_next = False
+                    # Check for a valid month in the current year
+                    for m in possible_months:
+                        if m >= last_deadline.month:
+                            day = min(config.report_date or 1, monthrange(last_deadline.year, m)[1])
+                            candidate_deadline = datetime(last_deadline.year, m, day)
+                            if candidate_deadline > last_deadline:
+                                next_deadline = candidate_deadline
+                                found_next = True
+                                break
+
+                    if not found_next:
+                        # If no valid month in the current year, find the first valid month in the next year
+                        year = last_deadline.year + 1
+                        m = possible_months[0]
+                        day = min(config.report_date or 1, monthrange(year, m)[1])
+                        next_deadline = datetime(year, m, day)
+
+                elif config.reporting_period == 'yearly':
+                    year = last_deadline.year if last_deadline.month < (
+                        int(config.report_month) if config.report_month else 1) else last_deadline.year + 1
+                    try:
+                        month = int(config.report_month) if config.report_month else 1
+                        day = min(config.report_date or 1, monthrange(year, month)[1])
+                        next_deadline = datetime(year, month, day)
+                    except (ValueError, TypeError):
+                        _logger.error("Invalid date/month configuration for yearly report %s", config.name)
+                        break
+
+                if next_deadline:
+                    # Stop if the next deadline is beyond the current year
+                    if next_deadline > current_year_end:
+                        break
+
+                    if next_deadline > fields.Datetime.now():
+                        self.env['odm.report.submission'].create({
+                            'conf_id': config.id,
+                            'name': config.name,
+                            'submission_freq': config.reporting_period,
+                            'doc_type': config.document_type.id,
+                            'deadline_time': next_deadline,
+                            # 'realization_date': next_deadline.date() #Removed
+                        })
+                    last_deadline = next_deadline
+                else:
+                    break  # Stop if no more deadlines can be generated
         _logger.info("Finished future submission generation.")
 
     @api.model
