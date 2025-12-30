@@ -338,67 +338,68 @@ class ReportSubmission(models.Model):
                 _logger.warning(f"Submission '{sub.name}' (ID: {sub.id}) is missing mail configuration. Skipping email reminder.")
                 continue
             
-            user = self.env['res.users'].search([
-                ('id', 'in', parent_report_pic_ids.ids)
+            users = self.env['res.users'].search([
+                ('id', 'in', sub.parent_report_pic_ids.ids)
             ])
+            for user in users:
+                if not user.partner_id.email:
+                    _logger.warning(f"User {user.name} doesn't have email address. Skipping.")
+                    continue
 
-            recipient_emails = [user.partner_id.email]
-            if not recipient_emails:
-                _logger.warning(f"User doesn't have email address. Skipping.")
-                continue
+                recipient_emails = [user.partner_id.email]
 
-            # Construct email subject and body
-            subject = f"Reminder: Report Submission '{sub.name}'"
-            deadline_str = sub.deadline_time.strftime('%A, %d %B %Y')
-            body_html = f"""
-            <html>
-                <body>
-                    <p>Dear Bapak/Ibu {user.name},</p>
-                    <p>Ini adalah pengingat bahwa report "<strong>{sub.name}</strong>" harus dilengkapi sebelum hari <strong>{deadline_str}</strong>.<br/>
-                    Silahkan melengkapi report tersebut dengan <a href="https://gagnikel.id/web/login" target="_blank">login melalui link berikut</a> dan masuk ke menu 'Document Monitoring' di aplikasi Odoo</p>
-                                        
-                    <p>Terima kasih,<br/><em>Odoo System (Automated Message)</em></p>
-                </body>
-            </html>
-            """
+                # Construct email subject and body
+                subject = f"Reminder: Report Submission '{sub.name}'"
+                deadline_str = sub.deadline_time.strftime('%A, %d %B %Y')
+                body_html = f"""
+                <html>
+                    <body>
+                        <p>Dear Bapak/Ibu {user.name},</p>
+                        <p>Ini adalah pengingat bahwa report "<strong>{sub.name}</strong>" harus dilengkapi sebelum hari <strong>{deadline_str}</strong>.<br/>
+                        Silahkan melengkapi report tersebut dengan <a href="https://gagnikel.id/web/login" target="_blank">login melalui link berikut</a> dan masuk ke menu 'Document Monitoring' di aplikasi Odoo</p>
+                                            
+                        <p>Terima kasih,<br/><em>Odoo System (Automated Message)</em></p>
+                    </body>
+                </html>
+                """
 
-            # Create the email message
-            msg = MIMEText(body_html, 'html')
-            msg['Subject'] = subject
-            msg['From'] = mail_server.smtp_user
-            msg['To'] = ", ".join(recipient_emails)
+                # Create the email message
+                msg = MIMEText(body_html, 'html')
+                msg['Subject'] = subject
+                msg['From'] = mail_server.smtp_user
+                msg['To'] = ", ".join(recipient_emails)
 
-            # Send the email
-            try:
-                _logger.info(f"Sending email reminder for '{sub.name}' to {recipient_emails}...")
-                with SMTP_SSL(mail_server.smtp_host, mail_server.smtp_port, timeout=10) as server:
-                    server.login(mail_server.smtp_user, mail_server.smtp_pass)
-                    server.sendmail(mail_server.smtp_user, recipient_emails, msg.as_string())
+                # Send the email
+                try:
+                    _logger.info(f"Sending email reminder for '{sub.name}' to {recipient_emails}...")
+                    with SMTP_SSL(mail_server.smtp_host, mail_server.smtp_port, timeout=10) as server:
+                        server.login(mail_server.smtp_user, mail_server.smtp_pass)
+                        server.sendmail(mail_server.smtp_user, recipient_emails, msg.as_string())
 
+                        self.env['odm.document.mail.log'].create({
+                            'configuration_id': sub.conf_id.id,
+                            'user_id': user.id,
+                            'email': user.partner_id.email,
+                            'scheduled_time': sub.deadline_time,
+                            'notification_time': fields.Datetime.now(),
+                            'status': 'success',
+                            'error_message': None,
+                            'sent_at': fields.Datetime.now(),
+                        });
+
+                        _logger.info(f"Successfully sent email reminder for submission '{sub.name}'.")
+                except Exception as e:
                     self.env['odm.document.mail.log'].create({
                         'configuration_id': sub.conf_id.id,
                         'user_id': user.id,
                         'email': user.partner_id.email,
                         'scheduled_time': sub.deadline_time,
                         'notification_time': fields.Datetime.now(),
-                        'status': 'success',
-                        'error_message': None,
+                        'status': 'failed',
+                        'error_message': e,
                         'sent_at': fields.Datetime.now(),
                     });
-
-                    _logger.info(f"Successfully sent email reminder for submission '{sub.name}'.")
-            except Exception as e:
-                self.env['odm.document.mail.log'].create({
-                    'configuration_id': sub.conf_id.id,
-                    'user_id': user.id,
-                    'email': user.partner_id.email,
-                    'scheduled_time': sub.deadline_time,
-                    'notification_time': fields.Datetime.now(),
-                    'status': 'failed',
-                    'error_message': e,
-                    'sent_at': fields.Datetime.now(),
-                });
-                _logger.error(f"Failed to send email for submission '{sub.name}'. Error: {e}", exc_info=True)
+                    _logger.error(f"Failed to send email for submission '{sub.name}'. Error: {e}", exc_info=True)
     def _send_email_to_reviewer(self):
         conf_id = self.conf_id
         mail_server = conf_id.mail_config_id
