@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<templates id="template" xml:space="preserve">
+<templates xml:space="preserve">
     <t t-name="CompletionReportDashboard">
         <div class="o_completion_dashboard">
             <div class="container">

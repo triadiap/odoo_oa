@@ -594,7 +594,6 @@ class ReportAttachmentList(models.Model):
 
     def action_open_send_email_form(self):
         self.ensure_one()
-        self._auto_sync_recipients()
         return {
             'type': 'ir.actions.act_window',
             'name': 'Share Document By Email',

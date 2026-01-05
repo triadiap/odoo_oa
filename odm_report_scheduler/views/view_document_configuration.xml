@@ -138,6 +138,7 @@
                                 <field name="report_day" attrs="{'invisible': [('reporting_period', '!=', 'weekly')],'required': [('reporting_period', '=', 'weekly')]}"/>
                                 <field name="report_date" attrs="{'invisible': [('reporting_period', 'not in', ('monthly','yearly','quarterly','semester','tree_month'))],'required': [('reporting_period', 'in', ('monthly','yearly','quarterly','semester','tree_month'))]}" placeholder="1 - 31" options="{'max': 31, 'min': 1}" />
                                 <field name="report_month" attrs="{'invisible': [('reporting_period', 'not in', ('yearly'))],'required': [('reporting_period', 'in', ('yearly'))]}"/>
+                                <field name="report_fix_date" attrs="{'invisible': [('reporting_period', '!=', 'custom')],'required': [('reporting_period', '=', 'custom')]}" />
                                 <field name="remaining_time" string="Reminder Sent (days before deadline)"/>
                                 <field name="config_description"/>
                                 <field name="report_pic_ids" widget="many2many_tags"/>
