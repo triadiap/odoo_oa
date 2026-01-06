@@ -61,11 +61,11 @@
               action="action_report_submission_pivot"
               sequence="10"
               groups="odm_report_scheduler.group_odm_admin"/>
-    <menuitem id="menu_dashboard_view"
-              name="Completion Report"
-              parent="menu_submission_activity_report_root"
-              action="action_completion_report"
-              sequence="20"/>
+<!--    <menuitem id="menu_dashboard_view"-->
+<!--              name="Completion Report"-->
+<!--              parent="menu_submission_activity_report_root"-->
+<!--              action="action_completion_report"-->
+<!--              sequence="20"/>-->
     <menuitem id="menu_email_log_view_root"
               name="Document External Share Logs"
               parent="menu_submission_activity_report_root"
@@ -78,7 +78,7 @@
                   action="action_docmon_all_logs"
                   sequence="40"
                   groups="odm_report_scheduler.group_odm_admin"/>
-    <menuitem id="menu_dashboard_completiion_report"
+    <menuitem id="menu_dashboard_completion_report"
                   name="Completion Report Dashboard"
                   parent="menu_submission_activity_report_root"
                   action="act_completion_report"
