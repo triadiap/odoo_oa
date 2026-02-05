@@ -349,7 +349,7 @@ class ReportSubmission(models.Model):
                 recipient_emails = [user.partner_id.email]
 
                 # Construct email subject and body
-                subject = f"Reminder: Report Submission '{sub.name}'"
+                subject = f"Reminder: Report Submission"
                 deadline_str = sub.deadline_time.strftime('%A, %d %B %Y')
                 body_html = f"""
                 <html>
@@ -404,7 +404,7 @@ class ReportSubmission(models.Model):
         conf_id = self.conf_id
         mail_server = conf_id.mail_config_id
         reviewer = conf_id.report_ownership
-        subject = f"Report Menunggu Review - {conf_id.name}"
+        subject = f"Document Monitoring - Report Menunggu Review"
 
         for user in reviewer:
             receipient = user.partner_id.email
