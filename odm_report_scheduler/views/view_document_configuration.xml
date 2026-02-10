@@ -16,7 +16,7 @@
         <field name="name">odm.document.mail.log.form</field>
         <field name="model">odm.document.mail.log</field>
         <field name="arch" type="xml">
-            <form create="false" edit="false" action="false">
+            <form create="false" edit="false" delete="false" action="false">
                 <group>
                     <field name="user_id" readonly="1"/>
                     <field name="email" readonly="1"/>

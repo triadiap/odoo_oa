@@ -75,7 +75,7 @@
             <field name="res_model">odm.report.submission</field>
             <field name="view_mode">tree,form</field>
             <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_odm_report_submission_review_tree')}), (0, 0, {'view_mode': 'form', 'view_id': ref('report_submission_review_form')})]"/>
-            <field name="domain">[('user_owner', '=', uid), ('state', 'in', ['pending', 'completed'])]</field>
+            <field name="domain">[('conf_id.report_ownership', 'in', [uid]), ('state', 'in', ['pending', 'completed'])]</field>
             <field name="context">{'is_review_view': True}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">

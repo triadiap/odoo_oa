@@ -124,20 +124,21 @@
                     <field name="deadline_time"/>
                     <templates>
                         <t t-name="kanban-box">
-                                                        <div t-attf-class="oe_kanban_global_click">
-                                                            <div class="o_kanban_card_header">
-                                                                <div class="o_kanban_card_header_title">
-                                                                    <div class="o_primary">
-                                                                        <h4><field name="name"/></h4>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="o_kanban_card_content">
-                                                                <div>
-                                                                    Deadline: <field name="deadline_time" widget="datetime"/>
-                                                                </div>
-                                                            </div>
-                                                        </div>                    </t>
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_card_header">
+                                    <div class="o_kanban_card_header_title">
+                                        <div class="o_primary">
+                                            <h4><field name="name"/></h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_card_content">
+                                    <div>
+                                        Deadline: <field name="deadline_time" widget="datetime"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
                     </templates>
                 </kanban>
             </field>

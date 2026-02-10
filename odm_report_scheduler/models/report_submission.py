@@ -149,7 +149,11 @@ class ReportSubmission(models.Model):
         # For the 'Review' view, we bypass the department filter
         if self.env.context.get('is_review_view'):
             return super(ReportSubmission, self).search(args, offset=offset, limit=limit, order=order, count=count)
-            
+
+        is_admin = self.env.user.has_group('odm_report_scheduler.group_odm_admin');
+        if is_admin:
+            return super(ReportSubmission, self).search(args, offset=offset, limit=limit, order=order, count=count)
+        
         # Explicitly filter by the current user's department
         user_id = self.env.user.id
         if user_id:
