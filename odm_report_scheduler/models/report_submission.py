@@ -93,6 +93,11 @@ class ReportSubmission(models.Model):
         string='Report PICs',
         readonly=True
     )
+    parent_report_owners = fields.Many2many(
+        related='conf_id.report_ownership',
+        string='Reviewers',
+        readonly=True
+    )
 
     @api.depends('deadline_time', 'realization_date')
     def _compute_submission_result(self):

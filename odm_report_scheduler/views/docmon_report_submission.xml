@@ -23,9 +23,12 @@
                         <field name="state"/>
                         <field name="submission_freq"/>
                         <searchpanel>
-                            <field name="doc_type" string="Report Name" select="multi"/>
-                            <field name="conf_id" string="File Name" select="multi"/>
+                            <field name="doc_type" string="Report Type" select="multi"/>
+                            <field name="conf_id" string="Report Name" select="multi"/>
                             <field name="state" string="Document Status" select="multi" enable_counters="1"/>
+                            <field name="parent_report_pic_ids" string="Report PIC's" select="multi"/>
+                            <field name="parent_report_pic_ids" string="Reviewers" select="multi"/>
+
                         </searchpanel>
                 </search>
             </field>
@@ -36,11 +39,11 @@
             <field name="arch" type="xml">
                 <tree create="false">
                     <field name="receipt_code" optional="show"/>
-                    <field name="doc_type" string="Report Name" optional="show"/>
-                    <field name="name" string="File Name" optional="show"/>
+                    <field name="doc_type" string="Report Type" optional="show"/>
+                    <field name="name" string="Report Name" optional="show"/>
                     <field name="deadline_time" optional="show"/>
                     <field name="state" optional="show"/>
-                    <field name="user_owner" optional="show" widget="many2many_tags"/>
+                    <field name="user_owner" string="Reviewers" optional="show" widget="many2many_tags"/>
                     <field name="parent_report_pic_ids" optional="show" widget="many2many_tags"/>
                     <field name="realization_date" optional="show"/>
                 </tree>
