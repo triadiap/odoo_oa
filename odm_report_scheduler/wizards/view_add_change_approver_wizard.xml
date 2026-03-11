@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_add_change_approver_form" model="ir.ui.view">
+            <field name="name">odm.approver.wizard.form</field>
+            <field name="model">odm.approver.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Add New or Change Approver">
+                    <group>
+                        <field name="need_approval" widget="boolean_toggle"/>
+                        <field name="approver_name" attrs="{'invisible': [('need_approval', '!=', True)], 'required': [('need_approval', '=', True)]}"/>
+                    </group>
+                    <footer>
+                        <button string="Save" name="addchange_approver" type="object" class="btn-primary" data-hotkey="q"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

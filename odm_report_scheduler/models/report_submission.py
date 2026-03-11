@@ -69,7 +69,8 @@ class ReportSubmission(models.Model):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('pending', 'Pending Review'),
-        ('completed', 'Completed')
+        ('completed', 'Completed'),
+        ('approved', 'Approved')
     ], default="draft", string="Status", tracking=True)
 
     x_state_priority = fields.Integer(
@@ -98,6 +99,8 @@ class ReportSubmission(models.Model):
         string='Reviewers',
         readonly=True
     )
+    is_need_approval = fields.Boolean(related='conf_id.need_approval',string="Need Approval", tracking=True, store=True)
+    name_approver = fields.Many2one(related='conf_id.approver_name', string="Approver", tracking=True, store=True)
 
     @api.depends('deadline_time', 'realization_date')
     def _compute_submission_result(self):
@@ -132,6 +135,19 @@ class ReportSubmission(models.Model):
     receipt_code = fields.Char(string="Report Code", tracking=True, default='Draft')
     realization_date = fields.Date(string="Realization Date", tracking=True, required=False)
 
+    def action_add_approver(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Add / Change Approver',
+            'res_model': 'odm.approver.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_submission_id': self.id,
+                'default_need_approval': self.is_need_approval,
+                'default_approver_name': self.name_approver.id
+            }
+        }
     def action_complete(self):
         for record in self:
             record.state = 'completed'
@@ -142,8 +158,49 @@ class ReportSubmission(models.Model):
                 record.status_color = 10
 
     def action_draft(self):
-        self.state = 'draft'
-        self.status_color = 2
+        # self.state = 'draft'
+        # self.status_color = 2
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Action',
+            'res_model': 'odm.remarks.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_submission_id': self.id,
+                'default_move_notes': 'setasdraft'
+            }
+        }
+
+    def action_pending(self):
+        # self.state = "pending"
+        # self.status_color = 2
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Action',
+            'res_model': 'odm.remarks.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_submission_id': self.id,
+                'default_move_notes' : 'backtoreview'
+            }
+        }
+
+    def action_approve(self):
+        # self.state = 'approved'
+        # self.status_color = 2
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Action',
+            'res_model': 'odm.remarks.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_submission_id': self.id,
+                'default_move_notes': 'setasapproved'
+            }
+        }
 
     @api.model
     def search(self, args, offset=0, limit=None, order=None, count=False):
@@ -180,6 +237,7 @@ class ReportSubmission(models.Model):
         now = datetime.now()
 
         # Separate records
+        approved_records = all_user_records.filtered(lambda r: r.state == 'approved')
         completed_records = all_user_records.filtered(lambda r: r.state == 'completed')
         pending_records = all_user_records.filtered(lambda r: r.state == 'pending')
         # Upcoming records should only be in the 'draft' state.
@@ -188,6 +246,7 @@ class ReportSubmission(models.Model):
         # Add all completed records to the visible list
         visible_submission_ids.extend(completed_records.ids)
         visible_submission_ids.extend(pending_records.ids)
+        visible_submission_ids.extend(approved_records.ids)
 
         # Find the closest upcoming for each conf_id from the remaining records
         for submission in upcoming_records:
@@ -459,6 +518,7 @@ class ReportAttachmentList(models.Model):
     state_submission  = fields.Selection([
         ('draft', 'Draft'),
         ('pending', 'Pending'),
+        ('approved', 'Approved'),
         ('completed', 'Completed')
     ], default="draft", string="Status", tracking=True)
     document_type = fields.Many2one("oa.reporting.type", string="Report Category", required=True, tracking=True)

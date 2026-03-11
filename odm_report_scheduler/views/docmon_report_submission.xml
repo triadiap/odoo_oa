@@ -46,6 +46,10 @@
                     <field name="user_owner" string="Reviewers" optional="show" widget="many2many_tags"/>
                     <field name="parent_report_pic_ids" optional="show" widget="many2many_tags"/>
                     <field name="realization_date" optional="show"/>
+                    <field name="create_uid" optional="show"/>
+                    <field name="create_date" optional="show"/>
+                    <field name="write_uid" optional="show"/>
+                    <field name="write_date" optional="show"/>
                 </tree>
             </field>
         </record>
@@ -53,11 +57,12 @@
                 <field name="name">odm.report.submission.form</field>
                 <field name="model">odm.report.submission</field>
                 <field name="arch" type="xml">
-                        <form action="false" create="false">
+                        <form action="false" create="false" delete="false">
                             <field name="state" invisible="1"/>
                             <header>
+                                 <button name="action_add_approver" string="Add New / Change Approver" type="object" class="btn-primary" states="draft"/>
                                  <button name="action_print_ticket" string="Print Receipt" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'completed')]}"/>
-                                 <field name="state" widget="statusbar" statusbar_visible="draft,pending,completed"/>
+                                 <field name="state" widget="statusbar" statusbar_visible="draft,pending,completed,approved"/>
                             </header>
                             <sheet>
                                 <div class="oe_title">
@@ -74,13 +79,16 @@
                                     <group>
                                             <field name="deadline_time" readonly="True"/>
                                             <field name="parent_report_pic_ids" readonly="True" widget="many2many_tags"/>
+                                            <field name="user_owner" string="Reviewers" readonly="True" widget="many2many_tags"/>
+                                            <field name="is_need_approval" string="Need Approval" readonly="True" widget="boolean_toggle"/>
+                                            <field name="name_approver" string="Approver" readonly="True" attrs="{'invisible': [('is_need_approval', '!=', True)]}"/>
                                             <field name="realization_date" attrs="{'readonly': [('state', '=', 'completed')], 'required': [('state', 'in', ['draft', 'pending'])]}"/>
                                     </group>
                                 </group>
                                 <group>
                                      <div>
                                          <h5>Description :</h5>
-                                        <field name="report_description" widget="html" attrs="{'readonly': [('state', '=', 'completed')]}"/>
+                                        <field name="report_description" widget="html" attrs="{'readonly': [('state', '=', 'completed')],'readonly': [('state', '=', 'approved')]}"/>
                                     </div>
                                 </group>
                                 <notebook>

@@ -30,7 +30,8 @@ class DocumentConfiguration(models.Model):
     name = fields.Char(string="Report Name", required=True, tracking=True)
     config_description = fields.Text(string="Description",tracking=True)
     reporting_period = fields.Selection([
-        ('daily', 'Daily'),
+        ('daily', 'Daily (5 hari kerja)'),
+        ('daily_7d', 'Daily (7 hari kerja)'),
         ('weekly', 'Weekly'),
         ('monthly', 'Monthly'),
         ('quarterly','Quarterly'),
@@ -44,6 +45,8 @@ class DocumentConfiguration(models.Model):
     report_ownership = fields.Many2many("res.users", relation='odm_config_user_ownership_rel', column1='config_id', column2='user_id', string="Ownership", required=True, tracking=True)
     report_pic_ids = fields.Many2many("res.users", relation='odm_config_user_pic_rel', column1='config_id', column2='user_id', string="Report PIC", required=True, tracking=True)
     mail_config_id = fields.Many2one("docmon.mail.server", string="Mail Configuration", default=lambda self: self._default_mail_config(), tracking=True)
+    need_approval = fields.Boolean(string="Need Approval", required=True, default=False, tracking=True, store=True)
+    approver_name = fields.Many2one("res.users",string="Approver", tracking=True)
 
     @api.model
     def _default_mail_config(self):
@@ -399,6 +402,7 @@ class DocumentConfiguration(models.Model):
             # Define how many submissions to generate to cover roughly 1 year
             num_submissions_to_generate = {
                 'daily': 365,
+                'daily_7d': 365,
                 'weekly': 52,
                 'monthly': 12,
                 'quarterly': 4,
@@ -442,6 +446,13 @@ class DocumentConfiguration(models.Model):
                             if current_date.weekday() < 5:  # Monday to Friday
                                 next_deadline = datetime.combine(current_date, datetime.min.time()).replace(hour=hour)
                                 break
+                    elif config.reporting_period == 'daily_7d':
+                        hour = int(config.report_hour or 0)  # Moved here
+                        current_date = last_deadline.date()
+                        while True:
+                            current_date += timedelta(days=1)
+                            next_deadline = datetime.combine(current_date, datetime.min.time()).replace(hour=hour)
+                            break
 
                     elif config.reporting_period == 'weekly':
                         if not config.report_day:

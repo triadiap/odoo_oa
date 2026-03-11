@@ -10,3 +10,8 @@ access_odm_send_mail_wizard,access.odm.send.mail.wizard,model_odm_send_mail_wiza
 access_reporting_type_delete_wizard,access.reporting.type.delete.wizard,model_reporting_type_delete_wizard,,1,1,1,1
 access_docmon_mail_recipient,access.docmon.mail.recipient,model_docmon_mail_recipient,,1,1,1,1
 access_odm_email_log,access.odm.email.log,model_odm_email_log,,1,1,1,1
+access_odm_approver_wizard,access.odm.approver.wizard,model_odm_approver_wizard,,1,1,1,1
+access_module_upgrade_log,access.module.upgrade.log,model_module_upgrade_log,,1,1,1,1
+access_module_upgrade_log_admin,module_upgrade_log_admin,model_module_upgrade_log,base.group_system,1,0,0,0
+access_module_upgrade_log_user,module_upgrade_log_user,model_module_upgrade_log,base.group_user,1,0,0,0
+access_odm_remarks_wizard,access.odm.remarks.wizard,model_odm_remarks_wizard,,1,1,1,1

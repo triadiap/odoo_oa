@@ -9,7 +9,7 @@
                     <field name="file_data" invisible="1"/>
                     <label for="file_data"/>
                     <div>
-                        <span class="fa fa-paperclip" style="margin-right:8px; font-size:16px;"></span>
+                        <span class="fa fa-paperclip" style="margin-right:8px;font-size:16px;"></span>
                         <field name="file_name" readonly="1"/>
                     </div>
                 </group>

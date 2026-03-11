@@ -32,6 +32,16 @@
               parent="menu_document_compiler_root"
               action="action_odm_report_submission_review"
               sequence="30"/>
+    <menuitem id="menu_version_preview_root"
+              name="Versions"
+              parent="menu_document_compiler_root"
+              action="action_module_upgrade_log"
+              sequence="40"/>
+    <menuitem id="menu_report_approval_root"
+              name="Approval"
+              parent="menu_document_compiler_root"
+              action="action_odm_report_submission_approval"
+              sequence="30"/>
      <menuitem id="menu_submission_activity_report_root"
               name="Report"
               parent="menu_document_compiler_root"

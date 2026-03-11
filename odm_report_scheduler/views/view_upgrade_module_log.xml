@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_module_upgrade_log_tree" model="ir.ui.view">
+        <field name="name">module.upgrade.log.tree</field>
+        <field name="model">module.upgrade.log</field>
+        <field name="arch" type="xml">
+            <tree string="Module Upgrade Log"
+                  decoration-danger="status == 'failed'"
+                  decoration-success="status == 'success'" create="false" edit="false" delete="false">
+                <field name="upgrade_datetime" optional="show"/>
+                <field name="module_name" optional="show"/>
+                <field name="new_version" optional="show"/>
+                <field name="module_summary" optional="show"/>
+                <field name="module_description" optional="show"/>
+                <field name="status" optional="show"/>
+                <field name="upgraded_by" optional="show"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_module_upgrade_log_form" model="ir.ui.view">
+        <field name="name">module.upgrade.log.form</field>
+        <field name="model">module.upgrade.log</field>
+        <field name="arch" type="xml">
+            <form string="Module Upgrade Log" create="false" edit="false" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="module_name" readonly="1"/>
+                            <field name="module_summary" readonly="1"/>
+                            <field name="status" readonly="1"/>
+                            <field name="upgrade_datetime" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="new_version" readonly="1"/>
+                            <field name="upgraded_by" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Description">
+                            <field name="module_description" readonly="1"/>
+                        </page>
+                        <page string="Error Detail">
+                            <field name="error_message" readonly="1"
+                                   attrs="{'invisible':[('status','=','success')]}"/>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_module_upgrade_log_search" model="ir.ui.view">
+        <field name="name">module.upgrade.log.search</field>
+        <field name="model">module.upgrade.log</field>
+        <field name="arch" type="xml">
+            <search>
+
+                <field name="module_name"/>
+                <field name="status"/>
+                <field name="upgraded_by"/>
+
+                <filter string="Success"
+                        name="filter_success"
+                        domain="[('status','=','success')]"/>
+
+                <filter string="Failed"
+                        name="filter_failed"
+                        domain="[('status','=','failed')]"/>
+
+                <group string="Group By">
+                    <filter string="Module"
+                            name="group_module"
+                            context="{'group_by':'module_name'}"/>
+
+                    <filter string="User"
+                            name="group_user"
+                            context="{'group_by':'upgraded_by'}"/>
+
+                    <filter string="Status"
+                            name="group_status"
+                            context="{'group_by':'status'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+    <record id="action_module_upgrade_log" model="ir.actions.act_window">
+        <field name="name">Module Upgrade Log</field>
+        <field name="res_model">module.upgrade.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_module_upgrade_log_search"/>
+    </record>
+</odoo>

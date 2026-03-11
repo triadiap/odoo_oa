@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_odm_report_submission_review_tree" model="ir.ui.view">
-            <field name="name">odm.report.submission.review.tree</field>
+        <record id="view_odm_report_submission_approval_tree" model="ir.ui.view">
+            <field name="name">odm.report.submission.approval.tree</field>
             <field name="model">odm.report.submission</field>
             <field name="arch" type="xml">
-                <tree string="Report Submissions for Review" create="false" delete="false">
+                <tree string="Report Submissions for Approval" create="false" delete="false">
                     <field name="receipt_code" optional="show"/>
                     <field name="name" optional="show"/>
                     <field name="deadline_time" optional="show"/>
@@ -17,18 +17,17 @@
             </field>
         </record>
 
-        <record id="report_submission_review_form" model="ir.ui.view">
-            <field name="name">odm.report.submission.review.form</field>
+        <record id="report_submission_approval_form" model="ir.ui.view">
+            <field name="name">odm.report.submission.approval.form</field>
             <field name="model">odm.report.submission</field>
             <field name="arch" type="xml">
                     <form action="false" create="false" edit="false" delete="false">
                         <header>
-                                 <button id="button-complete" name="action_complete" string="Set As Complete" class="btn-primary" type="object" states="pending"/>
-                                 <button id="button-draft" name="action_draft" string="Set As Draft" class="btn-primary" type="object" states="completed"/>
+                                 <button id="button-pending" name="action_pending" string="Back To Review" class="btn-primary" type="object" states="completed"/>
+                                 <button id="button-draft" name="action_draft" string="Set As Draft" class="btn-primary" type="object" states="approved"/>
+                                 <button id="button-approve" name="action_approve" string="Approve" class="btn-primary" type="object" states="completed"/>
                                  <button name="action_print_ticket" string="Print Receipt" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'completed')]}"/>
-                                 <field name="state"
-                                               widget="statusbar"
-                                               statusbar_visible="draft,pending,completed,approved"/>
+                                 <field name="state" widget="statusbar" statusbar_visible="completed,approved"/>
                         </header>
                         <sheet>
                             <div class="oe_title">
@@ -76,16 +75,16 @@
             </field>
     </record>
 
-        <record id="action_odm_report_submission_review" model="ir.actions.act_window">
-            <field name="name">Review Report Submission</field>
+        <record id="action_odm_report_submission_approval" model="ir.actions.act_window">
+            <field name="name">Report Approval List</field>
             <field name="res_model">odm.report.submission</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_odm_report_submission_review_tree')}), (0, 0, {'view_mode': 'form', 'view_id': ref('report_submission_review_form')})]"/>
-            <field name="domain">[('conf_id.report_ownership', 'in', [uid]), ('state', 'in', ['pending', 'completed', 'approved'])]</field>
+            <field name="view_ids" eval="[(5, 0, 0), (0, 0, {'view_mode': 'tree', 'view_id': ref('view_odm_report_submission_approval_tree')}), (0, 0, {'view_mode': 'form', 'view_id': ref('report_submission_approval_form')})]"/>
+            <field name="domain">[('name_approver', '=', uid), ('state', 'in', ['completed','approved']), ('is_need_approval', '=', True)]</field>
             <field name="context">{'is_review_view': True}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    No report submissions found for review.
+                    No report submissions found for approval.
                 </p>
             </field>
         </record>
